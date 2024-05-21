@@ -1,0 +1,16 @@
+.header_Admin {
+  padding: 0;
+  background-color: transparent;
+}
+.header_admin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: transparent;
+  &_icon {
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+  }
+}

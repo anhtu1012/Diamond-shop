@@ -1,0 +1,51 @@
+//Sidenav......................
+.side {
+  padding: 20px;
+  &_logo {
+    text-align: center;
+    font-size: 50px;
+    background-color: whitesmoke;
+  }
+}
+.icon {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+}
+/* Thêm class tùy chỉnh cho menu item được chọn */
+.menu-item-selected {
+  background-color: white !important; /* Thay đổi màu nền của item được chọn */
+  color: black !important;
+  .icon {
+    color: #fff;
+    background-color: #1890ff;
+  }
+}
+.customized-submenu {
+  // Xác định các styles cho submenu
+  padding: none !important;
+  background: whitesmoke;
+  border: none;
+  .ant-menu-submenu {
+    padding: 10px;
+    .ant-menu-submenu-title {
+      justify-content: center !important; // Canh giữa title submenu
+      height: auto;
+      line-height: normal;
+      padding: 10px 16px !important;
+      color: #141414;
+      border-radius: 8px;
+      background-color: transparent;
+      box-shadow: none;
+      transition: all 0.3s ease-in-out;
+      text-overflow: clip;
+    }
+  }
+}
+//Header......................
