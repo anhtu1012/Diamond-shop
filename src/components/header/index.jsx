@@ -46,7 +46,7 @@ function Header() {
       <nav className="nav">
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">Trang chủ</Link>
           </li>
           <li>
             <Link to="/">Trang sức cưới</Link>
