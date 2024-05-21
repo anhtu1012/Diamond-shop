@@ -1,7 +1,7 @@
 import Carousel from "../../components/carousel";
 import Header from "../../components/header";
 
-function HomeCustommer() {
+function HomePage() {
   return (
     <div>
       <Header />
@@ -10,4 +10,4 @@ function HomeCustommer() {
   );
 }
 
-export default HomeCustommer;
+export default HomePage;

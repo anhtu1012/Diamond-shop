@@ -5,6 +5,8 @@ import AdminPage from "./page/Admin/admin-page";
 import Dashboard from "./page/Admin/dashboard";
 import Order from "./page/Admin/Ecommerce/Order";
 import Product from "./page/Admin/Ecommerce/Product";
+import HomeCustommer from "./page/home";
+import Cart from "./page/Custommer/Cart";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -13,6 +15,20 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
+  },
+  {
+    path: "/cart-nghia",
+    element: <Cart />,
+  },
+  {
+    path: "/home-page",
+    element: <HomeCustommer />,
+    children: [
+      {
+        path: "cart",
+        element: <Cart />,
+      },
+    ],
   },
   {
     path: "/admin-page",

@@ -1,0 +1,20 @@
+.cart_button {
+  padding: 30px 100px;
+  &_comback {
+    background-color: black;
+  }
+}
+.cart-main {
+  padding: 30px 100px;
+}
+.cart_form {
+  &_title {
+    display: flex;
+    gap: 15px;
+  }
+}
+.input {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 20px;
+}
