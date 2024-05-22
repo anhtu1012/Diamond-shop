@@ -14,6 +14,7 @@ import { useState } from "react";
 import LoginPage from "../../page/login";
 function Header() {
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
+  const user = null;
 
   const showModal = () => {
     setIsLoginModalVisible(true);
@@ -39,8 +40,14 @@ function Header() {
           />
         </div>
         <div className="header_social_right">
-          <FaUserCog onClick={() => showModal(true)} />
-          <FaShoppingCart />
+          {!user ? (
+            <button onClick={() => showModal(true)}>Login</button>
+          ) : (
+            <div>
+              <FaUserCog />
+              <FaShoppingCart />
+            </div>
+          )}
         </div>
       </header>
       <nav className="nav">

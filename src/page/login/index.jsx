@@ -28,10 +28,10 @@ function LoginPage() {
       const res = await loginApi(values.email, values.password);
       console.log(values);
       console.log(res.data);
-      const token = res.data.token; // Lấy token từ response
-
+      const usertoken = res.data.token; // Lấy token từ response
+      localStorage.setItem("token", usertoken);
       // Tách JWT thành các phần và giải mã payload
-      const base64Url = token.split(".")[1];
+      const base64Url = usertoken.split(".")[1];
       const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
       const payload = JSON.parse(window.atob(base64));
       console.log(payload);

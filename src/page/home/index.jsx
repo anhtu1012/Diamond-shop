@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "../../components/header";
 
-function HomePage() {
+function Layout() {
   return (
     <div>
       <Header />
@@ -10,4 +10,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Layout;

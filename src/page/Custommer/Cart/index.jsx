@@ -1,12 +1,11 @@
 import { Button, Col, Form, Input, Radio, Row } from "antd";
 import "./index.scss";
 import { CaretLeftFilled, ItalicOutlined } from "@ant-design/icons";
-import Header from "../../../components/header";
+import Wrap from "../../../Wrap";
 function Cart() {
   //vùng js
   return (
-    <div>
-      <Header />
+    <Wrap>
       <div className="container-fluid">
         <div className="cart_button">
           <Button type="primary" className="cart_button_comback">
@@ -44,7 +43,7 @@ function Cart() {
           </Col>
         </Row>
       </div>
-    </div>
+    </Wrap>
   );
 }
 
