@@ -11,13 +11,13 @@ import { useState } from "react";
 const items = [
   {
     key: "/admin-page/dashboard",
-    icon: <DashboardTwoTone className="icon" />,
+    icon: <DashboardTwoTone className="side-icon" />,
     label: <h3>Dashboard</h3>,
   },
   {
     key: "sub1",
     label: "Ecommerce",
-    icon: <ShopFilled className="icon" />,
+    icon: <ShopFilled className="side-icon" />,
     children: [
       {
         key: "sub1-2",
@@ -40,7 +40,7 @@ const items = [
   {
     key: "sub2",
     label: "Account",
-    icon: <SettingOutlined className="icon" />,
+    icon: <SettingOutlined className="side-icon" />,
     children: [
       { key: "", label: "Option 7" },
       { key: "", label: "Option 8" },
@@ -51,7 +51,7 @@ const items = [
   {
     key: "sub3",
     label: "Dự kiến",
-    icon: <SettingOutlined className="icon" />,
+    icon: <SettingOutlined className="side-icon" />,
     children: [
       { key: "", label: "Option 7" },
       { key: "", label: "Option 8" },
@@ -62,7 +62,7 @@ const items = [
   {
     key: "sub4",
     label: "Dự kiến",
-    icon: <SettingOutlined className="icon" />,
+    icon: <SettingOutlined className="side-icon" />,
     children: [
       { key: "", label: "Option 7" },
       { key: "", label: "Option 8" },
