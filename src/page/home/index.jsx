@@ -1,13 +1,13 @@
-import Carousel from "../../components/carousel";
+import { Outlet } from "react-router-dom";
 import Header from "../../components/header";
 
-function HomeCustommer() {
+function HomePage() {
   return (
     <div>
       <Header />
-      <Carousel />
+      <Outlet />
     </div>
   );
 }
 
-export default HomeCustommer;
+export default HomePage;

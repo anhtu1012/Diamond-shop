@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     element: <Cart />,
   },
   {
-    path: "/home-page",
+    path: "/home",
     element: <HomeCustommer />,
     children: [
       {
