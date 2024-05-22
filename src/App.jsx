@@ -5,8 +5,9 @@ import AdminPage from "./page/Admin/admin-page";
 import Dashboard from "./page/Admin/dashboard";
 import Cart from "./page/Custommer/Cart";
 import HomePage from "./page/Custommer/Home";
-import Layout from "./page/home";
+
 import LoginPage from "./page/login";
+import Layout from "./page/layout";
 
 const router = createBrowserRouter([
   {

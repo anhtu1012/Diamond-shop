@@ -1,13 +1,13 @@
-import Wrap from "../../../Wrap";
+import Container from "../../../components/container/Container";
 import Carousel from "../../../components/carousel";
 
 function HomePage() {
   return (
     <div>
       <Carousel />
-      <Wrap>
+      <Container>
         <h1>H1</h1>
-      </Wrap>
+      </Container>
     </div>
   );
 }

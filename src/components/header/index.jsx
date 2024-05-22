@@ -35,7 +35,7 @@ function Header() {
         <div className="header_logo">
           <img
             src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/Logo.png?alt=media&token=13f983ed-b3e1-4bbe-83b2-a47edf62c6a6"
-            width={300}
+            width={250}
             alt=""
           />
         </div>
@@ -50,6 +50,7 @@ function Header() {
           )}
         </div>
       </header>
+
       <nav className="nav">
         <ul>
           <li>
@@ -79,6 +80,7 @@ function Header() {
           <SearchOutlined className="icon" />
         </div>
       </nav>
+
       <Modal
         centered
         open={isLoginModalVisible}

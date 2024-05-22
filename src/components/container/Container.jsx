@@ -1,9 +1,9 @@
 // eslint-disable-next-line react/prop-types
-function Wrap({ children }) {
+function Container({ children }) {
   return (
     <div
       style={{
-        padding: "10px 80px",
+        padding: "10px 100px",
       }}
     >
       {children}
@@ -11,4 +11,4 @@ function Wrap({ children }) {
   );
 }
 
-export default Wrap;
+export default Container;

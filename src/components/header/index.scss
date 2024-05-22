@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 100px;
+  padding: 10px 100px;
   font-size: 20px;
   border-bottom: 2px solid #cdc6c6;
 
@@ -20,9 +20,9 @@
 .nav {
   display: flex;
   justify-content: space-between;
-  padding: 15px 100px;
   border-bottom: 2px solid #cdc6c6;
   box-shadow: 10px 10px 10px gray;
+  padding: 10px 100px;
   ul {
     display: flex;
     list-style: none;
@@ -51,7 +51,7 @@
     gap: 10px;
     border: 1px solid #908d8d;
     background-color: #ccc4c4;
-    border-radius: 15px;
+    border-radius: 12px;
     padding: 7px 15px;
 
     input {
