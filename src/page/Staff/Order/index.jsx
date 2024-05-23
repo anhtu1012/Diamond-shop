@@ -1,5 +1,5 @@
 function ViewOrder() {
-  return <div>ViewOrderhngjj</div>;
+  return <div>ViewOrder</div>;
 }
 
 export default ViewOrder;
