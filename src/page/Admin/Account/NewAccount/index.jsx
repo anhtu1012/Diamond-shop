@@ -1,5 +1,5 @@
 function NewAccount() {
-  return <div>NewAccount</div>;
+  return <div>New Accounts</div>;
 }
 
 export default NewAccount;
