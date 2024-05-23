@@ -9,12 +9,12 @@ import {
   FaUserCog,
   FaYoutube,
 } from "react-icons/fa";
-import { Modal } from "antd";
+import { Button, Modal } from "antd";
 import { useState } from "react";
 import LoginPage from "../../page/login";
 function Header() {
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
-  const user = null;
+  const user = "null";
 
   const showModal = () => {
     setIsLoginModalVisible(true);
@@ -41,7 +41,7 @@ function Header() {
         </div>
         <div className="header_social_right">
           {!user ? (
-            <button onClick={() => showModal(true)}>Login</button>
+            <Button onClick={() => showModal(true)}>Login</Button>
           ) : (
             <div>
               <FaUserCog />
