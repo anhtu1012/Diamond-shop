@@ -1,57 +1,37 @@
-import {
-  PieChartFilled,
-  SettingOutlined,
-  SketchCircleFilled,
-} from "@ant-design/icons";
+import { PieChartFilled, SketchCircleFilled } from "@ant-design/icons";
 import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./layout.scss";
 import { useState } from "react";
 const items = [
   {
-    key: "/admin-page/dashboard",
+    key: "/staff-page/don-hang-moi",
     icon: <PieChartFilled className="side-icon" />,
-    label: <h3>Dashboard</h3>,
+    label: <h3>Đơn Hàng Mới</h3>,
   },
   {
-    key: "sub2",
+    key: "/staff-page/don-hang",
+    icon: <PieChartFilled className="side-icon" />,
     label: "Đơn Hàng",
-    icon: <SettingOutlined className="side-icon" />,
-    children: [
-      { key: "/admin-page/don-hang/all", label: "Tất cả đơn hàng" },
-      { key: "/admin-page/don-hang/hoa-don", label: "Hóa đơn" },
-    ],
   },
   {
-    key: "sub3",
-    label: "Product",
-    icon: <SettingOutlined className="side-icon" />,
-    children: [
-      { key: "san-pham/xem-tat-ca-san-pham", label: "Xem Sản Phẩm" },
-      { key: "san-pham/tao-san-pham", label: "Tạo Sản Phẩm" },
-    ],
-  },
-  {
-    key: "sub4",
+    key: "/staff-page/tai-khoan",
+    icon: <PieChartFilled className="side-icon" />,
     label: "Tài Khoản",
-    icon: <SettingOutlined className="side-icon" />,
-    children: [
-      { key: "tai-khoan/xem-tat-ca-tai-khoan", label: "Xem" },
-      { key: "tai-khoan/tao-tai-khoan", label: "Tạo Tài Khoản" },
-    ],
   },
   {
-    key: "sub5",
-    label: "Bộ sưu tập",
-    icon: <SettingOutlined className="side-icon" />,
-    children: [
-      { key: "bo-suu-tap/xem-tat-ca-bo-suu-tap", label: "Xem Bộ Sưu Tập" },
-      { key: "bo-suu-tap/tao-bo-suu-tap", label: "Tạo Bộ Sưu Tập" },
-    ],
+    key: "/staff-page/san-pham",
+    icon: <PieChartFilled className="side-icon" />,
+    label: "Sản Phẩm",
+  },
+  {
+    key: "/staff-page/bao-hanh",
+    icon: <PieChartFilled className="side-icon" />,
+    label: "Phiếu Bảo Hành",
   },
 ];
 // eslint-disable-next-line react/prop-types
-function Sidenav({ collapsed }) {
+function SidenavS({ collapsed }) {
   const navigate = useNavigate(); // Hook useNavigate
   const [selectedKey, setSelectedKey] = useState("/admin-page/dashboard");
   const handleMenuClick = (e) => {
@@ -97,4 +77,4 @@ function Sidenav({ collapsed }) {
   );
 }
 
-export default Sidenav;
+export default SidenavS;

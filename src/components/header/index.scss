@@ -15,6 +15,18 @@
     display: flex;
     gap: 25px;
     font-size: 25px;
+    button {
+      color: white;
+      background-color: black;
+      transition: background-color 0.3s ease;
+      outline: none;
+      &:hover {
+        border: 1px solid black !important;
+        color: black !important;
+        background-color: white !important; // Màu vàng khi hover
+        cursor: pointer; // Thêm hiệu ứng con trỏ chuột khi hover
+      }
+    }
   }
 }
 .nav {
@@ -31,9 +43,7 @@
     li {
       color: black;
       font-size: 20px;
-      font-style: italic;
       padding: 7px 2px;
-
       a {
         text-decoration: none;
         color: black;
