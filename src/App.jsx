@@ -20,6 +20,7 @@ import Warranty from "./page/Staff/Warranty";
 import StaffPage from "./page/Staff/staff-page";
 import Layout from "./page/layout";
 import LoginPage from "./page/login";
+import HomeProduct from "./page/Custommer/Product-Customer";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "product-details",
+        element: <HomeProduct/>,
       },
       {
         path: "cart",
