@@ -1,17 +1,115 @@
-import { Link } from "react-router-dom";
-import { SearchOutlined } from "@ant-design/icons";
-import "./index.scss";
+import { LoginOutlined, SearchOutlined } from "@ant-design/icons";
+import { Dropdown, Modal, message } from "antd";
+import { useState } from "react";
 import {
   FaFacebookSquare,
   FaInstagramSquare,
   FaMapMarkerAlt,
   FaShoppingCart,
   FaUserCog,
-  FaYoutube,
 } from "react-icons/fa";
-import { Button, Modal } from "antd";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import LoginPage from "../../page/login";
+import "./index.scss";
+const onClick = ({ key }) => {
+  message.info(`Click on item ${key}`);
+};
+const settings = [
+  {
+    key: "1",
+    label: <Link to="/">1st menu item</Link>,
+  },
+  {
+    key: "2",
+    label: <Link to="/">2nd menu item</Link>,
+  },
+  {
+    key: "3",
+    label: <Link to="/">3rd menu item</Link>,
+  },
+];
+const items = [
+  {
+    label: (
+      <div style={{ fontSize: "15px", padding: "10px" }}>
+        Vì sao chọn Diamond
+      </div>
+    ),
+    key: "1",
+  },
+];
+const trangSucCuoiItems = [
+  // Đây là các mục sẽ xuất hiện dưới dropdown "Trang sức cưới"
+  {
+    label: (
+      <div style={{ fontSize: "15px", padding: "5px 20px" }}>
+        Nhẫn Cầu Hôn Kim Cương
+      </div>
+    ),
+    key: "trang-suc-cuoi-1",
+  },
+  {
+    label: (
+      <div style={{ fontSize: "15px", padding: "5px 20px" }}>
+        Nhẫn Cưới Kim Cương
+      </div>
+    ),
+    key: "trang-suc-cuoi-2",
+  },
+  {
+    label: (
+      <div style={{ fontSize: "15px", padding: "5px 20px" }}>
+        Bộ Trang Sức Cưới Kim Cương
+      </div>
+    ),
+    key: "trang-suc-cuoi-3",
+  },
+];
+
+const trangSucKimCuongItems = [
+  // Đây là các mục sẽ xuất hiện dưới dropdown "Trang sức cưới"
+  {
+    label: (
+      <div style={{ fontSize: "15px", padding: "5px 20px" }}>
+        Nhẫn Kim Cương
+      </div>
+    ),
+    key: "2",
+  },
+  {
+    label: (
+      <div style={{ fontSize: "15px", padding: "5px 20px" }}>
+        Bông Tai Kim Cương
+      </div>
+    ),
+    key: "3",
+  },
+  {
+    label: (
+      <div style={{ fontSize: "15px", padding: "5px 20px" }}>
+        Lắc/Vòng Tay Kim Cương
+      </div>
+    ),
+    key: "4",
+  },
+  {
+    label: (
+      <div style={{ fontSize: "15px", padding: "5px 20px" }}>
+        Mặc Dây Chuyền Kim Cương
+      </div>
+    ),
+    key: "5",
+  },
+  {
+    label: (
+      <div style={{ fontSize: "15px", padding: "5px 20px" }}>
+        Bộ Sưu Tập Kim Cương
+      </div>
+    ),
+    key: "6",
+  },
+];
+
 function Header() {
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
   const user = "null";
@@ -23,12 +121,12 @@ function Header() {
   const handleCancel = () => {
     setIsLoginModalVisible(false);
   };
+  const navigate = useNavigate(); // Hook useNavigate
   return (
     <div className="container-fluid">
       <header className="header">
         <div className="header_social_left">
           <FaFacebookSquare />
-          <FaYoutube />
           <FaInstagramSquare />
           <FaMapMarkerAlt />
         </div>
@@ -39,31 +137,69 @@ function Header() {
             alt=""
           />
         </div>
-        <div className="header_social_right">
+        <div>
           {!user ? (
-            <Button onClick={() => showModal(true)}>Login</Button>
-          ) : (
-            <div>
-              <FaUserCog />
+            <div className="header_social_right">
+              <SearchOutlined />
+              <LoginOutlined onClick={() => showModal(true)} />
               <FaShoppingCart />
+            </div>
+          ) : (
+            <div className="header_social_right">
+              <SearchOutlined />
+              <FaShoppingCart onClick={() => navigate("/cart")} />
+              <Dropdown
+                menu={{
+                  items: settings,
+                  onClick,
+                }}
+                placement="bottom"
+                arrow
+              >
+                <FaUserCog onClick={(e) => e.preventDefault()} />
+              </Dropdown>
             </div>
           )}
         </div>
       </header>
-
       <nav className="nav">
         <ul>
           <li>
-            <Link to="/">Trang chủ</Link>
+            <Dropdown
+              menu={{
+                items,
+                onClick,
+              }}
+            >
+              <Link to="/">Trang chủ</Link>
+            </Dropdown>
           </li>
           <li>
-            <Link to="/">Trang sức cưới</Link>
+            <Dropdown
+              menu={{
+                items: trangSucCuoiItems,
+                onClick,
+              }}
+            >
+              <Link to="/">
+                Trang sức cưới
+              </Link>
+            </Dropdown>
           </li>
           <li>
-            <Link to="/">Trang sức kim cương</Link>
+            <Dropdown
+              menu={{
+                items: trangSucKimCuongItems,
+                onClick,
+              }}
+            >
+              <Link  to="/">
+                Trang sức kim cương
+              </Link>
+            </Dropdown>
           </li>
           <li>
-            <Link to="/">Kim cương</Link>
+            <Link to="/">Kim cương viên</Link>
           </li>
           <li>
             <Link to="/">Chuyên gia</Link>
@@ -75,10 +211,6 @@ function Header() {
             <Link to="/">Liên hệ</Link>
           </li>
         </ul>
-        <div className="search">
-          <input type="text" placeholder="Search..." />
-          <SearchOutlined className="icon" />
-        </div>
       </nav>
 
       <Modal
