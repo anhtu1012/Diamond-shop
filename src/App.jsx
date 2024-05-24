@@ -32,11 +32,6 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "product-details",
-        element: <HomeProduct/>,
-      },
-      {
-        path: "cart",
         element: <Cart />,
       },
     ],
