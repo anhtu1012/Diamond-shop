@@ -6,7 +6,7 @@ import './index.scss';
 import { TinyColor } from '@ctrl/tinycolor';
 import { CheckCircleOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import CartProduct from '../../../components/Cardd';
+import CardIndex from '../../../components/Card';
 
 const colors1 = ['#6253E1', '#04BEFE'];
 const colors3 = ['#000000', '#013A40'];
@@ -376,7 +376,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                   <Col className="gutter-row" xs={12} sm={12} md={12} lg={6} key={index}>
                     <Link to="/product-details">
                       <div>
-                        <CartProduct />
+                        <CardIndex />
                       </div>
                     </Link>
                   </Col>
