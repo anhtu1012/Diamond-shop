@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Row, Col, Image, Breadcrumb, Layout, theme, Select, Space, ConfigProvider, Button } from 'antd';
 import Container from '../../../components/container/Container';
-import Foster from '../../../components/Foster';
 import { Collapse } from 'antd';
 import './index.scss';
 import { TinyColor } from '@ctrl/tinycolor';
@@ -301,7 +300,6 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
               </Row>
             </div>
           </div>
-        <div><Foster /></div>
       </Container>
     </div>
   );

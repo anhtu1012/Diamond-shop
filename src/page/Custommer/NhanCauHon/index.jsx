@@ -6,7 +6,6 @@ import Carousel from '../../../components/carousel';
 import { Button, Form, Input } from 'antd';
 import Container from '../../../components/container/Container';
 import CardIndex from '../../../components/Card';
-import Foster from '../../../components/Foster';
 import { Content } from 'antd/es/layout/layout';
 import { Link } from 'react-router-dom';
 
@@ -246,10 +245,6 @@ function NhanCauHon() {
                             
                         </Form>
                     </div>
-                </div>
-
-                <div>
-                    <Foster/>
                 </div>
             </div>
             </Container>

@@ -1,5 +1,5 @@
 import { LoginOutlined, SearchOutlined } from "@ant-design/icons";
-import { Dropdown, Modal, message } from "antd";
+import { Dropdown, Modal } from "antd";
 import { useEffect, useState } from "react";
 import {
   FaFacebookSquare,
@@ -11,10 +11,6 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import LoginPage from "../../page/login";
 import "./index.scss";
-const onClick = ({ key }) => {
-  // message.info(`Click on item ${key}`);
-  navigate(`${key}`);
-};
 const settings = [
   {
     key: "1",
