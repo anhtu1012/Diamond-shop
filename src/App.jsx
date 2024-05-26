@@ -23,6 +23,7 @@ import LoginPage from "./page/login";
 
 import NhanCauHon from "./page/Custommer/NhanCauHon";
 import ProductDetails from "./page/Custommer/ProductDetails";
+import Payment from "./page/Custommer/Payment";
 
 
 
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "/product-details",
         element: <ProductDetails />,
+      },
+      {
+        path: "/product-payment",
+        element: <Payment />,
       },
     ],
   },
