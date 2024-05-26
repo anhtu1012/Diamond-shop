@@ -36,8 +36,8 @@
         &:hover {
           border: 1px solid black !important;
           color: black !important;
-          background-color: white !important; // Màu vàng khi hover
-          cursor: pointer; // Thêm hiệu ứng con trỏ chuột khi hover
+          background-color: white !important;
+          cursor: pointer;
         }
       }
       .search {
@@ -83,6 +83,8 @@
           transition: background-color 0.3s ease;
           font-weight: 300;
           &:hover {
+            font-weight: 500;
+            color: #dec55e;
             cursor: pointer; // Thêm hiệu ứng con trỏ chuột khi hover
           }
         }

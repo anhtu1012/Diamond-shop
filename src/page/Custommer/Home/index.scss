@@ -12,8 +12,13 @@
   }
 }
 .section {
-  padding: 30px 0px;
+  padding: 30px 0px 0px 0px;
+  margin: 30px;
   text-align: center;
+  h2 {
+    padding-bottom: 30px;
+    color: white;
+  }
   button {
     color: black;
     background-color: transparent;
@@ -27,6 +32,101 @@
     &:hover {
       background-color: black;
       color: white;
+    }
+  }
+}
+.image-banner {
+  position: relative;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.1);
+  }
+
+  .view-more-btn {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    padding: 10px 20px;
+    // background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: 2px solid white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+  }
+  .category {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    padding: 10px 20px;
+    // background-color: rgba(0, 0, 0, 0.5);
+    color: black;
+    cursor: pointer;
+    width: 320px;
+    height: 40px;
+    background: white;
+  }
+
+  &:hover .view-more-btn {
+    // background-color: white;
+    display: block;
+  }
+  &:hover .category {
+    // background-color: white;
+    display: block;
+  }
+}
+
+.widget-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 100px;
+  align-items: center;
+  .love-wedding {
+    padding-top: 25%;
+    .title {
+      font-family: "Trebuchet MS", Geneva;
+      font-size: 24px;
+      font-weight: 900;
+    }
+    .description {
+      font-family: helvetica-neue;
+      font-size: 20px;
+      font-weight: 100;
+      font-style: italic;
+    }
+    p {
+      color: #7a7a7a;
+      padding: 10px;
+    }
+  }
+  .custom {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #fff;
+    button {
+      background: #15393f;
+      color: white;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      &:hover {
+        background-color: white;
+        color: #15393f;
+      }
     }
   }
 }

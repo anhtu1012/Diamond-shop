@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { Card, Col, Row } from "antd";
 import "./index.scss";
 
-function CartProduct() {
+export function CartProduct({ product }) {
   return (
     <Card
       hoverable
@@ -14,7 +15,8 @@ function CartProduct() {
           {/*<div className="sale-badge">Giảm giá!</div>*/}
           <img
             alt="example"
-            src="https://jemmia.vn/wp-content/uploads/2024/05/kim-cuong-vien.png"
+            // eslint-disable-next-line react/prop-types
+            src={product.image}
             className="product-image"
           />
           <div className="overlay">
@@ -22,20 +24,20 @@ function CartProduct() {
           </div>
         </div>
       }
+      // eslint-disable-next-line react/prop-types
+      // key={product.product_id} // Adding key prop
     >
       <Row>
         <Col span={24} style={{ textAlign: "center" }}>
-          <h5>6432534361</h5>
+          <h5>{product.product_id}</h5>
         </Col>
         <Col span={24} style={{ textAlign: "center" }}>
-          <h3>KIM CƯƠNG VIÊN GIA 4LY5 - 6432534361</h3>
+          <h3>{product.product_name}</h3>
         </Col>
         <Col span={24} style={{ textAlign: "center" }}>
-          <h4>24.834.423đ</h4>
+          <h4>{product.total_price}</h4>
         </Col>
       </Row>
     </Card>
   );
 }
-
-export default CartProduct;

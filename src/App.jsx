@@ -25,8 +25,6 @@ import NhanCauHon from "./page/Custommer/NhanCauHon";
 import ProductDetails from "./page/Custommer/ProductDetails";
 import Payment from "./page/Custommer/Payment";
 
-
-
 const router = createBrowserRouter([
   {
     path: "/",

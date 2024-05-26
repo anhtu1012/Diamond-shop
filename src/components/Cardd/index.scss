@@ -1,11 +1,12 @@
 .cart-product {
-  width: 300px;
+  width: 350px !important;
 
   .image-container {
     position: relative;
     width: 100%;
     padding-top: 100%; // This maintains a square aspect ratio for the container
     overflow: hidden;
+    background-color: rgba(240, 235, 235, 0.3);
 
     // .sale-badge {
     //   position: absolute;
@@ -20,6 +21,8 @@
     // }
 
     .product-image {
+      width: 350px;
+
       position: absolute;
       top: 0;
       left: 0;
