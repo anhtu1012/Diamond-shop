@@ -1,5 +1,6 @@
 .footer-container {
-    background-color: #ebeff4;
+    color: azure;
+    background-color: #013A40;
     padding: 20px;
     .footer-content {
       display: flex;
@@ -7,6 +8,7 @@
       align-items: flex-start;
       flex-wrap: wrap;
       .logo {
+        color:azure;
         flex: 1 1 auto;
         display: flex;
         justify-content: center;
@@ -19,6 +21,9 @@
         flex: 1 1 auto;
         margin: 10px;
         h2 {
+          text-decoration: underline;
+          text-underline-offset: 10px;
+          text-decoration-color: yellow;
           font-size: 1em;
           margin-bottom: 10px;
           text-align: left;

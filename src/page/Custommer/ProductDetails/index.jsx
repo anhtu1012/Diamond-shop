@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import { Row, Col, Image, Breadcrumb, Layout, theme, Select, Space, ConfigProvider, Button } from 'antd';
 import Container from '../../../components/container/Container';
-import Foster from '../../../components/Foster';
 import { Collapse } from 'antd';
 import './index.scss';
 import { TinyColor } from '@ctrl/tinycolor';
-import { LikeOutlined } from '@ant-design/icons';
-import CardIndex from '../../../components/Card';
+import { CheckCircleOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import CartProduct from '../../../components/Cardd';
 
 const colors1 = ['#6253E1', '#04BEFE'];
-const colors3 = ['#000000', '#6c757d'];
+const colors3 = ['#000000', '#013A40'];
 
 const getHoverColors = (colors) =>
   colors.map((color) => new TinyColor(color).lighten(5).toString());
@@ -34,22 +33,30 @@ const ProductDetails = () => {
     'https://jemmia.vn/wp-content/uploads/2024/03/1_cam_01-copy-1-1.jpg',
     'https://jemmia.vn/wp-content/uploads/2024/03/4_cam_01-copy-1-1.jpg',
   ];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const handleThumbnailClick = (src) => {
-    setMainImage(src);
+  const handleMainImageClick = () => {
+    const nextIndex = (currentImageIndex + 1) % thumbnails.length;
+    setCurrentImageIndex(nextIndex);
+    setMainImage(thumbnails[nextIndex]);
+  };
+  const handleThumbnailClick = (index) => {
+    if (index >= 0 && index < thumbnails.length) {
+      setMainImage(thumbnails[index]);
+    }
   };
   const handleSizeChange = (value) => {
     setSelectedSize(value);
   };
 
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
   
     const increment = () => {
       setCount(prevCount => prevCount + 1);
     };
   
     const decrement = () => {
-      if (count > 0) {
+      if (count > 1) {
         setCount(prevCount => prevCount - 1);
       }
     };
@@ -87,9 +94,13 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
         <div className="tabner">
           <Content style={{ padding: '0 0px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item><a href="/">Trang chủ</a></Breadcrumb.Item>
-              <Breadcrumb.Item><a href="/nhan-cau-hon">Nhẫn cầu hôn</a></Breadcrumb.Item>
-              <Breadcrumb.Item>Nhẫn kim cương 18k</Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <Link to="/">Trang chủ</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <Link to="/nhan-cau-hon">Nhẫn cầu hôn</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>Nhẫn kim cương 18k</Breadcrumb.Item>
             </Breadcrumb>
             <div
               style={{
@@ -104,25 +115,33 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
             <Row justify="center" gutter={[16, 16]}> 
               <Col span={12} xs={24} sm={24} md={24} lg={12}>
                 <div className="image">
-                  <Image
-                    width={400}
-                    src={mainImage}
-                  />
+                <Image.PreviewGroup
+                  preview={{
+                    onChange: (current, prev) => console.log(`current index: ${current}, prev index: ${prev}`),
+                  }}
+                >
+                <Image
+                  width={400}
+                  src={mainImage}
+                  onClick={handleMainImageClick}
+                />
                   <div className="image-add">
                     <Row gutter={0}>
-                      {thumbnails.map((thumb, index) => (
-                        <Col key={index} span={6}>
-                          <Image
-                            width={100}
-                            src={thumb}
-                            onClick={() => handleThumbnailClick(thumb)}
-                            className="thumbnail"
-                          />
-                        </Col>
-                      ))}
+                    {thumbnails.map((thumb, index) => (
+                      <Col key={index} span={6}>
+                        <Image
+                          width={100}
+                          src={thumb}
+                          onClick={() => handleThumbnailClick(index)}
+                          className="thumbnail"
+                        />
+                      </Col>
+                    ))}
                     </Row>
                   </div>
+                  </Image.PreviewGroup>
                 </div>
+                
               </Col>
               <Col span={12} xs={24} sm={24} md={24} lg={12}>
                 <div className="description-product">
@@ -150,8 +169,8 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                   </div>
                   <div className='quantity'>
                     <h4>Số lượng: </h4>
-                    <button onClick={decrement} disabled={count === 0} className="button">-</button>
-                    <span className="count">{count}</span>
+                    <button onClick={decrement} disabled={count === 1} className="button">-</button>
+                    <input className='count' type="text" value={count} readOnly style={{width: '30px', textAlign: 'center'}} />
                     <button onClick={increment} className="button">+</button>
                   </div>
                   <div className='add'>
@@ -205,7 +224,71 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                     { 
                       key: '1', 
                       label: <strong>Chi tiết sản phẩm và mô tả</strong>,
-                      children: <pre style={{ whiteSpace: 'pre-wrap' }}>{text1}</pre> 
+                      children: 
+                      <pre style={{ whiteSpace: 'pre-wrap', margin: '0',fontSize: '16px', fontFamily: 'Arial' }}>
+                        <div className="card-body">
+                          <table className="table table-bordered" style={{ width: '100%', height: '313px', borderCollapse: 'collapse' }}>
+                            <tbody style={{ fontStyle: 'initial' }}>
+                              <tr style={{ height: '33px', border: '1px solid #000' }}>
+                                <td style={{ height: '33px', width: '61.44%', border: '1px solid #000' }}><span style={{ fontSize: '14px', marginLeft: '5px' }}>Thương hiệu</span></td>
+                                <td className="last td-content" style={{ height: '33px', width: '38.4%', border: '1px solid #000' }}><span style={{ fontSize: '14px', marginLeft: '5px' }}><Link to="/" style={{color: 'black', textDecoration: 'none'}}>Diamond</Link><br /></span></td>
+                              </tr>
+                              <tr style={{ height: '28px', border: '1px solid #000' }}>
+                                <td style={{ height: '28px', width: '61.44%', border: '1px solid #000' }}><span style={{ fontSize: '14px', marginLeft: '5px' }}>Loại sản phẩm</span></td>
+                                <td className="last td-content" style={{ height: '28px', width: '38.4%', border: '1px solid #000' }}>
+                                  <div><span style={{ fontSize: '14px', marginLeft: '5px' }}>Nhẫn cầu hôn</span></div>
+                                </td>
+                              </tr>
+                              <tr style={{ height: '28px', border: '1px solid #000' }}>
+                                <td style={{ height: '28px', width: '61.44%', border: '1px solid #000' }}><span style={{ fontSize: '14px', marginLeft: '5px' }}>Kích thước đá chủ</span></td>
+                                <td style={{ height: '28px', width: '38.4%', border: '1px solid #000' }}><span style={{ fontSize: '14px', marginLeft: '5px' }}>Round 4ly</span></td>
+                              </tr>
+                              <tr style={{ height: '28px', border: '1px solid #000' }}>
+                                <td style={{ height: '28px', width: '61.44%', border: '1px solid #000' }}><span style={{ fontSize: '14px', marginLeft: '5px' }}>Loại đá tẩm</span></td>
+                                <td className="last td-content" style={{ height: '28px', width: '38.4%', border: '1px solid #000' }}>
+                                  <div><span style={{ fontSize: '14px', marginLeft: '5px' }}>Kim cương</span></div>
+                                </td>
+                              </tr>
+                              <tr style={{ height: '28px', border: '1px solid #000' }}>
+                                <td style={{ height: '28px', width: '61.44%', border: '1px solid #000' }}><span style={{ fontSize: '14px', marginLeft: '5px' }}>Số lượng đá tẩm</span></td>
+                                <td className="last td-content" style={{ height: '28px', width: '38.4%', border: '1px solid #000' }}>
+                                  <div><span style={{ fontSize: '14px', marginLeft: '5px' }}>38</span></div>
+                                </td>
+                              </tr>
+                              <tr style={{ height: '28px', border: '1px solid #000' }}>
+                                <td style={{ height: '28px', width: '61.44%', border: '1px solid #000' }}><span style={{ fontSize: '14px', marginLeft: '5px' }}>Trọng lượng đá (ct)</span></td>
+                                <td className="last td-content" style={{ height: '28px', width: '38.4%', border: '1px solid #000' }}>
+                                  <div><span style={{ fontSize: '14px', marginLeft: '5px' }}>0.375</span></div>
+                                </td>
+                              </tr>
+                              <tr style={{ height: '28px', border: '1px solid #000' }}>
+                                <td style={{ height: '28px', width: '61.44%', border: '1px solid #000' }}><span style={{ fontSize: '14px', marginLeft: '5px' }}>Loại vàng</span></td>
+                                <td className="last td-content" style={{ height: '28px', width: '38.4%', border: '1px solid #000' }}>
+                                  <div><span style={{ fontSize: '14px', marginLeft: '5px' }}>Vàng trắng</span></div>
+                                </td>
+                              </tr>
+                              <tr style={{ height: '28px', border: '1px solid #000' }}>
+                                <td style={{ height: '28px', width: '61.44%', border: '1px solid #000' }}><span style={{ fontSize: '14px', marginLeft: '5px' }}>Tuổi vàng</span></td>
+                                <td className="last td-content" style={{ height: '28px', width: '38.4%', border: '1px solid #000' }}>
+                                  <div><span style={{ fontSize: '14px', marginLeft: '5px' }}>18K</span></div>
+                                </td>
+                              </tr>
+                              <tr style={{ height: '28px', border: '1px solid #000' }}>
+                                <td style={{ height: '28px', width: '61.44%', border: '1px solid #000' }}><span style={{ fontSize: '14px', marginLeft: '5px' }}>Trọng lượng vàng</span></td>
+                                <td className="last td-content" style={{ height: '28px', width: '38.4%', border: '1px solid #000' }}>
+                                  <div><span style={{ fontSize: '14px', marginLeft: '5px' }}>0.85 chỉ</span></div>
+                                </td>
+                              </tr>
+                              <tr style={{ height: '28px', border: '1px solid #000' }}>
+                                <td style={{ height: '28px', width: '61.44%', border: '1px solid #000' }}><span style={{ fontSize: '14px', marginLeft: '5px' }}>Chất liệu khác</span></td>
+                                <td className="last td-content" style={{ height: '28px', width: '38.4%', border: '1px solid #000' }}>
+                                  <div><span style={{ fontSize: '14px', marginLeft: '5px' }}> </span></div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </pre> 
                     }
                   ]}
                 />
@@ -255,7 +338,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                           <span className="elementor-icon-list-icon">
                             <i aria-hidden="true" className="far fa-handshake"></i>
                           </span>
-                          <span className="elementor-icon-list-text"><LikeOutlined/> CAM KẾT CHẤT LƯỢNG</span>
+                          <span className="elementor-icon-list-text"><SafetyCertificateOutlined style={{color: 'red'}}/> CAM KẾT CHẤT LƯỢNG</span>
                         </li>
                       </ul>
                     </div>
@@ -268,7 +351,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                             <i className="far fa-check-circle" style={{ color: 'red' }} aria-hidden="true"></i>
                           </div>
                           <div className="column">
-                            <span style={{ fontSize: '14px', fontFamily: 'helvetica-neue' }}>{item}</span>
+                            <span style={{ fontSize: '14px' }}><CheckCircleOutlined style={{color: 'red'}}/> {item}</span>
                           </div>
                         </div>
                       ))}
@@ -293,7 +376,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                   <Col className="gutter-row" xs={12} sm={12} md={12} lg={6} key={index}>
                     <Link to="/product-details">
                       <div>
-                        <CardIndex />
+                        <CartProduct />
                       </div>
                     </Link>
                   </Col>
@@ -301,7 +384,6 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
               </Row>
             </div>
           </div>
-        <div><Foster /></div>
       </Container>
     </div>
   );
