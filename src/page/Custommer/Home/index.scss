@@ -1,0 +1,32 @@
+.home_diamond_nature {
+  h2 {
+    margin: 0 auto;
+    padding: 10px 0px;
+    text-align: center;
+  }
+  img {
+    object-fit: fill; //chống vỡ
+    height: auto;
+    vertical-align: top;
+    max-width: 100%;
+  }
+}
+.section {
+  padding: 30px 0px;
+  text-align: center;
+  button {
+    color: black;
+    background-color: transparent;
+    padding: 10px 20px;
+    border: 3px solid rgb(5, 4, 4);
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { LoginOutlined, SearchOutlined } from "@ant-design/icons";
 import { Dropdown, Modal, message } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaFacebookSquare,
   FaInstagramSquare,
@@ -117,8 +117,26 @@ function Header() {
     navigate(`${key}`);
   };
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const navigate = useNavigate(); // Hook useNavigate
   const user = "null";
+  useEffect(() => {
+    const handleScroll = () => {
+      const header = document.querySelector(".container-fluid");
+      if (header) {
+        if (window.pageYOffset > header.offsetTop) {
+          header.classList.add("sticky");
+        } else {
+          header.classList.remove("sticky");
+        }
+      }
+    };
 
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   const showModal = () => {
     setIsLoginModalVisible(true);
   };
@@ -126,7 +144,10 @@ function Header() {
   const handleCancel = () => {
     setIsLoginModalVisible(false);
   };
-  const navigate = useNavigate(); // Hook useNavigate
+  const toggleSearch = () => {
+    setIsSearchVisible((prev) => !prev);
+  };
+
   return (
     <div className="container-fluid">
       <header className="header">
@@ -145,13 +166,23 @@ function Header() {
         <div>
           {!user ? (
             <div className="header_social_right">
-              <SearchOutlined />
+              <div className="search">
+                <SearchOutlined onClick={toggleSearch} />
+                {isSearchVisible && (
+                  <input type="text" placeholder="Search..." />
+                )}
+              </div>
               <LoginOutlined onClick={() => showModal(true)} />
               <FaShoppingCart />
             </div>
           ) : (
             <div className="header_social_right">
-              <SearchOutlined />
+              <div className="search">
+                <SearchOutlined onClick={toggleSearch} />
+                {isSearchVisible && (
+                  <input type="text" placeholder="Search..." />
+                )}
+              </div>
               <FaShoppingCart onClick={() => navigate("/cart")} />
               <Dropdown
                 menu={{
@@ -186,9 +217,7 @@ function Header() {
                 onClick,
               }}
             >
-              <Link to="/">
-                Trang sức cưới
-              </Link>
+              <Link to="/">Trang sức cưới</Link>
             </Dropdown>
           </li>
           <li>
@@ -198,9 +227,7 @@ function Header() {
                 onClick,
               }}
             >
-              <Link  to="/">
-                Trang sức kim cương
-              </Link>
+              <Link to="/">Trang sức kim cương</Link>
             </Dropdown>
           </li>
           <li>

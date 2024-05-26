@@ -20,8 +20,10 @@ import Warranty from "./page/Staff/Warranty";
 import StaffPage from "./page/Staff/staff-page";
 import Layout from "./page/layout";
 import LoginPage from "./page/login";
+
 import NhanCauHon from "./page/Custommer/NhanCauHon";
 import ProductDetails from "./page/Custommer/ProductDetails";
+
 
 
 const router = createBrowserRouter([
