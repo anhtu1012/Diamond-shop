@@ -21,8 +21,8 @@ const products = Array.from({ length: 50 }, (_, index) => ({ id: index + 1, name
 const validateMessages = {
   required: '${label} không được để trống',
   types: {
-    email: '${label} is not a valid email!',
-    number: '${label} is not a valid number!',
+    email: 'Vui lòng điền đúng ${label}!',
+    number: 'Vui lòng điền đúng ${label}',
   },
   number: {
     range: '${label} must be between ${min} and ${max}',
@@ -196,6 +196,7 @@ function NhanCauHon() {
                                 name={[ 'Số điện thoại']}
                                 rules={[
                                     {
+                                        type: 'number',
                                         required: true,
                                     },
                                 ]}

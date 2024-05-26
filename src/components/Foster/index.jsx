@@ -21,15 +21,15 @@ const Foster = () => {
         <div className="footer-section" >
           <h2>VỀ CHÚNG TÔI</h2><br/>
           <div className="social-icons">
-            <a href="/1" rel="nofollow" target="_blank" style={linkStyle}>
+            <Link to="/1" rel="nofollow" target="_blank" style={linkStyle}>
                Vì sao chọn Diamond
-            </a>
+            </Link>
           </div>
         </div>
         <div className="footer-section">
           <h2>LIÊN HỆ Diamond</h2><br/>
           <p>Hotline<br/>
-            CN HCM: <a href="tel:0123456780" rel="nofollow" style={linkStyle}>012 345 6780</a> (phím 1)<br />
+            CN HCM: <a href="tel:0916306945" rel="nofollow" style={linkStyle}>091 630 6945</a> (phím 1)<br />
             GÓP Ý: <a href="tel:0123456890" rel="nofollow" style={linkStyle}>012 345 6780</a> (phím 2)
           </p><br/>
           <p>Hệ Thống Showrooms<br />
