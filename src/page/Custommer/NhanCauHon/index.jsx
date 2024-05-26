@@ -2,12 +2,11 @@ import { useState } from 'react';
 import "./index.scss";
 import { Select, Space, Pagination, Breadcrumb, theme } from 'antd';
 import { Col, Row } from 'antd';
-import Carousel from '../../../components/carousel';
 import { Button, Form, Input } from 'antd';
 import Container from '../../../components/container/Container';
-import CardIndex from '../../../components/Card';
 import { Content } from 'antd/es/layout/layout';
 import { Link } from 'react-router-dom';
+import CartProduct from '../../../components/Cardd';
 
 const layout = {
   labelCol: {
@@ -17,13 +16,13 @@ const layout = {
     span: 16,
   },
 };
+const products = Array.from({ length: 50 }, (_, index) => ({ id: index + 1, name: `Product ${index + 1}` }));
 
-/* eslint-disable no-template-curly-in-string */
 const validateMessages = {
-  required: '${label} is required!',
+  required: '${label} không được để trống',
   types: {
-    email: '${label} is not a valid email!',
-    number: '${label} is not a valid number!',
+    email: 'Vui lòng điền đúng ${label}!',
+    number: 'Vui lòng điền đúng ${label}',
   },
   number: {
     range: '${label} must be between ${min} and ${max}',
@@ -35,49 +34,43 @@ const onFinish = (values) => {
 
 
 function NhanCauHon() {
-    const [/*value*/, setValue] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('Nhẫn Cầu Hôn');
 
-    const handleChange = (value, option) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const productsPerPage = 16;
+
+  // Calculate the products for the current page
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+
+  // Function to handle page change
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+     };
+
+    const [/*value*/, setValue] = useState('');
+
+    const handleChange = (value) => {
         setValue(value);
-        setSelectedCategory(option.label);
         console.log(value);
     };
     const {
         token: { colorBgContainer, borderRadiusLG },
       } = theme.useToken();
-    // const renderCards = () => {
-    //     const rows = [];
-    //     for (let i = 0; i < 4; i++) {
-    //         const cols = [];
-    //         for (let j = 0; j < 4; j++) {
-    //             cols.push(
-    //                 <Col key={`col-${i}-${j}`} span={4}>
-    //                     <CardEx />
-    //                 </Col>
-    //             );
-    //         }
-    //         rows.push(
-    //             <div className='product-detail' key={`row-${i}`}>
-    //                 <Divider orientation="left"></Divider>
-    //                 <Row justify="space-around">
-    //                     {cols}
-    //                 </Row>
-    //             </div>
-    //         );
-    //     }
-    //     return rows;
-    // };
 
     return (
         <div>           
-            <Carousel />
             <Container>
-            
+            <div className='baner' >
+                <img src='https://jemmia.vn/wp-content/uploads/elementor/thumbs/nhan-kim-cuong-tu-nhien-dep-jemmia.vn_-qi5wbxg1gu2rwsamfgbpjujqam2prdstgw704rkm0g.jpg' style={{width: '100%' , height: 'auto'}} />
+            </div>
             <div className="category-product">
                 <Content style={{ padding: '0 0px' }}>
                 <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item><a href="/">Trang chủ</a></Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    <Link to="/">Trang chủ</Link>
+                </Breadcrumb.Item>
                 <Breadcrumb.Item>Nhẫn cầu hôn</Breadcrumb.Item>
                 </Breadcrumb>
                 <div
@@ -90,7 +83,7 @@ function NhanCauHon() {
                 >
                 </div>
                 </Content>
-                <h1>{selectedCategory}</h1>
+                <h1>Nhẫn Cầu Hôn</h1>
                 <div className="choose-product">
                     <Row>
                         <Col span={8}>
@@ -135,7 +128,7 @@ function NhanCauHon() {
                             </Space>
                         </Col>
                     </Row>
-                    {/* {renderCards()} */}
+                    
                     
                 </div>
                 <div className='product'>
@@ -147,51 +140,29 @@ function NhanCauHon() {
                                 lg: 32,
                             }}
                             >
-                        <Col className="gutter-row" xs={12} sm={12} md={12} lg={6}>
-                        <Link to="/product-details">
-                            <div>
-                                <CardIndex />
-                            </div>
-                        </Link>
-                        </Col>
-                        <Col className="gutter-row" xs={12} sm={12} md={12} lg={6}>
-                        <Link to="/product-details">
-                            <div>
-                                <CardIndex />
-                            </div>
-                        </Link>
-                        </Col>
-                        <Col className="gutter-row" xs={12} sm={12} md={12} lg={6}>
-                        <Link to="/product-details">
-                            <div>
-                                <CardIndex />
-                            </div>
-                        </Link>
-                        </Col>
-                        <Col className="gutter-row" xs={12} sm={12} md={12} lg={6}>
-                        <Link to="/product-details">
-                            <div>
-                                <CardIndex />
-                            </div>
-                        </Link>
-                        </Col>
-                        <Col className="gutter-row" xs={12} sm={12} md={12} lg={6}>
-                        <Link to="/product-details">
-                            <div>
-                                <CardIndex />
-                            </div>
-                        </Link>
-                        </Col>
-                        
-                    </Row>     
+                            {currentProducts.map((product) => (
+                            <Col key={product.id} className="gutter-row" xs={12} sm={12} md={12} lg={6}>
+                                <Link to={`/product-details`}> {/* /${product.id} */}
+                                <div>
+                                    <CartProduct product={product} /> 
+                                </div>
+                                </Link> 
+                            </Col>
+                            ))}
+                        </Row> 
                     </div>                       
                 <div className='choose-page'>
-                    <Pagination defaultCurrent={1} total={50} />
+                <Pagination
+                    current={currentPage}
+                    total={products.length}
+                    pageSize={productsPerPage}
+                    onChange={handlePageChange}
+                />
                 </div>
                 <div className='form'>
                     <h2>Nhập thông tin để được tư vấn miễn phí</h2>
-                    <div className='form-dien'>
-                        <Form
+                    <div className='form-dien' >
+                        <Form xs={12} sm={12} md={12} lg={6}
                             {...layout}
                             name="nest-messages"
                             onFinish={onFinish}
@@ -200,30 +171,32 @@ function NhanCauHon() {
                              }}
                             validateMessages={validateMessages}
                         >
-                            <Form.Item
-                                name={['user', 'name']}
+                            <Form.Item 
+                                name={[ 'Tên']}
                                 rules={[
                                     {
                                         required: true,
                                     },
                                 ]}
                             >
-                                <Input placeholder="Họ và tên" style={{width: 500}} />
+                                <Input placeholder="Họ và tên" style={{width: 500}}/>
                             </Form.Item>
                             <Form.Item
-                                name={['user', 'email']}
+                                name={[ 'Email']}
                                 rules={[
                                     {
                                         type: 'email',
+                                        required: true,
                                     },
                                 ]}
                             >
                                 <Input placeholder="Email" style={{width: 500}}/>
                             </Form.Item>
                             <Form.Item
-                                name={['user', 'phone']}
+                                name={[ 'Số điện thoại']}
                                 rules={[
                                     {
+                                        type: 'number',
                                         required: true,
                                     },
                                 ]}
