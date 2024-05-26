@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
 import { Card } from 'antd';
 const { Meta } = Card;
 
-const CardEx = () => (
+const CardIndex = () => (
     //Dùng để lấy dữ liệu từ api
 //   const [cardData, setCardData] = useState({ title: '', description: '', imgUrl: '' });
 
@@ -48,4 +47,4 @@ const CardEx = () => (
     </Card>
 );
 
-export default CardEx;
+export default CardIndex;

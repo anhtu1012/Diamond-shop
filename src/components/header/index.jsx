@@ -12,7 +12,8 @@ import { Link, useNavigate } from "react-router-dom";
 import LoginPage from "../../page/login";
 import "./index.scss";
 const onClick = ({ key }) => {
-  message.info(`Click on item ${key}`);
+  // message.info(`Click on item ${key}`);
+  navigate(`${key}`);
 };
 const settings = [
   {
@@ -46,7 +47,7 @@ const trangSucCuoiItems = [
         Nhẫn Cầu Hôn Kim Cương
       </div>
     ),
-    key: "trang-suc-cuoi-1",
+    key: "nhan-cau-hon",
   },
   {
     label: (
@@ -111,6 +112,10 @@ const trangSucKimCuongItems = [
 ];
 
 function Header() {
+  const onClick = ({ key }) => {
+    // message.info(`Click on item ${key}`);
+    navigate(`${key}`);
+  };
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const navigate = useNavigate(); // Hook useNavigate
