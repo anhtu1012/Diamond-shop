@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import './index.scss';
 
-const Foster = () => {
+const Footer = () => {
   const linkStyle = {
     color: 'white', 
     textDecoration: 'none'
@@ -52,4 +52,4 @@ const Foster = () => {
   );
 };
 
-export default Foster;
+export default Footer;
