@@ -3,7 +3,8 @@ function Container({ children }) {
   return (
     <div
       style={{
-        padding: "20px 100px",
+        padding: "20px 150px",
+        minHeight: "760px",
       }}
     >
       {children}

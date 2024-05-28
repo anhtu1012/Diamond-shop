@@ -1,7 +1,7 @@
 .carousel {
   img {
     width: 100%;
-    height: 90vh;
+    height: 70vh;
     object-fit: cover; //chống vỡ
     object-position: top; //hướng hình
   }
@@ -23,7 +23,7 @@
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  background: #fff;
+  background-color: transparent !important;
 
   height: calc(
     (100% - var(--swiper-space-between) * (var(--swiper-rows) - 1)) /
@@ -38,6 +38,9 @@
 .multi-item {
   width: 100%;
   height: 600px;
+  .multi-slide {
+    height: 250px !important;
+  }
   .product-image {
     background-color: rgba(240, 235, 235, 0.3) !important;
   }

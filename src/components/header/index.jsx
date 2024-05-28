@@ -1,5 +1,5 @@
 import { LoginOutlined, SearchOutlined } from "@ant-design/icons";
-import { Dropdown, Modal } from "antd";
+import { Badge, Dropdown, Modal } from "antd";
 import { useEffect, useState } from "react";
 import {
   FaFacebookSquare,
@@ -14,15 +14,11 @@ import "./index.scss";
 const settings = [
   {
     key: "1",
-    label: <Link to="/">1st menu item</Link>,
+    label: <Link to="/">Thông tin</Link>,
   },
   {
-    key: "2",
-    label: <Link to="/">2nd menu item</Link>,
-  },
-  {
-    key: "3",
-    label: <Link to="/">3rd menu item</Link>,
+    key: "/don-hang",
+    label: "Đơn Hàng",
   },
 ];
 const items = [
@@ -153,11 +149,13 @@ function Header() {
           <FaMapMarkerAlt />
         </div>
         <div className="header_logo">
-          <img
-            src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/Logo.png?alt=media&token=13f983ed-b3e1-4bbe-83b2-a47edf62c6a6"
-            width={250}
-            alt=""
-          />
+          <Link to="/">
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/Logo.png?alt=media&token=13f983ed-b3e1-4bbe-83b2-a47edf62c6a6"
+              width={250}
+              alt=""
+            />
+          </Link>
         </div>
         <div>
           {!user ? (
@@ -179,7 +177,12 @@ function Header() {
                   <input type="text" placeholder="Search..." />
                 )}
               </div>
-              <FaShoppingCart onClick={() => navigate("/cart")} />
+              <Badge count={5} size="small">
+                <FaShoppingCart
+                  style={{ fontSize: "25px", color: "#828282" }}
+                  onClick={() => navigate("/cart")}
+                />
+              </Badge>
               <Dropdown
                 menu={{
                   items: settings,

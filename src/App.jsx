@@ -24,6 +24,8 @@ import LoginPage from "./page/login";
 import NhanCauHon from "./page/Custommer/NhanCauHon";
 import ProductDetails from "./page/Custommer/ProductDetails";
 import Payment from "./page/Custommer/Payment";
+import OrderCustomer from "./page/Custommer/Order";
+import DetailOrder from "./page/Custommer/DetailOrder";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +51,14 @@ const router = createBrowserRouter([
       {
         path: "/product-payment",
         element: <Payment />,
+      },
+      {
+        path: "/don-hang",
+        element: <OrderCustomer />,
+      },
+      {
+        path: "/chi-tiet-don-hang",
+        element: <DetailOrder />,
       },
     ],
   },
