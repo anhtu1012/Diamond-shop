@@ -24,7 +24,7 @@ const items = [
   },
   {
     key: "sub3",
-    label: "Product",
+    label: "Sản Phẩm",
     icon: <SettingOutlined className="side-icon" />,
     children: [
       { key: "san-pham/xem-tat-ca-san-pham", label: "Xem Sản Phẩm" },
@@ -33,6 +33,15 @@ const items = [
   },
   {
     key: "sub4",
+    label: "Kim Cương",
+    icon: <SettingOutlined className="side-icon" />,
+    children: [
+      { key: "san-pham/xem-tat-ca-kim-cuong", label: "Xem Kim Cương" },
+      { key: "san-pham/tao-kim-cuong", label: "Nhập Kim Cương" },
+    ],
+  },
+  {
+    key: "sub5",
     label: "Tài Khoản",
     icon: <SettingOutlined className="side-icon" />,
     children: [
@@ -41,7 +50,7 @@ const items = [
     ],
   },
   {
-    key: "sub5",
+    key: "sub6",
     label: "Bộ sưu tập",
     icon: <SettingOutlined className="side-icon" />,
     children: [
