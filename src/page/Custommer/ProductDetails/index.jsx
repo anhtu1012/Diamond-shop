@@ -8,11 +8,14 @@ import {
   theme,
   Select,
   Space,
+
   Rate,
+
 } from "antd";
 import Container from "../../../components/container/Container";
 import { Collapse } from "antd";
 import "./index.scss";
+
 import { Link } from "react-router-dom";
 import CommitmentQuality from "../../../components/DamBaoChatLuong";
 import { TbTruckDelivery } from "react-icons/tb";
@@ -27,7 +30,9 @@ const ProductDetails = () => {
   } = theme.useToken();
 
   const [mainImage, setMainImage] = useState(
+
     "https://jemmia.vn/wp-content/uploads/2024/03/1_cam_03-copy-1-1.jpg",
+
   );
   const [setSelectedSize] = useState(null);
   const thumbnails = [
@@ -52,6 +57,7 @@ const ProductDetails = () => {
     setSelectedSize(value);
   };
 
+
   const text1 = `  Trang Sức Kim Cương Tại Diamond
    - Trang Sức Đa Dạng Mẫu Mã, Thiết Kế Theo Cá Nhân Hoá.
    - Trang Thiết Bị Công Nghệ Kiểm Định Hiện Đại Nhất.
@@ -73,6 +79,7 @@ Sản phẩm Diamond được đảm bảo tính pháp lý qua 03 loại chứng
    - Diamond có thiết kế sản phẩm theo yêu cầu không?
 Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế trang sức độc bản. Chúng tôi sẵn sàng lắng nghe ý tưởng, phác thảo, hoàn thiện và gia công theo yêu cầu riêng của bạn.
   `;
+
 
   return (
     <div>
@@ -105,7 +112,9 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                     preview={{
                       onChange: (current, prev) =>
                         console.log(
+
                           `current index: ${current}, prev index: ${prev}`,
+
                         ),
                     }}
                   >
@@ -133,6 +142,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
               </Col>
               <Col span={12} xs={24} sm={24} md={24} lg={12}>
                 <div className="description-product">
+
                   <h1>NHẪN KIM CƯƠNG 18K</h1>
                   <Rate disabled defaultValue={2} />;
                   <h5 style={{ marginTop: "10px", fontWeight: "300" }}>
@@ -151,6 +161,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                       <h4>Miễn phí vận chuyển</h4>
                     </div>
                   </div>
+
                   <div className="size">
                     <Space>
                       <h4>Size:</h4>
@@ -168,16 +179,19 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                   </div>
                   <div className="huong-dan">
                     <h5>
+
                       <a
                         href="/huong-dan-do-ni"
                         style={{ color: "red", marginTop: "10px" }}
                       >
                         Hướng dẫn chọn size (Đo ni)
                       </a>
+
                     </h5>
                   </div>
                   <div className="quantity">
                     <h4>Số lượng: </h4>
+
                     <input
                       className="count"
                       type="text"
@@ -200,6 +214,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                     <Link to="/">
                       <button className="custom_button2">Thêm kim cương</button>
                     </Link>
+
                   </div>
                 </div>
               </Col>
@@ -711,14 +726,18 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
 
               <Col span={12} xs={24} sm={24} md={24} lg={12}>
                 <div className="elementor-column">
+
                   <CommitmentQuality />
+
                 </div>
               </Col>
             </Row>
           </div>
           <div className="product-relate-container">
             <h2>Các sản phẩm liên quan</h2>
+
             <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
+
           </div>
         </div>
       </Container>
