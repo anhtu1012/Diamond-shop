@@ -60,7 +60,7 @@ export default function Relate({
         {products
           .filter((product) => product.category_id === category)
           .map((product) => (
-            <SwiperSlide key={product.product_id}>
+            <SwiperSlide key={product.product_id} className="multi-slide">
               <CartProduct product={product} />
             </SwiperSlide>
           ))}
