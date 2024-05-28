@@ -22,57 +22,58 @@ const Footer = () => {
           <h2>VỀ CHÚNG TÔI</h2>
           <br />
           <div className="social-icons">
-
-            <Link to="/1" rel="nofollow" target="_blank" style={linkStyle}>
+            <Link to="/1" rel="nofollow" style={linkStyle}>
               Vì sao chọn Diamond
             </Link>
           </div>
           <div className="social-icons">
-            <Link to="/1" rel="nofollow" target="_blank" style={linkStyle}>
+            <Link to="/1" rel="nofollow" style={linkStyle}>
               Chính Sách Bảo Mật
             </Link>
           </div>
           <div className="social-icons">
-            <Link to="/1" rel="nofollow" target="_blank" style={linkStyle}>
+            <Link to="/1" rel="nofollow" style={linkStyle}>
               Chính Sách Thu Mua, Thu Đổi và Bảo Hành
-
+            </Link>
+          </div>
+          <div className="social-icons">
+            <Link to="/huong-dan-do-ni" rel="nofollow" style={linkStyle}>
+              Hướng dẫn đo ni
             </Link>
           </div>
         </div>
         <div className="footer-section">
           <h2>LIÊN HỆ DIAMOND</h2>
           <br />
-          <p>
-            Hotline
-            
-            <br />
-            CN HCM:{" "}
-            <a href="tel:0916306945" rel="nofollow" style={linkStyle}>
-              091 630 6945
-            </a>{" "}
-            (phím 1)
-            <br />
-            GÓP Ý:{" "}
-            <a href="tel:0123456890" rel="nofollow" style={linkStyle}>
-              012 345 6780
-            </a>{" "}
-            (phím 2)
-          </p>
-          <br />
-          <p>
-            Hệ Thống Showrooms
-            <br />
-            CN HCM:{" "}
-            <a
-              href="https://www.google.com/maps/place/VNUHCM+Student+Cultural+House/@10.8751238,106.7981485,17z/data=!3m1!4b1!4m6!3m5!1s0x3174d8a6b19d6763:0x143c54525028b2e!8m2!3d10.8751238!4d106.8007234!16s%2Fg%2F11hd1pf9gj?entry=ttu"
-              rel="nofollow"
-              target="_blank"
-              style={linkStyle}
-            >
-              Nhà Văn Hóa Sinh Viên
-            </a>
-            <br />
-          </p>
+          <div className="hotline">
+            <p>Hotline</p>
+            <span>
+              CN HCM:{" "}
+              <a href="tel:0916306945" rel="nofollow" style={linkStyle}>
+                091 630 6945
+              </a>{" "}
+              (phím 1)
+            </span>
+            <span>
+              GÓP Ý:{" "}
+              <a href="tel:0123456890" rel="nofollow" style={linkStyle}>
+                012 345 6780
+              </a>{" "}
+              (phím 2)
+            </span>
+            <p>Hệ Thống Showrooms</p>
+            <span>
+              CN HCM:{" "}
+              <a
+                href="https://www.google.com/maps/place/VNUHCM+Student+Cultural+House/@10.8751238,106.7981485,17z/data=!3m1!4b1!4m6!3m5!1s0x3174d8a6b19d6763:0x143c54525028b2e!8m2!3d10.8751238!4d106.8007234!16s%2Fg%2F11hd1pf9gj?entry=ttu"
+                rel="nofollow"
+                target="_blank"
+                style={linkStyle}
+              >
+                Nhà Văn Hóa Sinh Viên
+              </a>
+            </span>
+          </div>
         </div>
         <div className="footer-section">
           <h2>CHỨNG NHẬN</h2>

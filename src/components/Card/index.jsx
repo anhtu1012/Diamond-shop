@@ -3,9 +3,6 @@ import "./index.scss";
 const CardIndex = () => (
   <Card
     hoverable
-    style={{
-      width: 250,
-    }}
     className="cart-product"
     cover={
       <div className="image-container">
