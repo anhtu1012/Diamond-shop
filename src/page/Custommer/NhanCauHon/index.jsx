@@ -44,7 +44,7 @@ function NhanCauHon() {
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(
     indexOfFirstProduct,
-    indexOfLastProduct
+    indexOfLastProduct,
   );
 
   // Function to handle page change
@@ -64,13 +64,13 @@ function NhanCauHon() {
 
   return (
     <div>
+      <div className="baner">
+        <img
+          src="https://jemmia.vn/wp-content/uploads/elementor/thumbs/nhan-kim-cuong-tu-nhien-dep-jemmia.vn_-qi5wbxg1gu2rwsamfgbpjujqam2prdstgw704rkm0g.jpg"
+          style={{ width: "100%", height: "auto" }}
+        />
+      </div>
       <Container>
-        <div className="baner">
-          <img
-            src="https://jemmia.vn/wp-content/uploads/elementor/thumbs/nhan-kim-cuong-tu-nhien-dep-jemmia.vn_-qi5wbxg1gu2rwsamfgbpjujqam2prdstgw704rkm0g.jpg"
-            style={{ width: "100%", height: "auto" }}
-          />
-        </div>
         <div className="category-product">
           <Content style={{ padding: "0 0px" }}>
             <Breadcrumb style={{ margin: "16px 0" }}>
@@ -159,8 +159,10 @@ function NhanCauHon() {
                   <Link to={`/product-details`}>
                     {" "}
                     {/* /${product.id} */}
-                    <div>
-                      <CardIndex product={product} />
+                    <div
+                      style={{ padding: "20px 0px", width: "250px !important" }}
+                    >
+                      <CardIndex style={{  width: "250px !important" }} product={product} />
                     </div>
                   </Link>
                 </Col>

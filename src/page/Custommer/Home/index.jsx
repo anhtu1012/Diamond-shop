@@ -153,7 +153,7 @@ function HomePage() {
         <Col span={6}>
           <div className="image-banner">
             <img
-              src="https://jemmia.vn/wp-content/uploads/2023/05/mat-day-chuyen-kim-cuong-tu-nhien-jemmia.vn_.jpg"
+              src="https://jemmia.vn/wp-content/uploads/2023/05/vong-tay-kim-cuong-tu-nhien-jemmia.vn_.jpg"
               alt=""
             />
             <div className="category">Vòng Tay Kim Cương</div>
@@ -162,7 +162,7 @@ function HomePage() {
         <Col span={6}>
           <div className="image-banner">
             <img
-              src="https://jemmia.vn/wp-content/uploads/2023/05/bong-tai-kim-cuong-tu-nhien-jemmia.vn_.jpg"
+              src="https://jemmia.vn/wp-content/uploads/2023/05/mat-day-chuyen-kim-cuong-tu-nhien-jemmia.vn_.jpg"
               alt=""
             />
             <div className="category">Mặt Dây Chuyền Kim Cương</div>
@@ -171,7 +171,7 @@ function HomePage() {
         <Col span={6}>
           <div className="image-banner">
             <img
-              src="https://jemmia.vn/wp-content/uploads/2023/05/nhan-kim-cuong-tu-nhien-jemmia.vn_.jpg"
+              src="https://jemmia.vn/wp-content/uploads/2023/05/bong-tai-kim-cuong-tu-nhien-jemmia.vn_.jpg"
               alt=""
             />
             <div className="category">Bông Tai Kim Cương</div>

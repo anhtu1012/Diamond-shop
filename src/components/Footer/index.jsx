@@ -21,7 +21,7 @@ const Footer = () => {
         <div className="footer-section" >
           <h2>VỀ CHÚNG TÔI</h2><br/>
           <div className="social-icons">
-            <Link to="/1" rel="nofollow" target="_blank" style={linkStyle}>
+            <Link to="/1" rel="nofollow" style={linkStyle}>
                Vì sao chọn Diamond
             </Link>
           </div>
