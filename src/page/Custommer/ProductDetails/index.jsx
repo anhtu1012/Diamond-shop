@@ -8,27 +8,18 @@ import {
   theme,
   Select,
   Space,
-  ConfigProvider,
-  Button,
+
+  Rate,
+
 } from "antd";
 import Container from "../../../components/container/Container";
 import { Collapse } from "antd";
 import "./index.scss";
-import { TinyColor } from "@ctrl/tinycolor";
-import {
-  CheckCircleOutlined,
-  SafetyCertificateOutlined,
-} from "@ant-design/icons";
+
 import { Link } from "react-router-dom";
-import CardIndex from "../../../components/Card";
-
-const colors1 = ["#6253E1", "#04BEFE"];
-const colors3 = ["#000000", "#013A40"];
-
-const getHoverColors = (colors) =>
-  colors.map((color) => new TinyColor(color).lighten(5).toString());
-const getActiveColors = (colors) =>
-  colors.map((color) => new TinyColor(color).darken(5).toString());
+import CommitmentQuality from "../../../components/DamBaoChatLuong";
+import { TbTruckDelivery } from "react-icons/tb";
+import Relate from "../../../components/carousel/related";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -39,7 +30,9 @@ const ProductDetails = () => {
   } = theme.useToken();
 
   const [mainImage, setMainImage] = useState(
-    "https://jemmia.vn/wp-content/uploads/2024/03/1_cam_03-copy-1-1.jpg"
+
+    "https://jemmia.vn/wp-content/uploads/2024/03/1_cam_03-copy-1-1.jpg",
+
   );
   const [setSelectedSize] = useState(null);
   const thumbnails = [
@@ -64,17 +57,7 @@ const ProductDetails = () => {
     setSelectedSize(value);
   };
 
-  const [count, setCount] = useState(1);
 
-  const increment = () => {
-    setCount((prevCount) => prevCount + 1);
-  };
-
-  const decrement = () => {
-    if (count > 1) {
-      setCount((prevCount) => prevCount - 1);
-    }
-  };
   const text1 = `  Trang Sức Kim Cương Tại Diamond
    - Trang Sức Đa Dạng Mẫu Mã, Thiết Kế Theo Cá Nhân Hoá.
    - Trang Thiết Bị Công Nghệ Kiểm Định Hiện Đại Nhất.
@@ -96,12 +79,7 @@ Sản phẩm Diamond được đảm bảo tính pháp lý qua 03 loại chứng
    - Diamond có thiết kế sản phẩm theo yêu cầu không?
 Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế trang sức độc bản. Chúng tôi sẵn sàng lắng nghe ý tưởng, phác thảo, hoàn thiện và gia công theo yêu cầu riêng của bạn.
   `;
-  const items = [
-    "Tất cả trang sức hoàn toàn chuẩn xác về hàm lượng và trọng lượng vàng, được kiểm định chặt chẽ bằng máy quang phổ.",
-    "100% Trang sức kim cương đều có chứng nhận đạt tiêu chuẩn GIA.",
-    "Toàn bộ sản phẩm trang sức tại Jemmia có đầy đủ hóa đơn, chứng từ chứng minh nguồn gốc xuất xứ và đầy đủ thông tin về hàm lượng, trọng lượng vàng.",
-    "Toàn bộ sản phẩm trang sức tại Jemmia có đầy đủ hóa đơn, chứng từ chứng minh nguồn gốc xuất xứ và đầy đủ thông tin về hàm lượng, trọng lượng vàng.",
-  ];
+
 
   return (
     <div>
@@ -134,7 +112,9 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                     preview={{
                       onChange: (current, prev) =>
                         console.log(
-                          `current index: ${current}, prev index: ${prev}`
+
+                          `current index: ${current}, prev index: ${prev}`,
+
                         ),
                     }}
                   >
@@ -162,18 +142,32 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
               </Col>
               <Col span={12} xs={24} sm={24} md={24} lg={12}>
                 <div className="description-product">
-                  <h1>Nhẫn kim cương 18k</h1>
-                  <h3>MS012345</h3>
-                  <h2 style={{ color: "red" }}>123,123,123đ</h2>
+
+                  <h1>NHẪN KIM CƯƠNG 18K</h1>
+                  <Rate disabled defaultValue={2} />;
+                  <h5 style={{ marginTop: "10px", fontWeight: "300" }}>
+                    MS012345
+                  </h5>
+                  <h2>123,123,123đ</h2>
                   <h4>
                     <a href="/">Chính sách hoàn trả</a>
                   </h4>
+                  <div className="delivery-icon">
+                    <h4>Vận chuyển:</h4>
+                    <div className="icon-delivery">
+                      <TbTruckDelivery />
+                    </div>
+                    <div className="giao-hang">
+                      <h4>Miễn phí vận chuyển</h4>
+                    </div>
+                  </div>
+
                   <div className="size">
                     <Space>
                       <h4>Size:</h4>
                       <Select
                         placeholder="Size"
-                        style={{ width: 70 }}
+                        style={{ width: 70, height: "20px", marginTop: "10px" }}
                         onChange={handleSizeChange}
                       >
                         <Option value="size1">10</Option>
@@ -185,76 +179,42 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                   </div>
                   <div className="huong-dan">
                     <h5>
-                      <a href="/">Hướng dẫn chọn size (Đo ni)</a>
+
+                      <a
+                        href="/huong-dan-do-ni"
+                        style={{ color: "red", marginTop: "10px" }}
+                      >
+                        Hướng dẫn chọn size (Đo ni)
+                      </a>
+
                     </h5>
                   </div>
                   <div className="quantity">
                     <h4>Số lượng: </h4>
-                    <button
-                      onClick={decrement}
-                      disabled={count === 1}
-                      className="button"
-                    >
-                      -
-                    </button>
+
                     <input
                       className="count"
                       type="text"
-                      value={count}
+                      value={"1"}
                       readOnly
-                      style={{ width: "30px", textAlign: "center" }}
+                      style={{ width: "40px", textAlign: "center" }}
                     />
-                    <button onClick={increment} className="button">
-                      +
-                    </button>
                   </div>
-                  <div className="add">
-                    <Space>
-                      <ConfigProvider
-                        theme={{
-                          components: {
-                            Button: {
-                              colorPrimary: `linear-gradient(116deg,  ${colors3.join(
-                                ", "
-                              )})`,
-                              colorPrimaryHover: `linear-gradient(116deg, ${getHoverColors(
-                                colors3
-                              ).join(", ")})`,
-                              colorPrimaryActive: `linear-gradient(116deg, ${getActiveColors(
-                                colors3
-                              ).join(", ")})`,
-                              lineWidth: 0,
-                            },
-                          },
-                        }}
-                      >
-                        <Button type="primary" size="large">
-                          Thêm vào giỏ hàng
-                        </Button>
-                      </ConfigProvider>
-                      <ConfigProvider
-                        theme={{
-                          components: {
-                            Button: {
-                              colorPrimary: `linear-gradient(135deg, ${colors1.join(
-                                ", "
-                              )})`,
-                              colorPrimaryHover: `linear-gradient(135deg, ${getHoverColors(
-                                colors1
-                              ).join(", ")})`,
-                              colorPrimaryActive: `linear-gradient(135deg, ${getActiveColors(
-                                colors1
-                              ).join(", ")})`,
-                              lineWidth: 0,
-                            },
-                          },
-                        }}
-                      >
-                        <Button type="primary" size="large">
-                          Liên hệ tư vấn
-                        </Button>
-                      </ConfigProvider>
-                    </Space>
+                  <div className="focus">
+                    <h4>
+                      * Giá trên là giá vỏ trang sức chưa bao gồm viên chủ. Giá
+                      sản phẩm thay đổi tùy theo trọng lượng thực tế của sản
+                      phẩm. Vui lòng gọi 01234567890 để được hỗ trợ.{" "}
+                    </h4>
+                  </div>
+                  <div className="custom">
+                    <button className="custom_button1">
+                      Thêm vào giỏ hàng
+                    </button>
+                    <Link to="/">
+                      <button className="custom_button2">Thêm kim cương</button>
+                    </Link>
+
                   </div>
                 </div>
               </Col>
@@ -766,80 +726,18 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
 
               <Col span={12} xs={24} sm={24} md={24} lg={12}>
                 <div className="elementor-column">
-                  <div className="elementor-widget-wrap">
-                    <div className="elementor-element elementor-icon-list">
-                      <div className="elementor-widget-container">
-                        <ul className="elementor-icon-list-items">
-                          <li className="elementor-icon-list-item">
-                            <span className="elementor-icon-list-icon">
-                              <i
-                                aria-hidden="true"
-                                className="far fa-handshake"
-                              ></i>
-                            </span>
-                            <span className="elementor-icon-list-text">
-                              <SafetyCertificateOutlined
-                                style={{ color: "red" }}
-                              />{" "}
-                              CAM KẾT CHẤT LƯỢNG
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div className="elementor-element elementor-text-editor">
-                      <div className="elementor-widget-container">
-                        {items.map((item, index) => (
-                          <div className="row" key={index}>
-                            <div className="column1">
-                              <i
-                                className="far fa-check-circle"
-                                style={{ color: "red" }}
-                                aria-hidden="true"
-                              ></i>
-                            </div>
-                            <div className="column">
-                              <span style={{ fontSize: "14px" }}>
-                                <CheckCircleOutlined style={{ color: "red" }} />{" "}
-                                {item}
-                              </span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+
+                  <CommitmentQuality />
+
                 </div>
               </Col>
             </Row>
           </div>
           <div className="product-relate-container">
             <h2>Các sản phẩm liên quan</h2>
-            <Row
-              gutter={{
-                xs: 8,
-                sm: 16,
-                md: 24,
-                lg: 32,
-              }}
-            >
-              {[1, 2, 3, 4].map((_, index) => (
-                <Col
-                  className="gutter-row"
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  lg={6}
-                  key={index}
-                >
-                  <Link to="/product-details">
-                    <div>
-                      <CardIndex />
-                    </div>
-                  </Link>
-                </Col>
-              ))}
-            </Row>
+
+            <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
+
           </div>
         </div>
       </Container>

@@ -24,6 +24,7 @@ import LoginPage from "./page/login";
 import NhanCauHon from "./page/Custommer/NhanCauHon";
 import ProductDetails from "./page/Custommer/ProductDetails";
 import Payment from "./page/Custommer/Payment";
+import HuongDan from "./page/Custommer/HuongDanDoNi";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/product-payment",
         element: <Payment />,
+      },
+      {
+        path: "/huong-dan-do-ni",
+        element: <HuongDan/>,
       },
     ],
   },

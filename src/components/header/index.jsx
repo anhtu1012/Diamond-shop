@@ -63,6 +63,7 @@ const trangSucCuoiItems = [
   },
 ];
 
+
 const trangSucKimCuongItems = [
   // Đây là các mục sẽ xuất hiện dưới dropdown "Trang sức cưới"
   {
@@ -106,6 +107,7 @@ const trangSucKimCuongItems = [
     key: "6",
   },
 ];
+
 
 function Header() {
   const onClick = ({ key }) => {
@@ -230,7 +232,7 @@ function Header() {
             <Link to="/">Kim cương viên</Link>
           </li>
           <li>
-            <Link to="/">Chuyên gia</Link>
+            <Link to="/huong-dan-do-ni">Hướng dẫn</Link>
           </li>
           <li>
             <Link to="/">Tùy chỉnh</Link>
