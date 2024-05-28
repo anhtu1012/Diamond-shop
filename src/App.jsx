@@ -29,7 +29,8 @@ import OrderCustomer from "./page/Custommer/Order";
 import DetailOrder from "./page/Custommer/DetailOrder";
 
 import HuongDan from "./page/Custommer/HuongDanDoNi";
-
+import ViewDiamond from "./page/Admin/Diamond/ViewDiamond";
+import NewDiamond from "./page/Admin/Diamond/NewDiamond";
 
 const router = createBrowserRouter([
   {
@@ -57,7 +58,6 @@ const router = createBrowserRouter([
         element: <Payment />,
       },
       {
-
         path: "/don-hang",
         element: <OrderCustomer />,
       },
@@ -65,10 +65,9 @@ const router = createBrowserRouter([
         path: "/chi-tiet-don-hang",
         element: <DetailOrder />,
       },
-  {
+      {
         path: "/huong-dan-do-ni",
-        element: <HuongDan/>,
-
+        element: <HuongDan />,
       },
     ],
   },
@@ -104,6 +103,14 @@ const router = createBrowserRouter([
       {
         path: "san-pham/tao-san-pham",
         element: <NewProduct />,
+      },
+      {
+        path: "san-pham/xem-tat-ca-kim-cuong",
+        element: <ViewDiamond />,
+      },
+      {
+        path: "san-pham/tao-kim-cuong",
+        element: <NewDiamond />,
       },
       {
         path: "tai-khoan/xem-tat-ca-tai-khoan",
