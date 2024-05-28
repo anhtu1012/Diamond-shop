@@ -139,7 +139,7 @@ function HuongDan() {
                 </h3>
                 <h3>
                   Hy vọng với qua bài viết hướng dẫn đo ni tay ở trên sẽ giúp
-                  bạn lựa chọn được chiếc nhẫn vừa vặn và ưng ý!
+                  bạn lựa chọn được chiếc nhẫn vừa vặn và ưng ý.
                 </h3>
               </div>
             </div>
