@@ -4,7 +4,9 @@ function Container({ children }) {
     <div
       style={{
         padding: "20px 150px",
+
         minHeight: "760px",
+
       }}
     >
       {children}

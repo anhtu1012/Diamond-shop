@@ -24,8 +24,12 @@ import LoginPage from "./page/login";
 import NhanCauHon from "./page/Custommer/NhanCauHon";
 import ProductDetails from "./page/Custommer/ProductDetails";
 import Payment from "./page/Custommer/Payment";
+
 import OrderCustomer from "./page/Custommer/Order";
 import DetailOrder from "./page/Custommer/DetailOrder";
+
+import HuongDan from "./page/Custommer/HuongDanDoNi";
+
 
 const router = createBrowserRouter([
   {
@@ -53,12 +57,18 @@ const router = createBrowserRouter([
         element: <Payment />,
       },
       {
+
         path: "/don-hang",
         element: <OrderCustomer />,
       },
       {
         path: "/chi-tiet-don-hang",
         element: <DetailOrder />,
+      },
+  {
+        path: "/huong-dan-do-ni",
+        element: <HuongDan/>,
+
       },
     ],
   },

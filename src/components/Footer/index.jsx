@@ -22,6 +22,7 @@ const Footer = () => {
           <h2>VỀ CHÚNG TÔI</h2>
           <br />
           <div className="social-icons">
+
             <Link to="/1" rel="nofollow" target="_blank" style={linkStyle}>
               Vì sao chọn Diamond
             </Link>
@@ -34,6 +35,7 @@ const Footer = () => {
           <div className="social-icons">
             <Link to="/1" rel="nofollow" target="_blank" style={linkStyle}>
               Chính Sách Thu Mua, Thu Đổi và Bảo Hành
+
             </Link>
           </div>
         </div>

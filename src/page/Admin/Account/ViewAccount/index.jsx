@@ -1,5 +1,11 @@
 function ViewAccount() {
-  return <div>ViewAccount</div>;
+  return (
+    <div className="view-all-account">
+      <div className="list-account">
+        
+      </div>
+    </div>
+  )   
 }
 
 export default ViewAccount;
