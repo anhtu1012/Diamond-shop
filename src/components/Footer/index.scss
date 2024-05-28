@@ -41,6 +41,17 @@
           margin-bottom: 10px;
           max-width: 100px; // Adjust the max width as needed
         }
+        .hotline{
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          p{
+            font-weight: bold;
+          }
+          span{
+            font-weight: 400;
+          }
+        }
       }
     }
     .footer-bottom {
