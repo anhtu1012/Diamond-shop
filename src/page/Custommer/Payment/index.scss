@@ -147,7 +147,7 @@
   .payment_order {
     border: 1px solid gray;
     border-radius: 5px;
-    padding: 40px;
+    padding: 10px 40px;
     .title {
       padding: 10px 0px;
       border-bottom: 1px dashed gray;
@@ -165,7 +165,7 @@
     }
     .pay_price_product {
       display: flex;
-      left: 590px;
+      left: 400px;
       color: #e4bd7b;
       font-weight: bold;
       font-size: 23px;

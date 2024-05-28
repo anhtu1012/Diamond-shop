@@ -42,7 +42,7 @@ function Payment() {
     <Container>
       <div className="payment-container">
         <div className="pay_button">
-          <Link to="/cart">
+          <Link to="/don-hang">
             <Button type="primary" className="pay_button_comback">
               <CaretLeftFilled className="pay_button_comback_icon" /> Quay lại
             </Button>
@@ -52,7 +52,7 @@ function Payment() {
         <Row className="pay-main">
           <Col span={14} className="payment_order">
             <div className="title">
-              <h2>Đơn Hàng</h2>
+              <h2>ĐƠN HÀNG</h2>
             </div>
             <div className="pay_product_infor">
               <div className="pay_product">
@@ -166,7 +166,11 @@ function Payment() {
             </div>
           </Col>
           <Col span={10} className="pay_main_col">
-            <Form form={form} onFinish={onFinish} style={{ padding: "30px" }}>
+            <Form
+              form={form}
+              onFinish={onFinish}
+              style={{ padding: "10px 30px" }}
+            >
               <div className="pay_form_title">
                 <Button shape="circle" style={{ border: "2px solid black" }}>
                   <p>1</p>

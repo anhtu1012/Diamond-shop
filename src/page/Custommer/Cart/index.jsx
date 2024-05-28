@@ -14,6 +14,25 @@ import { CaretLeftFilled, DeleteOutlined } from "@ant-design/icons";
 import Container from "../../../components/container/Container";
 import { useState } from "react";
 const { Option } = Select;
+const items = [
+  {
+    value: "1",
+    label: "1",
+  },
+  {
+    value: "2",
+    label: "2",
+  },
+  {
+    value: "3",
+    label: "3",
+  },
+  {
+    value: "4",
+    label: "4",
+    disabled: true,
+  },
+];
 
 function Cart() {
   // Vùng JS
@@ -21,7 +40,6 @@ function Cart() {
 
   const [email, setEmail] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleEmailChange = (e) => {
     const value = e.target.value;
@@ -53,13 +71,6 @@ function Cart() {
     );
   }
 
-  const handleSizeChange = (index, value) => {
-    setSelectedSizes((prevSizes) => ({
-      ...prevSizes,
-      [index]: value,
-    }));
-  };
-
   const renderProductItem = (
     index,
     name,
@@ -71,55 +82,41 @@ function Cart() {
     imageUrl
   ) => (
     <div className="cart_product_frame" key={index}>
-      <Row className="cart_product_item" align="middle">
-        <Col span={4} className="cart_product_image_container">
-          <img src={imageUrl} className="cart_product_image" />
-          {imgDM && (
-            <img
-              src={imgDM}
-              style={{ display: imgDM === null ? "none" : "block" }}
-              className="cart_product_imgdm"
-              alt={nameDM}
-            />
-          )}
-        </Col>
-        <Col span={14} className="cart_product_info">
-          <div className="infor">
-            <p
-              className="cart_product_name italic-thin"
-              style={{ fontSize: "30px", fontWeight: "bold" }}
-            >
-              {name}
-            </p>
-            <p className="cart_product_code" style={{ fontSize: "14px" }}>
-              {code}
-            </p>
-            <p
-              className="cart_product_name italic-thin"
-              style={{ fontSize: "30px", fontWeight: "bold" }}
-            >
-              {nameDM}
-            </p>
-            <p className="cart_product_code" style={{ fontSize: "14px" }}>
-              {codeDM}
-            </p>
-          </div>
-          <Select
-            placeholder="Size"
-            className="cart_product_size_select"
-            value={selectedSizes[index]}
-            onChange={(value) => handleSizeChange(index, value)}
-          >
-            {sizeOptions}
-          </Select>
-        </Col>
-        <Col span={3} className="cart_product_price">
-          <span className="price_value">{price}₫</span>
-        </Col>
-        <Col span={3} className="cart_product_action">
-          <Button type="default" className="delete_product_button">
-            <DeleteOutlined /> Xóa
-          </Button>
+      <Row className="cart_product_item">
+        <button className="detele">
+          <DeleteOutlined /> Xóa
+        </button>
+        <div className="cart_detail">
+          <Col span={6} className="img_cart">
+            <img src={imageUrl} width={130} />
+            {imgDM && (
+              <img
+                src={imgDM}
+                style={{ display: imgDM === null ? "none" : "block" }}
+                className="cart_product_imgdm"
+                alt={nameDM}
+              />
+            )}
+          </Col>
+          <Col span={18} className="infor">
+            <div className="infor_detail">
+              <p>{name}</p>
+              <span>{code}</span>
+              <p>{nameDM}</p>
+              <span>{codeDM}</span>
+              <Select
+                defaultValue="1"
+                style={{
+                  width: 50,
+                }}
+                options={items}
+              />
+            </div>
+          </Col>
+        </div>
+        <Col span={24} className="price">
+          {" "}
+          <span>{price}</span>
         </Col>
       </Row>
     </div>
@@ -184,7 +181,7 @@ function Cart() {
                   <Input
                     className="input"
                     placeholder="Name*"
-                    style={{ width: "400px", height: "47px" }}
+                    style={{ width: "350px", height: "40px" }}
                   />
                 </Form.Item>
 
@@ -201,7 +198,7 @@ function Cart() {
                   <Input
                     className="input"
                     placeholder="SĐT*"
-                    style={{ width: "400px", height: "47px" }}
+                    style={{ width: "350px", height: "40px" }}
                     type="tel"
                   />
                 </Form.Item>
@@ -221,7 +218,7 @@ function Cart() {
                     <Input
                       className="input"
                       placeholder="Email*"
-                      style={{ width: "400px", height: "47px" }}
+                      style={{ width: "350px", height: "40px" }}
                       onChange={handleEmailChange}
                     />
                   </AutoComplete>
@@ -236,7 +233,7 @@ function Cart() {
                   <DatePicker
                     className="input"
                     placeholder="Ngày sinh*"
-                    style={{ width: "400px", height: "47px" }}
+                    style={{ width: "350px", height: "40px" }}
                     format="DD/MM/YYYY"
                   />
                 </Form.Item>
@@ -258,7 +255,7 @@ function Cart() {
                   <Select
                     className="input"
                     placeholder="Tỉnh/TP*"
-                    style={{ width: "400px", height: "47px" }}
+                    style={{ width: "350px", height: "40px" }}
                   >
                     <Option value="hanoi">Hà Nội</Option>
                     <Option value="tphcm">TP.HCM</Option>
@@ -271,7 +268,7 @@ function Cart() {
                   <Select
                     className="input"
                     placeholder="Quận/Huyện*"
-                    style={{ width: "400px", height: "47px" }}
+                    style={{ width: "350px", height: "40px" }}
                   >
                     <Option value="namtulien">Nam Từ Liêm</Option>
                     <Option value="quan1">Quận 1</Option>
@@ -284,7 +281,7 @@ function Cart() {
                   <Select
                     className="input"
                     placeholder="Phường/Xã*"
-                    style={{ width: "400px", height: "47px" }}
+                    style={{ width: "350px", height: "40px" }}
                   >
                     <Option value="xhn">P/X ở HN</Option>
                     <Option value="xhcm">Xã hcm</Option>
@@ -305,7 +302,7 @@ function Cart() {
                   <Input
                     className="input"
                     placeholder="Địa chỉ cụ thể*"
-                    style={{ width: "400px", height: "47px" }}
+                    style={{ width: "350px", height: "40px" }}
                   />
                 </Form.Item>
 
@@ -318,7 +315,7 @@ function Cart() {
                   <Input
                     className="input"
                     placeholder="Ghi chú*"
-                    style={{ width: "400px", height: "47px" }}
+                    style={{ width: "350px", height: "40px" }}
                   />
                 </Form.Item>
               </Form>
@@ -343,7 +340,7 @@ function Cart() {
                 <Input
                   className="input"
                   placeholder="Nhập điểm *"
-                  style={{ width: "400px", height: "47px" }}
+                  style={{ width: "350px", height: "40px" }}
                 />
               </Form.Item>
 
@@ -373,7 +370,10 @@ function Cart() {
           </Col>
 
           <Col span={15}>
-            <Form style={{ padding: "15px" }} className="cart_form_content">
+            <div
+              style={{ paddingTop: "0px 20px" }}
+              className="cart_form_content"
+            >
               <div className="cart_form_title_h2">
                 <h2 style={{ fontSize: "24px", margin: "5px 10px 5px 10px" }}>
                   Thông tin giỏ hàng
@@ -393,7 +393,7 @@ function Cart() {
                   )
                 )}
               </div>
-            </Form>
+            </div>
 
             <div className="cart_summary">
               <div className="cart_summary_item">
