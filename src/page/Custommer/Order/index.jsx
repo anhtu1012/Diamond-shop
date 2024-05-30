@@ -53,6 +53,25 @@ const OrderCustomer = () => {
               <h3> 11.753.000đ</h3>
             </Col>
           </Row>
+          <Row className="card_row">
+            <Col span={4}>
+              <Image
+                width={150}
+                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+              />
+            </Col>
+            <Col span={11} className="info">
+              <h2>NHẪN KIM CƯƠNG NỮ 18K</h2>
+              <p>Mã:GD0000Y011997</p>
+              <p>Size dây chuyền: 45</p>
+            </Col>
+            <Col span={5}>
+              <span>x1</span>
+            </Col>
+            <Col span={4}>
+              <h3> 11.753.000đ</h3>
+            </Col>
+          </Row>
           <Row className="card_row_bottom">
             <Col span={18} className="text-left">
               <span>2 Sản Phẩm</span>
@@ -106,7 +125,9 @@ const OrderCustomer = () => {
           </Row>
         </Card>
         <div>
-          <h2 style={{ textAlign: "center", padding:"10px",fontSize: "25px" }}>
+          <h2
+            style={{ textAlign: "center", padding: "10px", fontSize: "25px" }}
+          >
             Có thể bạn quan tâm
           </h2>
           <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
