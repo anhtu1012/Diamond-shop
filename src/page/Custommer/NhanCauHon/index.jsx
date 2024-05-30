@@ -66,7 +66,7 @@ function NhanCauHon() {
     <div>
       <div className="baner">
         <img
-          src="https://jemmia.vn/wp-content/uploads/elementor/thumbs/nhan-kim-cuong-tu-nhien-dep-jemmia.vn_-qi5wbxg1gu2rwsamfgbpjujqam2prdstgw704rkm0g.jpg"
+          src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/nhan-cau-hon.jpg?alt=media&token=138db3a9-6be7-412e-81d7-bd34deedef32"
           style={{ width: "100%", height: "auto" }}
         />
       </div>
