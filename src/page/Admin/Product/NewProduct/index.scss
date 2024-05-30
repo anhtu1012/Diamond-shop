@@ -1,0 +1,122 @@
+.form_step1 {
+  padding: 10px 0px;
+  display: flex;
+  justify-content: center; // Căn giữa toàn bộ form
+  align-items: center; // Căn giữa theo chiều ngang
+  .upload_img {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    .ant-upload-list {
+      position: absolute;
+      top: -100px;
+      right: 0;
+      left: 120px;
+      bottom: 0;
+    }
+  }
+  .info_basic {
+    .input {
+      width: 80%;
+      height: 40px;
+      border: 1px solid rgb(128, 128, 128, 0.5);
+    }
+    .input_price {
+      input {
+        height: 40px;
+      }
+    }
+
+    label {
+      font-size: large;
+      font-weight: bold;
+    }
+    .category-select-container {
+      display: flex;
+      gap: 10px; // Điều chỉnh khoảng cách theo nhu cầu của bạn
+
+      .category-select {
+        // Thêm các kiểu khác nếu cần
+        width: 39%;
+        height: 40px;
+      }
+    }
+  }
+  .ant-upload.ant-upload-select {
+    width: 200px !important;
+    height: 200px !important;
+    span.ant-upload {
+      font-size: 30px;
+    }
+  }
+  .ant-upload-list-item.ant-upload-list-item-error {
+    width: 200px !important;
+    height: 200px !important;
+  }
+
+  .button_form {
+    padding: 10px;
+    text-align: right;
+    button {
+      font-size: 20px;
+      background: black;
+      color: white;
+      font-weight: bold;
+      padding: 5px;
+      border-radius: 8px;
+    }
+  }
+}
+.form_step2 {
+  padding: 10px 0px;
+  display: flex;
+  justify-content: center; // Căn giữa toàn bộ form
+  align-items: center; // Căn giữa theo chiều ngang
+  .info_detail1 {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    .input {
+      width: 100%;
+      height: 40px;
+      border: 1px solid rgb(128, 128, 128, 0.5);
+    }
+    label {
+      font-size: large;
+      font-weight: bold;
+    }
+  }
+  .info_detail2 {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    .input {
+      width: 100%;
+      height: 40px;
+      border: 1px solid rgb(128, 128, 128, 0.5);
+    }
+    label {
+      font-size: large;
+      font-weight: bold;
+    }
+  }
+}
+.button_form_2 {
+  padding: 10px;
+  text-align: right;
+  button {
+    font-size: 20px;
+    background: black;
+    height: 37px;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    padding-bottom: 35px;
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: #a68909 !important; // Màu vàng khi hover
+      cursor: pointer; // Thêm hiệu ứng con trỏ chuột khi hover
+    }
+  }
+}

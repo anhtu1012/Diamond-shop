@@ -31,9 +31,13 @@
     border: 1px solid #f0f0f0;
     margin-bottom: 16px;
     background-color: rgb(222, 217, 217, 0.2);
-    box-shadow: 2px 2px 2px 1px #888282;
+
+    box-shadow: 2px 2px 2px 2px rgb(136, 130, 130, 0.2);
     position: relative;
-    .logoo{
+    .card_row {
+      padding-top: 10px;
+    }
+    .logoo {
       position: absolute;
       top: 50px;
       background: red;
@@ -61,7 +65,7 @@
       }
       h3 {
         font-size: 25px;
-        color: red;
+        color: #e4bd7b;
       }
     }
   }
