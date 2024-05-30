@@ -1,6 +1,7 @@
 // src/components/Footer.jsx
 import { Link } from "react-router-dom";
 import "./index.scss";
+import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   const linkStyle = {
@@ -38,8 +39,14 @@ const Footer = () => {
           </div>
           <div className="social-icons">
             <Link to="/huong-dan-do-ni" rel="nofollow" style={linkStyle}>
-              Hướng dẫn đo ni
+              Hướng Dẫn Đo Ni
             </Link>
+          </div>
+          <div className="icon">
+            <FaTiktok className="icon-con"/>
+            <FaFacebook  className="icon-con"/>
+            <FaInstagram className="icon-con"/>
+            <FaYoutube className="icon-con"/>
           </div>
         </div>
         <div className="footer-section">
