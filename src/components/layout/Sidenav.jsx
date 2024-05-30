@@ -45,7 +45,7 @@ const items = [
     label: "Tài Khoản",
     icon: <SettingOutlined className="side-icon" />,
     children: [
-      { key: "tai-khoan/xem-tat-ca-tai-khoan", label: "Xem" },
+      { key: "tai-khoan/xem-tat-ca-tai-khoan", label: "Xem tất cả" },
       { key: "tai-khoan/tao-tai-khoan", label: "Tạo Tài Khoản" },
     ],
   },
