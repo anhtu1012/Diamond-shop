@@ -31,6 +31,12 @@ import DetailOrder from "./page/Custommer/DetailOrder";
 import HuongDan from "./page/Custommer/HuongDanDoNi";
 import ViewDiamond from "./page/Admin/Diamond/ViewDiamond";
 import NewDiamond from "./page/Admin/Diamond/NewDiamond";
+import NhanCuoi from "./page/Custommer/NhanCuoi";
+import BoTrangSucCuoi from "./page/Custommer/BoTrangSucCuoi";
+import AboutDiamond from "./page/Custommer/AboutDiamond";
+import ChinhSachBaoMat from "./page/Custommer/BaoMat";
+import ChinhSachDoiTra from "./page/Custommer/ChinhSachDoiTra";
+
 
 const router = createBrowserRouter([
   {
@@ -48,6 +54,14 @@ const router = createBrowserRouter([
       {
         path: "/nhan-cau-hon",
         element: <NhanCauHon />,
+      },
+      {
+        path: "/nhan-cuoi",
+        element: <NhanCuoi />,
+      },
+      {
+        path: "/bo-trang-suc-cuoi",
+        element: <BoTrangSucCuoi />,
       },
       {
         path: "/product-details",
@@ -68,6 +82,18 @@ const router = createBrowserRouter([
       {
         path: "/huong-dan-do-ni",
         element: <HuongDan />,
+      },
+      {
+        path: "/gioi-thieu-ve-diamond",
+        element: <AboutDiamond />,
+      },
+      {
+        path: "/chinh-sach-bao-mat",
+        element: <ChinhSachBaoMat />,
+      },
+      {
+        path: "/chinh-sach-doi-tra",
+        element: <ChinhSachDoiTra />,
       },
     ],
   },
@@ -128,6 +154,7 @@ const router = createBrowserRouter([
         path: "bo-suu-tap/tao-bo-suu-tap",
         element: <NewCollection />,
       },
+      
     ],
   },
   {

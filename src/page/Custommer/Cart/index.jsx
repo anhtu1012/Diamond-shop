@@ -13,6 +13,7 @@ import "./index.scss";
 import { CaretLeftFilled, DeleteOutlined } from "@ant-design/icons";
 import Container from "../../../components/container/Container";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 const { Option } = Select;
 const items = [
   {
@@ -150,8 +151,8 @@ function Cart() {
       <div>
         <div className="cart_button">
           <Button type="primary" className="cart_button_comback">
-            <CaretLeftFilled className="cart_button_comback_icon" /> Tiếp tục
-            mua sắm
+            <CaretLeftFilled className="cart_button_comback_icon" />{" "}
+            <Link to="/">Tiếp tục mua sắp</Link>
           </Button>
         </div>
         <Row className="cart-main">
@@ -180,7 +181,7 @@ function Cart() {
                 >
                   <Input
                     className="input"
-                    placeholder="Name*"
+                    placeholder="Họ và tên*"
                     style={{ width: "350px", height: "40px" }}
                   />
                 </Form.Item>
@@ -197,7 +198,7 @@ function Cart() {
                 >
                   <Input
                     className="input"
-                    placeholder="SĐT*"
+                    placeholder="Số điện thoại*"
                     style={{ width: "350px", height: "40px" }}
                     type="tel"
                   />
@@ -345,18 +346,13 @@ function Cart() {
               </Form.Item>
 
               <Form.Item name="agreement">
-                <Radio.Group>
-                  <Radio value="agree_promotions">
-                    Đồng ý nhận các thông tin và chương trình khuyến mãi của PNJ
-                    qua email, SMS, mạng xã hội…
-                  </Radio>
-                  <Radio value="agree_processing">
-                    Tôi đồng ý cho Diamond thu thập, xử lý dữ liệu cá nhân của
-                    tôi theo quy định tại Thông báo này và theo quy định của
-                    pháp luật.
-                  </Radio>
-                  <Radio value="disagree">Tôi không đồng ý</Radio>
-                </Radio.Group>
+                <span style={{ fontSize: "13px" }}>
+                  * Đồng ý nhận thông tin và chương trình khuyến mãi của Diamond
+                  qua email, SMS, mạng xã hội và thu thập, xử lý dữ liệu cá nhân
+                  của tôi theo quy định thông báo này và quy định pháp luật.
+                </span>
+                <br />
+                <Radio value="agree1">Tôi đồng ý</Radio>
               </Form.Item>
 
               <Button
@@ -364,7 +360,7 @@ function Cart() {
                 type="primary"
                 style={{ width: "310px", height: "48px" }}
               >
-                Xác nhận
+                <Link to="/don-hang">Xác nhận</Link>
               </Button>
             </Form>
           </Col>

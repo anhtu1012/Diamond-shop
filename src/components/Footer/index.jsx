@@ -22,17 +22,17 @@ const Footer = () => {
           <h2>VỀ CHÚNG TÔI</h2>
           <br />
           <div className="social-icons">
-            <Link to="/1" rel="nofollow" style={linkStyle}>
+            <Link to="/gioi-thieu-ve-diamond" rel="nofollow" style={linkStyle}>
               Vì sao chọn Diamond
             </Link>
           </div>
           <div className="social-icons">
-            <Link to="/1" rel="nofollow" style={linkStyle}>
+            <Link to="/chinh-sach-bao-mat" rel="nofollow" style={linkStyle}>
               Chính Sách Bảo Mật
             </Link>
           </div>
           <div className="social-icons">
-            <Link to="/1" rel="nofollow" style={linkStyle}>
+            <Link to="/chinh-sach-doi-tra" rel="nofollow" style={linkStyle}>
               Chính Sách Thu Mua, Thu Đổi và Bảo Hành
             </Link>
           </div>

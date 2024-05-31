@@ -28,7 +28,7 @@ const items = [
         Vì sao chọn Diamond
       </div>
     ),
-    key: "1",
+    key: "gioi-thieu-ve-diamond",
   },
 ];
 const trangSucCuoiItems = [
@@ -47,7 +47,7 @@ const trangSucCuoiItems = [
         Nhẫn Cưới Kim Cương
       </div>
     ),
-    key: "trang-suc-cuoi-2",
+    key: "nhan-cuoi",
   },
   {
     label: (
@@ -55,10 +55,9 @@ const trangSucCuoiItems = [
         Bộ Trang Sức Cưới Kim Cương
       </div>
     ),
-    key: "trang-suc-cuoi-3",
+    key: "bo-trang-suc-cuoi",
   },
 ];
-
 
 const trangSucKimCuongItems = [
   // Đây là các mục sẽ xuất hiện dưới dropdown "Trang sức cưới"
@@ -103,7 +102,6 @@ const trangSucKimCuongItems = [
     key: "6",
   },
 ];
-
 
 function Header() {
   const onClick = ({ key }) => {
