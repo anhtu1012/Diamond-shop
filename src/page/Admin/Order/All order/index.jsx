@@ -142,9 +142,9 @@ function AllOrder() {
       close,
     }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
-        {dataIndex === 'status' ? (
+        {dataIndex === "status" ? (
           <Select
-            style={{ width: 188, marginBottom: 8, display: 'block' }}
+            style={{ width: 188, marginBottom: 8, display: "block" }}
             placeholder={`Search ${dataIndex}`}
             value={selectedKeys[0]}
             onChange={(value) => {
@@ -154,7 +154,7 @@ function AllOrder() {
               setSearchedColumn(dataIndex);
             }}
           >
-            {dropdownOptions.map(option => (
+            {dropdownOptions.map((option) => (
               <Select.Option key={option} value={option}>
                 {option}
               </Select.Option>
@@ -169,7 +169,7 @@ function AllOrder() {
               setSelectedKeys(e.target.value ? [e.target.value] : [])
             }
             onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            style={{ marginBottom: 8, display: 'block' }}
+            style={{ marginBottom: 8, display: "block" }}
           />
         )}
         <Space>
@@ -213,13 +213,10 @@ function AllOrder() {
       </div>
     ),
     filterIcon: (filtered) => (
-      <SearchOutlined style={{ color: filtered ? '#1677ff' : undefined }} />
+      <SearchOutlined style={{ color: filtered ? "#1677ff" : undefined }} />
     ),
     onFilter: (value, record) =>
-      record[dataIndex]
-        .toString()
-        .toLowerCase()
-        .includes(value.toLowerCase()),
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
     onFilterDropdownOpenChange: (visible) => {
       if (visible) {
         setTimeout(() => searchInput.current?.select(), 100);
@@ -228,10 +225,10 @@ function AllOrder() {
     render: (text) =>
       searchedColumn === dataIndex ? (
         <Highlighter
-          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
           searchWords={[searchText]}
           autoEscape
-          textToHighlight={text ? text.toString() : ''}
+          textToHighlight={text ? text.toString() : ""}
         />
       ) : (
         text
@@ -243,8 +240,9 @@ function AllOrder() {
       title: "Mã đơn hàng",
       dataIndex: "idorder",
       key: "idorder",
-      width: "10%",
+      width: "15%",
       ...getColumnSearchProps("idorder"),
+      
     },
     {
       title: "ID Khách Hàng",
@@ -252,6 +250,7 @@ function AllOrder() {
       key: "idcus",
       width: "10%",
       ...getColumnSearchProps("idcus"),
+      
     },
     {
       title: "Email",
@@ -259,6 +258,7 @@ function AllOrder() {
       key: "email",
       width: "20%",
       ...getColumnSearchProps("email"),
+      
     },
     {
       title: "Ngày đặt hàng",
@@ -270,6 +270,7 @@ function AllOrder() {
         new Date(a.date.split("-").reverse().join("-")) -
         new Date(b.date.split("-").reverse().join("-")),
       sortDirections: ["descend", "ascend"],
+      
     },
     {
       title: "Số lượng sản phẩm",
@@ -277,24 +278,27 @@ function AllOrder() {
       key: "quantity",
       width: "10%",
       ...getColumnSearchProps("quantity"),
+      
     },
     {
       title: "Trạng thái",
       dataIndex: "status",
       key: "status",
       width: "15%",
-      ...getColumnSearchProps('status', [
-        'Chờ xác nhận',
-        'Chờ thanh toán',
-        'Chờ giao hàng',
-        'Đã giao',
-        'Đã hủy'
+      ...getColumnSearchProps("status", [
+        "Chờ xác nhận",
+        "Chờ thanh toán",
+        "Chờ giao hàng",
+        "Đã giao",
+        "Đã hủy",
       ]),
+      
     },
     {
       dataIndex: "infor",
       key: "infor",
       width: "15%",
+      
     },
   ];
 

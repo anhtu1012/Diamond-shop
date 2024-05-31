@@ -1,11 +1,11 @@
-
 import { SearchOutlined } from "@ant-design/icons";
-import {  Button, Input, Select, Space, Table  } from "antd";
+import { Button, Input, Select, Space, Table } from "antd";
 import { useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { Link } from "react-router-dom";
+import "./index.scss";
 
-const data = [
+const initialData = [
   {
     key: "1",
     id: "MS123",
@@ -16,6 +16,7 @@ const data = [
       />
     ),
     name: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
+    category: "Nhẫn cầu hôn kim cương",
     status: "Còn hàng",
     price: "488.800.000 ₫",
     infor: <Link to={"/"}>Xem chi tiết</Link>,
@@ -30,6 +31,7 @@ const data = [
       />
     ),
     name: "NHẪN KIM CƯƠNG NAM 18K",
+    category: "Nhẫn kim cương",
     status: "Hết hàng",
     price: "488.800.000 ₫",
     infor: <Link to={"/"}>Xem chi tiết</Link>,
@@ -44,6 +46,7 @@ const data = [
       />
     ),
     name: "BÔNG TAI KIM CƯƠNG 18K",
+    category: "Bông tai kim cương",
     status: "Còn hàng",
     price: "488.800.000 ₫",
     infor: <Link to={"/"}>Xem chi tiết</Link>,
@@ -58,6 +61,7 @@ const data = [
       />
     ),
     name: "VÒNG TAY KIM CƯƠNG 18K",
+    category: "Lắc/Vòng tay kim cương",
     status: "Hết hàng",
     price: "48.800.000 ₫",
     infor: <Link to={"/"}>Xem chi tiết</Link>,
@@ -72,6 +76,7 @@ const data = [
       />
     ),
     name: "MẶT DÂY CHUYỀN KIM CƯƠNG 18K",
+    category: "Mặt dây chuyền kim cương",
     status: "Còn hàng",
     price: "88.800.000 ₫",
     infor: <Link to={"/"}>Xem chi tiết</Link>,
@@ -86,6 +91,7 @@ const data = [
       />
     ),
     name: "NHẪN CẦU HÔN KIM CƯƠNG 18K WRA00159",
+    category: "Nhẫn cầu hôn kim cương",
     status: "Hết hàng",
     price: "88.800.000 ₫",
     infor: <Link to={"/"}>Xem chi tiết</Link>,
@@ -100,29 +106,15 @@ const data = [
       />
     ),
     name: "NHẪN CƯỚI KIM CƯƠNG 18K",
-    status: 'Còn hàng',
-    price: "68.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
-  },
-  {
-    key: "8",
-    id: "SET 0092",
-    image: (
-      <img
-        src="https://jemmia.vn/wp-content/uploads/2024/01/bo-trang-suc-kim-cuong-lotus-fashion-06.jpg"
-        style={{ width: "100px" }}
-      />
-    ),
-    name: "BỘ TRANG SỨC KIM CƯƠNG LOTUS FASHION 06",
-    status: 'Còn hàng',
+    category: "Nhẫn cưới kim cương",
+    status: "Còn hàng",
     price: "68.800.000 ₫",
     infor: <Link to={"/"}>Xem chi tiết</Link>,
   },
 ];
 
-
 function ViewProduct() {
-
+  const [data, setData] = useState(initialData); // Add state to manage data
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -137,6 +129,7 @@ function ViewProduct() {
     clearFilters();
     setSearchText("");
   };
+
   const getColumnSearchProps = (dataIndex, dropdownOptions) => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -146,9 +139,9 @@ function ViewProduct() {
       close,
     }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
-        {dataIndex === 'status' ? (
+        {dataIndex === "status" || dataIndex === "category" ? (
           <Select
-            style={{ width: 188, marginBottom: 8, display: 'block' }}
+            style={{ width: 188, marginBottom: 8, display: "block" }}
             placeholder={`Search ${dataIndex}`}
             value={selectedKeys[0]}
             onChange={(value) => {
@@ -158,7 +151,7 @@ function ViewProduct() {
               setSearchedColumn(dataIndex);
             }}
           >
-            {dropdownOptions.map(option => (
+            {dropdownOptions.map((option) => (
               <Select.Option key={option} value={option}>
                 {option}
               </Select.Option>
@@ -173,7 +166,7 @@ function ViewProduct() {
               setSelectedKeys(e.target.value ? [e.target.value] : [])
             }
             onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            style={{ marginBottom: 8, display: 'block' }}
+            style={{ marginBottom: 8, display: "block" }}
           />
         )}
         <Space>
@@ -217,13 +210,10 @@ function ViewProduct() {
       </div>
     ),
     filterIcon: (filtered) => (
-      <SearchOutlined style={{ color: filtered ? '#1677ff' : undefined }} />
+      <SearchOutlined style={{ color: filtered ? "black" : undefined }} />
     ),
     onFilter: (value, record) =>
-      record[dataIndex]
-        .toString()
-        .toLowerCase()
-        .includes(value.toLowerCase()),
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
     onFilterDropdownOpenChange: (visible) => {
       if (visible) {
         setTimeout(() => searchInput.current?.select(), 100);
@@ -232,22 +222,49 @@ function ViewProduct() {
     render: (text) =>
       searchedColumn === dataIndex ? (
         <Highlighter
-          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
           searchWords={[searchText]}
           autoEscape
-          textToHighlight={text ? text.toString() : ''}
+          textToHighlight={text ? text.toString() : ""}
         />
       ) : (
         text
       ),
   });
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const start = () => {
+    setLoading(true);
+    // Delete selected items
+    const newData = data.filter((item) => !selectedRowKeys.includes(item.key));
+    setData(newData); // Update the data state
+    setTimeout(() => {
+      setSelectedRowKeys([]);
+      setLoading(false);
+    }, 1000);
+  };
+
+  const onSelectChange = (newSelectedRowKeys) => {
+    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+
+  const hasSelected = selectedRowKeys.length > 0;
+
   const columns = [
     {
       title: "Mã số",
       dataIndex: "id",
       key: "id",
-      width: "10%",
-      ...getColumnSearchProps('id'),
+      width: "15%",
+      ...getColumnSearchProps("id"),
     },
     {
       title: "Hình ảnh",
@@ -260,17 +277,28 @@ function ViewProduct() {
       dataIndex: "name",
       key: "name",
       width: "20%",
-      ...getColumnSearchProps('name'),
+      ...getColumnSearchProps("name"),
     },
     {
-      title: 'Trạng thái',
-      dataIndex: 'status',
-      key: 'status',
-      width: '15%',
-      ...getColumnSearchProps('status', [
-        'Còn hàng',
-        'Hết hàng',
+      title: "Phân loại",
+      dataIndex: "category",
+      key: "category",
+      width: "15%",
+      ...getColumnSearchProps("category", [
+        "Nhẫn cầu hôn kim cương",
+        "Nhẫn cưới kim cương",
+        "Nhẫn kim cương",
+        "Bông tai kim cương",
+        "Lắc/Vòng tay kim cương",
+        "Mặt dây chuyền kim cương",
       ]),
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "status",
+      key: "status",
+      width: "10%",
+      ...getColumnSearchProps("status", ["Còn hàng", "Hết hàng"]),
     },
     {
       title: "Giá",
@@ -284,13 +312,41 @@ function ViewProduct() {
     {
       dataIndex: "infor",
       key: "infor",
-      width: "10%",
+      width: "20%",
     },
   ];
 
   return (
-    <div className="all-product">
-      <Table columns={columns} dataSource={data} pagination={{ pageSize: 10 }} />
+    <div>
+      <div
+        style={{
+          marginBottom: 16,
+        }}
+      >
+        <Button
+          type="primary"
+          onClick={start}
+          disabled={!hasSelected}
+          loading={loading}
+        >
+          Xóa sản phẩm
+        </Button>
+        <span
+          style={{
+            marginLeft: 8,
+          }}
+        >
+          {hasSelected ? `Đã chọn ${selectedRowKeys.length} sản phẩm` : ""}
+        </span>
+      </div>
+      <div className="all-product">
+        <Table
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={data}
+          pagination={{ pageSize: 10 }}
+        />
+      </div>
     </div>
   );
 }

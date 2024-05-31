@@ -1,8 +1,11 @@
-
-import {  Table  } from "antd";
+import { Button, Input, Select, Space, Table } from "antd";
 import { Link } from "react-router-dom";
+import "./index.scss";
+import { useRef, useState } from "react";
+import Highlighter from "react-highlight-words";
+import { SearchOutlined } from "@ant-design/icons";
 
-const data = [
+const initialData = [
   {
     key: "1",
     id: "DM1",
@@ -203,15 +206,154 @@ const data = [
   },
 ];
 
-
 function ViewDiamond() {
-  
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
+  const searchInput = useRef(null);
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText("");
+  };
+
+  const getColumnSearchProps = (dataIndex, dropdownOptions) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+      close,
+    }) => (
+      <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
+        {dataIndex === "" ? (
+          <Select
+            style={{ width: 188, marginBottom: 8, display: "block" }}
+            placeholder={`Search ${dataIndex}`}
+            value={selectedKeys[0]}
+            onChange={(value) => {
+              setSelectedKeys(value ? [value] : []);
+              confirm();
+              setSearchText(value);
+              setSearchedColumn(dataIndex);
+            }}
+          >
+            {dropdownOptions.map((option) => (
+              <Select.Option key={option} value={option}>
+                {option}
+              </Select.Option>
+            ))}
+          </Select>
+        ) : (
+          <Input
+            ref={searchInput}
+            placeholder={`Search ${dataIndex}`}
+            value={selectedKeys[0]}
+            onChange={(e) =>
+              setSelectedKeys(e.target.value ? [e.target.value] : [])
+            }
+            onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            style={{ marginBottom: 8, display: "block" }}
+          />
+        )}
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => clearFilters && handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              confirm({ closeDropdown: false });
+              setSearchText(selectedKeys[0]);
+              setSearchedColumn(dataIndex);
+            }}
+          >
+            Filter
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              close();
+            }}
+          >
+            Close
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined style={{ color: filtered ? "#1677ff" : undefined }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+    onFilterDropdownOpenChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
+  });
+  const [data, setData] = useState(initialData); // Chuyển `data` vào state
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const start = () => {
+    setLoading(true);
+    // Xóa các sản phẩm đã chọn và cập nhật state `data`
+    const newData = data.filter((item) => !selectedRowKeys.includes(item.key));
+    setData(newData); // Cập nhật state `data`
+    setSelectedRowKeys([]);
+    setLoading(false);
+  };
+
+  const onSelectChange = (newSelectedRowKeys) => {
+    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+
+  const hasSelected = selectedRowKeys.length > 0;
   const columns = [
     {
       title: "Mã số",
       dataIndex: "id",
       key: "id",
-      width: "10%",
+      width: "12.5%",
+      ...getColumnSearchProps("id"),
     },
     {
       title: "Hình ảnh",
@@ -224,36 +366,43 @@ function ViewDiamond() {
       dataIndex: "style",
       key: "style",
       width: "10%",
+      ...getColumnSearchProps("style"),
     },
     {
-      title: "Trọng lương (cts)",
+      title: "Trọng lượng (cts)",
       dataIndex: "weight",
       key: "weight",
       width: "10%",
+      ...getColumnSearchProps("weight"),
     },
     {
       title: "Cấp màu",
       dataIndex: "color",
       key: "color",
       width: "10%",
+      ...getColumnSearchProps("color"),
     },
     {
       title: "Độ tinh khiết",
       dataIndex: "purity",
       key: "purity",
       width: "10%",
+      ...getColumnSearchProps("purity"),
     },
     {
       title: "Kiểm định",
       dataIndex: "accreditation",
       key: "accreditation",
       width: "10%",
+      className: "custom-column-header",
+      ...getColumnSearchProps("accreditation"),
     },
     {
       title: "Kích thước (mm)",
       dataIndex: "size",
       key: "size",
       width: "10%",
+      ...getColumnSearchProps("size"),
     },
     {
       title: "Giá",
@@ -263,6 +412,7 @@ function ViewDiamond() {
       sorter: (a, b) =>
         parseInt(a.price.replace(/\D/g, "")) -
         parseInt(b.price.replace(/\D/g, "")),
+      ...getColumnSearchProps("price"),
     },
     {
       dataIndex: "infor",
@@ -272,8 +422,36 @@ function ViewDiamond() {
   ];
 
   return (
-    <div className="all-diamond">
-      <Table columns={columns} dataSource={data} pagination={{ pageSize: 10 }} />
+    <div>
+      <div
+        style={{
+          marginBottom: 16,
+        }}
+      >
+        <Button
+          type="primary"
+          onClick={start}
+          disabled={!hasSelected}
+          loading={loading}
+        >
+          Xóa sản phẩm
+        </Button>
+        <span
+          style={{
+            marginLeft: 8,
+          }}
+        >
+          {hasSelected ? `Đã chọn ${selectedRowKeys.length} sản phẩm` : ""}
+        </span>
+      </div>
+      <div className="all-product">
+        <Table
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={data}
+          pagination={{ pageSize: 10 }}
+        />
+      </div>
     </div>
   );
 }
