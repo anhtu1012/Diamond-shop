@@ -243,6 +243,7 @@ function ViewAccount() {
       key: "id",
       width: "10%",
       ...getColumnSearchProps("id"),
+
     },
     {
       title: "Họ và Tên",
@@ -250,6 +251,7 @@ function ViewAccount() {
       key: "name",
       width: "15%",
       ...getColumnSearchProps("name"),
+
     },
     {
       title: "Email",
@@ -257,6 +259,7 @@ function ViewAccount() {
       key: "email",
       width: "20%",
       ...getColumnSearchProps("email"),
+
     },
     {
       title: "Ngày tạo",
@@ -268,6 +271,7 @@ function ViewAccount() {
         new Date(a.date.split("-").reverse().join("-")) -
         new Date(b.date.split("-").reverse().join("-")),
       sortDirections: ["descend", "ascend"],
+
     },
     {
       title: "Số điện thoại",
@@ -275,6 +279,7 @@ function ViewAccount() {
       key: "phone",
       width: "10%",
       ...getColumnSearchProps("phone"),
+
     },
     {
       title: "Quyền hạn",
@@ -286,11 +291,19 @@ function ViewAccount() {
         "Nhân viên bán hàng",
         "Nhân viên giao hàng",
       ]),
+      onHeaderCell: () => {
+        return {
+          style: {
+            backgroundColor: "#CCCCCC",
+          },
+        };
+      },
     },
     {
       dataIndex: "infor",
       key: "infor",
       width: "15%",
+
     },
   ];
 
