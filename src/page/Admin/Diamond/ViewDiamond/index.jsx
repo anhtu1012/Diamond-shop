@@ -231,7 +231,7 @@ function ViewDiamond() {
       close,
     }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
-        {dataIndex === "" ? (
+        {dataIndex === "color" || dataIndex === "purity" ? (
           <Select
             style={{ width: 188, marginBottom: 8, display: "block" }}
             placeholder={`Search ${dataIndex}`}
@@ -380,14 +380,35 @@ function ViewDiamond() {
       dataIndex: "color",
       key: "color",
       width: "10%",
-      ...getColumnSearchProps("color"),
+      ...getColumnSearchProps("color", [
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+      ]),
     },
     {
       title: "Độ tinh khiết",
       dataIndex: "purity",
       key: "purity",
       width: "10%",
-      ...getColumnSearchProps("purity"),
+      ...getColumnSearchProps("purity", [
+        "IF",
+        "VVS1",
+        "VVS2",
+        "VS1",
+        "VS2",
+        "SI1",
+        "SI2",
+        "I1",
+        "I2",
+      ]),
     },
     {
       title: "Kiểm định",
