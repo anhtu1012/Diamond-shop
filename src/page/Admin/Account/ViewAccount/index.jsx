@@ -243,13 +243,7 @@ function ViewAccount() {
       key: "id",
       width: "10%",
       ...getColumnSearchProps("id"),
-      onHeaderCell: () => {
-        return {
-          style: {
-            backgroundColor: "#CCCCCC",
-          },
-        };
-      },
+
     },
     {
       title: "Họ và Tên",
@@ -257,13 +251,7 @@ function ViewAccount() {
       key: "name",
       width: "15%",
       ...getColumnSearchProps("name"),
-      onHeaderCell: () => {
-        return {
-          style: {
-            backgroundColor: "#CCCCCC",
-          },
-        };
-      },
+
     },
     {
       title: "Email",
@@ -271,13 +259,7 @@ function ViewAccount() {
       key: "email",
       width: "20%",
       ...getColumnSearchProps("email"),
-      onHeaderCell: () => {
-        return {
-          style: {
-            backgroundColor: "#CCCCCC",
-          },
-        };
-      },
+
     },
     {
       title: "Ngày tạo",
@@ -289,13 +271,7 @@ function ViewAccount() {
         new Date(a.date.split("-").reverse().join("-")) -
         new Date(b.date.split("-").reverse().join("-")),
       sortDirections: ["descend", "ascend"],
-      onHeaderCell: () => {
-        return {
-          style: {
-            backgroundColor: "#CCCCCC",
-          },
-        };
-      },
+
     },
     {
       title: "Số điện thoại",
@@ -303,13 +279,7 @@ function ViewAccount() {
       key: "phone",
       width: "10%",
       ...getColumnSearchProps("phone"),
-      onHeaderCell: () => {
-        return {
-          style: {
-            backgroundColor: "#CCCCCC",
-          },
-        };
-      },
+
     },
     {
       title: "Quyền hạn",
@@ -333,13 +303,7 @@ function ViewAccount() {
       dataIndex: "infor",
       key: "infor",
       width: "15%",
-      onHeaderCell: () => {
-        return {
-          style: {
-            backgroundColor: "#CCCCCC",
-          },
-        };
-      },
+
     },
   ];
 

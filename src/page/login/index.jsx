@@ -1,12 +1,13 @@
+/* eslint-disable react/prop-types */
 import { Button, Col, Form, Input, Radio, Row } from "antd";
 import "./index.scss";
 import { useState } from "react";
 import { useForm } from "antd/lib/form/Form";
 import { FcGoogle } from "react-icons/fc";
 import { FaSquareFacebook } from "react-icons/fa6";
-import { loginApi } from "../../../services/Uservices";
 import { Link, useNavigate } from "react-router-dom";
-function LoginPage() {
+import { loginApi } from "../../../services/Uservices";
+function LoginPage({ setUser, onLoginSuccess }) {
   const [isLogin, setIsLogin] = useState(true);
   const switchToSignUp = () => {
     setIsLogin(false);
@@ -21,33 +22,40 @@ function LoginPage() {
   function handleOK() {
     form.submit();
   }
+
   const navigate = useNavigate(); // Hook useNavigate
   // Updated handleLogin function
   const handleLogin = async (values) => {
     try {
       const res = await loginApi(values.email, values.password);
-      console.log(values);
-      console.log(res.data);
+      console.log(res.data.message);
       const usertoken = res.data.token; // Lấy token từ response
+
       localStorage.setItem("token", usertoken);
       // Tách JWT thành các phần và giải mã payload
       const base64Url = usertoken.split(".")[1];
       const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
       const payload = JSON.parse(window.atob(base64));
-      console.log(payload);
+      setUser(payload);
+      onLoginSuccess(); // Gọi hàm onLoginSuccess để tắt modal
       setTimeout(() => {
         if (payload.role[0].authority === "ROLE_ADMIN") {
           navigate("/admin-page");
         }
-        if (payload.role.authority === "staff") {
-          console.log("staff");
+        if (payload.role[0].authority === "ROLE_STAFF") {
+          console.log("/staff-page");
         }
-        if (payload.role.authority === "cus") {
-          console.log("cus");
+        if (payload.role[0].authority === "ROLE_USER") {
+          console.log("/");
         }
       }, 1000);
     } catch (error) {
-      console.error("An error occurred during login:", error);
+      // Kiểm tra xem response có tồn tại hay không và in ra message lỗi
+      if (error.response) {
+        console.error("Sai nè:", error.response.data.message);
+      } else {
+        console.error("An error occurred during login:", error);
+      }
     }
   };
   return (
