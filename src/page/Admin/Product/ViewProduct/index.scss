@@ -1,0 +1,16 @@
+:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > th,
+:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > td {
+  position: relative;
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 600;
+  text-align: start;
+  background: #cccccc;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s ease;
+}

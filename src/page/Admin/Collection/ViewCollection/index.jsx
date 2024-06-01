@@ -1,9 +1,9 @@
-
 import { SearchOutlined } from "@ant-design/icons";
-import {  Button, Input, Select, Space, Table  } from "antd";
+import { Button, Input, Select, Space, Table } from "antd";
 import { useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { Link } from "react-router-dom";
+import "./index.scss";
 
 const data = [
   {
@@ -62,11 +62,23 @@ const data = [
     price: "400.800.000 ₫",
     infor: <Link to={"/"}>Xem chi tiết</Link>,
   },
+  {
+    key: "8",
+    id: "SET 0092",
+    image: (
+      <img
+        src="https://jemmia.vn/wp-content/uploads/2024/01/bo-trang-suc-kim-cuong-lotus-fashion-06.jpg"
+        style={{ width: "100px" }}
+      />
+    ),
+    name: "BỘ TRANG SỨC KIM CƯƠNG LOTUS FASHION 06",
+    status: "Còn hàng",
+    price: "68.800.000 ₫",
+    infor: <Link to={"/"}>Xem chi tiết</Link>,
+  },
 ];
 
-
 function ViewCollection() {
-
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -90,9 +102,9 @@ function ViewCollection() {
       close,
     }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
-        {dataIndex === 'status' ? (
+        {dataIndex === "status" ? (
           <Select
-            style={{ width: 188, marginBottom: 8, display: 'block' }}
+            style={{ width: 188, marginBottom: 8, display: "block" }}
             placeholder={`Search ${dataIndex}`}
             value={selectedKeys[0]}
             onChange={(value) => {
@@ -102,7 +114,7 @@ function ViewCollection() {
               setSearchedColumn(dataIndex);
             }}
           >
-            {dropdownOptions.map(option => (
+            {dropdownOptions.map((option) => (
               <Select.Option key={option} value={option}>
                 {option}
               </Select.Option>
@@ -117,7 +129,7 @@ function ViewCollection() {
               setSelectedKeys(e.target.value ? [e.target.value] : [])
             }
             onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            style={{ marginBottom: 8, display: 'block' }}
+            style={{ marginBottom: 8, display: "block" }}
           />
         )}
         <Space>
@@ -161,13 +173,10 @@ function ViewCollection() {
       </div>
     ),
     filterIcon: (filtered) => (
-      <SearchOutlined style={{ color: filtered ? '#1677ff' : undefined }} />
+      <SearchOutlined style={{ color: filtered ? "#1677ff" : undefined }} />
     ),
     onFilter: (value, record) =>
-      record[dataIndex]
-        .toString()
-        .toLowerCase()
-        .includes(value.toLowerCase()),
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
     onFilterDropdownOpenChange: (visible) => {
       if (visible) {
         setTimeout(() => searchInput.current?.select(), 100);
@@ -176,10 +185,10 @@ function ViewCollection() {
     render: (text) =>
       searchedColumn === dataIndex ? (
         <Highlighter
-          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
           searchWords={[searchText]}
           autoEscape
-          textToHighlight={text ? text.toString() : ''}
+          textToHighlight={text ? text.toString() : ""}
         />
       ) : (
         text
@@ -191,7 +200,7 @@ function ViewCollection() {
       dataIndex: "id",
       key: "id",
       width: "10%",
-      ...getColumnSearchProps('id'),
+      ...getColumnSearchProps("id"),
     },
     {
       title: "Hình ảnh",
@@ -204,17 +213,14 @@ function ViewCollection() {
       dataIndex: "name",
       key: "name",
       width: "20%",
-      ...getColumnSearchProps('name'),
+      ...getColumnSearchProps("name"),
     },
     {
-      title: 'Trạng thái',
-      dataIndex: 'status',
-      key: 'status',
-      width: '15%',
-      ...getColumnSearchProps('status', [
-        'Còn hàng',
-        'Hết hàng',
-      ]),
+      title: "Trạng thái",
+      dataIndex: "status",
+      key: "status",
+      width: "15%",
+      ...getColumnSearchProps("status", ["Còn hàng", "Hết hàng"]),
     },
     {
       title: "Giá",
@@ -234,7 +240,11 @@ function ViewCollection() {
 
   return (
     <div className="all-product">
-      <Table columns={columns} dataSource={data} pagination={{ pageSize: 10 }} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{ pageSize: 10 }}
+      />
     </div>
   );
 }
