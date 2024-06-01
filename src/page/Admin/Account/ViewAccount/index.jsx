@@ -3,8 +3,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input, Space, Table } from "antd";
 import Highlighter from "react-highlight-words";
 import { Link } from "react-router-dom";
-import { Select } from 'antd';
-
+import { Select } from "antd";
 
 const data = [
   {
@@ -144,9 +143,9 @@ function ViewAccount() {
       close,
     }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
-        {dataIndex === 'role' ? (
+        {dataIndex === "role" ? (
           <Select
-            style={{ width: 188, marginBottom: 8, display: 'block' }}
+            style={{ width: 188, marginBottom: 8, display: "block" }}
             placeholder={`Search ${dataIndex}`}
             value={selectedKeys[0]}
             onChange={(value) => {
@@ -156,7 +155,7 @@ function ViewAccount() {
               setSearchedColumn(dataIndex);
             }}
           >
-            {dropdownOptions.map(option => (
+            {dropdownOptions.map((option) => (
               <Select.Option key={option} value={option}>
                 {option}
               </Select.Option>
@@ -171,7 +170,7 @@ function ViewAccount() {
               setSelectedKeys(e.target.value ? [e.target.value] : [])
             }
             onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            style={{ marginBottom: 8, display: 'block' }}
+            style={{ marginBottom: 8, display: "block" }}
           />
         )}
         <Space>
@@ -215,13 +214,10 @@ function ViewAccount() {
       </div>
     ),
     filterIcon: (filtered) => (
-      <SearchOutlined style={{ color: filtered ? '#1677ff' : undefined }} />
+      <SearchOutlined style={{ color: filtered ? "#1677ff" : undefined }} />
     ),
     onFilter: (value, record) =>
-      record[dataIndex]
-        .toString()
-        .toLowerCase()
-        .includes(value.toLowerCase()),
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
     onFilterDropdownOpenChange: (visible) => {
       if (visible) {
         setTimeout(() => searchInput.current?.select(), 100);
@@ -230,75 +226,73 @@ function ViewAccount() {
     render: (text) =>
       searchedColumn === dataIndex ? (
         <Highlighter
-          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
           searchWords={[searchText]}
           autoEscape
-          textToHighlight={text ? text.toString() : ''}
+          textToHighlight={text ? text.toString() : ""}
         />
       ) : (
         text
       ),
   });
-  
 
   const columns = [
     {
-      title: 'ID Tài khoản',
-      dataIndex: 'id',
-      key: 'id',
-      width: '10%',
-      ...getColumnSearchProps('id'),
+      title: "ID Tài khoản",
+      dataIndex: "id",
+      key: "id",
+      width: "10%",
+      ...getColumnSearchProps("id"),
     },
     {
-      title: 'Họ và Tên',
-      dataIndex: 'name',
-      key: 'name',
-      width: '15%',
-      ...getColumnSearchProps('name'),
+      title: "Họ và Tên",
+      dataIndex: "name",
+      key: "name",
+      width: "15%",
+      ...getColumnSearchProps("name"),
     },
     {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
-      width: '20%',
-      ...getColumnSearchProps('email'),
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      width: "20%",
+      ...getColumnSearchProps("email"),
     },
     {
-      title: 'Ngày tạo',
-      dataIndex: 'date',
-      key: 'date',
-      width: '15%',
-      ...getColumnSearchProps('date'),
+      title: "Ngày tạo",
+      dataIndex: "date",
+      key: "date",
+      width: "15%",
+      ...getColumnSearchProps("date"),
       sorter: (a, b) =>
-        new Date(a.date.split('-').reverse().join('-')) -
-        new Date(b.date.split('-').reverse().join('-')),
-      sortDirections: ['descend', 'ascend'],
+        new Date(a.date.split("-").reverse().join("-")) -
+        new Date(b.date.split("-").reverse().join("-")),
+      sortDirections: ["descend", "ascend"],
     },
     {
-      title: 'Số điện thoại',
-      dataIndex: 'phone',
-      key: 'phone',
-      width: '10%',
-      ...getColumnSearchProps('phone'),
+      title: "Số điện thoại",
+      dataIndex: "phone",
+      key: "phone",
+      width: "10%",
+      ...getColumnSearchProps("phone"),
     },
     {
-      title: 'Quyền hạn',
-      dataIndex: 'role',
-      key: 'role',
-      width: '15%',
-      ...getColumnSearchProps('role', [
-        'Người dùng',
-        'Nhân viên bán hàng',
-        'Nhân viên giao hàng',
+      title: "Quyền hạn",
+      dataIndex: "role",
+      key: "role",
+      width: "15%",
+      ...getColumnSearchProps("role", [
+        "Người dùng",
+        "Nhân viên bán hàng",
+        "Nhân viên giao hàng",
       ]),
     },
     {
-      dataIndex: 'infor',
-      key: 'infor',
-      width: '15%',
+      dataIndex: "infor",
+      key: "infor",
+      width: "15%",
     },
   ];
-  
 
   return (
     <div className="all-account">

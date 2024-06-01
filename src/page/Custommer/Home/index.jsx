@@ -7,7 +7,7 @@ import "./index.scss";
 
 function HomePage() {
   return (
-    <div style={{overflow:"hidden"}}>
+    <div style={{ overflow: "hidden" }}>
       <Carousel />
       <Container>
         <Row className="home_diamond_nature">

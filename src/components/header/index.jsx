@@ -1,5 +1,5 @@
 import { LoginOutlined, SearchOutlined } from "@ant-design/icons";
-import { Badge, Dropdown, Modal } from "antd";
+import { Badge, Button, Dropdown, Modal } from "antd";
 import { useEffect, useState } from "react";
 import {
   FaFacebookSquare,
@@ -11,6 +11,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import LoginPage from "../../page/login";
 import "./index.scss";
+import { logoutApi } from "../../../services/Uservices";
 const settings = [
   {
     key: "1",
@@ -58,8 +59,6 @@ const trangSucCuoiItems = [
     key: "trang-suc-cuoi-3",
   },
 ];
-
-
 const trangSucKimCuongItems = [
   // Đây là các mục sẽ xuất hiện dưới dropdown "Trang sức cưới"
   {
@@ -103,8 +102,6 @@ const trangSucKimCuongItems = [
     key: "6",
   },
 ];
-
-
 function Header() {
   const onClick = ({ key }) => {
     // message.info(`Click on item ${key}`);
@@ -113,7 +110,7 @@ function Header() {
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const navigate = useNavigate(); // Hook useNavigate
-  const user = "null";
+  const [user, setUser] = useState(null); // State lưu trữ thông tin người dùng
   useEffect(() => {
     const handleScroll = () => {
       const header = document.querySelector(".container-fluid");
@@ -131,6 +128,15 @@ function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const payload = JSON.parse(window.atob(base64));
+      setUser(payload);
+    }
+  }, []);
   const showModal = () => {
     setIsLoginModalVisible(true);
   };
@@ -141,7 +147,12 @@ function Header() {
   const toggleSearch = () => {
     setIsSearchVisible((prev) => !prev);
   };
-
+  const handleLogout = async () => {
+    await logoutApi();
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/");
+  };
   return (
     <div className="container-fluid">
       <header className="header">
@@ -149,6 +160,7 @@ function Header() {
           <FaFacebookSquare />
           <FaInstagramSquare />
           <FaMapMarkerAlt />
+          <Button onClick={handleLogout}>Logout</Button>
         </div>
         <div className="header_logo">
           <Link to="/">
@@ -255,7 +267,7 @@ function Header() {
         className="custom-modal-style" // sử dụng class CSS mới để kiểm soát style của Modal
       >
         {/* Đây là nơi cho form đăng nhập */}
-        <LoginPage />
+        <LoginPage setUser={setUser} onLoginSuccess={handleCancel} />
       </Modal>
     </div>
   );
