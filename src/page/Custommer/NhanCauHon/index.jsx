@@ -7,6 +7,7 @@ import Container from "../../../components/container/Container";
 import { Content } from "antd/es/layout/layout";
 import { Link } from "react-router-dom";
 import CardIndex from "../../../components/Card";
+import Relate from "../../../components/carousel/related";
 
 const layout = {
   labelCol: {
@@ -44,7 +45,7 @@ function NhanCauHon() {
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(
     indexOfFirstProduct,
-    indexOfLastProduct,
+    indexOfLastProduct
   );
 
   // Function to handle page change
@@ -77,7 +78,7 @@ function NhanCauHon() {
               <Breadcrumb.Item>
                 <Link to="/">Trang chủ</Link>
               </Breadcrumb.Item>
-              <Breadcrumb.Item>Nhẫn cầu hôn</Breadcrumb.Item>
+              <Breadcrumb.Item>Nhẫn Cầu Hôn</Breadcrumb.Item>
             </Breadcrumb>
             <div
               style={{
@@ -162,7 +163,10 @@ function NhanCauHon() {
                     <div
                       style={{ padding: "20px 0px", width: "250px !important" }}
                     >
-                      <CardIndex style={{  width: "250px !important" }} product={product} />
+                      <CardIndex
+                        style={{ width: "250px !important" }}
+                        product={product}
+                      />
                     </div>
                   </Link>
                 </Col>
@@ -177,8 +181,17 @@ function NhanCauHon() {
               onChange={handlePageChange}
             />
           </div>
+          <h2 style={{ padding: "30px", fontWeight: "400" }}>
+            Có thể bạn quan tâm
+          </h2>
+          <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
           <div className="form">
-            <h2>Nhập thông tin để được tư vấn miễn phí</h2>
+            <h2 style={{ fontWeight: "400" }}>
+              Nhận tư vấn miễn phí từ Diamond
+            </h2>
+            <i style={{ color: "gray" }}>
+              Đăng kí ngay bên dưới để nhận thông tin từ chúng tôi
+            </i>
             <div className="form-dien">
               <Form
                 xs={12}
@@ -232,7 +245,11 @@ function NhanCauHon() {
                   }}
                 >
                   <div className="button">
-                    <Button type="primary" htmlType="submit">
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      style={{ backgroundColor: "black", borderColor: "black" }}
+                    >
                       Tư vấn ngay
                     </Button>
                   </div>

@@ -4,6 +4,7 @@ import { Breadcrumb, Col, Form, Input, Row } from "antd";
 import { Link } from "react-router-dom";
 import { LuDot } from "react-icons/lu";
 import "./index.scss";
+import Relate from "../../../components/carousel/related";
 function ChinhSachBaoMat() {
   return (
     <div>
@@ -309,6 +310,8 @@ function ChinhSachBaoMat() {
             </Row>
           </div>
         </div>
+        <h2 style={{ padding: "30px", fontWeight:"400" }}>Có thể bạn quan tâm</h2>
+          <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
       </Container>
     </div>
   );

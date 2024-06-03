@@ -36,7 +36,7 @@ const onFinish = (values) => {
   console.log(values);
 };
 
-function NhanCuoi() {
+function NhanKimCuong() {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 16;
 
@@ -67,18 +67,21 @@ function NhanCuoi() {
     <div>
       <div className="banner">
         <img
-          src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/NhanCuoi1.jpg?alt=media&token=379d04ec-22ea-4060-afd1-572edc4771df.jpg"
+          src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/NhankimCuong.jpg?alt=media&token=15eaebb0-012e-443b-90de-d8bbca441d24.jpg"
           style={{ width: "100%", height: "auto" }}
         />
       </div>
       <Container>
-        <div className="cproduct">
+        <div className="chon-nhan-kim-cuong">
           <Content style={{ padding: "0 0px" }}>
             <Breadcrumb style={{ margin: "16px 0" }}>
               <Breadcrumb.Item>
                 <Link to="/">Trang chủ</Link>
               </Breadcrumb.Item>
-              <Breadcrumb.Item>Nhẫn Cưới Kim Cương</Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to="/trang-suc-kim-cuong">Trang Sức Kim Cương</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>Nhẫn Kim Cương</Breadcrumb.Item>
             </Breadcrumb>
             <div
               style={{
@@ -89,7 +92,7 @@ function NhanCuoi() {
               }}
             ></div>
           </Content>
-          <h1>Nhẫn Cưới Kim Cương</h1>
+          <h1>Nhẫn Kim Cương</h1>
           <div className="chproduct">
             <Row>
               <Col span={8}>
@@ -269,4 +272,4 @@ function NhanCuoi() {
   );
 }
 
-export default NhanCuoi;
+export default NhanKimCuong;

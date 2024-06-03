@@ -1,0 +1,33 @@
+.dau-trang {
+  position: relative;
+  padding: 20px;
+
+  h2,h3 {
+    font-weight: 400;
+    position: relative;
+  }
+
+  
+}
+
+.shape-kc {
+  width: 75px;
+  height: auto;
+  float: left;
+  margin: 5px;
+  text-align: center;
+  padding: 5px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  cursor: pointer;
+  height: 100px;
+
+  .img-kc {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.shape-kc.clicked {
+  background-color: #d3d3d3; /* Change this color as needed */
+}
