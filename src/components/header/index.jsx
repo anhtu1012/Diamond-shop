@@ -68,7 +68,7 @@ const trangSucKimCuongItems = [
         Nhẫn Kim Cương
       </div>
     ),
-    key: "2",
+    key: "nhan-kim-cuong",
   },
   {
     label: (
@@ -76,7 +76,7 @@ const trangSucKimCuongItems = [
         Bông Tai Kim Cương
       </div>
     ),
-    key: "3",
+    key: "bong-tai-kim-cuong",
   },
   {
     label: (
@@ -84,15 +84,15 @@ const trangSucKimCuongItems = [
         Lắc/Vòng Tay Kim Cương
       </div>
     ),
-    key: "4",
+    key: "lac-vong-tay-kim-cuong",
   },
   {
     label: (
       <div style={{ fontSize: "15px", padding: "5px 20px" }}>
-        Mặc Dây Chuyền Kim Cương
+        Mặt Dây Chuyền Kim Cương
       </div>
     ),
-    key: "5",
+    key: "mat-day-chuyen-kim-cuong",
   },
   {
     label: (
@@ -100,7 +100,7 @@ const trangSucKimCuongItems = [
         Bộ Sưu Tập Kim Cương
       </div>
     ),
-    key: "6",
+    key: "bo-suu-tap-kim-cuong",
   },
 ];
 
@@ -232,7 +232,7 @@ function Header() {
                 onClick,
               }}
             >
-              <Link to="/">Trang sức cưới</Link>
+              <Link to="/trang-suc-cuoi">Trang sức cưới</Link>
             </Dropdown>
           </li>
           <li>
@@ -242,11 +242,11 @@ function Header() {
                 onClick,
               }}
             >
-              <Link to="/">Trang sức kim cương</Link>
+              <Link to="/trang-suc-kim-cuong">Trang sức kim cương</Link>
             </Dropdown>
           </li>
           <li>
-            <Link to="/">Kim cương viên</Link>
+            <Link to="/kim-cuong-vien">Kim cương viên</Link>
           </li>
           <li>
             <Link to="/huong-dan-do-ni">Hướng dẫn</Link>

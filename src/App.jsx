@@ -36,7 +36,14 @@ import BoTrangSucCuoi from "./page/Custommer/BoTrangSucCuoi";
 import AboutDiamond from "./page/Custommer/AboutDiamond";
 import ChinhSachBaoMat from "./page/Custommer/BaoMat";
 import ChinhSachDoiTra from "./page/Custommer/ChinhSachDoiTra";
-
+import TrangSucCuoi from "./page/Custommer/TrangSucCuoi";
+import TrangSucKimCuong from "./page/Custommer/TrangSucKimCuong";
+import NhanKimCuong from "./page/Custommer/NhanKimCuong";
+import MatDayChuyenKimCuong from "./page/Custommer/MatDayChuyenKimCuong";
+import LacVongTayKimCuong from "./page/Custommer/LVTKimcuong";
+import BoSuuTapKimCuong from "./page/Custommer/BSTKimCuong";
+import BongTaiKimCuong from "./page/Custommer/BongTaiKimCuong";
+import KimCuongVien from "./page/Custommer/KimCuongVien";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +101,38 @@ const router = createBrowserRouter([
       {
         path: "/chinh-sach-doi-tra",
         element: <ChinhSachDoiTra />,
+      },
+      {
+        path: "/trang-suc-cuoi",
+        element: <TrangSucCuoi />,
+      },
+      {
+        path: "/trang-suc-kim-cuong",
+        element: <TrangSucKimCuong />,
+      },
+      {
+        path: "/nhan-kim-cuong",
+        element: <NhanKimCuong />,
+      },
+      {
+        path: "/mat-day-chuyen-kim-cuong",
+        element: <MatDayChuyenKimCuong />,
+      },
+      {
+        path: "/lac-vong-tay-kim-cuong",
+        element: <LacVongTayKimCuong />,
+      },
+      {
+        path: "/bo-suu-tap-kim-cuong",
+        element: <BoSuuTapKimCuong />,
+      },
+      {
+        path: "/bong-tai-kim-cuong",
+        element: <BongTaiKimCuong />,
+      },
+      {
+        path: "/kim-cuong-vien",
+        element: <KimCuongVien />,
       },
     ],
   },
@@ -154,7 +193,6 @@ const router = createBrowserRouter([
         path: "bo-suu-tap/tao-bo-suu-tap",
         element: <NewCollection />,
       },
-      
     ],
   },
   {

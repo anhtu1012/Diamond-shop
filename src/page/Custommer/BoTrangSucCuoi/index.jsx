@@ -78,9 +78,10 @@ function BoTrangSucCuoi() {
               <Breadcrumb.Item>
                 <Link to="/">Trang chủ</Link>
               </Breadcrumb.Item>
-              <Breadcrumb.Item><Link to="/">Trang Sức Cưới</Link></Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to="/">Trang Sức Cưới</Link>
+              </Breadcrumb.Item>
               <Breadcrumb.Item>Bộ Trang Sức Cưới</Breadcrumb.Item>
-
             </Breadcrumb>
             <div
               style={{
@@ -91,7 +92,8 @@ function BoTrangSucCuoi() {
               }}
             ></div>
           </Content>
-          <h1>Bộ Trang Sức Cưới Kim Cương</h1>
+          <h1 style={{ marginBottom: "30px" }}>Bộ Trang Sức Cưới Kim Cương</h1>
+
           <div className="chproductbts">
             <Row>
               <Col span={8}>
@@ -119,7 +121,11 @@ function BoTrangSucCuoi() {
                       { value: "price1", label: "Dưới 100 triệu" },
                       { value: "price2", label: "Dưới 200 triệu" },
                       { value: "price3", label: "Dưới 300 triệu" },
-                      { value: "price4", label: "Dưới 400 triệu", disabled: true },
+                      {
+                        value: "price4",
+                        label: "Dưới 400 triệu",
+                        disabled: true,
+                      },
                     ]}
                   />
                 </Space>
@@ -184,11 +190,17 @@ function BoTrangSucCuoi() {
               onChange={handlePageChange}
             />
           </div>
-          <h2 style={{padding: "30px"}}>Có thể bạn quan tâm</h2>
+          <h2 style={{ padding: "30px", fontWeight: "400" }}>
+            Có thể bạn quan tâm
+          </h2>
           <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
           <div className="form-nhanbts">
-            <h2>Nhận tư vấn miễn phí từ Diamond</h2>
-            <i style={{color:"grey"}}>Đăng kí ngay bên dưới để nhận thông tin từ chúng tôi</i>
+            <h2 style={{ fontWeight: "400" }}>
+              Nhận tư vấn miễn phí từ Diamond
+            </h2>
+            <i style={{ color: "grey" }}>
+              Đăng kí ngay bên dưới để nhận thông tin từ chúng tôi
+            </i>
             <div className="form-inforbts">
               <Form
                 xs={12}
@@ -242,7 +254,11 @@ function BoTrangSucCuoi() {
                   }}
                 >
                   <div className="button">
-                    <Button type="primary" htmlType="submit">
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      style={{ backgroundColor: "black", borderColor: "black" }}
+                    >
                       Tư vấn ngay
                     </Button>
                   </div>

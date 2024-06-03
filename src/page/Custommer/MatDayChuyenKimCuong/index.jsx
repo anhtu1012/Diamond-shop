@@ -36,7 +36,7 @@ const onFinish = (values) => {
   console.log(values);
 };
 
-function NhanCuoi() {
+function MatDayChuyenKimCuong() {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 16;
 
@@ -65,20 +65,23 @@ function NhanCuoi() {
 
   return (
     <div>
-      <div className="banner">
+      <div className="baner">
         <img
-          src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/NhanCuoi1.jpg?alt=media&token=379d04ec-22ea-4060-afd1-572edc4771df.jpg"
+          src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/mat%20day%20chuyen.jpg?alt=media&token=bff7dc5f-b880-411b-b3be-cc4cb5264eec"
           style={{ width: "100%", height: "auto" }}
         />
       </div>
       <Container>
-        <div className="cproduct">
+        <div className="category-product">
           <Content style={{ padding: "0 0px" }}>
             <Breadcrumb style={{ margin: "16px 0" }}>
               <Breadcrumb.Item>
                 <Link to="/">Trang chủ</Link>
               </Breadcrumb.Item>
-              <Breadcrumb.Item>Nhẫn Cưới Kim Cương</Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to="/trang-suc-kim-cuong">Trang Sức Kim Cương</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>Mặt dây chuyền kim cương</Breadcrumb.Item>
             </Breadcrumb>
             <div
               style={{
@@ -89,8 +92,8 @@ function NhanCuoi() {
               }}
             ></div>
           </Content>
-          <h1>Nhẫn Cưới Kim Cương</h1>
-          <div className="chproduct">
+          <h1>Mặt dây chuyền kim cương</h1>
+          <div className="choose-product">
             <Row>
               <Col span={8}>
                 <Space wrap>
@@ -101,10 +104,10 @@ function NhanCuoi() {
                     onChange={handleChange}
                     options={[
                       { value: "category1", label: "Nhẫn Cầu Hôn" },
-                      { value: "category2", label: "Nhẫn Đính Hôn" },
+                      { value: "category2", label: "Nhẫn Cầu Hôn" },
                       {
                         value: "category4",
-                        label: "Nhẫn Cưới Hỏi",
+                        label: "Nhẫn Cầu Hôn",
                         disabled: true,
                       },
                     ]}
@@ -114,13 +117,9 @@ function NhanCuoi() {
                     style={{ width: 100 }}
                     onChange={handleChange}
                     options={[
-                      { value: "price1", label: "Từ 50-100 triệu" },
-                      { value: "price2", label: "Từ 500-700 triệu" },
-                      {
-                        value: "price4",
-                        label: "Từ 700 triệu trở lên",
-                        disabled: true,
-                      },
+                      { value: "price1", label: "Price 1" },
+                      { value: "price2", label: "Price 2" },
+                      { value: "price4", label: "Price 4", disabled: true },
                     ]}
                   />
                 </Space>
@@ -133,14 +132,10 @@ function NhanCuoi() {
                     style={{ width: 170 }}
                     onChange={handleChange}
                     options={[
-                      { value: "price1", label: "Từ 90-100 triệu" },
-                      { value: "price2", label: "Từ 530-600 triệu" },
-                      { value: "price3", label: "Từ 690-900 triệu" },
-                      {
-                        value: "price4",
-                        label: "Từ 900 triệu 1 tỷ",
-                        disabled: true,
-                      },
+                      { value: "price1", label: "Price 1" },
+                      { value: "price2", label: "Price 2" },
+                      { value: "price3", label: "Price 3" },
+                      { value: "price4", label: "Price 4", disabled: true },
                     ]}
                   />
                 </Space>
@@ -181,7 +176,7 @@ function NhanCuoi() {
               ))}
             </Row>
           </div>
-          <div className="chpage">
+          <div className="choose-page">
             <Pagination
               current={currentPage}
               total={products.length}
@@ -189,16 +184,18 @@ function NhanCuoi() {
               onChange={handlePageChange}
             />
           </div>
-          <h2 style={{ padding: "30px" }}>Có thể bạn quan tâm</h2>
+          <h2 style={{ padding: "30px", fontWeight: "400" }}>
+            Có thể bạn quan tâm
+          </h2>
           <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
-          <div className="form-nhan">
+          <div className="form">
             <h2 style={{ fontWeight: "400" }}>
               Nhận tư vấn miễn phí từ Diamond
             </h2>
             <i style={{ color: "gray" }}>
               Đăng kí ngay bên dưới để nhận thông tin từ chúng tôi
             </i>
-            <div className="form-infor">
+            <div className="form-dien">
               <Form
                 xs={12}
                 sm={12}
@@ -269,4 +266,4 @@ function NhanCuoi() {
   );
 }
 
-export default NhanCuoi;
+export default MatDayChuyenKimCuong;

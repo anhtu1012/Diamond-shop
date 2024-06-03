@@ -4,6 +4,7 @@ import { Breadcrumb } from "antd";
 import { Link } from "react-router-dom";
 import { LuDot } from "react-icons/lu";
 import "./index.scss";
+import Relate from "../../../components/carousel/related";
 function AboutDiamond() {
   return (
     <div>
@@ -36,7 +37,7 @@ function AboutDiamond() {
             style={{ width: "50%", display: " block", margin: "0 auto" }}
           ></img>
           <div style={{ textAlign: "center" }}>
-            <span style={{ fontSize: " 10px", fontStyle: "italic" }}>
+            <span style={{ fontSize: " 13px", fontStyle: "italic" }}>
               Trang sức kim cương của Diamond
             </span>
           </div>
@@ -93,7 +94,7 @@ function AboutDiamond() {
           ></img>
           <div style={{ textAlign: "center" }}>
             <span
-              style={{ fontSize: " 10px", fontStyle: "italic", color: "grey" }}
+              style={{ fontSize: " 13px", fontStyle: "italic", color: "grey" }}
             >
               Diamond thiết kế trang sức theo cá nhân hóa
             </span>
@@ -121,7 +122,7 @@ function AboutDiamond() {
           ></img>
           <div style={{ textAlign: "center" }}>
             <span
-              style={{ fontSize: " 10px", fontStyle: "italic", color: "grey" }}
+              style={{ fontSize: " 13px", fontStyle: "italic", color: "grey" }}
             >
               Máy kiểm tra kim cương GIA iD100®
             </span>
@@ -141,7 +142,7 @@ function AboutDiamond() {
           ></img>
           <div style={{ textAlign: "center" }}>
             <span
-              style={{ fontSize: " 10px", fontStyle: "italic", color: "grey" }}
+              style={{ fontSize: " 13px", fontStyle: "italic", color: "grey" }}
             >
               Trải Nghiệm dịch vụ đẳng cấp khi mua kim cương tại Diamond
             </span>
@@ -164,7 +165,7 @@ function AboutDiamond() {
           ></img>
           <div style={{ textAlign: "center" }}>
             <span
-              style={{ fontSize: " 10px", fontStyle: "italic", color: "grey" }}
+              style={{ fontSize: " 13px", fontStyle: "italic", color: "grey" }}
             >
               Kim cương khi mua tại Jemmia đều có giấy kiểm định GIA
             </span>
@@ -188,7 +189,7 @@ function AboutDiamond() {
           ></img>
           <div style={{ textAlign: "center" }}>
             <span
-              style={{ fontSize: " 10px", fontStyle: "italic", color: "grey" }}
+              style={{ fontSize: " 13px", fontStyle: "italic", color: "grey" }}
             >
               Kim cương khi mua tại Diamond có xuất hóa đơn VAT
             </span>
@@ -202,7 +203,7 @@ function AboutDiamond() {
             phẩm có vấn đề về chất lượng, dịch vụ cũng như các chế độ bảo hành,…
           </h3>
           <h3 className="thi-truong3">
-            {" "}
+            
             <LuDot />
             Nhập Khẩu Hải Quan Chính Ngạch
           </h3>
@@ -212,7 +213,7 @@ function AboutDiamond() {
           ></img>
           <div style={{ textAlign: "center" }}>
             <span
-              style={{ fontSize: " 10px", fontStyle: "italic", color: "grey" }}
+              style={{ fontSize: " 13px", fontStyle: "italic", color: "grey" }}
             >
               Kim cương khi mua tại Diamond được nhập khẩu hải quan chính ngạch
             </span>
@@ -242,6 +243,8 @@ function AboutDiamond() {
             tin cậy.
           </h3>
         </div>
+        <h2 style={{ padding: "30px", fontWeight:"400" }}>Có thể bạn quan tâm</h2>
+          <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
       </Container>
     </div>
   );
