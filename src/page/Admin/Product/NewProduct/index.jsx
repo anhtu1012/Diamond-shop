@@ -4,10 +4,10 @@ import { BsImage } from "react-icons/bs";
 import { useState } from "react";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { MdEditCalendar } from "react-icons/md";
-import FormStep1 from "./FormStep1";
-import "./index.scss";
-import FormStep2 from "./FormStep2";
+
+import FormProductStep2 from "./FormStep2";
 import Success from "./Success";
+import FormProductStep1 from "./FormStep1";
 
 function NewProduct() {
   const [form1, setForm1] = useState(null);
@@ -60,13 +60,14 @@ function NewProduct() {
   ];
 
   const forms = [
-    <FormStep1 onFinish={onFinishFormStep1} initialValues={form1} />,
-    <FormStep2 onFinish={onFinishFormStep2} initialValues={form2} />,
+    <FormProductStep1 onFinish={onFinishFormStep1} initialValues={form1} />,
+    <FormProductStep2 onFinish={onFinishFormStep2} initialValues={form2} />,
     <Success
       productName={form1?.name}
       productPrice={form1?.price}
       onCreateAnother={createAnotherProduct}
     />,
+    <></>,
   ];
 
   return (

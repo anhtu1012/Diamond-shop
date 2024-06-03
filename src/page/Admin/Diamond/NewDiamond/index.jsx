@@ -2,17 +2,20 @@
 import { Steps } from "antd";
 import { BsImage } from "react-icons/bs";
 import { useState } from "react";
-import { FaRegCircleCheck } from "react-icons/fa6";
+import { FaCheckCircle } from "react-icons/fa";
 import { MdEditCalendar } from "react-icons/md";
 import FormStep1 from "./FormStep1";
-import "./index.scss";
+import "../NewDiamond/index.scss";
 import FormStep2 from "./FormStep2";
 import Success from "./Success";
+import Confirm from "./Confirm";
+import { PiEyesFill } from "react-icons/pi";
 
 function NewDiamond() {
   const [form1, setForm1] = useState(null);
   const [form2, setForm2] = useState(null);
   const [current, setCurrent] = useState(0);
+  const [combinedData, setCombinedData] = useState(null);
 
   const onFinishFormStep1 = (value) => {
     setForm1(value);
@@ -20,10 +23,15 @@ function NewDiamond() {
   };
 
   const onFinishFormStep2 = (value) => {
-    const combinedData = { ...form1, ...value };
-    console.log("Combined Data:", combinedData);
+    setCombinedData({ ...form1, ...value });
     setForm2(value);
     setCurrent(2);
+  };
+
+  const handleFinishConfirm = ({ form1Data, form2Data }) => {
+    setForm1(form1Data);
+    setForm2(form2Data);
+    setCurrent(3); // Chuyển sang bước thành công sau khi xác nhận
   };
 
   const createAnotherProduct = () => {
@@ -33,7 +41,7 @@ function NewDiamond() {
   };
 
   const isStepDisabled = (stepNumber) => {
-    if (current === 2) return true;
+    if (current === 3) return true;
     if (stepNumber === 1) return form1 === null;
     if (stepNumber === 2) return form1 === null || form2 === null;
     return false;
@@ -53,15 +61,22 @@ function NewDiamond() {
       disabled: isStepDisabled(1),
     },
     {
-      title: "Thành công",
-      icon: <FaRegCircleCheck size={30} />,
+      title: "Bước 3",
+      icon: <PiEyesFill size={30} />,
+      description: "Xác Nhận Thông tin",
       disabled: isStepDisabled(2),
+    },
+    {
+      title: "Thành công",
+      icon: <FaCheckCircle size={30} />,
+      disabled: true, // Tắt tính năng chọn trực tiếp bằng cách đặt disabled là true
     },
   ];
 
   const forms = [
-    <FormStep1 onFinish={onFinishFormStep1} initialValues={form1} />, // Giả sử bạn cũng có hàm onBackFromStep1
+    <FormStep1 onFinish={onFinishFormStep1} initialValues={form1} />,
     <FormStep2 onFinish={onFinishFormStep2} initialValues={form2} />,
+    <Confirm onFinish={handleFinishConfirm} combinedData={combinedData} />,
     <Success
       productName={form1?.diamond_name}
       productId={form1?.diamond_id}
@@ -81,6 +96,7 @@ function NewDiamond() {
           onChange={setCurrent}
           items={items}
           style={{ padding: "32px 150px" }}
+          size="small" // Đặt size là small để không có nút chọn trực tiếp
         />
       </div>
       <div>{forms[current]}</div>

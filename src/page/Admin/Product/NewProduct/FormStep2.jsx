@@ -12,7 +12,7 @@ import {
 } from "antd";
 import { useState } from "react";
 
-function FormStep2({ onFinish, initialValues }) {
+function FormProductStep2({ onFinish, initialValues }) {
   const [form] = Form.useForm();
   const option = [
     {
@@ -259,4 +259,4 @@ function FormStep2({ onFinish, initialValues }) {
   );
 }
 
-export default FormStep2;
+export default FormProductStep2;

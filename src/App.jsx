@@ -36,8 +36,12 @@ import BoTrangSucCuoi from "./page/Custommer/BoTrangSucCuoi";
 import AboutDiamond from "./page/Custommer/AboutDiamond";
 import ChinhSachBaoMat from "./page/Custommer/BaoMat";
 import ChinhSachDoiTra from "./page/Custommer/ChinhSachDoiTra";
+
+import Custommize from "./page/Custommer/Custommize";
+
 import DiamondDetails from "./page/Admin/Diamond/DiamondDetails";
 import ProductDetail from "./page/Admin/Product/ProductDetail";
+
 
 const router = createBrowserRouter([
   {
@@ -81,6 +85,10 @@ const router = createBrowserRouter([
         element: <DetailOrder />,
       },
       {
+        path: "/tuy-chinh",
+        element: <Custommize />,
+      },
+      {
         path: "/huong-dan-do-ni",
         element: <HuongDan />,
       },
@@ -98,6 +106,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "login",
     element: <LoginPage />,

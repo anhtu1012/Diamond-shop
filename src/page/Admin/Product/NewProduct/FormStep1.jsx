@@ -32,7 +32,7 @@ const cityData = {
 
 const provinceData = ["Trang Sức Cưới", "Trang sức Kim Cương"];
 
-function FormStep1({ onFinish, initialValues }) {
+function FormProductStep1({ onFinish, initialValues }) {
   const [fileList, setFileList] = useState(initialValues?.fileList || []);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -106,7 +106,7 @@ function FormStep1({ onFinish, initialValues }) {
               onPreview={handlePreview}
               style={{ fontSize: "30px" }}
             >
-              {fileList.length < 1 && "+ Upload"}
+              {fileList.length < 4 && "+ Upload"}
             </Upload>
           </ImgCrop>
           {previewImage && (
@@ -195,4 +195,4 @@ function FormStep1({ onFinish, initialValues }) {
   );
 }
 
-export default FormStep1;
+export default FormProductStep1;

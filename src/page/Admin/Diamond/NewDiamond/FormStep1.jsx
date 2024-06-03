@@ -220,7 +220,7 @@ function FormStep1({ onFinish, initialValues }) {
           </Row>
         </Col>
         <Col span={24} className="button_form">
-          <button type="submit">Tiếp theo</button>
+          <button type="submit">Lưu Thông tin</button>
         </Col>
       </Row>
     </Form>
