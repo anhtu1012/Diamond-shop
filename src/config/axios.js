@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:8080";
+const baseUrl = "http://localhost:5173";
 // const baseUrl = "http://68.183.180.21:8080";
 //
 const config = {
@@ -14,8 +14,8 @@ const handleBefore = (config) => {
   return config;
 };
 const handleError = (error) => {
-  console.log(error);
-  return;
+  console.error("API request error:", error);
+  return Promise.reject(error);
 };
 api.interceptors.request.use(handleBefore, handleError);
 // api.interceptors.response.use(null, handleError);

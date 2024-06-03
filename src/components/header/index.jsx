@@ -1,5 +1,5 @@
-import { LoginOutlined, SearchOutlined } from "@ant-design/icons";
-import { Badge, Button, Dropdown, Modal } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
+import { Badge, Button, Dropdown, Modal, Tooltip, message } from "antd";
 import { useEffect, useState } from "react";
 import {
   FaFacebookSquare,
@@ -7,21 +7,13 @@ import {
   FaMapMarkerAlt,
   FaShoppingCart,
   FaUserCog,
+  FaUserSecret,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { logoutApi } from "../../../services/Uservices";
 import LoginPage from "../../page/login";
 import "./index.scss";
-import { logoutApi } from "../../../services/Uservices";
-const settings = [
-  {
-    key: "1",
-    label: <Link to="/">Thông tin</Link>,
-  },
-  {
-    key: "/don-hang",
-    label: "Đơn Hàng",
-  },
-];
+
 const items = [
   {
     label: (
@@ -113,6 +105,7 @@ function Header() {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const navigate = useNavigate(); // Hook useNavigate
   const [user, setUser] = useState(null); // State lưu trữ thông tin người dùng
+
   useEffect(() => {
     const handleScroll = () => {
       const header = document.querySelector(".container-fluid");
@@ -154,7 +147,30 @@ function Header() {
     localStorage.removeItem("token");
     setUser(null);
     navigate("/");
+    message.success("Đăng Xuất Thành Công");
   };
+  const settings = [
+    {
+      key: "1",
+      label: <Link to="/">Thông tin</Link>,
+    },
+    {
+      key: "/don-hang",
+      label: "Đơn Hàng",
+    },
+    {
+      key: "#",
+      label: (
+        <Button
+          type="text"
+          onClick={handleLogout}
+          style={{ padding: "0", color: "red" }}
+        >
+          Đăng xuất
+        </Button>
+      ),
+    },
+  ];
   return (
     <div className="container-fluid">
       <header className="header">
@@ -162,7 +178,6 @@ function Header() {
           <FaFacebookSquare />
           <FaInstagramSquare />
           <FaMapMarkerAlt />
-          <Button onClick={handleLogout}>Logout</Button>
         </div>
         <div className="header_logo">
           <Link to="/">
@@ -182,8 +197,15 @@ function Header() {
                   <input type="text" placeholder="Search..." />
                 )}
               </div>
-              <LoginOutlined onClick={() => showModal(true)} />
-              <FaShoppingCart />
+              <Badge count={5} size="small">
+                <FaShoppingCart
+                  style={{ fontSize: "25px", color: "#828282" }}
+                  onClick={() => navigate("/cart")}
+                />
+              </Badge>
+              <Tooltip placement="bottom" title={"Đăng nhập"}>
+                <FaUserSecret onClick={() => showModal(true)} />
+              </Tooltip>
             </div>
           ) : (
             <div className="header_social_right">
@@ -252,7 +274,7 @@ function Header() {
             <Link to="/huong-dan-do-ni">Hướng dẫn</Link>
           </li>
           <li>
-            <Link to="/">Tùy chỉnh</Link>
+            <Link to="/tuy-chinh">Tùy chỉnh</Link>
           </li>
           <li>
             <Link to="/">Liên hệ</Link>

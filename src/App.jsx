@@ -37,6 +37,7 @@ import AboutDiamond from "./page/Custommer/AboutDiamond";
 import ChinhSachBaoMat from "./page/Custommer/BaoMat";
 import ChinhSachDoiTra from "./page/Custommer/ChinhSachDoiTra";
 
+
 import TrangSucCuoi from "./page/Custommer/TrangSucCuoi";
 import TrangSucKimCuong from "./page/Custommer/TrangSucKimCuong";
 import NhanKimCuong from "./page/Custommer/NhanKimCuong";
@@ -45,6 +46,9 @@ import LacVongTayKimCuong from "./page/Custommer/LVTKimcuong";
 import BoSuuTapKimCuong from "./page/Custommer/BSTKimCuong";
 import BongTaiKimCuong from "./page/Custommer/BongTaiKimCuong";
 import KimCuongVien from "./page/Custommer/KimCuongVien";
+
+import Custommize from "./page/Custommer/Custommize";
+
 
 import DiamondDetails from "./page/Admin/Diamond/DiamondDetails";
 import ProductDetail from "./page/Admin/Product/ProductDetail";
@@ -90,6 +94,10 @@ const router = createBrowserRouter([
       {
         path: "/chi-tiet-don-hang",
         element: <DetailOrder />,
+      },
+      {
+        path: "/tuy-chinh",
+        element: <Custommize />,
       },
       {
         path: "/huong-dan-do-ni",
@@ -141,6 +149,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "login",
     element: <LoginPage />,

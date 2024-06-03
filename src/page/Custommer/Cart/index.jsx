@@ -1,19 +1,21 @@
+import { CaretLeftFilled, DeleteOutlined } from "@ant-design/icons";
 import {
+  AutoComplete,
   Button,
   Col,
+  DatePicker,
   Form,
   Input,
   Radio,
   Row,
   Select,
-  AutoComplete,
-  DatePicker,
 } from "antd";
-import "./index.scss";
-import { CaretLeftFilled, DeleteOutlined } from "@ant-design/icons";
-import Container from "../../../components/container/Container";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { IoTicket } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import Relate from "../../../components/carousel/related";
+import Container from "../../../components/container/Container";
+import "./index.scss";
 const { Option } = Select;
 const items = [
   {
@@ -144,15 +146,52 @@ function Cart() {
       imageUrl:
         "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
     },
+    {
+      name: "NHẪN KIM CƯƠNG NỮ 18K VIP",
+      code: "NKC12341241",
+      imgDM: "",
+      nameDM: "",
+      codeDM: "",
+      price: "500,000,000",
+      imageUrl:
+        "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
+    },
+    {
+      name: "NHẪN KIM CƯƠNG NỮ 18K VIP",
+      code: "NKC12341241",
+      imgDM: "",
+      nameDM: "",
+      codeDM: "",
+      price: "500,000,000",
+      imageUrl:
+        "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
+    },
   ];
+  useEffect(() => {
+    const handleScroll = () => {
+      const cartTotalElement = document.querySelector(".cart_total");
+      if (cartTotalElement) {
+        const scrollTop = window.scrollY;
+        if (scrollTop >= 400) {
+          cartTotalElement.classList.add("canselfixed");
+        } else {
+          cartTotalElement.classList.remove("canselfixed");
+        }
+      }
+    };
 
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
-    <Container>
-      <div>
+    <div className="cart">
+      <Container>
         <div className="cart_button">
           <Button type="primary" className="cart_button_comback">
             <CaretLeftFilled className="cart_button_comback_icon" />{" "}
-            <Link to="/">Tiếp tục mua sắp</Link>
+            <Link to="/">Tiếp tục mua sắm</Link>
           </Button>
         </div>
         <Row className="cart-main">
@@ -227,6 +266,7 @@ function Cart() {
 
                 <Form.Item
                   name="birthdate"
+                  style={{ paddingTop: "10px" }}
                   rules={[
                     { required: true, message: "Xin hãy nhập vào Ngày sinh!" },
                   ]}
@@ -321,48 +361,6 @@ function Cart() {
                 </Form.Item>
               </Form>
             </div>
-            <div className="cart_form_title">
-              <Button shape="circle">
-                <p>3</p>
-              </Button>
-              <h2>Nhập Điểm</h2>
-            </div>
-
-            <Form
-              form={form}
-              onFinish={onFinish}
-              style={{ padding: "25px 30px", maxWidth: "476px" }}
-            >
-              <Form.Item
-                name="points"
-                rules={[{ required: true, message: "Xin hãy nhập điểm!" }]}
-                style={{ marginBottom: "20px" }}
-              >
-                <Input
-                  className="input"
-                  placeholder="Nhập điểm *"
-                  style={{ width: "350px", height: "40px" }}
-                />
-              </Form.Item>
-
-              <Form.Item name="agreement">
-                <span style={{ fontSize: "13px" }}>
-                  * Đồng ý nhận thông tin và chương trình khuyến mãi của Diamond
-                  qua email, SMS, mạng xã hội và thu thập, xử lý dữ liệu cá nhân
-                  của tôi theo quy định thông báo này và quy định pháp luật.
-                </span>
-                <br />
-                <Radio value="agree1">Tôi đồng ý</Radio>
-              </Form.Item>
-
-              <Button
-                className="confirm_button"
-                type="primary"
-                style={{ width: "310px", height: "48px" }}
-              >
-                <Link to="/don-hang">Xác nhận</Link>
-              </Button>
-            </Form>
           </Col>
 
           <Col span={15}>
@@ -403,19 +401,57 @@ function Cart() {
                 </span>
               </div>
             </div>
-            <div className="cart_total">
-              <div className="cart_total_price">
-                <span className="cart_total_price_label">Thành tiền:</span>
-                <span className="cart_total_price_value">1.100.000.000₫</span>
+            <Form
+              form={form}
+              onFinish={onFinish}
+              style={{ padding: "25px 30px", maxWidth: "476px" }}
+            >
+              <div className="cart_total">
+                <div className="cart_points">
+                  <span className="cart_points_label">
+                    <IoTicket style={{ paddingRight: "5px" }} />
+                    Nhập điểm
+                  </span>
+                  <Input
+                    className="input"
+                    placeholder="Nhập điểm *"
+                    style={{ width: "150px", height: "30px" }}
+                  />
+                </div>
+                <div className="cart_total_price">
+                  <span className="cart_total_price_label">
+                    Thành tiền (2 sản phẩm):
+                  </span>
+                  <span className="cart_total_price_value">1.100.000.000₫</span>
+                </div>
+                <div className="cart_vat_statement">
+                  Giá tham khảo đã bao gồm VAT
+                </div>
+                <Button
+                  className="confirm_button"
+                  type="primary"
+                  style={{ width: "100%", height: "48px" }}
+                >
+                  <Link to="/don-hang">Xác nhận</Link>
+                </Button>
               </div>
-              <div className="cart_vat_statement">
-                Giá tham khảo đã bao gồm VAT
-              </div>
-            </div>
+            </Form>
           </Col>
         </Row>
-      </div>
-    </Container>
+        <div>
+          <h2
+            style={{
+              textAlign: "center",
+              paddingBottom: "20px",
+              fontSize: "25px",
+            }}
+          >
+            Có thể bạn quan tâm
+          </h2>
+          <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
+        </div>
+      </Container>
+    </div>
   );
 }
 

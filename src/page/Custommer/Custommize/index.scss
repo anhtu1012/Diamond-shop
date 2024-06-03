@@ -1,0 +1,138 @@
+.step_main {
+  padding-top: 30px;
+  &_button_1 {
+    height: 80px;
+    width: 100%;
+    border-radius: 50px 0px 0px 50px;
+    border: 1px solid black;
+    p {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: left;
+    }
+    .title_main {
+      display: flex;
+      gap: 10px;
+      font-size: 15px;
+      a {
+        color: gray;
+        text-decoration: underline;
+        transform: 0.3s;
+        &:hover {
+          color: red;
+        }
+      }
+      span {
+        font-weight: bold;
+      }
+    }
+    .title_1 {
+      font-size: 35px;
+    }
+    .title_2 {
+      font-size: 25px;
+      font-weight: 400;
+    }
+    .body_step {
+      display: flex;
+      align-items: center;
+    }
+    transition: background-color 0.3s ease;
+    &:hover {
+      border: 1px solid black !important;
+      color: white !important;
+      background-color: #15393f !important;
+      cursor: pointer; // Thêm hiệu ứng con trỏ chuột khi hover
+    }
+  }
+  &_button_2 {
+    height: 80px;
+    width: 100%;
+    border-radius: 0;
+    border: 1px solid black;
+    p {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: left;
+    }
+    .title_main {
+      display: flex;
+      gap: 10px;
+      font-size: 15px;
+      a {
+        color: gray;
+        text-decoration: underline;
+        transform: 0.3s;
+        &:hover {
+          color: red;
+        }
+      }
+      span {
+        font-weight: bold;
+      }
+    }
+    .title_1 {
+      font-size: 35px;
+    }
+    .title_2 {
+      font-size: 25px;
+      font-weight: 400;
+    }
+    .body_step {
+      display: flex;
+      align-items: center;
+    }
+    transition: background-color 0.3s ease;
+    &:hover {
+      border: 1px solid black !important;
+      color: white !important;
+      background-color: #15393f !important;
+      cursor: pointer; // Thêm hiệu ứng con trỏ chuột khi hover
+    }
+  }
+  &_button_3 {
+    height: 80px;
+    width: 100%;
+    border-radius: 0px 50px 50px 0px;
+    border: 1px solid black;
+    p {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: left;
+    }
+    .title_main {
+      display: flex;
+      gap: 10px;
+      font-size: 15px;
+      a {
+        color: gray;
+        text-decoration: underline;
+        transform: 0.3s;
+        &:hover {
+          color: red;
+        }
+      }
+      span {
+        font-weight: bold;
+      }
+    }
+    .title_1 {
+      font-size: 35px;
+    }
+    .title_2 {
+      font-size: 25px;
+      font-weight: 400;
+    }
+    .body_step {
+      display: flex;
+      align-items: center;
+    }
+    transition: background-color 0.3s ease;
+    &:hover {
+      border: 1px solid black !important;
+      color: white !important;
+      background-color: #15393f !important;
+      cursor: pointer; // Thêm hiệu ứng con trỏ chuột khi hover
+    }
+  }
+}
