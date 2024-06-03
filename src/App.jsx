@@ -36,6 +36,7 @@ import BoTrangSucCuoi from "./page/Custommer/BoTrangSucCuoi";
 import AboutDiamond from "./page/Custommer/AboutDiamond";
 import ChinhSachBaoMat from "./page/Custommer/BaoMat";
 import ChinhSachDoiTra from "./page/Custommer/ChinhSachDoiTra";
+
 import TrangSucCuoi from "./page/Custommer/TrangSucCuoi";
 import TrangSucKimCuong from "./page/Custommer/TrangSucKimCuong";
 import NhanKimCuong from "./page/Custommer/NhanKimCuong";
@@ -44,6 +45,10 @@ import LacVongTayKimCuong from "./page/Custommer/LVTKimcuong";
 import BoSuuTapKimCuong from "./page/Custommer/BSTKimCuong";
 import BongTaiKimCuong from "./page/Custommer/BongTaiKimCuong";
 import KimCuongVien from "./page/Custommer/KimCuongVien";
+
+import DiamondDetails from "./page/Admin/Diamond/DiamondDetails";
+import ProductDetail from "./page/Admin/Product/ProductDetail";
+
 
 const router = createBrowserRouter([
   {
@@ -166,12 +171,20 @@ const router = createBrowserRouter([
         element: <ViewProduct />,
       },
       {
+        path: "san-pham/xem-tat-ca-san-pham/product-detail/:id",
+        element: <ProductDetail />,
+      },
+      {
         path: "san-pham/tao-san-pham",
         element: <NewProduct />,
       },
       {
         path: "san-pham/xem-tat-ca-kim-cuong",
         element: <ViewDiamond />,
+      },
+      {
+        path: "san-pham/xem-tat-ca-kim-cuong/daimond-detail/:id",
+        element: <DiamondDetails />,
       },
       {
         path: "san-pham/tao-kim-cuong",
