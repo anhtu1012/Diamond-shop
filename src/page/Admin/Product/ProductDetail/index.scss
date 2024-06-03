@@ -1,0 +1,13 @@
+.custom-form-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .custom-form-item .ant-form-item-label {
+    margin-bottom: 0px; // Adjust spacing as needed
+  }
+  
+  .custom-form-item .ant-form-item-control {
+    width: 100%;
+  }
+  
