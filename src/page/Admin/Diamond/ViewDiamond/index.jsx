@@ -22,7 +22,11 @@ const initialData = [
     accreditation: "GIA",
     size: "6.0",
     price: "488.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM1"}>
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "2",
@@ -40,7 +44,11 @@ const initialData = [
     accreditation: "GIA",
     size: "3.0",
     price: "488.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM2"}>
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "3",
@@ -58,7 +66,11 @@ const initialData = [
     accreditation: "GIA",
     size: "3.6",
     price: "488.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM3"}>
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "4",
@@ -76,7 +88,11 @@ const initialData = [
     accreditation: "GIA",
     size: "2.6",
     price: "48.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM4"}>
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "5",
@@ -94,7 +110,11 @@ const initialData = [
     accreditation: "GIA",
     size: "6.6",
     price: "88.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM5"}>
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "6",
@@ -112,7 +132,11 @@ const initialData = [
     accreditation: "GIA",
     size: "6.6",
     price: "88.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM6"}>
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "7",
@@ -130,7 +154,11 @@ const initialData = [
     accreditation: "GIA",
     size: "6.6",
     price: "68.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM7"}>
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "8",
@@ -148,7 +176,11 @@ const initialData = [
     accreditation: "GIA",
     size: "6.6",
     price: "58.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM8"}>
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "9",
@@ -166,7 +198,11 @@ const initialData = [
     accreditation: "GIA",
     size: "3.3",
     price: "58.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM9"}>
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "10",
@@ -184,7 +220,13 @@ const initialData = [
     accreditation: "GIA",
     size: "6.6",
     price: "488.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link
+        to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM10"}
+      >
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "11",
@@ -202,7 +244,13 @@ const initialData = [
     accreditation: "GIA",
     size: "6.6",
     price: "488.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link
+        to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail//DM11"}
+      >
+        Xem chi tiết
+      </Link>
+    ),
   },
 ];
 
@@ -231,7 +279,9 @@ function ViewDiamond() {
       close,
     }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
-        {dataIndex === "color" || dataIndex === "purity" ? (
+        {dataIndex === "color" ||
+        dataIndex === "purity" ||
+        dataIndex === "style" ? (
           <Select
             style={{ width: 188, marginBottom: 8, display: "block" }}
             placeholder={`Search ${dataIndex}`}
@@ -366,7 +416,18 @@ function ViewDiamond() {
       dataIndex: "style",
       key: "style",
       width: "10%",
-      ...getColumnSearchProps("style"),
+      ...getColumnSearchProps("style", [
+        "Round",
+        "Princess",
+        "Radiant",
+        "Emerald",
+        "Asscher",
+        "Marquise",
+        "Oval",
+        "Pearl",
+        "Heart",
+        "Cushion",
+      ]),
     },
     {
       title: "Trọng lượng (cts)",

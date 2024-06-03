@@ -19,7 +19,13 @@ const initialData = [
     category: "Nhẫn cầu hôn kim cương",
     status: "Còn hàng",
     price: "488.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link
+        to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS123"}
+      >
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "2",
@@ -34,7 +40,13 @@ const initialData = [
     category: "Nhẫn kim cương",
     status: "Hết hàng",
     price: "488.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link
+        to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS456"}
+      >
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "3",
@@ -49,7 +61,13 @@ const initialData = [
     category: "Bông tai kim cương",
     status: "Còn hàng",
     price: "488.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link
+        to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS789"}
+      >
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "4",
@@ -64,7 +82,13 @@ const initialData = [
     category: "Lắc/Vòng tay kim cương",
     status: "Hết hàng",
     price: "48.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link
+        to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS159"}
+      >
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "5",
@@ -79,7 +103,13 @@ const initialData = [
     category: "Mặt dây chuyền kim cương",
     status: "Còn hàng",
     price: "88.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link
+        to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS753"}
+      >
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "6",
@@ -94,7 +124,13 @@ const initialData = [
     category: "Nhẫn cầu hôn kim cương",
     status: "Hết hàng",
     price: "88.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link
+        to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS258"}
+      >
+        Xem chi tiết
+      </Link>
+    ),
   },
   {
     key: "7",
@@ -109,7 +145,13 @@ const initialData = [
     category: "Nhẫn cưới kim cương",
     status: "Còn hàng",
     price: "68.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: (
+      <Link
+        to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS165"}
+      >
+        Xem chi tiết
+      </Link>
+    ),
   },
 ];
 
