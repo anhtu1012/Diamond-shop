@@ -1,14 +1,28 @@
 /* eslint-disable react/prop-types */
-import { Button, Col, Form, Input, Radio, Row } from "antd";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Radio,
+  Row,
+  message,
+  notification,
+} from "antd";
 import "./index.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "antd/lib/form/Form";
 import { FcGoogle } from "react-icons/fc";
 import { FaSquareFacebook } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { loginApi } from "../../../services/Uservices";
+
 function LoginPage({ setUser, onLoginSuccess }) {
   const [isLogin, setIsLogin] = useState(true);
+  const [form] = useForm();
+  const navigate = useNavigate();
+  const [loginError, setLoginError] = useState("");
+
   const switchToSignUp = () => {
     setIsLogin(false);
     form.resetFields();
@@ -18,49 +32,111 @@ function LoginPage({ setUser, onLoginSuccess }) {
     setIsLogin(true);
     form.resetFields();
   };
-  const [form] = useForm();
-  function handleOK() {
-    form.submit();
-  }
 
-  const navigate = useNavigate(); // Hook useNavigate
-  // Updated handleLogin function
+  useEffect(() => {
+    loadReCaptchaScript();
+  }, []);
+
+  const loadReCaptchaScript = () => {
+    const existingScript = document.getElementById("recaptcha-script");
+    if (!existingScript) {
+      const script = document.createElement("script");
+      script.src = "https://www.google.com/recaptcha/api.js";
+      script.async = true;
+      script.defer = true;
+      script.id = "recaptcha-script";
+      document.body.appendChild(script);
+    }
+  };
+
+  const handleOK = () => {
+    if (validateCaptcha()) {
+      handleLogin(form.getFieldsValue());
+    }
+  };
+
   const handleLogin = async (values) => {
+    const recaptchaResponse = window.grecaptcha.getResponse();
+    if (!recaptchaResponse) {
+      notification.error({
+        message: "Xác Thực",
+        description: "Vui lòng xác nhận bạn không phải là Robot",
+      });
+      return;
+    }
+
     try {
-      const res = await loginApi(values.email, values.password);
+      const res = await loginApi(
+        values.email,
+        values.password,
+        recaptchaResponse
+      );
       console.log(res.data.message);
-      const usertoken = res.data.token; // Lấy token từ response
+      const usertoken = res.data.token;
 
       localStorage.setItem("token", usertoken);
-      // Tách JWT thành các phần và giải mã payload
       const base64Url = usertoken.split(".")[1];
       const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
       const payload = JSON.parse(window.atob(base64));
       setUser(payload);
-      onLoginSuccess(); // Gọi hàm onLoginSuccess để tắt modal
+      onLoginSuccess();
+
+      // Reset captcha
+      window.grecaptcha.reset();
+
+      setLoginError("");
+
       setTimeout(() => {
         if (payload.role[0].authority === "ROLE_ADMIN") {
           navigate("/admin-page");
-        }
-        if (payload.role[0].authority === "ROLE_STAFF") {
+          message.success("Chào mừng bạn đến Admin");
+        } else if (payload.role[0].authority === "ROLE_STAFF") {
           console.log("/staff-page");
-        }
-        if (payload.role[0].authority === "ROLE_USER") {
+          message.success("Chào mừng bạn đến Staff");
+        } else if (payload.role[0].authority === "ROLE_DELIVERY") {
+          console.log("/delivery-page");
+          message.success("Chào mừng bạn đến DELIVERY");
+        } else if (payload.role[0].authority === "ROLE_USER") {
           console.log("/");
+          message.success("Chào mừng bạn đến DIAMOND KING");
         }
       }, 1000);
     } catch (error) {
-      // Kiểm tra xem response có tồn tại hay không và in ra message lỗi
       if (error.response) {
-        console.error("Sai nè:", error.response.data.message);
+        setLoginError(error.response.data.message);
+        notification.error({
+          message: "Đăng Nhập không thành công",
+          description: error.response.data.message,
+        });
       } else {
-        console.error("An error occurred during login:", error);
+        notification.error({
+          message: "Đăng Nhập không thành công",
+          description: "Đã xảy ra lỗi trong quá trình đăng nhập",
+        });
       }
+      window.grecaptcha.reset();
     }
   };
+
+  const validateCaptcha = () => {
+    const recaptchaResponse = window.grecaptcha.getResponse();
+    if (recaptchaResponse) {
+      notification.success({
+        message: "Thành công",
+        description: "Bạn đã xác minh hình ảnh xác thực thành công.",
+      });
+      return true;
+    } else {
+      notification.error({
+        message: "Xác Thực",
+        description: "Vui lòng xác nhận bạn không phải là Robot",
+      });
+      return false;
+    }
+  };
+
   return (
     <div className={isLogin ? "container" : "container active"}>
-      {/* Phần mô tả có thể dựa trên trạng thái đăng nhập hoặc đăng ký */}
       <Row>
         <Col span={12} className="col_img" xs={0} sm={0} md={0} lg={12} xl={12}>
           <div className="item">
@@ -78,9 +154,7 @@ function LoginPage({ setUser, onLoginSuccess }) {
               <div className="form_box login">
                 <h2 className="login_titel">ĐĂNG NHẬP</h2>
                 <Form
-                  labelCol={{
-                    span: 24,
-                  }}
+                  labelCol={{ span: 24 }}
                   form={form}
                   className="login_form"
                   onFinish={handleLogin}
@@ -90,13 +164,11 @@ function LoginPage({ setUser, onLoginSuccess }) {
                     rules={[
                       {
                         type: "email",
-                        message: "The input is not valid E-mail!",
+                        message: "E-mail! không hợp lệ",
                       },
-                      {
-                        required: true,
-                        message: "Please input your E-mail!",
-                      },
+                      { required: true, message: "Vui lòng nhập E-mail!" },
                     ]}
+                    validateStatus={loginError ? "error" : ""}
                   >
                     <Input className="input" placeholder="Email..." />
                   </Form.Item>
@@ -105,13 +177,15 @@ function LoginPage({ setUser, onLoginSuccess }) {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your password!",
+                        message: "Vui lòng nhập mật khẩu!",
                       },
                     ]}
+                    validateStatus={loginError ? "error" : ""}
+                    help={loginError}
                   >
                     <Input.Password
                       className="input"
-                      placeholder="Password..."
+                      placeholder="Mật khẩu..."
                     />
                   </Form.Item>
                   <Form.Item>
@@ -129,6 +203,13 @@ function LoginPage({ setUser, onLoginSuccess }) {
                         </Form.Item>
                       </Col>
                     </Row>
+                  </Form.Item>
+                  <Form.Item>
+                    <div
+                      className="g-recaptcha"
+                      data-sitekey="6LciZqApAAAAAOULYxe_lEOrY7dQ47gjli-TpYBo"
+                      style={{ display: "flex", justifyContent: "center" }}
+                    ></div>
                   </Form.Item>
                 </Form>
 
@@ -162,9 +243,7 @@ function LoginPage({ setUser, onLoginSuccess }) {
                 <div className="form_box login">
                   <h2 className="login_titel">ĐĂNG KÝ</h2>
                   <Form
-                    labelCol={{
-                      span: 24,
-                    }}
+                    labelCol={{ span: 24 }}
                     form={form}
                     className="login_form"
                     onFinish={handleLogin}
@@ -174,11 +253,11 @@ function LoginPage({ setUser, onLoginSuccess }) {
                       rules={[
                         {
                           type: "email",
-                          message: "The input is not valid E-mail!",
+                          message: "E-mail! không hợp lệ!!!",
                         },
                         {
                           required: true,
-                          message: "Please input your E-mail!",
+                          message: "Vui lòng nhập E-mail!",
                         },
                       ]}
                     >
@@ -189,7 +268,7 @@ function LoginPage({ setUser, onLoginSuccess }) {
                       rules={[
                         {
                           required: true,
-                          message: "Please input your password!",
+                          message: "Vui lòng nhập mật khẩu!",
                         },
                         {
                           pattern: new RegExp("^(?=.*[A-Za-z])(?=.*\\d).{8,}$"),
@@ -201,7 +280,7 @@ function LoginPage({ setUser, onLoginSuccess }) {
                     >
                       <Input.Password
                         className="input"
-                        placeholder=" Password..."
+                        placeholder="Mật khẩu..."
                       />
                     </Form.Item>
                     <Form.Item
@@ -211,7 +290,7 @@ function LoginPage({ setUser, onLoginSuccess }) {
                       rules={[
                         {
                           required: true,
-                          message: "Please confirm your password!",
+                          message: "Nhập lại mật khẩu!!!",
                         },
                         ({ getFieldValue }) => ({
                           validator(_, value) {
@@ -219,9 +298,7 @@ function LoginPage({ setUser, onLoginSuccess }) {
                               return Promise.resolve();
                             }
                             return Promise.reject(
-                              new Error(
-                                "The new password that you entered do not match!"
-                              )
+                              new Error("Mật khẩu không hợp lệ!")
                             );
                           },
                         }),
@@ -229,8 +306,15 @@ function LoginPage({ setUser, onLoginSuccess }) {
                     >
                       <Input.Password
                         className="input"
-                        placeholder="Confirm Password ..."
+                        placeholder="Xác nhận lại mật khẩu..."
                       />
+                    </Form.Item>
+                    <Form.Item>
+                      <div
+                        className="g-recaptcha"
+                        data-sitekey="6LciZqApAAAAAOULYxe_lEOrY7dQ47gjli-TpYBo"
+                        style={{ display: "flex", justifyContent: "center" }}
+                      ></div>
                     </Form.Item>
                   </Form>
                   <Button
@@ -263,14 +347,14 @@ function LoginPage({ setUser, onLoginSuccess }) {
             <div className="link">
               {isLogin ? (
                 <span>
-                  Bạn mới biết đến Diamond ?{" "}
+                  Bạn mới biết đến Diamond?{" "}
                   <a href="#" onClick={switchToSignUp} className="switch_link">
                     Đăng kí
                   </a>
                 </span>
               ) : (
                 <span>
-                  Bạn đã có tài khoản Diamond ?{" "}
+                  Bạn đã có tài khoản Diamond?{" "}
                   <a href="#" onClick={switchToSignIn} className="switch_link">
                     Đăng Nhập
                   </a>

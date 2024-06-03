@@ -1,19 +1,9 @@
 /* eslint-disable react/prop-types */
-import {
-  Form,
-  Input,
-  Row,
-  Col,
-  Select,
-  InputNumber,
-  Button,
-  Popconfirm,
-} from "antd";
-import { useEffect, useState } from "react";
+import { Form, Input, Row, Col, Select, InputNumber, Button } from "antd";
+import { useEffect } from "react";
 
 function FormStep2({ onFinish, initialValues }) {
   const [form] = Form.useForm();
-  const [confirmVisible, setConfirmVisible] = useState(false);
 
   useEffect(() => {
     if (initialValues) {
@@ -21,26 +11,14 @@ function FormStep2({ onFinish, initialValues }) {
     }
   }, [initialValues, form]);
 
-  const handleConfirm = async () => {
+  const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
+      values.certification = "Gia";
       onFinish(values);
     } catch (errorInfo) {
       console.log("Validation failed:", errorInfo);
     }
-  };
-
-  const handleSubmit = async () => {
-    try {
-      await form.validateFields();
-      setConfirmVisible(true);
-    } catch (errorInfo) {
-      console.log("Validation failed:", errorInfo);
-    }
-  };
-
-  const handleCancel = () => {
-    setConfirmVisible(false);
   };
 
   return (
@@ -230,19 +208,9 @@ function FormStep2({ onFinish, initialValues }) {
         </Col>
       </Row>
       <div className="button_form_2">
-        <Popconfirm
-          title="Xác nhận"
-          description="Xác nhận lại thông tin!"
-          visible={confirmVisible}
-          onConfirm={handleConfirm}
-          onCancel={handleCancel}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button type="primary" onClick={handleSubmit}>
-            Hoàn Tất
-          </Button>
-        </Popconfirm>
+        <Button type="primary" onClick={handleSubmit}>
+          Lưu Thông tin
+        </Button>
       </div>
     </Form>
   );

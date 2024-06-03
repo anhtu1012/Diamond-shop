@@ -5,10 +5,10 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SettingFilled,
-  SoundFilled,
   SunFilled,
 } from "@ant-design/icons";
 import { Avatar } from "antd";
+import { IoMdNotifications } from "react-icons/io";
 
 function HeaderAdmin({ collapsed, setCollapsed }) {
   return (
@@ -35,7 +35,7 @@ function HeaderAdmin({ collapsed, setCollapsed }) {
           <p style={{ fontStyle: "italic", fontSize: "20px" }}>Manage</p>
           <SettingFilled />
           <Badge size="default" count={5}>
-            <SoundFilled style={{ fontSize: "25px" }} />
+            <IoMdNotifications style={{ fontSize: "25px" }} />
           </Badge>
           <SunFilled />
         </Space>
