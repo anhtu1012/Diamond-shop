@@ -10,7 +10,7 @@ import {
   FaUserSecret,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { logoutApi } from "../../../services/Uservices";
+import { getProducts, logoutApi } from "../../../services/Uservices";
 import LoginPage from "../../page/login";
 import "./index.scss";
 
@@ -171,11 +171,15 @@ function Header() {
       ),
     },
   ];
+  const hanldeGetProduct = async () => {
+    const res = await getProducts();
+    console.log(res.data);
+  };
   return (
     <div className="container-fluid">
       <header className="header">
         <div className="header_social_left">
-          <FaFacebookSquare />
+          <FaFacebookSquare onClick={() => hanldeGetProduct()} />
           <FaInstagramSquare />
           <FaMapMarkerAlt />
         </div>

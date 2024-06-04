@@ -15,7 +15,12 @@ import { useForm } from "antd/lib/form/Form";
 import { FcGoogle } from "react-icons/fc";
 import { FaSquareFacebook } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
-import { loginApi } from "../../../services/Uservices";
+import {
+  loginApi,
+  loginFB,
+  loginGG,
+  registerApi,
+} from "../../../services/Uservices";
 
 function LoginPage({ setUser, onLoginSuccess }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -51,7 +56,32 @@ function LoginPage({ setUser, onLoginSuccess }) {
 
   const handleOK = () => {
     if (validateCaptcha()) {
-      handleLogin(form.getFieldsValue());
+      form.submit();
+    }
+  };
+
+  const handleRegister = async (values) => {
+    try {
+      const res = await registerApi(values.email, values.password);
+      console.log(res.data);
+      if (res.data.code === "Success") {
+        notification.success({
+          message: "Đăng Ký Thành Công",
+          description: "Vui lòng kiểm tra email của bạn để xác thực tài khoản.",
+        });
+      } else {
+        notification.error({
+          message: "Đăng Ký không thành công",
+          description: res.data.message,
+        });
+      }
+    } catch (error) {
+      notification.error({
+        message: "Đăng Ký không thành công",
+        description: error.response
+          ? error.response.data.message
+          : "Đã xảy ra lỗi trong quá trình đăng ký",
+      });
     }
   };
 
@@ -71,7 +101,6 @@ function LoginPage({ setUser, onLoginSuccess }) {
         values.password,
         recaptchaResponse
       );
-      console.log(res.data.message);
       const usertoken = res.data.token;
 
       localStorage.setItem("token", usertoken);
@@ -86,36 +115,57 @@ function LoginPage({ setUser, onLoginSuccess }) {
 
       setLoginError("");
 
-      setTimeout(() => {
-        if (payload.role[0].authority === "ROLE_ADMIN") {
+      switch (payload.role[0].authority) {
+        case "ROLE_ADMIN":
           navigate("/admin-page");
           message.success("Chào mừng bạn đến Admin");
-        } else if (payload.role[0].authority === "ROLE_STAFF") {
-          console.log("/staff-page");
+          break;
+        case "ROLE_STAFF":
+          navigate("/staff-page");
           message.success("Chào mừng bạn đến Staff");
-        } else if (payload.role[0].authority === "ROLE_DELIVERY") {
-          console.log("/delivery-page");
+          break;
+        case "ROLE_DELIVERY":
+          navigate("/delivery-page");
           message.success("Chào mừng bạn đến DELIVERY");
-        } else if (payload.role[0].authority === "ROLE_USER") {
-          console.log("/");
+          break;
+        case "ROLE_USER":
+          navigate("/");
           message.success("Chào mừng bạn đến DIAMOND KING");
-        }
-      }, 1000);
-    } catch (error) {
-      if (error.response) {
-        setLoginError(error.response.data.message);
-        notification.error({
-          message: "Đăng Nhập không thành công",
-          description: error.response.data.message,
-        });
-      } else {
-        notification.error({
-          message: "Đăng Nhập không thành công",
-          description: "Đã xảy ra lỗi trong quá trình đăng nhập",
-        });
+          break;
+        default:
+          break;
       }
+    } catch (error) {
+      setLoginError(
+        error.response
+          ? error.response.data.message
+          : "Đã xảy ra lỗi trong quá trình đăng nhập"
+      );
+      notification.error({
+        message: "Đăng Nhập không thành công",
+        description: error.response
+          ? error.response.data.message
+          : "Đã xảy ra lỗi trong quá trình đăng nhập",
+      });
       window.grecaptcha.reset();
     }
+  };
+  const handleloginGG = async () => {
+    try {
+      // Replace with your API endpoint for Google login
+      const googleLoginUrl = await loginGG();
+      window.location.href = googleLoginUrl;
+    } catch (error) {
+      console.error("Error during Google login:", error);
+      notification.error({
+        message: "Login with Google failed",
+        description:
+          "There was an issue logging in with Google. Please try again later.",
+      });
+    }
+  };
+  const handleloginFB = async () => {
+    await loginFB();
   };
 
   const validateCaptcha = () => {
@@ -160,12 +210,9 @@ function LoginPage({ setUser, onLoginSuccess }) {
                   onFinish={handleLogin}
                 >
                   <Form.Item
-                    name={"email"}
+                    name="email"
                     rules={[
-                      {
-                        type: "email",
-                        message: "E-mail! không hợp lệ",
-                      },
+                      { type: "email", message: "E-mail không hợp lệ" },
                       { required: true, message: "Vui lòng nhập E-mail!" },
                     ]}
                     validateStatus={loginError ? "error" : ""}
@@ -173,12 +220,9 @@ function LoginPage({ setUser, onLoginSuccess }) {
                     <Input className="input" placeholder="Email..." />
                   </Form.Item>
                   <Form.Item
-                    name={"password"}
+                    name="password"
                     rules={[
-                      {
-                        required: true,
-                        message: "Vui lòng nhập mật khẩu!",
-                      },
+                      { required: true, message: "Vui lòng nhập mật khẩu!" },
                     ]}
                     validateStatus={loginError ? "error" : ""}
                     help={loginError}
@@ -212,13 +256,102 @@ function LoginPage({ setUser, onLoginSuccess }) {
                     ></div>
                   </Form.Item>
                 </Form>
-
                 <Button
                   type="primary"
                   className="login_button"
                   onClick={handleOK}
                 >
                   Đăng Nhập
+                </Button>
+                <div className="login_or">
+                  <h2> -------------------- Hoặc ------------------</h2>
+                </div>
+                <Row gutter={6} className="login_socicals">
+                  <Col span={12} xs={24} sm={24} md={24} lg={12} xl={12}>
+                    <Button
+                      className="login_social"
+                      onClick={() => handleloginGG()}
+                    >
+                      <FcGoogle />
+                      Google
+                    </Button>
+                  </Col>
+                  <Col span={12} xs={24} sm={24} md={24} lg={12} xl={12}>
+                    <Button
+                      className="login_social"
+                      onClick={() => handleloginFB()}
+                    >
+                      <FaSquareFacebook color="blue" />
+                      Facebook
+                    </Button>
+                  </Col>
+                </Row>
+              </div>
+            ) : (
+              <div className="form_box register">
+                <h2 className="login_titel">ĐĂNG KÝ</h2>
+                <Form
+                  labelCol={{ span: 24 }}
+                  form={form}
+                  className="login_form"
+                  onFinish={handleRegister}
+                >
+                  <Form.Item
+                    name="email"
+                    rules={[
+                      { type: "email", message: "E-mail không hợp lệ!!!" },
+                      { required: true, message: "Vui lòng nhập E-mail!" },
+                    ]}
+                  >
+                    <Input className="input" placeholder="Email..." />
+                  </Form.Item>
+                  <Form.Item
+                    name="password"
+                    rules={[
+                      { required: true, message: "Vui lòng nhập mật khẩu!" },
+                      {
+                        pattern: new RegExp("^(?=.*[A-Za-z])(?=.*\\d).{8,}$"),
+                        message:
+                          "Mật khẩu phải dài ít nhất 8 ký tự và bao gồm ít nhất một chữ số và một chữ cái.",
+                      },
+                    ]}
+                    hasFeedback
+                  >
+                    <Input.Password
+                      className="input"
+                      placeholder="Mật khẩu..."
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="confirmPassword"
+                    dependencies={["password"]}
+                    hasFeedback
+                    rules={[
+                      { required: true, message: "Nhập lại mật khẩu!!!" },
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (!value || getFieldValue("password") === value) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject(
+                            new Error("Mật khẩu không hợp lệ!")
+                          );
+                        },
+                      }),
+                    ]}
+                  >
+                    <Input.Password
+                      className="input"
+                      placeholder="Xác nhận lại mật khẩu..."
+                    />
+                  </Form.Item>
+                </Form>
+                <Button
+                  type="primary"
+                  className="login_button"
+                  onClick={form.submit}
+                >
+                  Đăng Ký
                 </Button>
                 <div className="login_or">
                   <h2> -------------------- Hoặc ------------------</h2>
@@ -237,111 +370,6 @@ function LoginPage({ setUser, onLoginSuccess }) {
                     </Button>
                   </Col>
                 </Row>
-              </div>
-            ) : (
-              <div className="form_box register">
-                <div className="form_box login">
-                  <h2 className="login_titel">ĐĂNG KÝ</h2>
-                  <Form
-                    labelCol={{ span: 24 }}
-                    form={form}
-                    className="login_form"
-                    onFinish={handleLogin}
-                  >
-                    <Form.Item
-                      name={"email"}
-                      rules={[
-                        {
-                          type: "email",
-                          message: "E-mail! không hợp lệ!!!",
-                        },
-                        {
-                          required: true,
-                          message: "Vui lòng nhập E-mail!",
-                        },
-                      ]}
-                    >
-                      <Input className="input" placeholder="Email..." />
-                    </Form.Item>
-                    <Form.Item
-                      name={"password"}
-                      rules={[
-                        {
-                          required: true,
-                          message: "Vui lòng nhập mật khẩu!",
-                        },
-                        {
-                          pattern: new RegExp("^(?=.*[A-Za-z])(?=.*\\d).{8,}$"),
-                          message:
-                            "Mật khẩu phải dài ít nhất 8 ký tự và bao gồm ít nhất một chữ số và một chữ cái.",
-                        },
-                      ]}
-                      hasFeedback
-                    >
-                      <Input.Password
-                        className="input"
-                        placeholder="Mật khẩu..."
-                      />
-                    </Form.Item>
-                    <Form.Item
-                      name={"confirmPassword"}
-                      dependencies={["password"]}
-                      hasFeedback
-                      rules={[
-                        {
-                          required: true,
-                          message: "Nhập lại mật khẩu!!!",
-                        },
-                        ({ getFieldValue }) => ({
-                          validator(_, value) {
-                            if (!value || getFieldValue("password") === value) {
-                              return Promise.resolve();
-                            }
-                            return Promise.reject(
-                              new Error("Mật khẩu không hợp lệ!")
-                            );
-                          },
-                        }),
-                      ]}
-                    >
-                      <Input.Password
-                        className="input"
-                        placeholder="Xác nhận lại mật khẩu..."
-                      />
-                    </Form.Item>
-                    <Form.Item>
-                      <div
-                        className="g-recaptcha"
-                        data-sitekey="6LciZqApAAAAAOULYxe_lEOrY7dQ47gjli-TpYBo"
-                        style={{ display: "flex", justifyContent: "center" }}
-                      ></div>
-                    </Form.Item>
-                  </Form>
-                  <Button
-                    type="primary"
-                    className="login_button"
-                    onClick={handleOK}
-                  >
-                    Đăng Ký
-                  </Button>
-                  <div className="login_or">
-                    <h2> -------------------- Hoặc ------------------</h2>
-                  </div>
-                  <Row gutter={6} className="login_socicals">
-                    <Col span={12} xs={24} sm={24} md={24} lg={12} xl={12}>
-                      <Button className="login_social">
-                        <FcGoogle />
-                        Google
-                      </Button>
-                    </Col>
-                    <Col span={12} xs={24} sm={24} md={24} lg={12} xl={12}>
-                      <Button className="login_social">
-                        <FaSquareFacebook color="blue" />
-                        Facebook
-                      </Button>
-                    </Col>
-                  </Row>
-                </div>
               </div>
             )}
             <div className="link">

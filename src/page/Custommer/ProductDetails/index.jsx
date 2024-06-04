@@ -722,7 +722,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
           <div className="product-relate-container">
             <h2>Các sản phẩm liên quan</h2>
 
-            <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
+            <Relate numberOfSlides={4} autoplay category="Nhẫn Kim Cương Nữ" />
           </div>
         </div>
       </Container>

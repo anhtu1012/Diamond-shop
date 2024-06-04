@@ -46,7 +46,7 @@ function FormStep2({ onFinish, initialValues }) {
         <Col span={12} className="info_detail2">
           <Form.Item
             label="KÍCH THƯỚC (MM)"
-            name="size"
+            name="dimensions"
             rules={[{ required: true, message: "Vui lòng không để trống" }]}
           >
             <InputNumber
@@ -60,7 +60,7 @@ function FormStep2({ onFinish, initialValues }) {
         <Col span={12} className="info_detail1">
           <Form.Item
             label="Cấp Màu (Color)"
-            name="color"
+            name="colorLevel"
             rules={[{ required: true, message: "Vui lòng không để trống" }]}
           >
             <Select
@@ -135,14 +135,30 @@ function FormStep2({ onFinish, initialValues }) {
           </Form.Item>
         </Col>
         <Col span={12} className="info_detail2">
-          <Form.Item label="Kiểm Định" name="certification">
-            <Input className="input" value="Gia" placeholder="Gia" disabled />
+          <Form.Item
+            label="Kiểm Định"
+            name="certificateNumber"
+            rules={[{ required: true, message: "Vui lòng không để trống" }]}
+          >
+            <Select
+              placeholder="Chọn Kiểm định"
+              style={{ width: "100%", height: "40px" }}
+            >
+              {["Gia", "Bên Khác"].map((certificateNumber) => (
+                <Select.Option
+                  key={certificateNumber}
+                  value={certificateNumber}
+                >
+                  {certificateNumber}
+                </Select.Option>
+              ))}
+            </Select>
           </Form.Item>
         </Col>
         <Col span={12} className="info_detail1">
           <Form.Item
             label="Phát Quang"
-            name="fluorescence"
+            name="flourescence"
             rules={[{ required: true, message: "Vui lòng không để trống" }]}
           >
             <Select
@@ -150,14 +166,14 @@ function FormStep2({ onFinish, initialValues }) {
               style={{ width: "100%", height: "40px" }}
             >
               {["Faint", "Medium", "Strong", "Very strong"].map(
-                (fluorescence) => (
-                  <Select.Option key={fluorescence} value={fluorescence}>
-                    {fluorescence} (
-                    {fluorescence === "Faint"
+                (flourescence) => (
+                  <Select.Option key={flourescence} value={flourescence}>
+                    {flourescence} (
+                    {flourescence === "Faint"
                       ? "Yếu"
-                      : fluorescence === "Medium"
+                      : flourescence === "Medium"
                       ? "Trung bình"
-                      : fluorescence === "Strong"
+                      : flourescence === "Strong"
                       ? "Mạnh"
                       : "Rất mạnh"}
                     )
@@ -170,37 +186,35 @@ function FormStep2({ onFinish, initialValues }) {
         <Col span={12} className="info_detail2">
           <Form.Item
             label="Nét Cắt/Độ Bóng/Đối Xứng"
-            name="cut_polish_symmetry"
+            name="cut"
             rules={[{ required: true, message: "Vui lòng không để trống" }]}
           >
             <Select
               placeholder="Chọn Nét Cắt/Độ Bóng/Đối Xứng"
               style={{ width: "100%", height: "40px" }}
             >
-              {["Excellent", "Very good", "Good", "Fair", "Poor"].map(
-                (grade) => (
-                  <Select.Option key={grade} value={grade}>
-                    {grade} (
-                    {grade === "Excellent"
-                      ? "Hoàn hảo"
-                      : grade === "Very good"
-                      ? "Rất tốt"
-                      : grade === "Good"
-                      ? "Tốt"
-                      : grade === "Fair"
-                      ? "Trung bình"
-                      : "Kém"}
-                    )
-                  </Select.Option>
-                )
-              )}
+              {["Excellent", "Very good", "Good", "Fair", "Poor"].map((cut) => (
+                <Select.Option key={cut} value={cut}>
+                  {cut} (
+                  {cut === "Excellent"
+                    ? "Hoàn hảo"
+                    : cut === "Very good"
+                    ? "Rất tốt"
+                    : cut === "Good"
+                    ? "Tốt"
+                    : cut === "Fair"
+                    ? "Trung bình"
+                    : "Kém"}
+                  )
+                </Select.Option>
+              ))}
             </Select>
           </Form.Item>
         </Col>
         <Col span={24} className="info_detail2">
           <Form.Item
             label="Màu Sắc"
-            name="color_detail"
+            name="color"
             rules={[{ required: true, message: "Vui lòng không để trống" }]}
           >
             <Input className="input" allowClear placeholder="Nhập Màu Sắc" />

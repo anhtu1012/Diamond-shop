@@ -76,18 +76,20 @@ function FormStep1({ onFinish, initialValues }) {
     >
       <Row gutter={6} className="form_step1">
         <Col span={10} className="upload_img">
-          <ImgCrop rotationSlider>
-            <Upload
-              action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-              listType="picture-card"
-              fileList={fileList}
-              onChange={onChange}
-              onPreview={handlePreview}
-              style={{ fontSize: "30px" }}
-            >
-              {fileList.length < 1 && "+ Upload"}
-            </Upload>
-          </ImgCrop>
+          <Form.Item className="upload_anh" name="image">
+            <ImgCrop rotationSlider>
+              <Upload
+                action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                listType="picture-card"
+                fileList={fileList}
+                onChange={onChange}
+                onPreview={handlePreview}
+                style={{ fontSize: "30px" }}
+              >
+                {fileList.length < 1 && "+ Upload"}
+              </Upload>
+            </ImgCrop>
+          </Form.Item>
           {previewImage && (
             <Image
               wrapperStyle={{
@@ -105,7 +107,7 @@ function FormStep1({ onFinish, initialValues }) {
         <Col span={14} className="info_basic">
           <Form.Item
             label="Mã Gia"
-            name="diamond_id"
+            name="diamondID"
             rules={[
               {
                 required: true,
@@ -130,7 +132,7 @@ function FormStep1({ onFinish, initialValues }) {
           </Form.Item>
           <Form.Item
             label="Tên Kim Cương"
-            name="diamond_name"
+            name="diamondName"
             rules={[
               {
                 required: true,
@@ -174,7 +176,7 @@ function FormStep1({ onFinish, initialValues }) {
             <Col span={8}>
               <Form.Item
                 label="Giá Nhập"
-                name="origin_price"
+                name="originPrice"
                 rules={[
                   {
                     required: true,
@@ -200,7 +202,7 @@ function FormStep1({ onFinish, initialValues }) {
             <Col span={12}>
               <Form.Item
                 label="Ngày Nhập"
-                name="input_date"
+                name="inputDate"
                 rules={[
                   {
                     required: true,
