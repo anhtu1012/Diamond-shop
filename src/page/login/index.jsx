@@ -191,7 +191,7 @@ function LoginPage({ setUser, onLoginSuccess }) {
                   <Form.Item>
                     <Row align="middle">
                       <Col span={12} style={{ textAlign: "left" }}>
-                        <Link to="/">Quên mật khẩu</Link>
+                        <Link to="/quen-mat-khau">Quên mật khẩu</Link>
                       </Col>
                       <Col span={12} style={{ textAlign: "right" }}>
                         <Form.Item

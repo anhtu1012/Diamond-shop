@@ -21,7 +21,6 @@ const products = Array.from({ length: 50 }, (_, index) => ({
   id: index + 1,
   name: `Product ${index + 1}`,
 }));
-
 const validateMessages = {
   required: "${label} không được để trống",
   types: {
@@ -29,9 +28,10 @@ const validateMessages = {
     number: "Vui lòng điền đúng ${label}",
   },
   number: {
-    range: "${label} must be between ${min} and ${max}",
+    range: "${label} phải có ${10} số",
   },
 };
+
 const onFinish = (values) => {
   console.log(values);
 };
@@ -231,7 +231,7 @@ function NhanCauHon() {
                   name={["Số điện thoại"]}
                   rules={[
                     {
-                      type: "number",
+                      number: "number",
                       required: true,
                     },
                   ]}
