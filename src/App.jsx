@@ -37,7 +37,6 @@ import AboutDiamond from "./page/Custommer/AboutDiamond";
 import ChinhSachBaoMat from "./page/Custommer/BaoMat";
 import ChinhSachDoiTra from "./page/Custommer/ChinhSachDoiTra";
 
-
 import TrangSucCuoi from "./page/Custommer/TrangSucCuoi";
 import TrangSucKimCuong from "./page/Custommer/TrangSucKimCuong";
 import NhanKimCuong from "./page/Custommer/NhanKimCuong";
@@ -49,10 +48,9 @@ import KimCuongVien from "./page/Custommer/KimCuongVien";
 
 import Custommize from "./page/Custommer/Custommize";
 
-
 import DiamondDetails from "./page/Admin/Diamond/DiamondDetails";
 import ProductDetail from "./page/Admin/Product/ProductDetail";
-
+import ForgotPassword from "./page/forgotpassword";
 
 const router = createBrowserRouter([
   {
@@ -150,6 +148,10 @@ const router = createBrowserRouter([
     ],
   },
 
+  {
+    path: "/quen-mat-khau",
+    element: <ForgotPassword />,
+  },
   {
     path: "login",
     element: <LoginPage />,

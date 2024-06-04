@@ -1,0 +1,85 @@
+.back-home-page {
+  padding: 20px 40px;
+  .logo-back {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.back-button {
+  padding: 10px 20px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.back-button .no-underline {
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+}
+
+.back-button .no-underline:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.back-button:hover {
+  background-color: #5a6268;
+}
+
+.forgot-password-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+.forgot-password-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.forgot-password-container .form-group {
+  margin-bottom: 15px;
+}
+
+.forgot-password-container .form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.forgot-password-container .form-group input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.forgot-password-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.forgot-password-container button:hover {
+  background-color: #0056b3;
+}
+
+.forgot-password-container p {
+  margin-top: 20px;
+  text-align: center;
+  color: red;
+}
+.back-error-email {
+  padding-bottom: 10px;
+}
+
