@@ -2,7 +2,13 @@
 import { Card, Col, Row } from "antd";
 import "./index.scss";
 
-export function CartProduct({ product }) {
+export function CartProduct({ product, diamond }) {
+  const isDiamond = Boolean(diamond);
+  const item = isDiamond ? diamond : product;
+  const imageUrl = isDiamond ? item.image : item.productImages[0]?.imageUrl;
+  const id = isDiamond ? item.diamondID : item.productID;
+  const title = isDiamond ? item.diamondName : item.productName;
+  const totalPrice = isDiamond ? item.totalPrice : item.totalPrice;
   return (
     <Card
       hoverable
@@ -16,7 +22,7 @@ export function CartProduct({ product }) {
           <img
             alt="example"
             // eslint-disable-next-line react/prop-types
-            src={product.image}
+            src={imageUrl}
             className="product-image"
           />
           <div className="overlay">
@@ -29,13 +35,13 @@ export function CartProduct({ product }) {
     >
       <Row>
         <Col span={24} style={{ textAlign: "center" }}>
-          <h5>{product.product_id}</h5>
+          <h5>{id}</h5>
         </Col>
         <Col span={24} style={{ textAlign: "center" }}>
-          <h3>{product.product_name}</h3>
+          <h3>{title}</h3>
         </Col>
         <Col span={24} style={{ textAlign: "center" }}>
-          <h4>{product.total_price}</h4>
+          <h4>{totalPrice}</h4>
         </Col>
       </Row>
     </Card>

@@ -41,7 +41,7 @@ const OrderCustomer = () => {
                 src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
               />
             </Col>
-            <Col span={11} className="info">
+            <Col span={11} className="infoo">
               <h2>NHẪN KIM CƯƠNG NỮ 18K</h2>
               <p>Mã:GD0000Y011997</p>
               <p>Size dây chuyền: 45</p>
@@ -60,7 +60,7 @@ const OrderCustomer = () => {
                 src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
               />
             </Col>
-            <Col span={11} className="info">
+            <Col span={11} className="infoo">
               <h2>NHẪN KIM CƯƠNG NỮ 18K</h2>
               <p>Mã:GD0000Y011997</p>
               <p>Size dây chuyền: 45</p>
@@ -96,7 +96,7 @@ const OrderCustomer = () => {
                 src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
               />
             </Col>
-            <Col span={11} className="info">
+            <Col span={11} className="infoo">
               <h2>NHẪN KIM CƯƠNG NỮ 18K</h2>
               <p>Mã:GD0000Y011997</p>
               <p>Size dây chuyền: 45</p>
@@ -126,7 +126,12 @@ const OrderCustomer = () => {
         </Card>
         <div>
           <h2
-            style={{ textAlign: "center", padding: "10px", fontSize: "25px" }}
+            style={{
+              textAlign: "center",
+              padding: "10px",
+              fontSize: "25px",
+              fontWeight: "bold",
+            }}
           >
             Có thể bạn quan tâm
           </h2>

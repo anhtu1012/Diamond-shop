@@ -12,7 +12,7 @@ function HomePage() {
       <Container>
         <Row className="home_diamond_nature">
           <Col span={24}>
-            <h2>KIM CƯƠNG THIÊN NHIÊN</h2>
+            <h2 className="h2">KIM CƯƠNG THIÊN NHIÊN</h2>
           </Col>
           <Col span={24}>
             <img
@@ -24,7 +24,7 @@ function HomePage() {
 
         <Row className="section">
           <Col span={24}>
-            <Relate numberOfSlides={4} category="KIM CƯƠNG THIÊN NHIÊN" />
+            <Relate numberOfSlides={4} data="diamonds" />
           </Col>
           <Col span={24} style={{ textAlign: "center", padding: "20px 0px" }}>
             <button>
@@ -38,7 +38,7 @@ function HomePage() {
           style={{ background: "#A6B9BB", borderRadius: "2px" }}
         >
           <Col span={24}>
-            <h2>TRANG SỨC NHẪN KIM CƯƠNG</h2>
+            <h2 className="h2">TRANG SỨC NHẪN KIM CƯƠNG</h2>
           </Col>
           <Col span={12}>
             <div className="image-banner">
@@ -54,7 +54,7 @@ function HomePage() {
               numberOfSlides={2}
               rows={2}
               autoplay
-              category="NHẪN KIM CƯƠNG"
+              category="Nhẫn Kim Cương Nữ"
             />
           </Col>
         </Row>
@@ -68,14 +68,14 @@ function HomePage() {
           }}
         >
           <Col span={24}>
-            <h2>TRANG SỨC BÔNG TAI KIM CƯƠNG</h2>
+            <h2 className="h2">TRANG SỨC BÔNG TAI KIM CƯƠNG</h2>
           </Col>
           <Col span={12} style={{ paddingBottom: "15px" }}>
             <Relate
               numberOfSlides={2}
               rows={2}
               autoplay
-              category="BÔNG TAI KIM CƯƠNG"
+              category="Bông Tai Kim Cương"
             />
           </Col>
           <Col span={12}>
@@ -97,7 +97,9 @@ function HomePage() {
           }}
         >
           <Col span={24}>
-            <h2 style={{ color: "black" }}>TRANG SỨC CƯỚI</h2>
+            <h2 style={{ color: "black" }} className="h2">
+              TRANG SỨC CƯỚI
+            </h2>
           </Col>
 
           <Col span={12}>
