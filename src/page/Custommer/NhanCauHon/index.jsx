@@ -231,7 +231,7 @@ function NhanCauHon() {
                   name={["Số điện thoại"]}
                   rules={[
                     {
-                      type: "number",
+                      number: "number",
                       required: true,
                     },
                   ]}
