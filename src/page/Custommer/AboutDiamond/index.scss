@@ -1,23 +1,31 @@
-.vi-sao{
-    .vi-sao1, .vi-sao2{
-        font-weight: 350;
-        margin-top: 20px;
-    }
-    .vi-sao1{
-        font-weight: 400;
-    }
+.vi-sao {
+  h2 {
+    display: flex;
+  }
+  .vi-sao1,
+  .vi-sao2 {
+    font-weight: 350;
+    margin-top: 20px;
+  }
+  .vi-sao1 {
+    font-weight: 400;
+  }
 }
-.thi-truong{
-    .thi-truong1,.thi-truong2{
-        font-weight: 350;
-        margin-top: 20px;
-    }
-    .thi-truong1{
-        font-weight: 400;
-    }
-   
-}.thi-truong3{
-    color:black;
-    font-style: italic;
-    font-size:14px;
+.thi-truong {
+  h2 {
+    display: flex;
+  }
+  .thi-truong1,
+  .thi-truong2 {
+    font-weight: 350;
+    margin-top: 20px;
+  }
+  .thi-truong1 {
+    font-weight: 400;
+  }
+}
+.thi-truong3 {
+  color: black;
+  font-style: italic;
+  font-size: 14px;
 }

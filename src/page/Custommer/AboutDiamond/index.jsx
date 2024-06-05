@@ -18,7 +18,7 @@ function AboutDiamond() {
           </Breadcrumb>
         </Content>
         <div className="vi-sao">
-          <h2 className="vi-sao1">Vì sao lại chọn Diamond</h2>
+          <h2 className="vi-sao1">Vì sao lại chọn Diamond ?</h2>
           <h3 className="vi-sao2">
             Trên thị trường hiện nay, việc lựa chọn một địa chỉ cung cấp kim
             cương uy tín để đặt niềm tin đang trở nên khó khăn hơn bao giờ hết.
@@ -34,7 +34,12 @@ function AboutDiamond() {
           </h3>
           <img
             src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/doi-tra.webp?alt=media&token=9b9c1262-c639-4d70-b614-464c78428c6e.jpg"
-            style={{ width: "50%", display: " block", margin: "0 auto" }}
+            style={{
+              width: "50%",
+              display: " block",
+              margin: "0 auto",
+              paddingTop: "20px",
+            }}
           ></img>
           <div style={{ textAlign: "center" }}>
             <span style={{ fontSize: " 13px", fontStyle: "italic" }}>
@@ -90,8 +95,13 @@ function AboutDiamond() {
           </h3>
           <img
             src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/doi-tra.webp?alt=media&token=9b9c1262-c639-4d70-b614-464c78428c6e.jpg"
-            style={{ width: "50%", display: " block", margin: "0 auto" }}
-          ></img>
+            style={{
+              width: "50%",
+              display: " block",
+              margin: "0 auto",
+              paddingTop: "20px",
+            }}
+          />
           <div style={{ textAlign: "center" }}>
             <span
               style={{ fontSize: " 13px", fontStyle: "italic", color: "grey" }}
@@ -118,7 +128,12 @@ function AboutDiamond() {
           </h3>
           <img
             src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/may-kiem-tra.jpg?alt=media&token=5139de36-c072-4469-bbf0-1a577574b1ba"
-            style={{ width: "50%", display: " block", margin: "0 auto" }}
+            style={{
+              width: "50%",
+              display: " block",
+              margin: "0 auto",
+              paddingTop: "20px",
+            }}
           ></img>
           <div style={{ textAlign: "center" }}>
             <span
@@ -138,7 +153,12 @@ function AboutDiamond() {
           </h3>
           <img
             src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/sanh-cho.jpg?alt=media&token=01dc1a61-c3df-4b3f-971e-9cda8e709d0e://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/may-kiem-tra.jpg?alt=media&token=5139de36-c072-4469-bbf0-1a577574b1ba"
-            style={{ width: "50%", display: " block", margin: "0 auto" }}
+            style={{
+              width: "50%",
+              display: " block",
+              margin: "0 auto",
+              paddingTop: "20px",
+            }}
           ></img>
           <div style={{ textAlign: "center" }}>
             <span
@@ -161,7 +181,12 @@ function AboutDiamond() {
           </h3>
           <img
             src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/sanh-cho.jpg?alt=media&token=01dc1a61-c3df-4b3f-971e-9cda8e709d0e://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/may-kiem-tra.jpg?alt=media&token=5139de36-c072-4469-bbf0-1a577574b1ba"
-            style={{ width: "50%", display: " block", margin: "0 auto" }}
+            style={{
+              width: "50%",
+              display: " block",
+              margin: "0 auto",
+              paddingTop: "20px",
+            }}
           ></img>
           <div style={{ textAlign: "center" }}>
             <span
@@ -185,7 +210,12 @@ function AboutDiamond() {
           </h3>
           <img
             src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/sanh-cho.jpg?alt=media&token=01dc1a61-c3df-4b3f-971e-9cda8e709d0e://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/may-kiem-tra.jpg?alt=media&token=5139de36-c072-4469-bbf0-1a577574b1ba"
-            style={{ width: "50%", display: " block", margin: "0 auto" }}
+            style={{
+              width: "50%",
+              display: " block",
+              margin: "0 auto",
+              paddingTop: "20px",
+            }}
           ></img>
           <div style={{ textAlign: "center" }}>
             <span
@@ -203,13 +233,17 @@ function AboutDiamond() {
             phẩm có vấn đề về chất lượng, dịch vụ cũng như các chế độ bảo hành,…
           </h3>
           <h3 className="thi-truong3">
-            
             <LuDot />
             Nhập Khẩu Hải Quan Chính Ngạch
           </h3>
           <img
             src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/sanh-cho.jpg?alt=media&token=01dc1a61-c3df-4b3f-971e-9cda8e709d0e://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/may-kiem-tra.jpg?alt=media&token=5139de36-c072-4469-bbf0-1a577574b1ba"
-            style={{ width: "50%", display: " block", margin: "0 auto" }}
+            style={{
+              width: "50%",
+              display: " block",
+              margin: "0 auto",
+              paddingTop: "20px",
+            }}
           ></img>
           <div style={{ textAlign: "center" }}>
             <span
@@ -243,8 +277,10 @@ function AboutDiamond() {
             tin cậy.
           </h3>
         </div>
-        <h2 style={{ padding: "30px", fontWeight:"400" }}>Có thể bạn quan tâm</h2>
-          <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
+        <h2 style={{ padding: "30px", fontWeight: "400" }}>
+          Có thể bạn quan tâm
+        </h2>
+        <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
       </Container>
     </div>
   );
