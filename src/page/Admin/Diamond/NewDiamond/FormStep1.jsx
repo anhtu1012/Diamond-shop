@@ -76,18 +76,18 @@ function FormStep1({ onFinish, initialValues }) {
     >
       <Row gutter={6} className="form_step1">
         <Col span={10} className="upload_img">
-            <ImgCrop rotationSlider>
-              <Upload
-                action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                listType="picture-card"
-                fileList={fileList}
-                onChange={onChange}
-                onPreview={handlePreview}
-                style={{ fontSize: "30px" }}
-              >
-                {fileList.length < 1 && "+ Upload"}
-              </Upload>
-            </ImgCrop>
+          <ImgCrop rotationSlider>
+            <Upload
+              action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+              listType="picture-card"
+              fileList={fileList}
+              onChange={onChange}
+              onPreview={handlePreview}
+              style={{ fontSize: "30px" }}
+            >
+              {fileList.length < 1 && "+ Upload"}
+            </Upload>
+          </ImgCrop>
           {previewImage && (
             <Image
               wrapperStyle={{
@@ -110,6 +110,10 @@ function FormStep1({ onFinish, initialValues }) {
               {
                 required: true,
                 message: "Vui lòng không để trống",
+              },
+              {
+                pattern: /^[^!@#$%^&*()+=]+$/,
+                message: "Vui lòng không nhập kí tự đặc biệt",
               },
               {
                 validator: (_, value) =>
@@ -135,6 +139,10 @@ function FormStep1({ onFinish, initialValues }) {
               {
                 required: true,
                 message: "Vui lòng không để trống",
+              },
+              {
+                pattern: /^[^!@#$%^&*()+=]+$/,
+                message: "Vui lòng không nhập kí tự đặc biệt",
               },
             ]}
           >

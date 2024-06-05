@@ -261,16 +261,14 @@ function ViewDiamond() {
     },
     {
       title: "Action",
-      dataIndex: "diamondID",
-      key: "diamondID",
+      dataIndex: "action",
+      key: "action",
       width: "10%",
-      render: () => (
+      render: (text, record) => (
         <div style={{ textAlign: "center" }}>
-          <Link
-            to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM1"}
-          >
-            Xem chi tiết
-          </Link>
+        <Link to={`/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/${record.diamondID}`}>
+        Xem chi tiết
+      </Link>
         </div>
       ),
     },

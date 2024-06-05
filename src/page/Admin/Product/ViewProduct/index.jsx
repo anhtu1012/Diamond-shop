@@ -1,166 +1,28 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input, Select, Space, Table } from "antd";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { Link } from "react-router-dom";
 import "./index.scss";
-
-const initialData = [
-  {
-    key: "1",
-    id: "MS123",
-    image: (
-      <img
-        src="https://jemmia.vn/wp-content/uploads/2024/05/1_cam_03-copy.jpg"
-        style={{ width: "100px" }}
-      />
-    ),
-    name: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
-    category: "Nhẫn cầu hôn kim cương",
-    status: "Còn hàng",
-    price: "488.800.000 ₫",
-    infor: (
-      <Link
-        to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS123"}
-        style={{color: 'black', fontWeight: 600}}>
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "2",
-    id: "MS456",
-    image: (
-      <img
-        src="https://jemmia.vn/wp-content/uploads/2022/05/R41.3-1-scaled-1.jpg"
-        style={{ width: "100px" }}
-      />
-    ),
-    name: "NHẪN KIM CƯƠNG NAM 18K",
-    category: "Nhẫn kim cương",
-    status: "Hết hàng",
-    price: "488.800.000 ₫",
-    infor: (
-      <Link
-        to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS456"}
-        style={{color: 'black', fontWeight: 600}}>
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "3",
-    id: "MS789",
-    image: (
-      <img
-        src="https://jemmia.vn/wp-content/uploads/2024/04/1-copy-9.jpg"
-        style={{ width: "100px" }}
-      />
-    ),
-    name: "BÔNG TAI KIM CƯƠNG 18K",
-    category: "Bông tai kim cương",
-    status: "Còn hàng",
-    price: "488.800.000 ₫",
-    infor: (
-      <Link
-        to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS789"}
-        style={{color: 'black', fontWeight: 600}}>
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "4",
-    id: "MS159",
-    image: (
-      <img
-        src="https://jemmia.vn/wp-content/uploads/2024/02/vong-tay-kim-cuong-18k-LT2022082803-3.jpg"
-        style={{ width: "100px" }}
-      />
-    ),
-    name: "VÒNG TAY KIM CƯƠNG 18K",
-    category: "Lắc/Vòng tay kim cương",
-    status: "Hết hàng",
-    price: "48.800.000 ₫",
-    infor: (
-      <Link
-        to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS159"}
-        style={{color: 'black', fontWeight: 600}}>
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "5",
-    id: "MS753",
-    image: (
-      <img
-        src="https://jemmia.vn/wp-content/uploads/2024/04/2-copy-7.jpg"
-        style={{ width: "100px" }}
-      />
-    ),
-    name: "MẶT DÂY CHUYỀN KIM CƯƠNG 18K",
-    category: "Mặt dây chuyền kim cương",
-    status: "Còn hàng",
-    price: "88.800.000 ₫",
-    infor: (
-      <Link
-        to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS753"}
-        style={{color: 'black', fontWeight: 600}}>
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "6",
-    id: "MS258",
-    image: (
-      <img
-        src="https://jemmia.vn/wp-content/uploads/2024/05/1_cam_03-2.jpg"
-        style={{ width: "100px" }}
-      />
-    ),
-    name: "NHẪN CẦU HÔN KIM CƯƠNG 18K WRA00159",
-    category: "Nhẫn cầu hôn kim cương",
-    status: "Hết hàng",
-    price: "88.800.000 ₫",
-    infor: (
-      <Link
-        to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS258"}
-        style={{color: 'black', fontWeight: 600}}>
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "7",
-    id: "MS165",
-    image: (
-      <img
-        src="https://jemmia.vn/wp-content/uploads/2024/04/3-copy-4.jpg"
-        style={{ width: "100px" }}
-      />
-    ),
-    name: "NHẪN CƯỚI KIM CƯƠNG 18K",
-    category: "Nhẫn cưới kim cương",
-    status: "Còn hàng",
-    price: "68.800.000 ₫",
-    infor: (
-      <Link
-        to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS165"}
-        style={{color: 'black', fontWeight: 600}}   >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-];
+import { getProducts } from "../../../../../services/Uservices";
 
 function ViewProduct() {
-  const [data, setData] = useState(initialData); // Add state to manage data
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
-
+  const [dataSource, setDataSource] = useState([]);
+  async function fetchProducts() {
+    const response = await getProducts();
+    const formattedData = response.data.map((item) => ({
+      ...item,
+      category: item.category.categoryName,
+      status: item.status ? "Còn hàng" : "Hết hàng",
+    }));
+    setDataSource(formattedData);
+  }
+  useEffect(function () {
+    fetchProducts();
+  }, []);
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -280,8 +142,10 @@ function ViewProduct() {
   const start = () => {
     setLoading(true);
     // Delete selected items
-    const newData = data.filter((item) => !selectedRowKeys.includes(item.key));
-    setData(newData); // Update the data state
+    const newData = dataSource.filter(
+      (item) => !selectedRowKeys.includes(item.key)
+    );
+    setDataSource(newData); // Update the data state
     setTimeout(() => {
       setSelectedRowKeys([]);
       setLoading(false);
@@ -303,29 +167,38 @@ function ViewProduct() {
   const columns = [
     {
       title: "Mã số",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "productID",
+      key: "productID",
       width: "15%",
-      ...getColumnSearchProps("id"),
+      ...getColumnSearchProps("productID"),
     },
     {
       title: "Hình ảnh",
-      dataIndex: "image",
-      key: "image",
+      dataIndex: "productImages",
+      key: "productImages",
       width: "15%",
+      render: (productImages) =>
+        productImages && productImages.length > 0 ? (
+          <img
+            src={productImages[0].imageUrl}
+            alt="Product"
+            style={{ width: "100px", height: "auto" }}
+          />
+        ) : null,
     },
     {
       title: "Tên sản phẩm",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "productName",
+      key: "productName",
       width: "20%",
-      ...getColumnSearchProps("name"),
+      ...getColumnSearchProps("productName"),
     },
     {
       title: "Phân loại",
       dataIndex: "category",
       key: "category",
       width: "15%",
+      render: (category) => category.categoryName,
       ...getColumnSearchProps("category", [
         "Nhẫn cầu hôn kim cương",
         "Nhẫn cưới kim cương",
@@ -340,21 +213,30 @@ function ViewProduct() {
       dataIndex: "status",
       key: "status",
       width: "10%",
+      render: (status) => (status ? "Còn hàng" : "Hết hàng"),
       ...getColumnSearchProps("status", ["Còn hàng", "Hết hàng"]),
     },
     {
       title: "Giá",
-      dataIndex: "price",
-      key: "price",
+      dataIndex: "totalPrice",
+      key: "totalPrice",
       width: "15%",
-      sorter: (a, b) =>
-        parseInt(a.price.replace(/\D/g, "")) -
-        parseInt(b.price.replace(/\D/g, "")),
+      sorter: (a, b) => parseInt(a.totalPrice) - parseInt(b.totalPrice),
     },
     {
-      dataIndex: "infor",
-      key: "infor",
-      width: "20%",
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      width: "10%",
+      render: (text, record) => (
+        <div style={{ textAlign: "center" }}>
+          <Link
+            to={`/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/:id/${record.productID}`}
+          >
+            Xem chi tiết
+          </Link>
+        </div>
+      ),
     },
   ];
 
@@ -385,7 +267,7 @@ function ViewProduct() {
         <Table
           rowSelection={rowSelection}
           columns={columns}
-          dataSource={data}
+          dataSource={dataSource}
           pagination={{ pageSize: 10 }}
         />
       </div>

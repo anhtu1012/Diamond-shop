@@ -1,18 +1,43 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
-import { Result, Button } from "antd";
+import { Result, Button, message } from "antd";
 import { FcReadingEbook } from "react-icons/fc";
+import uploadFile from "../../../../utils/upload";
+import moment from "moment";
+import { createDiamond } from "../../../../../services/Uservices";
 
 function Confirm({ onFinish, combinedData }) {
   const handleConfirm = async () => {
     try {
-      console.log(combinedData);
-      onFinish(combinedData);
+      const file = combinedData.fileList[0].originFileObj;
+      const imageUrl = await uploadFile(file);
+      const formattedDate = moment(combinedData.inputDate).format("YYYY-MM-DD");
+      const finalData = {
+        diamondID: combinedData.diamondID,
+        diamondName: combinedData.diamondName,
+        carat: combinedData.carat,
+        certificate: combinedData.certificate,
+        clarify: combinedData.clarify,
+        shape: combinedData.shape,
+        color: combinedData.color,
+        colorLevel: combinedData.colorLevel,
+        cut: combinedData.cut,
+        dimensions: combinedData.dimensions,
+        flourescence: combinedData.flourescence,
+        image: imageUrl,
+        inputDate: formattedDate,
+        originPrice: combinedData.originPrice,
+        ratio: combinedData.ratio,
+      };
+      // Call the API to create the diamond
+      await createDiamond(finalData);
+      message.success("Diamond created successfully!");
+      console.log(finalData);
+      onFinish(finalData);
     } catch (errorInfo) {
-      console.log("Validation failed:", errorInfo);
+      console.log("Upload failed:", errorInfo);
     }
   };
-
   return (
     <div className="button_form_2">
       <Result

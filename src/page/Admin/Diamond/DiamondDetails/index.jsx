@@ -15,278 +15,74 @@ import "./index.scss";
 import { useEffect, useState } from "react";
 import { Content } from "antd/es/layout/layout";
 import moment from "moment";
-const initialData = [
-  {
-    key: "1",
-    id: "DM1",
-    image: "https://jemmia.vn/wp-content/uploads/2023/09/image-3-1-1-1.png",
-    nameDm: "Kim Cương Tự Nhiên EEE",
-    gia: "1478963250",
-    ratio: "2",
-    luminescence: "Faint",
-    priceImport: "400.000.000 ₫",
-    date: "2024-06-02",
-    style: "Round",
-    weight: "1.1",
-    color: "F",
-    colorl: "Trắng",
-    purity: "FL",
-    accreditation: "GIA",
-    status: "Còn hàng",
-    cut: "Excellent",
-    size: "6.0",
-    price: "488.800.000 ₫",
-  },
-  {
-    key: "2",
-    id: "DM2",
-    image: "https://jemmia.vn/wp-content/uploads/2023/09/image-3-1-1-1.png",
-    nameDm: "Kim Cương Tự Nhiên EEE",
-    gia: "1478963250",
-    luminescence: "Medium",
-    ratio: "2",
-    priceImport: "400.000.000 ₫",
-    date: "2024-06-02",
-    style: "Round",
-    weight: "2.0",
-    color: "D",
-    colorl: "Trắng",
-    cut: "Excellent",
-    purity: "VS2",
-    accreditation: "GIA",
-    status: "Còn hàng",
-    size: "3.0",
-    price: "488.800.000 ₫",
-  },
-  {
-    key: "3",
-    id: "DM3",
-    image: "https://jemmia.vn/wp-content/uploads/2023/09/image-3-1-1-1.png",
-    nameDm: "Kim Cương Tự Nhiên EEE",
-    gia: "1478963250",
-    ratio: "2",
-    luminescence: "Strong",
-    priceImport: "400.000.000 ₫",
-    date: "2024-06-02",
-    style: "Round",
-    weight: "1.0",
-    color: "D",
-    cut: "Excellent",
-    purity: "VVS1",
-    accreditation: "GIA",
-    status: "Còn hàng",
-    size: "3.6",
-    price: "488.800.000 ₫",
-  },
-  {
-    key: "4",
-    id: "DM4",
-    image: "https://jemmia.vn/wp-content/uploads/2023/09/image-3-1-1-1.png",
-    nameDm: "Kim Cương Tự Nhiên EEE",
-    gia: "1478963250",
-    ratio: "2",
-    luminescence: "Faint",
-    priceImport: "400.000.000 ₫",
-    date: "2024-06-02",
-    style: "Round",
-    weight: "1.0",
-    color: "E",
-    purity: "IF",
-    accreditation: "GIA",
-    status: "Còn hàng",
-    size: "2.6",
-    price: "48.800.000 ₫",
-  },
-  {
-    key: "5",
-    id: "DM5",
-    image: "https://jemmia.vn/wp-content/uploads/2023/09/image-3-1-1-1.png",
-    nameDm: "Kim Cương Tự Nhiên EEE",
-    gia: "1478963250",
-    ratio: "2",
-    luminescence: "Strong",
-    priceImport: "400.000.000 ₫",
-    date: "2024-06-02",
-    style: "Round",
-    weight: "1.0",
-    color: "F",
-    purity: "FL",
-    accreditation: "GIA",
-    status: "Còn hàng",
-    size: "6.6",
-    price: "88.800.000 ₫",
-  },
-  {
-    key: "6",
-    id: "DM6",
-    image: "https://jemmia.vn/wp-content/uploads/2023/09/image-3-1-1-1.png",
-    nameDm: "Kim Cương Tự Nhiên EEE",
-    gia: "1478963250",
-    ratio: "2",
-    luminescence: "Faint",
-    priceImport: "400.000.000 ₫",
-    date: "2024-06-02",
-    style: "Round",
-    weight: "1.0",
-    color: "F",
-    purity: "FL",
-    accreditation: "GIA",
-    status: "Hết hàng",
-    size: "6.6",
-    price: "88.800.000 ₫",
-  },
-  {
-    key: "7",
-    id: "DM7",
-    image: "https://jemmia.vn/wp-content/uploads/2023/09/image-3-1-1-1.png",
-    nameDm: "Kim Cương Tự Nhiên EEE",
-    gia: "1478963250",
-    ratio: "2",
-    luminescence: "Faint",
-    priceImport: "400.000.000 ₫",
-    date: "2024-06-02",
-    style: "Round",
-    weight: "1.0",
-    color: "F",
-    purity: "FL",
-    accreditation: "GIA",
-    status: "Hết hàng",
-    size: "6.6",
-    price: "68.800.000 ₫",
-  },
-  {
-    key: "8",
-    id: "DM8",
-    image: "https://jemmia.vn/wp-content/uploads/2023/09/image-3-1-1-1.png",
-    nameDm: "Kim Cương Tự Nhiên EEE",
-    gia: "1478963250",
-    ratio: "2",
-    luminescence: "Faint",
-    priceImport: "400.000.000 ₫",
-    date: "2024-06-02",
-    style: "Round",
-    weight: "1.5",
-    color: "D",
-    purity: "FL",
-    accreditation: "GIA",
-    status: "Hết hàng",
-    size: "6.6",
-    price: "58.800.000 ₫",
-  },
-  {
-    key: "9",
-    id: "DM9",
-    image: "https://jemmia.vn/wp-content/uploads/2023/09/image-3-1-1-1.png",
-    nameDm: "Kim Cương Tự Nhiên EEE",
-    gia: "1478963250",
-    ratio: "2",
-    luminescence: "Faint",
-    priceImport: "400.000.000 ₫",
-    date: "2024-06-02",
-    style: "Round",
-    weight: "1.0",
-    color: "F",
-    purity: "FL",
-    accreditation: "GIA",
-    status: "Hết hàng",
-    size: "3.3",
-    price: "58.800.000 ₫",
-  },
-  {
-    key: "10",
-    id: "DM10",
-    image: "https://jemmia.vn/wp-content/uploads/2023/09/image-3-1-1-1.png",
-    nameDm: "Kim Cương Tự Nhiên EEE",
-    gia: "1478963250",
-    ratio: "2",
-    luminescence: "Faint",
-    priceImport: "400.000.000 ₫",
-    date: "2024-06-02",
-    style: "Round",
-    weight: "1.0",
-    color: "F",
-    purity: "FL",
-    accreditation: "GIA",
-    status: "Hết hàng",
-    size: "6.6",
-    price: "488.800.000 ₫",
-  },
-  {
-    key: "11",
-    id: "DM11",
-    image: "https://jemmia.vn/wp-content/uploads/2023/09/image-3-1-1-1.png",
-    nameDm: "Kim Cương Tự Nhiên EEE",
-    gia: "1478963250",
-    ratio: "2",
-    luminescence: "Faint",
-    priceImport: "400.000.000 ₫",
-    date: "2024-06-02",
-    style: "Round",
-    weight: "1.0",
-    color: "F",
-    purity: "FL",
-    accreditation: "GIA",
-    status: "Hết hàng",
-    size: "6.6",
-    price: "488.800.000 ₫",
-  },
-];
+import {
+  deleteDiamond,
+  fetchDiamondById,
+  updateDiamond,
+} from "../../../../../services/Uservices";
 
 function DiamondDetails() {
   const { id } = useParams();
-  const diamond = initialData.find((d) => d.id === id);
+  const [diamond, setDiamond] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [form] = Form.useForm();
 
   useEffect(() => {
-    if (diamond) {
-      form.setFieldsValue({
-        gia: diamond.gia,
-        nameDm: diamond.nameDm,
-        priceImport: diamond.priceImport,
-        ratio: diamond.ratio,
-        input_date: moment(diamond.date, "YYYY-MM-DD"),
-        luminescence: diamond.luminescence,
-        shape: diamond.style,
-        color: diamond.color,
-        weight: diamond.weight,
-        purity: diamond.purity,
-        size: diamond.size,
-        cut: diamond.cut,
-        colorl: diamond.colorl,
-        accreditation: diamond.accreditation,
-        status: diamond.status,
-        price: diamond.price,
-      });
-    }
-  }, [diamond, form]);
+    const loadDiamond = async () => {
+      if (id && form) {
+        // Ensure id and form are both defined
+        try {
+          const response = await fetchDiamondById(id);
+          if (!response || response.error) {
+            message.error("Không tìm thấy thông tin kim cương");
+            return;
+          }
+          setDiamond(response);
+          form.setFieldsValue({
+            ...response,
+            input_date: response.date
+              ? moment(response.date, "YYYY-MM-DD")
+              : null,
+          });
+        } catch (error) {
+          message.error("Có lỗi xảy ra khi tải thông tin kim cương");
+        }
+      }
+    };
+
+    loadDiamond(); // Call the function directly
+  }, [id, form]);
   const handleEdit = () => {
     setIsEditing(true);
   };
-  const handleSave = () => {
-    form
-      .validateFields()
-      .then((values) => {
-        const formattedDate = values.input_date.format("YYYY-MM-DD");
-        // Update your backend with the new values
-        console.log("Updated values: ", {
-          ...values,
-          input_date: formattedDate,
-        });
-        setIsEditing(false);
-        message.success("Lưu thành công!");
-      })
-      .catch((info) => {
-        console.log("Validate Failed:", info);
-      });
+  const handleSave = async () => {
+    try {
+      const values = await form.validateFields();
+      const formattedDate = values.input_date
+        ? values.input_date.format("YYYY-MM-DD")
+        : "";
+      // Đây là một ví dụ về việc xử lý "positive"
+      await updateDiamond(id, { ...values, input_date: formattedDate });
+      message.success("Lưu thông tin thành công");
+      setIsEditing(false); // Trả về trạng thái không chỉnh sửa
+    } catch (error) {
+      // Và đây là việc xử lý "negative" nếu việc validate biểu mẫu thất bại
+      message.error("Lỗi khi lưu thông tin");
+    }
   };
-  const handleDelete = () => {
-    // Implement delete functionality here
-    message.success("Xóa thành công");
+
+  const handleDelete = async () => {
+    try {
+      await deleteDiamond(id);
+      message.success("Xóa kim cương thành công");
+      history.goBack(); // Hoặc bạn có thể điều hướng đến một trang mong muốn
+    } catch (error) {
+      message.error("Lỗi khi xóa kim cương"); // Xử lý "negative"
+    }
   };
 
   if (!diamond) {
-    return <div>Diamond not found</div>;
+    return <div>Đang tải thông tin kim cương...</div>;
   }
 
   const {
@@ -319,7 +115,7 @@ function DiamondDetails() {
                 <Col className="infor-detail" span={12}>
                   <Form.Item
                     label="Mã GIA"
-                    name="gia"
+                    name="diamondID"
                     rules={[
                       {
                         required: true,
@@ -337,7 +133,7 @@ function DiamondDetails() {
                     className="custom-form-item"
                   >
                     <Input
-                      defaultValue={diamond.gia}
+                      defaultValue={diamond.diamondID}
                       readOnly={!isEditing}
                       style={{ width: "100%" }}
                     />
@@ -346,14 +142,14 @@ function DiamondDetails() {
                 <Col className="infor-detail" span={12}>
                   <Form.Item
                     label="Tên Kim Cương"
-                    name="nameDm"
+                    name="diamondName"
                     rules={[
                       { required: true, message: "Vui lòng không để trống" },
                     ]}
                     className="custom-form-item"
                   >
                     <Input
-                      defaultValue={diamond.nameDm}
+                      defaultValue={diamond.diamondName}
                       readOnly={!isEditing}
                       style={{ width: "100%" }}
                     />
@@ -362,14 +158,14 @@ function DiamondDetails() {
                 <Col span={24} className="infor-detail">
                   <Form.Item
                     label="Giá Nhập (VNĐ)"
-                    name="priceImport"
+                    name="originPrice"
                     rules={[
                       { required: true, message: "Vui lòng không để trống" },
                     ]}
                     className="custom-form-item"
                   >
                     <Input
-                      defaultValue={diamond.priceImport}
+                      defaultValue={diamond.originPrice}
                       readOnly={!isEditing}
                       style={{ width: "100%" }}
                     />
@@ -394,7 +190,7 @@ function DiamondDetails() {
                 <Col className="infor-detail" span={12}>
                   <Form.Item
                     label="Ngày Nhập"
-                    name="input_date"
+                    name="inputDate"
                     rules={[
                       { required: true, message: "Vui lòng không để trống" },
                     ]}
@@ -403,11 +199,11 @@ function DiamondDetails() {
                     {isEditing ? (
                       <DatePicker
                         style={{ width: "100%" }}
-                        defaultValue={moment(diamond.date, "YYYY-MM-DD")}
+                        defaultValue={moment(diamond.inputDate, "YYYY-MM-DD")}
                       />
                     ) : (
                       <Input
-                        defaultValue={moment(diamond.date, "YYYY-MM-DD")}
+                        defaultValue={moment(diamond.inputDate, "YYYY-MM-DD")}
                         readOnly
                         style={{ width: "100%", marginRight: "10px" }}
                       />
@@ -417,7 +213,7 @@ function DiamondDetails() {
                 <Col className="infor-detail" span={12}>
                   <Form.Item
                     label="Độ Phát Quang"
-                    name="luminescence"
+                    name="flourescence"
                     rules={[
                       { required: true, message: "Vui lòng không để trống" },
                     ]}
@@ -426,22 +222,22 @@ function DiamondDetails() {
                     {isEditing ? (
                       <Select
                         style={{ width: "100%" }}
-                        defaultValue={diamond.luminescence}
+                        defaultValue={diamond.flourescence}
                       >
                         {["Faint", "Medium", "Strong", "Very Strong"].map(
-                          (luminescence) => (
+                          (flourescence) => (
                             <Select.Option
-                              key={luminescence}
-                              value={luminescence}
+                              key={flourescence}
+                              value={flourescence}
                             >
-                              {luminescence}
+                              {flourescence}
                             </Select.Option>
                           )
                         )}
                       </Select>
                     ) : (
                       <Input
-                        defaultValue={diamond.luminescence}
+                        defaultValue={diamond.flourescence}
                         readOnly
                         style={{ width: "100%" }}
                       />
@@ -491,7 +287,7 @@ function DiamondDetails() {
                 <Col className="infor-detail" span={12}>
                   <Form.Item
                     label="Cấp Màu (Color)"
-                    name="color"
+                    name="colorLevel"
                     rules={[
                       { required: true, message: "Vui lòng không để trống" },
                     ]}
@@ -500,19 +296,19 @@ function DiamondDetails() {
                     {isEditing ? (
                       <Select
                         style={{ width: "100%" }}
-                        defaultValue={diamond.color}
+                        defaultValue={diamond.colorLevel}
                       >
                         {["D", "E", "F", "G", "H", "I", "J", "K", "L", "M"].map(
-                          (color) => (
-                            <Select.Option key={color} value={color}>
-                              {color}
+                          (colorLevel) => (
+                            <Select.Option key={colorLevel} value={colorLevel}>
+                              {colorLevel}
                             </Select.Option>
                           )
                         )}
                       </Select>
                     ) : (
                       <Input
-                        defaultValue={diamond.color}
+                        defaultValue={diamond.colorLevel}
                         readOnly
                         style={{ width: "100%" }}
                       />
@@ -521,14 +317,14 @@ function DiamondDetails() {
 
                   <Form.Item
                     label="Trọng lượng (cts)"
-                    name="weight"
+                    name="carat"
                     rules={[
                       { required: true, message: "Vui lòng không để trống" },
                     ]}
                     className="custom-form-item"
                   >
                     <Input
-                      defaultValue={diamond.weight}
+                      defaultValue={diamond.carat}
                       readOnly={!isEditing}
                       style={{ width: "100%" }}
                     />
@@ -536,8 +332,8 @@ function DiamondDetails() {
                 </Col>
                 <Col className="infor-detail" span={12}>
                   <Form.Item
-                    label="Độ Tinh Khiết (Purity)"
-                    name="purity"
+                    label="Độ Tinh Khiết (clarify)"
+                    name="clarify"
                     rules={[
                       { required: true, message: "Vui lòng không để trống" },
                     ]}
@@ -546,7 +342,7 @@ function DiamondDetails() {
                     {isEditing ? (
                       <Select
                         style={{ width: "100%" }}
-                        defaultValue={diamond.purity}
+                        defaultValue={diamond.clarify}
                       >
                         {[
                           "FL",
@@ -560,15 +356,15 @@ function DiamondDetails() {
                           "I1",
                           "I2",
                           "I3",
-                        ].map((purity) => (
-                          <Select.Option key={purity} value={purity}>
-                            {purity}
+                        ].map((clarify) => (
+                          <Select.Option key={clarify} value={clarify}>
+                            {clarify}
                           </Select.Option>
                         ))}
                       </Select>
                     ) : (
                       <Input
-                        defaultValue={diamond.purity}
+                        defaultValue={diamond.clarify}
                         readOnly
                         style={{ width: "100%" }}
                       />
@@ -577,14 +373,14 @@ function DiamondDetails() {
 
                   <Form.Item
                     label="Kích thước (mm)"
-                    name="size"
+                    name="dimensions"
                     rules={[
                       { required: true, message: "Vui lòng không để trống" },
                     ]}
                     className="custom-form-item"
                   >
                     <Input
-                      defaultValue={diamond.size}
+                      defaultValue={diamond.dimensions}
                       readOnly={!isEditing}
                       style={{ width: "100%" }}
                     />
@@ -609,14 +405,14 @@ function DiamondDetails() {
                 <Col className="infor-detail" span={12}>
                   <Form.Item
                     label="Màu sắc"
-                    name="colorl"
+                    name="color"
                     rules={[
                       { required: true, message: "Vui lòng không để trống" },
                     ]}
                     className="custom-form-item"
                   >
                     <Input
-                      defaultValue={diamond.colorl}
+                      defaultValue={diamond.color}
                       readOnly={!isEditing}
                       style={{ width: "100%" }}
                     />
@@ -666,14 +462,14 @@ function DiamondDetails() {
               <Col className="infor-detail" span={24}>
                 <Form.Item
                   label="Kiểm định"
-                  name="accreditation"
+                  name="certificate"
                   rules={[
                     { required: true, message: "Vui lòng không để trống" },
                   ]}
                   className="custom-form-item"
                 >
                   <Input
-                    defaultValue={diamond.accreditation}
+                    defaultValue={diamond.certificate}
                     readOnly
                     style={{ width: "100%" }}
                   />

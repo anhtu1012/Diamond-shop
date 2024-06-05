@@ -28,11 +28,11 @@ function NewDiamond() {
     setCurrent(2);
   };
 
-  const handleFinishConfirm = ({ form1Data, form2Data }) => {
-    setForm1(form1Data);
-    setForm2(form2Data);
-    setCurrent(3); // Chuyển sang bước thành công sau khi xác nhận
+  const handleFinishConfirm = (finalData) => {
+    setCombinedData(finalData);
+    setCurrent(3); // Move to success step
   };
+
 
   const createAnotherProduct = () => {
     setForm1(null);
