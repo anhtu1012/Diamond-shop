@@ -1,6 +1,8 @@
+/* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
+  Button,
   Col,
   Form,
   Image,
@@ -8,9 +10,11 @@ import {
   InputNumber,
   Row,
   Select,
+  Space,
   Upload,
 } from "antd";
 import ImgCrop from "antd-img-crop";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -82,51 +86,61 @@ function FormProductStep1({ onFinish, initialValues }) {
     onFinish({
       ...values,
       fileList,
-      category,
+      brand: "Diamond",
       subcategory,
     });
+  };
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    form.setFieldsValue({
+      quantity: initialValues?.quantity,
+    });
+    // Khi component lần đầu đươc mount, thiết lập giá trị cho 'quantity' trên form
+  }, [initialValues, form]);
+
+  const handleSizesChange = (changedValues, allValues) => {
+    if ("sizes" in changedValues) {
+      const sizes = allValues.sizes || [];
+      const totalQuantity = sizes.reduce(
+        (sum, size) => sum + (Number(size.quantitySize) || 0),
+        0
+      );
+      form.setFieldsValue({ quantity: totalQuantity });
+    }
   };
 
   return (
     <Form
+      form={form}
       onFinish={handleFinish}
       labelCol={{
         span: 24,
       }}
       initialValues={initialValues}
+      onValuesChange={handleSizesChange}
     >
-      <Row className="form_step1">
-        <Col span={10} className="upload_img">
-          <ImgCrop rotationSlider>
-            <Upload
-              action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-              listType="picture-card"
-              fileList={fileList}
-              onChange={onChange}
-              onPreview={handlePreview}
-              style={{ fontSize: "30px" }}
-            >
-              {fileList.length < 4 && "+ Upload"}
-            </Upload>
-          </ImgCrop>
-          {previewImage && (
-            <Image
-              wrapperStyle={{
-                display: "none",
-              }}
-              preview={{
-                visible: previewOpen,
-                onVisibleChange: (visible) => setPreviewOpen(visible),
-                afterOpenChange: (visible) => !visible && setPreviewImage(""),
-              }}
-              src={previewImage}
+      <Row className="form_stepp1">
+        <Col span={12} className="info_basicc">
+          <Form.Item
+            label="Mã sản phẩm"
+            name="productID"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng không để trống",
+              },
+            ]}
+          >
+            <Input
+              className="input"
+              allowClear
+              placeholder="Nhập Mã Sản Phẩm"
             />
-          )}
-        </Col>
-        <Col span={14} className="info_basic">
+          </Form.Item>
           <Form.Item
             label="Tên sản phẩm"
-            name="name"
+            name="productName"
             rules={[
               {
                 required: true,
@@ -140,30 +154,60 @@ function FormProductStep1({ onFinish, initialValues }) {
               placeholder="Nhập Tên Sản Phẩm"
             />
           </Form.Item>
-          <Form.Item
-            label="Giá Tiền"
-            name="price"
-            rules={[
-              {
-                required: true,
-                message: "Vui lòng không để trống",
-              },
-              {
-                type: "number",
-                min: 0,
-                message: "Giá tiền phải là một số không âm",
-              },
-            ]}
-          >
-            <InputNumber
-              className="input_price"
-              style={{
-                width: "80%",
-              }}
-              placeholder="Nhập Giá Sản Phẩm"
-              addonAfter={selectAfter}
-            />
-          </Form.Item>
+          <Row>
+            <Col span={8}>
+              <Form.Item
+                label="Tỷ lệ (%)"
+                name="ratio"
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng không để trống",
+                  },
+                  {
+                    type: "number",
+                    min: 0,
+                    max: 100,
+                    message: "Tỷ lệ phải là một số trong khoảng 0 đến 100",
+                  },
+                ]}
+              >
+                <InputNumber
+                  className="input"
+                  style={{
+                    width: "90%",
+                  }}
+                  placeholder="0"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="Giá Vốn"
+                name="originalPrice"
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng không để trống",
+                  },
+                  {
+                    type: "number",
+                    min: 0,
+                    message: "Giá tiền phải là một số không âm",
+                  },
+                ]}
+              >
+                <InputNumber
+                  className="input_price"
+                  style={{
+                    width: "95%",
+                  }}
+                  placeholder="0000000"
+                  addonAfter={selectAfter}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
           <Form.Item label="Chuyên mục" name="category">
             <div className="category-select-container">
               <Select
@@ -186,6 +230,114 @@ function FormProductStep1({ onFinish, initialValues }) {
               />
             </div>
           </Form.Item>
+        </Col>
+        <Col span={12} className="info_basicc">
+          <Form.Item label="Thương hiệu" name="brand">
+            <Input
+              className="input"
+              value="Diamond"
+              placeholder="Diamond"
+              disabled
+            />
+          </Form.Item>
+          <Form.Item label="Số lượng tổng" name="quantity">
+            <InputNumber
+              className="input"
+              placeholder="Số lượng tổng"
+              disabled
+            />
+          </Form.Item>
+          <Form.Item label="Kích thước">
+            <Form.List name="sizes">
+              {(fields, { add, remove }) => (
+                <div>
+                  <div style={{ marginBottom: 16 }}>
+                    <Button
+                      type="dashed"
+                      onClick={() => add()}
+                      icon={<PlusOutlined />}
+                      style={{ height: "40px" }}
+                    >
+                      Thêm kích thước
+                    </Button>
+                  </div>
+                  <Row>
+                    {fields.map((field) => (
+                      <Col span={10}>
+                        <Space
+                          key={field.key}
+                          style={{
+                            display: "flex",
+                            alignContent: "center",
+                            marginBottom: 8,
+                          }}
+                          align="start"
+                        >
+                          <Form.Item
+                            {...field}
+                            name={[field.name, "sizeValue"]}
+                            fieldKey={[field.fieldKey, "sizeValue"]}
+                            rules={[
+                              {
+                                required: true,
+                                message: "Vui lòng nhập kích thước",
+                              },
+                            ]}
+                          >
+                            <InputNumber placeholder="Kích thước" min={1} />
+                          </Form.Item>
+                          <Form.Item
+                            {...field}
+                            name={[field.name, "quantitySize"]}
+                            fieldKey={[field.fieldKey, "quantitySize"]}
+                            rules={[
+                              {
+                                required: true,
+                                message: "Vui lòng nhập số lượng",
+                              },
+                            ]}
+                          >
+                            <InputNumber placeholder="Số lượng" min={1} />
+                          </Form.Item>
+                          <MinusCircleOutlined
+                            onClick={() => remove(field.name)}
+                          />
+                        </Space>
+                      </Col>
+                    ))}
+                  </Row>
+                </div>
+              )}
+            </Form.List>
+          </Form.Item>
+
+          <Form.Item>
+            <ImgCrop rotationSlider>
+              <Upload
+                action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                listType="picture-card"
+                fileList={fileList}
+                onChange={onChange}
+                onPreview={handlePreview}
+                style={{ fontSize: "30px" }}
+              >
+                {fileList.length < 4 && "+ Upload"}
+              </Upload>
+            </ImgCrop>
+          </Form.Item>
+          {previewImage && (
+            <Image
+              wrapperStyle={{
+                display: "none",
+              }}
+              preview={{
+                visible: previewOpen,
+                onVisibleChange: (visible) => setPreviewOpen(visible),
+                afterOpenChange: (visible) => !visible && setPreviewImage(""),
+              }}
+              src={previewImage}
+            />
+          )}
         </Col>
         <Col span={24} className="button_form">
           <button type="submit">Tiếp theo</button>

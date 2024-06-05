@@ -40,8 +40,20 @@ function LoginPage({ setUser, onLoginSuccess }) {
 
   useEffect(() => {
     loadReCaptchaScript();
+    loadGoogleSignInScript();
   }, []);
 
+  const loadGoogleSignInScript = () => {
+    const existingScript = document.getElementById("google-signin-script");
+    if (!existingScript) {
+      const script = document.createElement("script");
+      script.src = "https://accounts.google.com/gsi/client";
+      script.async = true;
+      script.defer = true;
+      script.id = "google-signin-script";
+      document.body.appendChild(script);
+    }
+  };
   const loadReCaptchaScript = () => {
     const existingScript = document.getElementById("recaptcha-script");
     if (!existingScript) {

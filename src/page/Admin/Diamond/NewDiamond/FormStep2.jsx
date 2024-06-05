@@ -137,19 +137,19 @@ function FormStep2({ onFinish, initialValues }) {
         <Col span={12} className="info_detail2">
           <Form.Item
             label="Kiểm Định"
-            name="certificateNumber"
+            name="certificate"
             rules={[{ required: true, message: "Vui lòng không để trống" }]}
           >
             <Select
               placeholder="Chọn Kiểm định"
               style={{ width: "100%", height: "40px" }}
             >
-              {["Gia", "Bên Khác"].map((certificateNumber) => (
+              {["Gia", "Bên Khác"].map((certificate) => (
                 <Select.Option
-                  key={certificateNumber}
-                  value={certificateNumber}
+                  key={certificate}
+                  value={certificate}
                 >
-                  {certificateNumber}
+                  {certificate}
                 </Select.Option>
               ))}
             </Select>

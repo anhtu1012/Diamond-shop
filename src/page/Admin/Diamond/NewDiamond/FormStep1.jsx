@@ -76,7 +76,6 @@ function FormStep1({ onFinish, initialValues }) {
     >
       <Row gutter={6} className="form_step1">
         <Col span={10} className="upload_img">
-          <Form.Item className="upload_anh" name="image">
             <ImgCrop rotationSlider>
               <Upload
                 action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
@@ -89,7 +88,6 @@ function FormStep1({ onFinish, initialValues }) {
                 {fileList.length < 1 && "+ Upload"}
               </Upload>
             </ImgCrop>
-          </Form.Item>
           {previewImage && (
             <Image
               wrapperStyle={{
