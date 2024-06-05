@@ -8,6 +8,7 @@ import { getDiamonds } from "../../../../../services/Uservices";
 
 
 
+
 function ViewDiamond() {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");

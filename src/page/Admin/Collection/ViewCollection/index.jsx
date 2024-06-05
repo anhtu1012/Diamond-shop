@@ -18,7 +18,7 @@ const data = [
     name: "BỘ SƯU TẬP MÙA XUÂN KIM CƯƠNG 18K – CAMELLIA",
     status: "Còn hàng",
     price: "488.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "2",
@@ -32,7 +32,7 @@ const data = [
     name: "BỘ SƯU TẬP MÙA HẠ KIM CƯƠNG 18K – CLARITY LOVE",
     status: "Hết hàng",
     price: "388.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "3",
@@ -46,7 +46,7 @@ const data = [
     name: "BỘ SƯU TẬP MÙA THU KIM CƯƠNG 18K – LOVE KNOT",
     status: "Còn hàng",
     price: "288.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "4",
@@ -60,7 +60,7 @@ const data = [
     name: "BỘ SƯU TẬP MÙA ĐÔNG KIM CƯƠNG 18K – STELLA",
     status: "Hết hàng",
     price: "400.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "8",
@@ -74,7 +74,7 @@ const data = [
     name: "BỘ TRANG SỨC KIM CƯƠNG LOTUS FASHION 06",
     status: "Còn hàng",
     price: "68.800.000 ₫",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
 ];
 

@@ -12,9 +12,9 @@ import {
 } from "antd";
 import { useParams } from "react-router-dom";
 import "./index.scss";
-import { useState } from "react";
-import moment from "moment/moment";
+import { useEffect, useState } from "react";
 import { Content } from "antd/es/layout/layout";
+import moment from "moment";
 const initialData = [
   {
     key: "1",
@@ -29,9 +29,11 @@ const initialData = [
     style: "Round",
     weight: "1.1",
     color: "F",
+    colorl: "Trắng",
     purity: "FL",
     accreditation: "GIA",
     status: "Còn hàng",
+    cut: "Excellent",
     size: "6.0",
     price: "488.800.000 ₫",
   },
@@ -48,6 +50,8 @@ const initialData = [
     style: "Round",
     weight: "2.0",
     color: "D",
+    colorl: "Trắng",
+    cut: "Excellent",
     purity: "VS2",
     accreditation: "GIA",
     status: "Còn hàng",
@@ -67,6 +71,7 @@ const initialData = [
     style: "Round",
     weight: "1.0",
     color: "D",
+    cut: "Excellent",
     purity: "VVS1",
     accreditation: "GIA",
     status: "Còn hàng",
@@ -233,16 +238,41 @@ function DiamondDetails() {
   const [isEditing, setIsEditing] = useState(false);
   const [form] = Form.useForm();
 
+  useEffect(() => {
+    if (diamond) {
+      form.setFieldsValue({
+        gia: diamond.gia,
+        nameDm: diamond.nameDm,
+        priceImport: diamond.priceImport,
+        ratio: diamond.ratio,
+        input_date: moment(diamond.date, "YYYY-MM-DD"),
+        luminescence: diamond.luminescence,
+        shape: diamond.style,
+        color: diamond.color,
+        weight: diamond.weight,
+        purity: diamond.purity,
+        size: diamond.size,
+        cut: diamond.cut,
+        colorl: diamond.colorl,
+        accreditation: diamond.accreditation,
+        status: diamond.status,
+        price: diamond.price,
+      });
+    }
+  }, [diamond, form]);
   const handleEdit = () => {
     setIsEditing(true);
   };
-
   const handleSave = () => {
     form
       .validateFields()
       .then((values) => {
+        const formattedDate = values.input_date.format("YYYY-MM-DD");
         // Update your backend with the new values
-        console.log("Updated values: ", values);
+        console.log("Updated values: ", {
+          ...values,
+          input_date: formattedDate,
+        });
         setIsEditing(false);
         message.success("Lưu thành công!");
       })
@@ -250,7 +280,6 @@ function DiamondDetails() {
         console.log("Validate Failed:", info);
       });
   };
-
   const handleDelete = () => {
     // Implement delete functionality here
     message.success("Xóa thành công");
@@ -280,244 +309,321 @@ function DiamondDetails() {
               borderRadius: borderRadiusLG,
             }}
           >
-            <h3 style={{ fontWeight: "400" }}>Thông tin chi tiết kim cương</h3>
-            <Row
-              gutter={20}
-              className="detail1"
-              style={{ padding: "5px 10px" }}
-            >
-              <Col className="infor-detail" span={12}>
-                <Form.Item
-                  label="Mã GIA"
-                  name="gia"
-                  className="custom-form-item"
-                >
-                  <Input
-                    defaultValue={diamond.gia}
-                    readOnly={!isEditing}
-                    style={{ width: "100%" }}
-                  />
-                </Form.Item>
-              </Col>
-              <Col className="infor-detail" span={12}>
-                <Form.Item
-                  label="Tên Kim Cương"
-                  name="nameDm"
-                  className="custom-form-item"
-                >
-                  <Input
-                    defaultValue={diamond.nameDm}
-                    readOnly={!isEditing}
-                    style={{ width: "100%" }}
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={24} className="infor-detail">
-                <Form.Item
-                  label="Giá Nhập (VNĐ)"
-                  name="priceImport"
-                  className="custom-form-item"
-                >
-                  <Input
-                    defaultValue={diamond.priceImport}
-                    readOnly={!isEditing}
-                    style={{ width: "100%" }}
-                  />
-                </Form.Item>
-              </Col>
-              <Col className="infor-detail" span={12}>
-                <Form.Item
-                  label="Tỷ lệ (%)"
-                  name="ratio"
-                  className="custom-form-item"
-                >
-                  <Input
-                    defaultValue={diamond.ratio}
-                    readOnly={!isEditing}
-                    style={{ width: "100%" }}
-                  />
-                </Form.Item>
-              </Col>
-              <Col className="infor-detail" span={12}>
-                <Form.Item
-                  label="Ngày Nhập"
-                  name="input_date"
-                  className="custom-form-item"
-                >
-                  {isEditing ? (
-                    <DatePicker
-                      style={{ width: "100%" }}
-                      value={moment(diamond.date, "YYYY-MM-DD")}
-                      format="YYYY-MM-DD"
-                    />
-                  ) : (
+            <h3 style={{ fontWeight: "500" }}>Thông tin chi tiết kim cương</h3>
+            <Form form={form} layout="vertical">
+              <Row
+                gutter={20}
+                className="detail1"
+                style={{ padding: "5px 10px" }}
+              >
+                <Col className="infor-detail" span={12}>
+                  <Form.Item
+                    label="Mã GIA"
+                    name="gia"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Vui lòng không để trống",
+                      },
+                      {
+                        validator: (_, value) =>
+                          value && /^\d{10}$/.test(value)
+                            ? Promise.resolve()
+                            : Promise.reject(
+                                new Error("Mã Gia phải chứa đúng 10 chữ số")
+                              ),
+                      },
+                    ]}
+                    className="custom-form-item"
+                  >
                     <Input
-                      defaultValue={diamond.date}
-                      readOnly
-                      style={{ width: "100%", marginRight: "10px" }}
-                    />
-                  )}
-                </Form.Item>
-              </Col>
-              <Col className="infor-detail" span={12}>
-                <Form.Item
-                  label="Độ Phát Quang"
-                  name="luminescence"
-                  className="custom-form-item"
-                >
-                  {isEditing ? (
-                    <Select
+                      defaultValue={diamond.gia}
+                      readOnly={!isEditing}
                       style={{ width: "100%" }}
-                      defaultValue={diamond.luminescence}
-                    >
-                      {["Faint", "Medium", "Strong", "Very Strong"].map(
-                        (luminescence) => (
-                          <Select.Option
-                            key={luminescence}
-                            value={luminescence}
-                          >
-                            {luminescence}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col className="infor-detail" span={12}>
+                  <Form.Item
+                    label="Tên Kim Cương"
+                    name="nameDm"
+                    rules={[
+                      { required: true, message: "Vui lòng không để trống" },
+                    ]}
+                    className="custom-form-item"
+                  >
+                    <Input
+                      defaultValue={diamond.nameDm}
+                      readOnly={!isEditing}
+                      style={{ width: "100%" }}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col span={24} className="infor-detail">
+                  <Form.Item
+                    label="Giá Nhập (VNĐ)"
+                    name="priceImport"
+                    rules={[
+                      { required: true, message: "Vui lòng không để trống" },
+                    ]}
+                    className="custom-form-item"
+                  >
+                    <Input
+                      defaultValue={diamond.priceImport}
+                      readOnly={!isEditing}
+                      style={{ width: "100%" }}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col className="infor-detail" span={12}>
+                  <Form.Item
+                    label="Tỷ lệ (%)"
+                    name="ratio"
+                    rules={[
+                      { required: true, message: "Vui lòng không để trống" },
+                    ]}
+                    className="custom-form-item"
+                  >
+                    <Input
+                      defaultValue={diamond.ratio}
+                      readOnly={!isEditing}
+                      style={{ width: "100%" }}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col className="infor-detail" span={12}>
+                  <Form.Item
+                    label="Ngày Nhập"
+                    name="input_date"
+                    rules={[
+                      { required: true, message: "Vui lòng không để trống" },
+                    ]}
+                    className="custom-form-item"
+                  >
+                    {isEditing ? (
+                      <DatePicker
+                        style={{ width: "100%" }}
+                        defaultValue={moment(diamond.date, "YYYY-MM-DD")}
+                      />
+                    ) : (
+                      <Input
+                        defaultValue={moment(diamond.date, "YYYY-MM-DD")}
+                        readOnly
+                        style={{ width: "100%", marginRight: "10px" }}
+                      />
+                    )}
+                  </Form.Item>
+                </Col>
+                <Col className="infor-detail" span={12}>
+                  <Form.Item
+                    label="Độ Phát Quang"
+                    name="luminescence"
+                    rules={[
+                      { required: true, message: "Vui lòng không để trống" },
+                    ]}
+                    className="custom-form-item"
+                  >
+                    {isEditing ? (
+                      <Select
+                        style={{ width: "100%" }}
+                        defaultValue={diamond.luminescence}
+                      >
+                        {["Faint", "Medium", "Strong", "Very Strong"].map(
+                          (luminescence) => (
+                            <Select.Option
+                              key={luminescence}
+                              value={luminescence}
+                            >
+                              {luminescence}
+                            </Select.Option>
+                          )
+                        )}
+                      </Select>
+                    ) : (
+                      <Input
+                        defaultValue={diamond.luminescence}
+                        readOnly
+                        style={{ width: "100%" }}
+                      />
+                    )}
+                  </Form.Item>
+                </Col>
+                <Col className="infor-detail" span={12}>
+                  <Form.Item
+                    label="Hình Dạng"
+                    name="shape"
+                    rules={[
+                      { required: true, message: "Vui lòng không để trống" },
+                    ]}
+                    className="custom-form-item"
+                  >
+                    {isEditing ? (
+                      <Select
+                        style={{ width: "100%" }}
+                        defaultValue={diamond.style}
+                      >
+                        {[
+                          "Round",
+                          "Princess",
+                          "Radiant",
+                          "Emerald",
+                          "Asscher",
+                          "Marquise",
+                          "Oval",
+                          "Pearl",
+                          "Heart",
+                          "Cushion",
+                        ].map((shape) => (
+                          <Select.Option key={shape} value={shape}>
+                            {shape}
                           </Select.Option>
-                        )
-                      )}
-                    </Select>
-                  ) : (
+                        ))}
+                      </Select>
+                    ) : (
+                      <Input
+                        defaultValue={diamond.style}
+                        readOnly
+                        style={{ width: "100%" }}
+                      />
+                    )}
+                  </Form.Item>
+                </Col>
+                <Col className="infor-detail" span={12}>
+                  <Form.Item
+                    label="Cấp Màu (Color)"
+                    name="color"
+                    rules={[
+                      { required: true, message: "Vui lòng không để trống" },
+                    ]}
+                    className="custom-form-item"
+                  >
+                    {isEditing ? (
+                      <Select
+                        style={{ width: "100%" }}
+                        defaultValue={diamond.color}
+                      >
+                        {["D", "E", "F", "G", "H", "I", "J", "K", "L", "M"].map(
+                          (color) => (
+                            <Select.Option key={color} value={color}>
+                              {color}
+                            </Select.Option>
+                          )
+                        )}
+                      </Select>
+                    ) : (
+                      <Input
+                        defaultValue={diamond.color}
+                        readOnly
+                        style={{ width: "100%" }}
+                      />
+                    )}
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Trọng lượng (cts)"
+                    name="weight"
+                    rules={[
+                      { required: true, message: "Vui lòng không để trống" },
+                    ]}
+                    className="custom-form-item"
+                  >
                     <Input
-                      defaultValue={diamond.luminescence}
-                      readOnly
+                      defaultValue={diamond.weight}
+                      readOnly={!isEditing}
                       style={{ width: "100%" }}
                     />
-                  )}
-                </Form.Item>
-              </Col>
-              <Col className="infor-detail" span={12}>
-                <Form.Item
-                  label="Hình Dạng"
-                  name="shape"
-                  className="custom-form-item"
-                >
-                  {isEditing ? (
-                    <Select
-                      style={{ width: "100%" }}
-                      defaultValue={diamond.style}
-                    >
-                      {[
-                        "Round",
-                        "Princess",
-                        "Radiant",
-                        "Emerald",
-                        "Asscher",
-                        "Marquise",
-                        "Oval",
-                        "Pearl",
-                        "Heart",
-                        "Cushion",
-                      ].map((shape) => (
-                        <Select.Option key={shape} value={shape}>
-                          {shape}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  ) : (
-                    <Input
-                      defaultValue={diamond.style}
-                      readOnly
-                      style={{ width: "100%" }}
-                    />
-                  )}
-                </Form.Item>
-              </Col>
-              <Col className="infor-detail" span={12}>
-                <Form.Item
-                  label="Cấp Màu (Color)"
-                  name="color"
-                  className="custom-form-item"
-                >
-                  {isEditing ? (
-                    <Select
-                      style={{ width: "100%" }}
-                      defaultValue={diamond.color}
-                    >
-                      {["D", "E", "F", "G", "H", "I", "J", "K", "L", "M"].map(
-                        (color) => (
-                          <Select.Option key={color} value={color}>
-                            {color}
+                  </Form.Item>
+                </Col>
+                <Col className="infor-detail" span={12}>
+                  <Form.Item
+                    label="Độ Tinh Khiết (Purity)"
+                    name="purity"
+                    rules={[
+                      { required: true, message: "Vui lòng không để trống" },
+                    ]}
+                    className="custom-form-item"
+                  >
+                    {isEditing ? (
+                      <Select
+                        style={{ width: "100%" }}
+                        defaultValue={diamond.purity}
+                      >
+                        {[
+                          "FL",
+                          "IF",
+                          "VVS1",
+                          "VVS2",
+                          "VS1",
+                          "VS2",
+                          "SI1",
+                          "SI2",
+                          "I1",
+                          "I2",
+                          "I3",
+                        ].map((purity) => (
+                          <Select.Option key={purity} value={purity}>
+                            {purity}
                           </Select.Option>
-                        )
-                      )}
-                    </Select>
-                  ) : (
+                        ))}
+                      </Select>
+                    ) : (
+                      <Input
+                        defaultValue={diamond.purity}
+                        readOnly
+                        style={{ width: "100%" }}
+                      />
+                    )}
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Kích thước (mm)"
+                    name="size"
+                    rules={[
+                      { required: true, message: "Vui lòng không để trống" },
+                    ]}
+                    className="custom-form-item"
+                  >
                     <Input
-                      defaultValue={diamond.color}
-                      readOnly
+                      defaultValue={diamond.size}
+                      readOnly={!isEditing}
                       style={{ width: "100%" }}
                     />
-                  )}
-                </Form.Item>
-
-                <Form.Item
-                  label="Trọng lượng (cts)"
-                  name="weight"
-                  className="custom-form-item"
-                >
-                  <Input
-                    defaultValue={diamond.weight}
-                    readOnly={!isEditing}
-                    style={{ width: "100%" }}
-                  />
-                </Form.Item>
-              </Col>
-              <Col className="infor-detail" span={12}>
-                <Form.Item
-                  label="Độ Tinh Khiết (Purity)"
-                  name="purity"
-                  className="custom-form-item"
-                >
-                  {isEditing ? (
-                    <Select
-                      style={{ width: "100%" }}
-                      defaultValue={diamond.purity}
-                    >
-                      {[
-                        "FL",
-                        "IF",
-                        "VVS1",
-                        "VVS2",
-                        "VS1",
-                        "VS2",
-                        "SI1",
-                        "SI2",
-                        "I1",
-                        "I2",
-                        "I3",
-                      ].map((purity) => (
-                        <Select.Option key={purity} value={purity}>
-                          {purity}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  ) : (
+                  </Form.Item>
+                </Col>
+                <Col className="infor-detail" span={12}>
+                  <Form.Item
+                    label="Nét Cắt/Độ Bóng/Đối Xứng"
+                    name="cut"
+                    rules={[
+                      { required: true, message: "Vui lòng không để trống" },
+                    ]}
+                    className="custom-form-item"
+                  >
                     <Input
-                      defaultValue={diamond.purity}
-                      readOnly
+                      defaultValue={diamond.cut}
+                      readOnly={!isEditing}
                       style={{ width: "100%" }}
                     />
-                  )}
-                </Form.Item>
-
-                <Form.Item
-                  label="Kích thước (mm)"
-                  name="size"
-                  className="custom-form-item"
-                >
-                  <Input
-                    defaultValue={diamond.size}
-                    readOnly={!isEditing}
-                    style={{ width: "100%" }}
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
+                  </Form.Item>
+                </Col>
+                <Col className="infor-detail" span={12}>
+                  <Form.Item
+                    label="Màu sắc"
+                    name="colorl"
+                    rules={[
+                      { required: true, message: "Vui lòng không để trống" },
+                    ]}
+                    className="custom-form-item"
+                  >
+                    <Input
+                      defaultValue={diamond.colorl}
+                      readOnly={!isEditing}
+                      style={{ width: "100%" }}
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Form>
           </div>
         </Content>
       </Col>
@@ -535,14 +641,19 @@ function DiamondDetails() {
               borderRadius: borderRadiusLG,
             }}
           >
-            <h3 style={{ fontWeight: "400" }}>Hình ảnh</h3>
+            <h3 style={{ fontWeight: "500" }}>Hình ảnh</h3>
             <Row
               gutter={20}
               className="detail1"
               style={{ padding: "5px 10px" }}
             >
-              <Col span={12}>
+              <Col
+                className="image-diamond-detail"
+                span={24}
+                style={{ display: "flex", justifyContent: "center" }}
+              >
                 <Image
+                  className="image-diamond"
                   src={diamond.image}
                   alt="Diamond"
                   style={{
@@ -552,47 +663,13 @@ function DiamondDetails() {
                   }}
                 />
               </Col>
-              <Col span={12}>
-                <Row>
-                  <Col span={12}>
-                    <Image
-                      src={diamond.image}
-                      alt="Diamond"
-                      style={{
-                        width: "60px",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    />
-                  </Col>
-                  <Col span={12}>
-                    <Image
-                      src={diamond.image}
-                      alt="Diamond"
-                      style={{
-                        width: "60px",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    />
-                  </Col>
-                  <Col span={12}>
-                    <Image
-                      src={diamond.image}
-                      alt="Diamond"
-                      style={{
-                        width: "60px",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    />
-                  </Col>
-                </Row>
-              </Col>
               <Col className="infor-detail" span={24}>
                 <Form.Item
                   label="Kiểm định"
                   name="accreditation"
+                  rules={[
+                    { required: true, message: "Vui lòng không để trống" },
+                  ]}
                   className="custom-form-item"
                 >
                   <Input
@@ -604,22 +681,39 @@ function DiamondDetails() {
                 <Form.Item
                   label="Trạng thái"
                   name="status"
+                  rules={[
+                    { required: true, message: "Vui lòng không để trống" },
+                  ]}
                   className="custom-form-item"
                 >
-                  <Input
-                    defaultValue={diamond.status}
-                    className="input"
-                    readOnly
-                    style={{
-                      width: "100%",
-                    }}
-                  />
+                  {isEditing ? (
+                    <Select
+                      style={{ width: "100%" }}
+                      defaultValue={diamond.status}
+                    >
+                      {["Còn hàng", "Hết hàng"].map((status) => (
+                        <Select.Option key={status} value={status}>
+                          {status}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  ) : (
+                    <Input
+                      defaultValue={diamond.status}
+                      readOnly
+                      style={{ width: "100%" }}
+                    />
+                  )}
                 </Form.Item>
               </Col>
+              <Col className="infor-detail" span={24}></Col>
               <Col className="infor-detail" span={24}>
                 <Form.Item
                   label="Giá Bán (VNĐ)"
                   name="price"
+                  rules={[
+                    { required: true, message: "Vui lòng không để trống" },
+                  ]}
                   className="custom-form-item"
                 >
                   <Input
