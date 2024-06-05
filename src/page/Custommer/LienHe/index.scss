@@ -1,4 +1,60 @@
-.dia-chi{
+.contact-form-wrapper {
+  margin-top: 30px;
+  padding: 0px;
+  border-radius: 10px;
+
+  .contact-form {
     display: flex;
-    
+    flex-direction: column;
+
+    .form-fields-wrapper {
+      .form-field {
+        margin-bottom: 20px;
+
+        input,
+        textarea {
+          width: 80%;
+          padding: 10px;
+          border: 1px solid #15393f;
+          border-radius: 5px;
+          font-size: 16px;
+          color: #333;
+          transition: border-color 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus {
+          outline: none;
+        }
+      }
+
+      .text-field {
+        /* Additional styles for text fields */
+      }
+
+      .text-area {
+        height: 150px;
+        resize: none;
+      }
+    }
+  }
+  .elementor-button {
+    &.elementor-size-sm {
+      width: 80%;
+      padding: 10px 20px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 2px solid #15393f;
+      transition: background-color 0.3s ease;
+      background-color: #15393f;
+      color: #fff;
+
+      &:hover {
+        background-color: #fff;
+        color: #15393f;
+      }
+    }
+  }
 }
