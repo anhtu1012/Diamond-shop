@@ -11,7 +11,7 @@ import "swiper/css/pagination";
 import { Autoplay, Grid, Navigation } from "swiper/modules";
 import { CartProduct } from "../Cardd/CartProduct";
 import { useEffect, useState } from "react";
-import { getDiamond, getProducts } from "../../../services/Uservices";
+import { getDiamonds, getProducts } from "../../../services/Uservices";
 
 export default function Relate({
   numberOfSlides = 4,
@@ -31,7 +31,7 @@ export default function Relate({
   const fetchItems = async () => {
     let res;
     if (data === "diamonds") {
-      res = await getDiamond();
+      res = await getDiamonds();
     } else {
       res = await getProducts();
     }

@@ -7,10 +7,8 @@ import {
   Radio,
   Select,
   InputNumber,
-  Popconfirm,
   Button,
 } from "antd";
-import { useState } from "react";
 
 function FormProductStep2({ onFinish, initialValues }) {
   const [form] = Form.useForm();
@@ -32,8 +30,8 @@ function FormProductStep2({ onFinish, initialValues }) {
       label: "Bông tai",
     },
   ];
-  const [confirmVisible, setConfirmVisible] = useState(false);
-  const handleConfirm = async () => {
+
+  const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
       onFinish(values);
@@ -42,64 +40,20 @@ function FormProductStep2({ onFinish, initialValues }) {
     }
   };
 
-  const handleSubmit = async () => {
-    try {
-      await form.validateFields();
-      setConfirmVisible(true);
-    } catch (errorInfo) {
-      console.log("Validation failed:", errorInfo);
-    }
-  };
-
-  const handleCancel = () => {
-    setConfirmVisible(false);
-  };
   return (
     <Form
       form={form}
-      onFinish={onFinish}
+      onFinish={handleSubmit}
       initialValues={initialValues}
       labelCol={{
         span: 24,
       }}
     >
-      <Row gutter={30} className="form_step2" style={{ padding: "0px 100px " }}>
-        <Col span={12} className="info_detail1">
-          <Form.Item
-            label="Thương hiệu"
-            name="brand"
-            rules={[
-              {
-                required: true,
-                message: "Vui lòng không để trống",
-              },
-            ]}
-          >
-            <Input
-              className="input"
-              allowClear
-              placeholder="Nhập Tên Thương Hiệu"
-            />
-          </Form.Item>
-        </Col>
-        <Col span={12} className="info_detail2">
-          <Form.Item
-            label="Kích thước đá chủ"
-            name="mainStoneSize"
-            rules={[
-              {
-                required: true,
-                message: "Vui lòng không để trống",
-              },
-            ]}
-          >
-            <Input
-              className="input"
-              allowClear
-              placeholder="Nhập Kích Thước Đá Chủ"
-            />
-          </Form.Item>
-        </Col>
+      <Row
+        gutter={30}
+        className="form_stepp2"
+        style={{ padding: "0px 100px " }}
+      >
         <Col span={12} className="info_detail2">
           <Form.Item label="Loại sản phẩm" name="productType">
             <Select
@@ -122,11 +76,54 @@ function FormProductStep2({ onFinish, initialValues }) {
           </Form.Item>
         </Col>
         <Col span={12} className="info_detail2">
-          <Form.Item label="Chất liệu khác" name="otherMaterial">
+          <Form.Item label="Chất liệu khác" name="message">
             <Input
               className="input"
               allowClear
               placeholder="Nhập Chất Liệu Khác Sản Phẩm"
+            />
+          </Form.Item>
+        </Col>
+        <Col span={12} className="info_detail1">
+          <Form.Item
+            label="Hình Dạng (Shape)"
+            name="shapeDiamond"
+            rules={[{ required: true, message: "Vui lòng không để trống" }]}
+          >
+            <Select
+              placeholder="Chọn Hình Dạng"
+              style={{ width: "100%", height: "40px" }}
+            >
+              {[
+                "Round",
+                "Princess",
+                "Radiant",
+                "Emerald",
+                "Asscher",
+                "Marquise",
+                "Oval",
+                "Pearl",
+                "Heart",
+                "Cushion",
+              ].map((shape) => (
+                <Select.Option key={shape} value={shape}>
+                  {shape}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+        </Col>
+        <Col span={12} className="info_detail2">
+          <Form.Item
+            label="KÍCH THƯỚC (MM)"
+            name="dimensionsDiamond"
+            rules={[{ required: true, message: "Vui lòng không để trống" }]}
+          >
+            <InputNumber
+              className="input"
+              allowClear
+              placeholder="Nhập KÍCH THƯỚC (MM)"
+              style={{ width: "100%" }}
             />
           </Form.Item>
         </Col>
@@ -165,7 +162,7 @@ function FormProductStep2({ onFinish, initialValues }) {
         <Col span={8} className="info_detail2">
           <Form.Item
             label="Loại đá tấm"
-            name="paveStoneType"
+            name="bathStone"
             rules={[
               {
                 required: true,
@@ -183,7 +180,7 @@ function FormProductStep2({ onFinish, initialValues }) {
         <Col span={8} className="info_detail2">
           <Form.Item
             label="Số lượng đá tấm"
-            name="paveStoneQuantity"
+            name="quantityStonesOfDiamond"
             rules={[
               {
                 required: true,
@@ -228,7 +225,7 @@ function FormProductStep2({ onFinish, initialValues }) {
         </Col>
 
         <Col span={24} className="info_detail2">
-          <Form.Item label="Tuổi vàng" name="goldAge">
+          <Form.Item label="Tuổi vàng" name="oldGold">
             <Radio.Group>
               <Radio value="10k">10k</Radio>
               <Radio value="14k">14k</Radio>
@@ -241,19 +238,9 @@ function FormProductStep2({ onFinish, initialValues }) {
       </Row>
       <></>
       <div className="button_form_2">
-        <Popconfirm
-          title="Xác nhận"
-          description="Xác nhận lại thông tin!"
-          visible={confirmVisible}
-          onConfirm={handleConfirm}
-          onCancel={handleCancel}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button type="primary" onClick={handleSubmit}>
-            Tạo Sản Phẩm
-          </Button>
-        </Popconfirm>
+        <Button type="primary" htmlType="submit">
+          Lưu Thông tin
+        </Button>
       </div>
     </Form>
   );

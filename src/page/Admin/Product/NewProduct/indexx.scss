@@ -1,21 +1,9 @@
-.form_step1 {
+.form_stepp1 {
   padding: 10px 0px;
   display: flex;
-  justify-content: center; // Căn giữa toàn bộ form
-  align-items: center; // Căn giữa theo chiều ngang
-  .upload_img {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    .ant-upload-list {
-      position: absolute;
-      top: -100px;
-      right: 0;
-      left: 120px;
-      bottom: 0;
-    }
-  }
-  .info_basic {
+  justify-content: flex-start !important; // Căn giữa toàn bộ form
+  align-items: flex-start !important; // Căn giữa theo chiều ngang
+  .info_basicc {
     .input {
       width: 80%;
       height: 40px;
@@ -42,18 +30,6 @@
       }
     }
   }
-  .ant-upload.ant-upload-select {
-    width: 50px !important;
-    height: 50px !important;
-    span.ant-upload {
-      font-size: 10px;
-    }
-  }
-  .ant-upload-list-item.ant-upload-list-item-error {
-    width: 50px !important;
-    height: 50px !important;
-  }
-
   .button_form {
     padding: 10px;
     text-align: right;
@@ -67,7 +43,7 @@
     }
   }
 }
-.form_step2 {
+.form_stepp2 {
   padding: 10px 0px;
   display: flex;
   justify-content: center; // Căn giữa toàn bộ form
