@@ -17,129 +17,125 @@ import { useState } from "react";
 const initialData = [
   {
     key: "1",
-    id: "MS123",
-    image: "https://jemmia.vn/wp-content/uploads/2024/05/1_cam_03-copy.jpg",
-    name: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
-    category: "Nhẫn cầu hôn kim cương",
-    mainstone: "Round 5ly",
-    typestone: "Kim cương",
-    numbergem: "28",
-    gold: "Vàng trắng",
-    age: "18k",
-    weight: "0.92",
+    productID: "MS123",
+    imageUrl: "https://jemmia.vn/wp-content/uploads/2024/05/1_cam_03-copy.jpg",
+    productName: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
+    category: {
+      categoryName: "Nhẫn cầu hôn kim cương",
+    },
+    productType: "Nhẫn",
+    shapeDiamond: "Round",
+    dimensionsDiamond: "5.0",
+    brand: "Diamond",
+    bathStone: "Kim cương",
+    quantityStonesOfDiamond: "28",
+    goleType: "Vàng trắng",
+    oldGold: "18k",
+    ratio: "0.5",
+    goldWeight: "0.92",
     status: "Còn hàng",
+    stoneWeight: "1.6",
+    originalPrice: "400.800.000 ₫",
     price: "488.800.000 ₫",
+    sizes: [
+      {
+        sizeValue: 41,
+        quantitySize: 3,
+      },
+      {
+        sizeValue: 40,
+        quantitySize: 10,
+      },
+      {
+        sizeValue: 42,
+        quantitySize: 7,
+      },
+    ],
+    thumbnails: [
+      {
+        imageUrl:
+          "https://locphuc.com.vn/Content/Images/082022/DFH0225ANW.WG01A/day-chuyen-kim-cuong-DFH0225ANW-WG01A-g1.jpg",
+      },
+      {
+        imageUrl:
+          "https://locphuc.com.vn/Content/Images/082022/DFH0225ANW.WG01A/day-chuyen-kim-cuong-DFH0225ANW-WG01A-g2.jpg",
+      },
+      {
+        imageUrl:
+          "https://locphuc.com.vn/Content/Images/082022/DFH0225ANW.WG01A/day-chuyen-kim-cuong-DFH0225ANW-WG01A-g4.jpg",
+      },
+    ],
   },
   {
     key: "2",
-    id: "MS456",
-    image: "https://jemmia.vn/wp-content/uploads/2022/05/R41.3-1-scaled-1.jpg",
-    name: "NHẪN KIM CƯƠNG NAM 18K",
-    category: "Nhẫn kim cương",
-    mainstone: "Round 5ly",
-    typestone: "Kim cương",
-    numbergem: "28",
-    gold: "Vàng trắng",
-    age: "18k",
-    weight: "0.92",
+    productID: "MS456",
+    imageUrl:
+      "https://jemmia.vn/wp-content/uploads/2022/05/R41.3-1-scaled-1.jpg",
+    productName: "NHẪN KIM CƯƠNG NAM 18K",
+    category: {
+      categoryName: "Nhẫn kim cương",
+    },
+    productType: "Nhẫn",
+    shapeDiamond: "Round",
+    bathStone: "Kim cương",
+    dimensionsDiamond: "5.0",
+    quantityStonesOfDiamond: "28",
+    brand: "Diamond",
+    goleType: "Vàng trắng",
+    ratio: "0.5",
+    oldGold: "18k",
+    goldWeight: "0.92",
     status: "Hết hàng",
+    stoneWeight: "1.6",
+    originalPrice: "400.800.000 ₫",
     price: "488.800.000 ₫",
-  },
-  {
-    key: "3",
-    id: "MS789",
-    image: "https://jemmia.vn/wp-content/uploads/2024/04/1-copy-9.jpg",
-    name: "BÔNG TAI KIM CƯƠNG 18K",
-    category: "Bông tai kim cương",
-    mainstone: "Round 5ly",
-    typestone: "Kim cương",
-    numbergem: "28",
-    gold: "Vàng trắng",
-    age: "18k",
-    weight: "0.92",
-    status: "Còn hàng",
-    price: "488.800.000 ₫",
-  },
-  {
-    key: "4",
-    id: "MS159",
-    image:
-      "https://jemmia.vn/wp-content/uploads/2024/02/vong-tay-kim-cuong-18k-LT2022082803-3.jpg",
-    name: "VÒNG TAY KIM CƯƠNG 18K",
-    category: "Lắc/Vòng tay kim cương",
-    mainstone: "Round 5ly",
-    typestone: "Kim cương",
-    numbergem: "28",
-    gold: "Vàng trắng",
-    age: "18k",
-    weight: "0.92",
-    status: "Hết hàng",
-    price: "48.800.000 ₫",
-  },
-  {
-    key: "5",
-    id: "MS753",
-    image: "https://jemmia.vn/wp-content/uploads/2024/04/2-copy-7.jpg",
-    name: "MẶT DÂY CHUYỀN KIM CƯƠNG 18K",
-    mainstone: "Round 5ly",
-    typestone: "Kim cương",
-    numbergem: "28",
-    gold: "Vàng trắng",
-    age: "18k",
-    category: "Mặt dây chuyền kim cương",
-    weight: "0.92",
-    status: "Còn hàng",
-    price: "88.800.000 ₫",
-  },
-  {
-    key: "6",
-    id: "MS258",
-    image: "https://jemmia.vn/wp-content/uploads/2024/05/1_cam_03-2.jpg",
-    name: "NHẪN CẦU HÔN KIM CƯƠNG 18K WRA00159",
-    category: "Nhẫn cầu hôn kim cương",
-    mainstone: "Round 5ly",
-    typestone: "Kim cương",
-    numbergem: "28",
-    gold: "Vàng trắng",
-    age: "18k",
-    weight: "0.92",
-    status: "Hết hàng",
-    price: "88.800.000 ₫",
-  },
-  {
-    key: "7",
-    id: "MS165",
-    image: "https://jemmia.vn/wp-content/uploads/2024/04/3-copy-4.jpg",
-    name: "NHẪN CƯỚI KIM CƯƠNG 18K",
-    category: "Nhẫn cưới kim cương",
-    mainstone: "Round 5ly",
-    typestone: "Kim cương",
-    numbergem: "28",
-    gold: "Vàng trắng",
-    age: "18k",
-    weight: "0.92",
-    status: "Còn hàng",
-    price: "68.800.000 ₫",
+    sizes: [
+      {
+        sizeValue: 41,
+        quantitySize: 3,
+      },
+      {
+        sizeValue: 40,
+        quantitySize: 10,
+      },
+      {
+        sizeValue: 42,
+        quantitySize: 7,
+      },
+    ],
+    thumbnails: [
+      {
+        imageUrl:
+          "https://locphuc.com.vn/Content/Images/082022/DFH0225ANW.WG01A/day-chuyen-kim-cuong-DFH0225ANW-WG01A-g1.jpg",
+      },
+      {
+        imageUrl:
+          "https://locphuc.com.vn/Content/Images/082022/DFH0225ANW.WG01A/day-chuyen-kim-cuong-DFH0225ANW-WG01A-g2.jpg",
+      },
+      {
+        imageUrl:
+          "https://locphuc.com.vn/Content/Images/082022/DFH0225ANW.WG01A/day-chuyen-kim-cuong-DFH0225ANW-WG01A-g4.jpg",
+      },
+    ],
   },
 ];
 
 function ProductDetail() {
-  const { id } = useParams();
-  const product = initialData.find((d) => d.id === id);
+  const { productID } = useParams();
+  const product = initialData.find((d) => d.productID === productID);
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEdit = () => {
     setIsEditing(true);
   };
   const handleSave = () => {
-    // Here, you would update the data in your backend with the new values
-    setIsEditing(false); // Exit editing mode
+    setIsEditing(false);
     message.success("Lưu thành công!");
   };
   const handleDelete = () => {
-    // Implement delete functionality here
     message.success("Xóa thành công");
   };
+
   if (!product) {
     return <div>Product not found</div>;
   }
@@ -173,11 +169,11 @@ function ProductDetail() {
               <Col className="infor-detail" span={12}>
                 <Form.Item
                   label="Tên Sản Phẩm"
-                  name="name"
+                  name="productName"
                   className="custom-form-item"
                 >
                   <Input
-                    defaultValue={product.name}
+                    defaultValue={product.productName}
                     className="input"
                     readOnly={!isEditing}
                     style={{
@@ -189,11 +185,11 @@ function ProductDetail() {
               <Col className="infor-detail" span={12}>
                 <Form.Item
                   label="Mã sản phẩm"
-                  name="id"
+                  name="productID"
                   className="custom-form-item"
                 >
                   <Input
-                    defaultValue={product.id}
+                    defaultValue={product.productID}
                     className="input"
                     readOnly={!isEditing}
                     style={{
@@ -202,7 +198,7 @@ function ProductDetail() {
                   />
                 </Form.Item>
               </Col>
-              <Col span={24} className="infor-detail">
+              <Col span={12} className="infor-detail">
                 <Form.Item
                   label="Loại sản phẩm"
                   name="category"
@@ -211,7 +207,7 @@ function ProductDetail() {
                   {isEditing ? (
                     <Select
                       style={{ width: "100%" }}
-                      defaultValue={product.category}
+                      defaultValue={product.category.categoryName}
                     >
                       {[
                         "Nhẫn cầu hôn kim cương",
@@ -228,7 +224,35 @@ function ProductDetail() {
                     </Select>
                   ) : (
                     <Input
-                      defaultValue={product.category}
+                      defaultValue={product.category.categoryName}
+                      readOnly
+                      style={{ width: "100%" }}
+                    />
+                  )}
+                </Form.Item>
+              </Col>
+              <Col span={12} className="infor-detail">
+                <Form.Item
+                  label="Phân loại"
+                  name="productType"
+                  className="custom-form-item"
+                >
+                  {isEditing ? (
+                    <Select
+                      style={{ width: "100%" }}
+                      defaultValue={product.productType}
+                    >
+                      {["Nhẫn", "Lắc/Vòng tay", "Dây chuyền", "Bông tai"].map(
+                        (productType) => (
+                          <Select.Option key={productType} value={productType}>
+                            {productType}
+                          </Select.Option>
+                        )
+                      )}
+                    </Select>
+                  ) : (
+                    <Input
+                      defaultValue={product.productType}
                       readOnly
                       style={{ width: "100%" }}
                     />
@@ -239,11 +263,11 @@ function ProductDetail() {
               <Col className="infor-detail" span={12}>
                 <Form.Item
                   label="Kích thước đá chủ"
-                  name="mainstone"
+                  name="dimensionsDiamond"
                   className="custom-form-item"
                 >
                   <Input
-                    defaultValue={product.mainstone}
+                    defaultValue={product.dimensionsDiamond}
                     className="input"
                     readOnly={!isEditing}
                     style={{
@@ -255,11 +279,11 @@ function ProductDetail() {
               <Col className="infor-detail" span={12}>
                 <Form.Item
                   label="Loại đá tẩm"
-                  name="typestone"
+                  name="bathStone"
                   className="custom-form-item"
                 >
                   <Input
-                    defaultValue={product.typestone}
+                    defaultValue={product.bathStone}
                     className="input"
                     readOnly={!isEditing}
                     style={{
@@ -271,11 +295,11 @@ function ProductDetail() {
               <Col className="infor-detail" span={12}>
                 <Form.Item
                   label="Số lượng đá tẩm"
-                  name="numbergem"
+                  name="quantityStonesOfDiamond"
                   className="custom-form-item"
                 >
                   <Input
-                    defaultValue={product.numbergem}
+                    defaultValue={product.quantityStonesOfDiamond}
                     className="input"
                     readOnly={!isEditing}
                     style={{
@@ -287,11 +311,11 @@ function ProductDetail() {
               <Col className="infor-detail" span={12}>
                 <Form.Item
                   label="Loại vàng"
-                  name="gold"
+                  name="goleType"
                   className="custom-form-item"
                 >
                   <Input
-                    defaultValue={product.gold}
+                    defaultValue={product.goleType}
                     className="input"
                     readOnly={!isEditing}
                     style={{
@@ -303,11 +327,11 @@ function ProductDetail() {
               <Col className="infor-detail" span={12}>
                 <Form.Item
                   label="Tuổi vàng"
-                  name="age"
+                  name="oldGold"
                   className="custom-form-item"
                 >
                   <Input
-                    defaultValue={product.age}
+                    defaultValue={product.oldGold}
                     className="input"
                     readOnly={!isEditing}
                     style={{
@@ -319,11 +343,75 @@ function ProductDetail() {
               <Col className="infor-detail" span={12}>
                 <Form.Item
                   label="Trọng lượng vàng"
-                  name="weight"
+                  name="goldWeight"
                   className="custom-form-item"
                 >
                   <Input
-                    defaultValue={product.weight}
+                    defaultValue={product.goldWeight}
+                    className="input"
+                    readOnly={!isEditing}
+                    style={{
+                      width: "100%",
+                    }}
+                  />
+                </Form.Item>
+              </Col>
+              <Col className="infor-detail" span={12}>
+                <Form.Item
+                  label="Thương hiệu"
+                  name="brand"
+                  className="custom-form-item"
+                >
+                  <Input
+                    defaultValue={product.brand}
+                    className="input"
+                    readOnly={!isEditing}
+                    style={{
+                      width: "100%",
+                    }}
+                  />
+                </Form.Item>
+              </Col>
+              <Col className="infor-detail" span={12}>
+                <Form.Item
+                  label="Tỉ lệ"
+                  name="ratio"
+                  className="custom-form-item"
+                >
+                  <Input
+                    defaultValue={product.ratio}
+                    className="input"
+                    readOnly={!isEditing}
+                    style={{
+                      width: "100%",
+                    }}
+                  />
+                </Form.Item>
+              </Col>
+              <Col className="infor-detail" span={12}>
+                <Form.Item
+                  label="Trọng lượng đá"
+                  name="stoneWeight"
+                  className="custom-form-item"
+                >
+                  <Input
+                    defaultValue={product.stoneWeight}
+                    className="input"
+                    readOnly={!isEditing}
+                    style={{
+                      width: "100%",
+                    }}
+                  />
+                </Form.Item>
+              </Col>
+              <Col className="infor-detail" span={12}>
+                <Form.Item
+                  label="Giá gốc"
+                  name="originalPrice"
+                  className="custom-form-item"
+                >
+                  <Input
+                    defaultValue={product.originalPrice}
                     className="input"
                     readOnly={!isEditing}
                     style={{
@@ -358,7 +446,7 @@ function ProductDetail() {
             >
               <Col span={12}>
                 <Image
-                  src={product.image}
+                  src={product.imageUrl}
                   alt="Product"
                   style={{
                     width: "130px",
@@ -369,39 +457,19 @@ function ProductDetail() {
               </Col>
               <Col span={12}>
                 <Row>
-                  <Col span={12}>
-                    <Image
-                      src={product.image}
-                      alt="Product"
-                      style={{
-                        width: "60px",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    />
-                  </Col>
-                  <Col span={12}>
-                    <Image
-                      src={product.image}
-                      alt="Product"
-                      style={{
-                        width: "60px",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    />
-                  </Col>
-                  <Col span={12}>
-                    <Image
-                      src={product.image}
-                      alt="Product"
-                      style={{
-                        width: "60px",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    />
-                  </Col>
+                  {product.thumbnails.map((thumbnail, index) => (
+                    <Col span={12} key={index}>
+                      <Image
+                        src={thumbnail.imageUrl}
+                        alt={`Thumbnail ${index + 1}`}
+                        style={{
+                          width: "60px",
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      />
+                    </Col>
+                  ))}
                 </Row>
               </Col>
               <Col className="infor-detail" span={24}>
