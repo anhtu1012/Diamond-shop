@@ -39,11 +39,11 @@ export const loginFB = () => {
     "https://diamondshopgroup6.azurewebsites.net/oauth2/authorization/facebook"
   );
 };
-export const getDiamond = () => {
-  return api.get("https://662a755267df268010a405bf.mockapi.io/Diamond");
-};
-export const getProduct = () => {
-  return api.get("https://662b9b55de35f91de158d8ba.mockapi.io/us");
+export const forgetPassword = (emailOrPhone) => {
+  return api.post(
+    "https://diamondshopgroup6.azurewebsites.net/public/forget_password",
+    emailOrPhone
+  );
 };
 export const getProducts = () => {
   return api.get(
@@ -56,8 +56,32 @@ export const createProduct = (productData) => {
     productData
   );
 };
+export const createDiamond = (finalData) => {
+  return api.post(
+    "https://diamondshopgroup6.azurewebsites.net/swp391/api/diamonds/create_diamond",
+    finalData
+  );
+};
 export const getDiamonds = () => {
   return api.get(
     "https://diamondshopgroup6.azurewebsites.net/swp391/api/diamonds/all_diamonds"
+  );
+};
+export const deleteDiamond = (id) => {
+  return api.delete(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/diamond/delete_diamond/${id}`
+  );
+};
+
+export const updateDiamond = (id, data) => {
+  return api.put(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/diamond/update_diamond/${id}`,
+    data
+  );
+};
+
+export const fetchDiamondById = async (diamondId) => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/diamond/diamond_id/${diamondId}`
   );
 };

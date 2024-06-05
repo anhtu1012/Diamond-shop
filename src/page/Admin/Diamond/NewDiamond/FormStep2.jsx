@@ -145,10 +145,7 @@ function FormStep2({ onFinish, initialValues }) {
               style={{ width: "100%", height: "40px" }}
             >
               {["Gia", "Bên Khác"].map((certificate) => (
-                <Select.Option
-                  key={certificate}
-                  value={certificate}
-                >
+                <Select.Option key={certificate} value={certificate}>
                   {certificate}
                 </Select.Option>
               ))}
@@ -215,7 +212,13 @@ function FormStep2({ onFinish, initialValues }) {
           <Form.Item
             label="Màu Sắc"
             name="color"
-            rules={[{ required: true, message: "Vui lòng không để trống" }]}
+            rules={[
+              { required: true, message: "Vui lòng không để trống" },
+              {
+                pattern: /^[^!@#$%^&*()+=]+$/,
+                message: "Vui lòng không nhập kí tự đặc biệt",
+              },
+            ]}
           >
             <Input className="input" allowClear placeholder="Nhập Màu Sắc" />
           </Form.Item>

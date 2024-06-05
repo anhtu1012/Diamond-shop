@@ -27,10 +27,12 @@ const getBase64 = (file) =>
 const cityData = {
   "Trang Sức Cưới": ["Nhẫn Cầu Hôn Kim Cương", "Nhẫn Cưới Kim Cương"],
   "Trang sức Kim Cương": [
-    "Nhẫn Kim Cương",
+    "Nhẫn Kim Cương Nam",
+    "Nhẫn Kim Cương Nữ",
     "Bông Tai Kim Cương",
-    "Lắc/Vòng Tay Kim Cương",
-    "Mặc Dây Chuyền Kim Cương",
+    "Lắc/ Vòng Tay Kim Cương",
+    "Mặt Dây Chuyền Kim Cương",
+    "Dây Chuyền Kim Cương",
   ],
 };
 
@@ -130,6 +132,10 @@ function FormProductStep1({ onFinish, initialValues }) {
                 required: true,
                 message: "Vui lòng không để trống",
               },
+              {
+                pattern: /^[^!@#$%^&*()+=]+$/,
+                message: "Vui lòng không nhập kí tự đặc biệt",
+              },
             ]}
           >
             <Input
@@ -145,6 +151,10 @@ function FormProductStep1({ onFinish, initialValues }) {
               {
                 required: true,
                 message: "Vui lòng không để trống",
+              },
+              {
+                pattern: /^[^!@#$%^&*()+=]+$/,
+                message: "Vui lòng không nhập kí tự đặc biệt",
               },
             ]}
           >
@@ -263,7 +273,7 @@ function FormProductStep1({ onFinish, initialValues }) {
                   </div>
                   <Row>
                     {fields.map((field) => (
-                      <Col span={10}>
+                      <Col span={11}>
                         <Space
                           key={field.key}
                           style={{

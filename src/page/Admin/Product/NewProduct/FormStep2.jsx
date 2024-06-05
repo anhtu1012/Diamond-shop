@@ -76,7 +76,20 @@ function FormProductStep2({ onFinish, initialValues }) {
           </Form.Item>
         </Col>
         <Col span={12} className="info_detail2">
-          <Form.Item label="Chất liệu khác" name="message">
+          <Form.Item
+            label="Chất liệu khác"
+            name="message"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng không để trống",
+              },
+              {
+                pattern: /^[^!@#$%^&*()+=]+$/,
+                message: "Vui lòng không nhập kí tự đặc biệt",
+              },
+            ]}
+          >
             <Input
               className="input"
               allowClear
@@ -136,6 +149,10 @@ function FormProductStep2({ onFinish, initialValues }) {
                 required: true,
                 message: "Vui lòng không để trống",
               },
+              {
+                pattern: /^[^!@#$%^&*()+=]+$/,
+                message: "Vui lòng không nhập kí tự đặc biệt",
+              },
             ]}
           >
             <Input className="input" allowClear placeholder="Nhập Loại Vàng" />
@@ -167,6 +184,10 @@ function FormProductStep2({ onFinish, initialValues }) {
               {
                 required: true,
                 message: "Vui lòng không để trống",
+              },
+              {
+                pattern: /^[^!@#$%^&*()+=]+$/,
+                message: "Vui lòng không nhập kí tự đặc biệt",
               },
             ]}
           >
