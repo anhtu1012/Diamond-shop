@@ -53,6 +53,7 @@ import ProductDetail from "./page/Admin/Product/ProductDetail";
 import ForgotPassword from "./page/forgotpassword";
 import ViewOrderDetails from "./page/Admin/Order/ViewOrder";
 import ViewAccountDetail from "./page/Admin/Account/ViewAccountDetail";
+import LienHe from "./page/Custommer/LienHe";
 
 const router = createBrowserRouter([
   {
@@ -147,6 +148,10 @@ const router = createBrowserRouter([
         path: "/kim-cuong-vien",
         element: <KimCuongVien />,
       },
+      {
+        path: "/lien-he",
+        element: <LienHe />,
+      },
     ],
   },
 
@@ -188,7 +193,7 @@ const router = createBrowserRouter([
         element: <ViewProduct />,
       },
       {
-        path: "san-pham/xem-tat-ca-san-pham/product-detail/:id",
+        path: "san-pham/xem-tat-ca-san-pham/product-detail/:productID",
         element: <ProductDetail />,
       },
       {

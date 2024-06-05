@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Breadcrumb, Layout, theme } from "antd";
+import { Layout, theme } from "antd";
 import { Outlet } from "react-router-dom";
 import Sidenav from "../../../components/layout/Sidenav";
 import HeaderAdmin from "../../../components/layout/Header";
 import "./index.scss";
 import { Footer } from "antd/es/layout/layout";
+import Breadcrumbs from "../../../components/breadcums";
 const { Header, Sider, Content } = Layout;
 const AdminPage = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -41,15 +42,9 @@ const AdminPage = () => {
           }}
         >
           {" "}
-          <Breadcrumb
-            style={{
-              margin: "16px 0",
-            }}
-          >
-            <Breadcrumb.Item>Ecommerce</Breadcrumb.Item>
-            <Breadcrumb.Item>Order</Breadcrumb.Item>
-            <Breadcrumb.Item>Đơn hàng</Breadcrumb.Item>
-          </Breadcrumb>
+          <div className="breadcums" style={{padding: '20px 10px'}}>
+          <Breadcrumbs />
+          </div>
           <div
             style={{
               padding: 24,

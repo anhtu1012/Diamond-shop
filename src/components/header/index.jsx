@@ -281,7 +281,7 @@ function Header() {
             <Link to="/tuy-chinh">Tùy chỉnh</Link>
           </li>
           <li>
-            <Link to="/">Liên hệ</Link>
+            <Link to="/lien-he">Liên hệ</Link>
           </li>
         </ul>
       </nav>

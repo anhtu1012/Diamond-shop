@@ -14,3 +14,26 @@
   border-bottom: 1px solid #f0f0f0;
   transition: background 0.2s ease;
 }
+.ant-dropdown-trigger.ant-table-filter-trigger {
+  color: #fff;
+}
+
+:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
+  .ant-table-thead
+  th.ant-table-column-has-sorters:hover {
+  background: #504a4a;
+}
+
+:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
+  .ant-table-tbody
+  .ant-table-row.ant-table-row-selected
+  > .ant-table-cell-row-hover {
+  background: #cccccc;
+}
+
+:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
+  .ant-table-tbody
+  .ant-table-row.ant-table-row-selected
+  > .ant-table-cell {
+  background: #cccccc;
+}
