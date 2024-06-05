@@ -51,6 +51,8 @@ import Custommize from "./page/Custommer/Custommize";
 import DiamondDetails from "./page/Admin/Diamond/DiamondDetails";
 import ProductDetail from "./page/Admin/Product/ProductDetail";
 import ForgotPassword from "./page/forgotpassword";
+import ViewOrderDetails from "./page/Admin/Order/ViewOrder";
+import ViewAccountDetail from "./page/Admin/Account/ViewAccountDetail";
 
 const router = createBrowserRouter([
   {
@@ -174,6 +176,10 @@ const router = createBrowserRouter([
         element: <AllOrder />,
       },
       {
+        path: "don-hang/all/order-detail/:idorder",
+        element: <ViewOrderDetails />,
+      },
+      {
         path: "don-hang/hoa-don",
         element: <Invoice />,
       },
@@ -204,6 +210,10 @@ const router = createBrowserRouter([
       {
         path: "tai-khoan/xem-tat-ca-tai-khoan",
         element: <ViewAccount />,
+      },
+      {
+        path: "tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/:id",
+        element: <ViewAccountDetail />,
       },
       {
         path: "tai-khoan/tao-tai-khoan",

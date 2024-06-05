@@ -22,7 +22,7 @@ const initialData = [
     infor: (
       <Link
         to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS123"}
-      >
+        style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -43,7 +43,7 @@ const initialData = [
     infor: (
       <Link
         to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS456"}
-      >
+        style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -64,7 +64,7 @@ const initialData = [
     infor: (
       <Link
         to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS789"}
-      >
+        style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -85,7 +85,7 @@ const initialData = [
     infor: (
       <Link
         to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS159"}
-      >
+        style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -106,7 +106,7 @@ const initialData = [
     infor: (
       <Link
         to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS753"}
-      >
+        style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -127,7 +127,7 @@ const initialData = [
     infor: (
       <Link
         to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS258"}
-      >
+        style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -148,7 +148,7 @@ const initialData = [
     infor: (
       <Link
         to={"/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/MS165"}
-      >
+        style={{color: 'black', fontWeight: 600}}   >
         Xem chi tiết
       </Link>
     ),

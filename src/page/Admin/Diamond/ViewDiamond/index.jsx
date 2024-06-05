@@ -23,7 +23,7 @@ const initialData = [
     size: "6.0",
     price: "488.800.000 ₫",
     infor: (
-      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM1"}>
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM1"} style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -45,7 +45,7 @@ const initialData = [
     size: "3.0",
     price: "488.800.000 ₫",
     infor: (
-      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM2"}>
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM2"} style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -67,7 +67,7 @@ const initialData = [
     size: "3.6",
     price: "488.800.000 ₫",
     infor: (
-      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM3"}>
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM3"} style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -89,7 +89,7 @@ const initialData = [
     size: "2.6",
     price: "48.800.000 ₫",
     infor: (
-      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM4"}>
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM4"} style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -111,7 +111,7 @@ const initialData = [
     size: "6.6",
     price: "88.800.000 ₫",
     infor: (
-      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM5"}>
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM5"} style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -133,7 +133,7 @@ const initialData = [
     size: "6.6",
     price: "88.800.000 ₫",
     infor: (
-      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM6"}>
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM6"} style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -155,7 +155,7 @@ const initialData = [
     size: "6.6",
     price: "68.800.000 ₫",
     infor: (
-      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM7"}>
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM7"} style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -177,7 +177,7 @@ const initialData = [
     size: "6.6",
     price: "58.800.000 ₫",
     infor: (
-      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM8"}>
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM8"} style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -199,7 +199,7 @@ const initialData = [
     size: "3.3",
     price: "58.800.000 ₫",
     infor: (
-      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM9"}>
+      <Link to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM9"} style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -223,7 +223,7 @@ const initialData = [
     infor: (
       <Link
         to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/DM10"}
-      >
+        style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),
@@ -247,7 +247,7 @@ const initialData = [
     infor: (
       <Link
         to={"/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail//DM11"}
-      >
+        style={{color: 'black', fontWeight: 600}}>
         Xem chi tiết
       </Link>
     ),

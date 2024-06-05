@@ -13,7 +13,7 @@ const data = [
     date: "29-5-2024",
     quantity: "2",
     status: "Chờ xác nhận",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/don-hang/all/order-detail/OD123456"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "2",
@@ -23,7 +23,7 @@ const data = [
     date: "28-5-2024",
     quantity: "2",
     status: "Chờ thanh toán",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/don-hang/all/order-detail/OD123457"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "3",
@@ -33,7 +33,7 @@ const data = [
     date: "30-5-2024",
     quantity: "2",
     status: "Chờ xác nhận",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/don-hang/all/order-detail/OD123458"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "4",
@@ -43,7 +43,7 @@ const data = [
     date: "6-5-2024",
     quantity: "2",
     status: "Đã giao",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/don-hang/all/order-detail/OD123459"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "5",
@@ -53,7 +53,7 @@ const data = [
     date: "5-5-2024",
     quantity: "2",
     status: "Đã hủy",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/don-hang/all/order-detail/OD123460"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "6",
@@ -63,7 +63,7 @@ const data = [
     date: "4-5-2024",
     quantity: "2",
     status: "Đã giao",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/don-hang/all/order-detail/OD123461"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "7",
@@ -73,7 +73,7 @@ const data = [
     date: "3-5-2024",
     quantity: "2",
     status: "Đã hủy",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/don-hang/all/order-detail/OD123462"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "8",
@@ -83,7 +83,7 @@ const data = [
     date: "2-5-2024",
     quantity: "2",
     status: "Đã giao",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/don-hang/all/order-detail/OD123463"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "9",
@@ -93,7 +93,7 @@ const data = [
     date: "3-4-2024",
     quantity: "4",
     status: "Chờ giao hàng",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/don-hang/all/order-detail/OD123463"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "10",
@@ -103,7 +103,7 @@ const data = [
     date: "3-3-2024",
     quantity: "3",
     status: "Chờ thanh toán",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/don-hang/all/order-detail/OD123463"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "11",
@@ -113,7 +113,7 @@ const data = [
     date: "3-2-2024",
     quantity: "1",
     status: "Chờ xác nhận",
-    infor: <Link to={"/"}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/don-hang/all/order-detail/OD123463"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
   },
 ];
 
