@@ -6,21 +6,21 @@ import Highlighter from "react-highlight-words";
 import { SearchOutlined } from "@ant-design/icons";
 import { getDiamonds } from "../../../../../services/Uservices";
 
-
-
-
 function ViewDiamond() {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
   const [dataSource, setDataSource] = useState([]);
+  
   async function fetchDiamonds() {
-    const reponse = await getDiamonds();
-    setDataSource(reponse.data);
+    const response = await getDiamonds();
+    setDataSource(response.data.map((item, index) => ({ ...item, key: index })));
   }
-  useEffect(function () {
+
+  useEffect(() => {
     fetchDiamonds();
   }, []);
+
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -136,20 +136,19 @@ function ViewDiamond() {
         text
       ),
   });
+
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const start = () => {
     setLoading(true);
-    // Xóa các sản phẩm đã chọn và cập nhật state `data`
     const newData = dataSource.filter((item) => !selectedRowKeys.includes(item.key));
-    setDataSource(newData); // Cập nhật state `data`
+    setDataSource(newData);
     setSelectedRowKeys([]);
     setLoading(false);
   };
 
   const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
   };
 
@@ -159,6 +158,7 @@ function ViewDiamond() {
   };
 
   const hasSelected = selectedRowKeys.length > 0;
+
   const columns = [
     {
       title: "Mã số",
@@ -187,7 +187,7 @@ function ViewDiamond() {
         "Asscher",
         "Marquise",
         "Oval",
-        "Pearl",
+        "Pear",
         "Heart",
         "Cushion",
       ]),
@@ -254,9 +254,7 @@ function ViewDiamond() {
       dataIndex: "totalPrice",
       key: "totalPrice",
       width: "10%",
-      sorter: (a, b) =>
-        parseInt(a.totalPrice) -
-        parseInt(b.totalPrice),
+      sorter: (a, b) => parseInt(a.totalPrice) - parseInt(b.totalPrice),
       ...getColumnSearchProps("totalPrice"),
     },
     {
@@ -266,9 +264,9 @@ function ViewDiamond() {
       width: "10%",
       render: (text, record) => (
         <div style={{ textAlign: "center" }}>
-        <Link to={`/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/${record.diamondID}`}>
-        Xem chi tiết
-      </Link>
+          <Link to={`/admin-page/san-pham/xem-tat-ca-kim-cuong/diamond-detail/${record.diamondID}`}>
+            Xem chi tiết
+          </Link>
         </div>
       ),
     },

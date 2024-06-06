@@ -11,18 +11,22 @@ function ViewProduct() {
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
   const [dataSource, setDataSource] = useState([]);
+
   async function fetchProducts() {
     const response = await getProducts();
-    const formattedData = response.data.map((item) => ({
+    const formattedData = response.data.map((item, index) => ({
       ...item,
+      key: index, // Ensure each item has a unique key
       category: item.category.categoryName,
       status: item.status ? "Còn hàng" : "Hết hàng",
     }));
     setDataSource(formattedData);
   }
-  useEffect(function () {
+
+  useEffect(() => {
     fetchProducts();
   }, []);
+
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -34,7 +38,7 @@ function ViewProduct() {
     setSearchText("");
   };
 
-  const getColumnSearchProps = (dataIndex, dropdownOptions) => ({
+  const getColumnSearchProps = (dataIndex, dropdownOptions = []) => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -198,7 +202,6 @@ function ViewProduct() {
       dataIndex: "category",
       key: "category",
       width: "15%",
-      render: (category) => category.categoryName,
       ...getColumnSearchProps("category", [
         "Nhẫn cầu hôn kim cương",
         "Nhẫn cưới kim cương",
@@ -213,7 +216,6 @@ function ViewProduct() {
       dataIndex: "status",
       key: "status",
       width: "10%",
-      render: (status) => (status ? "Còn hàng" : "Hết hàng"),
       ...getColumnSearchProps("status", ["Còn hàng", "Hết hàng"]),
     },
     {
@@ -231,7 +233,7 @@ function ViewProduct() {
       render: (text, record) => (
         <div style={{ textAlign: "center" }}>
           <Link
-            to={`/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/:id/${record.productID}`}
+            to={`/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/${record.productID}`}
           >
             Xem chi tiết
           </Link>
