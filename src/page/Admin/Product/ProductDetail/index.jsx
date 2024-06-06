@@ -18,12 +18,13 @@ const initialData = [
   {
     key: "1",
     productID: "MS123",
-    imageUrl: "https://jemmia.vn/wp-content/uploads/2024/05/1_cam_03-copy.jpg",
-    productName: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
+    imageUrl:
+      "https://jemmia.vn/wp-content/uploads/2024/04/1_cam_01-copy-4.jpg",
+    productName: "MẶT DÂY CHUYỀN KIM CƯƠNG 18K",
     category: {
-      categoryName: "Nhẫn cầu hôn kim cương",
+      categoryName: "Mặt dây chuyền kim cương",
     },
-    productType: "Nhẫn",
+    productType: "Dây chuyền",
     shapeDiamond: "Round",
     dimensionsDiamond: "5.0",
     brand: "Diamond",
@@ -404,6 +405,23 @@ function ProductDetail() {
                   />
                 </Form.Item>
               </Col>
+              {product.sizes.map((size, index) => (
+                <Col key={index} className="infor-detail" span={12}>
+                  <Form.Item
+                    label={`Size ${size.sizeValue}`}
+                    className="custom-form-item"
+                  >
+                    <Input
+                      defaultValue={size.quantitySize}
+                      className="input"
+                      readOnly
+                      style={{
+                        width: "100%",
+                      }}
+                    />
+                  </Form.Item>
+                </Col>
+              ))}
               <Col className="infor-detail" span={12}>
                 <Form.Item
                   label="Giá gốc"
