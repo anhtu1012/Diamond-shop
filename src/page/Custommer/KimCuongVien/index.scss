@@ -18,7 +18,7 @@
 
 .kc {
   font-weight: 350;
- 
+
   margin-right: 730px;
 }
 
@@ -30,25 +30,25 @@
 //   width: 7%;
 //   height: 4px;
 //   background-color: #013a40;
- 
- 
+
 // }
 .divider-line {
   width: 100%;
   height: 2px;
   background-color: #013a40;
-  margin-top: 5px; 
-  margin-bottom: 10px; 
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 .chon-anh {
-  margin-top: 20px; 
+  margin-top: 20px;
   margin-bottom: 20px;
   .shape-selector-row {
     display: flex;
     align-items: center;
     margin-right: -10px;
+    margin-top: 10px;
   }
-  
+
   .shape-selector {
     cursor: pointer;
     border-radius: 50%;
@@ -60,11 +60,11 @@
     height: 30px;
     flex-shrink: 0;
   }
-  
+
   .shape-selector.selected {
-    border-color: black;
+    border-color: #15393f;
   }
-  
+
   .shape-img {
     width: 100%;
     height: 100%;
@@ -94,7 +94,7 @@
 }
 
 .chon-kl-button.selected {
-  background-color: black;
+  background-color: #15393f;
   color: white;
 }
 
@@ -111,7 +111,7 @@
 }
 
 .chon-anh {
-  padding: 10px 0;
+  padding: 10px 0px;
 }
 
 .button-group {
@@ -121,7 +121,8 @@
   margin-top: 20px;
 }
 
-.reset-button, .search-button {
+.reset-button,
+.search-button {
   padding: 10px 20px;
   font-size: 14px;
   border: none;
@@ -139,7 +140,7 @@
 }
 
 .search-button {
-  background-color: black;
+  background-color: #15393f;
   color: white;
 }
 
@@ -154,7 +155,7 @@
 }
 
 .product-item.selected {
-  background-color: black;
+  background-color: #15393f;
   color: white;
 }
 //----------------------------------------

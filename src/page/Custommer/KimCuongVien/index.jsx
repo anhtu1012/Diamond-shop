@@ -161,10 +161,12 @@ function KimCuongVien() {
   ];
 
   const columns = [
+    
     {
       title: "Hình dạng",
       dataIndex: "shape",
       key: "shape",
+      
     },
     {
       title: "Trọng Lượng (cts)",
@@ -550,8 +552,8 @@ function KimCuongVien() {
                         padding: "10px",
                         cursor: "pointer",
                         backgroundColor:
-                          clickedProduct === product ? "black" : "transparent",
-                        color: clickedProduct === product ? "white" : "black",
+                          clickedProduct === product ? "#15393f" : "transparent",
+                        color: clickedProduct === product ? "white" : "#15393f",
                       }}
                       onClick={() => handleClick(product)}
                     >
@@ -564,6 +566,7 @@ function KimCuongVien() {
 
             <Col span={24}>
               <Table
+              
                 dataSource={diamondData}
                 columns={columns}
                 pagination={false}
@@ -586,7 +589,7 @@ function KimCuongVien() {
                 <Button
                   type="primary"
                   style={{
-                    color: "#000",
+                    color: "#15393f",
                     backgroundColor: "#fff",
                     borderColor: "#000",
                   }}
