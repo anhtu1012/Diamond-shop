@@ -11,10 +11,12 @@ function ViewDiamond() {
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
   const [dataSource, setDataSource] = useState([]);
-  
+
   async function fetchDiamonds() {
     const response = await getDiamonds();
-    setDataSource(response.data.map((item, index) => ({ ...item, key: index })));
+    setDataSource(
+      response.data.map((item, index) => ({ ...item, key: index }))
+    );
   }
 
   useEffect(() => {
@@ -142,7 +144,9 @@ function ViewDiamond() {
 
   const start = () => {
     setLoading(true);
-    const newData = dataSource.filter((item) => !selectedRowKeys.includes(item.key));
+    const newData = dataSource.filter(
+      (item) => !selectedRowKeys.includes(item.key)
+    );
     setDataSource(newData);
     setSelectedRowKeys([]);
     setLoading(false);
@@ -264,7 +268,9 @@ function ViewDiamond() {
       width: "10%",
       render: (text, record) => (
         <div style={{ textAlign: "center" }}>
-          <Link to={`/admin-page/san-pham/xem-tat-ca-kim-cuong/diamond-detail/${record.diamondID}`}>
+          <Link
+            to={`/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/${record.diamondID}`}
+          >
             Xem chi tiết
           </Link>
         </div>

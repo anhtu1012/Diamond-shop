@@ -546,4 +546,3 @@ function DiamondDetails() {
 }
 
 export default DiamondDetails;
-

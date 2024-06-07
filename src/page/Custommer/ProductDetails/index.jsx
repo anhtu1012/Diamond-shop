@@ -140,7 +140,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                   <h5 style={{ marginTop: "10px", fontWeight: "300" }}>
                     MS012345
                   </h5>
-                  <h2 style={{ display: "flex" , fontWeight: '500'}}>123,123,123đ</h2>
+                  <h2 style={{ display: "flex" , fontWeight: '500'}}>488.000.000 vnđ</h2>
                   <h4>
                     <a href="/">Chính sách hoàn trả</a>
                   </h4>
