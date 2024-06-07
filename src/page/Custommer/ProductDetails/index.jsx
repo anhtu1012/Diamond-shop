@@ -30,6 +30,7 @@ const ProductDetails = () => {
   const [productDetail, setProductDetail] = useState(null);
   const [mainImage, setMainImage] = useState("");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [sizeOptions, setSizeOptions] = useState([]);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -41,6 +42,12 @@ const ProductDetails = () => {
       const productData = response.data;
       setProductDetail(productData);
       setMainImage(productData.productImages[0].imageUrl);
+      const sizeOptions = productData.productSizes.map((size) => (
+        <Option key={size.id} value={size.sizeValue}>
+          {size.sizeValue} ({size.quantiy})
+        </Option>
+      ));
+      setSizeOptions(sizeOptions);
     } catch (error) {
       console.error("Error fetching product details:", error);
     }
@@ -155,12 +162,9 @@ const ProductDetails = () => {
                       <h4>Size:</h4>
                       <Select
                         placeholder="Size"
-                        style={{ width: 70, height: "20px", marginTop: "10px" }}
+                        style={{ width: 100, height: "30px", marginTop: "10px" }}
                       >
-                        <Option value="size1">10</Option>
-                        <Option value="size2">11</Option>
-                        <Option value="size3">12</Option>
-                        <Option value="size4">13</Option>
+                        {sizeOptions}
                       </Select>
                     </Space>
                   </div>
