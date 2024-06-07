@@ -54,6 +54,7 @@ import ForgotPassword from "./page/forgotpassword";
 import ViewOrderDetails from "./page/Admin/Order/ViewOrder";
 import ViewAccountDetail from "./page/Admin/Account/ViewAccountDetail";
 import LienHe from "./page/Custommer/LienHe";
+import DiamondDetailss from "./page/Custommer/Diamond Details Cus";
 
 const router = createBrowserRouter([
   {
@@ -81,8 +82,12 @@ const router = createBrowserRouter([
         element: <BoTrangSucCuoi />,
       },
       {
-        path: "/product-details",
+        path: "/product-details/:product_id",
         element: <ProductDetails />,
+      },
+      {
+        path: "/diamond-details/:diamondID",
+        element:<DiamondDetailss/>,
       },
       {
         path: "/product-payment",
@@ -205,7 +210,7 @@ const router = createBrowserRouter([
         element: <ViewDiamond />,
       },
       {
-        path: "san-pham/xem-tat-ca-kim-cuong/daimond-detail/:id",
+        path: "/admin-page/san-pham/xem-tat-ca-kim-cuong/diamond-detail/:diamondID",
         element: <DiamondDetails />,
       },
       {

@@ -5,7 +5,6 @@ import {
   Input,
   Image,
   Button,
-  message,
   Select,
   DatePicker,
   theme,
@@ -15,74 +14,52 @@ import "./index.scss";
 import { useEffect, useState } from "react";
 import { Content } from "antd/es/layout/layout";
 import moment from "moment";
-import {
-  deleteDiamond,
-  fetchDiamondById,
-  updateDiamond,
-} from "../../../../../services/Uservices";
+import { fetchDiamondById } from "../../../../../services/Uservices";
+import LoadingTruck from "../../../../components/loading";
 
 function DiamondDetails() {
-  const { id } = useParams();
-  const [diamond, setDiamond] = useState(null);
+  const { diamondID } = useParams();
+  const [diamond, setDiamond] = useState([]); // Change to null initially
   const [isEditing, setIsEditing] = useState(false);
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    const loadDiamond = async () => {
-      if (id && form) {
-        // Ensure id and form are both defined
-        try {
-          const response = await fetchDiamondById(id);
-          if (!response || response.error) {
-            message.error("Không tìm thấy thông tin kim cương");
-            return;
-          }
-          setDiamond(response);
-          form.setFieldsValue({
-            ...response,
-            input_date: response.date
-              ? moment(response.date, "YYYY-MM-DD")
-              : null,
-          });
-        } catch (error) {
-          message.error("Có lỗi xảy ra khi tải thông tin kim cương");
-        }
-      }
-    };
+  const fetchDiamondByIds = async (diamondID) => {
+    const response = await fetchDiamondById(diamondID);
+    const diamondData = response.data;
+    setDiamond(diamondData);
+    form.setFieldsValue({
+      diamondID: diamondData.diamondID,
+      diamondName: diamondData.diamondName,
+      originPrice: diamondData.originPrice,
+      ratio: diamondData.ratio,
+      inputDate: moment(diamondData.inputDate, "YYYY-MM-DD"),
+      flourescence: diamondData.flourescence,
+      shape: diamondData.shape,
+      colorLevel: diamondData.colorLevel,
+      carat: diamondData.carat,
+      clarify: diamondData.clarify,
+      dimensions: diamondData.dimensions,
+      cut: diamondData.cut,
+      color: diamondData.color,
+      certificate: diamondData.certificate,
+      status: diamondData.status ? "Còn hàng" : "Hết hàng",
+      totalPrice: diamondData.totalPrice,
+    });
+  };
 
-    loadDiamond(); // Call the function directly
-  }, [id, form]);
+  useEffect(() => {
+    fetchDiamondByIds(diamondID);
+  }, [diamondID]);
+
+  if (!diamond) {
+    return <LoadingTruck />;
+  }
   const handleEdit = () => {
     setIsEditing(true);
   };
-  const handleSave = async () => {
-    try {
-      const values = await form.validateFields();
-      const formattedDate = values.input_date
-        ? values.input_date.format("YYYY-MM-DD")
-        : "";
-      // Đây là một ví dụ về việc xử lý "positive"
-      await updateDiamond(id, { ...values, input_date: formattedDate });
-      message.success("Lưu thông tin thành công");
-      setIsEditing(false); // Trả về trạng thái không chỉnh sửa
-    } catch (error) {
-      // Và đây là việc xử lý "negative" nếu việc validate biểu mẫu thất bại
-      message.error("Lỗi khi lưu thông tin");
-    }
-  };
-
-  const handleDelete = async () => {
-    try {
-      await deleteDiamond(id);
-      message.success("Xóa kim cương thành công");
-      history.goBack(); // Hoặc bạn có thể điều hướng đến một trang mong muốn
-    } catch (error) {
-      message.error("Lỗi khi xóa kim cương"); // Xử lý "negative"
-    }
-  };
 
   if (!diamond) {
-    return <div>Đang tải thông tin kim cương...</div>;
+    return <LoadingTruck />;
   }
 
   const {
@@ -132,11 +109,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    <Input
-                      defaultValue={diamond.diamondID}
-                      readOnly={!isEditing}
-                      style={{ width: "100%" }}
-                    />
+                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
@@ -148,11 +121,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    <Input
-                      defaultValue={diamond.diamondName}
-                      readOnly={!isEditing}
-                      style={{ width: "100%" }}
-                    />
+                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col span={24} className="infor-detail">
@@ -164,11 +133,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    <Input
-                      defaultValue={diamond.originPrice}
-                      readOnly={!isEditing}
-                      style={{ width: "100%" }}
-                    />
+                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
@@ -180,11 +145,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    <Input
-                      defaultValue={diamond.ratio}
-                      readOnly={!isEditing}
-                      style={{ width: "100%" }}
-                    />
+                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
@@ -203,7 +164,7 @@ function DiamondDetails() {
                       />
                     ) : (
                       <Input
-                        defaultValue={moment(diamond.inputDate, "YYYY-MM-DD")}
+                        value={moment(diamond.inputDate).format("YYYY-MM-DD")}
                         readOnly
                         style={{ width: "100%", marginRight: "10px" }}
                       />
@@ -236,11 +197,7 @@ function DiamondDetails() {
                         )}
                       </Select>
                     ) : (
-                      <Input
-                        defaultValue={diamond.flourescence}
-                        readOnly
-                        style={{ width: "100%" }}
-                      />
+                      <Input readOnly style={{ width: "100%" }} />
                     )}
                   </Form.Item>
                 </Col>
@@ -256,7 +213,7 @@ function DiamondDetails() {
                     {isEditing ? (
                       <Select
                         style={{ width: "100%" }}
-                        defaultValue={diamond.style}
+                        defaultValue={diamond.shape}
                       >
                         {[
                           "Round",
@@ -276,11 +233,7 @@ function DiamondDetails() {
                         ))}
                       </Select>
                     ) : (
-                      <Input
-                        defaultValue={diamond.style}
-                        readOnly
-                        style={{ width: "100%" }}
-                      />
+                      <Input readOnly style={{ width: "100%" }} />
                     )}
                   </Form.Item>
                 </Col>
@@ -307,14 +260,11 @@ function DiamondDetails() {
                         )}
                       </Select>
                     ) : (
-                      <Input
-                        defaultValue={diamond.colorLevel}
-                        readOnly
-                        style={{ width: "100%" }}
-                      />
+                      <Input readOnly style={{ width: "100%" }} />
                     )}
                   </Form.Item>
-
+                </Col>
+                <Col className="infor-detail" span={12}>
                   <Form.Item
                     label="Trọng lượng (cts)"
                     name="carat"
@@ -323,11 +273,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    <Input
-                      defaultValue={diamond.carat}
-                      readOnly={!isEditing}
-                      style={{ width: "100%" }}
-                    />
+                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
@@ -363,14 +309,11 @@ function DiamondDetails() {
                         ))}
                       </Select>
                     ) : (
-                      <Input
-                        defaultValue={diamond.clarify}
-                        readOnly
-                        style={{ width: "100%" }}
-                      />
+                      <Input readOnly style={{ width: "100%" }} />
                     )}
                   </Form.Item>
-
+                </Col>
+                <Col className="infor-detail" span={12}>
                   <Form.Item
                     label="Kích thước (mm)"
                     name="dimensions"
@@ -379,11 +322,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    <Input
-                      defaultValue={diamond.dimensions}
-                      readOnly={!isEditing}
-                      style={{ width: "100%" }}
-                    />
+                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
@@ -395,11 +334,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    <Input
-                      defaultValue={diamond.cut}
-                      readOnly={!isEditing}
-                      style={{ width: "100%" }}
-                    />
+                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
@@ -411,11 +346,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    <Input
-                      defaultValue={diamond.color}
-                      readOnly={!isEditing}
-                      style={{ width: "100%" }}
-                    />
+                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
               </Row>
@@ -438,6 +369,7 @@ function DiamondDetails() {
             }}
           >
             <h3 style={{ fontWeight: "500" }}>Hình ảnh</h3>
+
             <Row
               gutter={20}
               className="detail1"
@@ -469,9 +401,10 @@ function DiamondDetails() {
                   className="custom-form-item"
                 >
                   <Input
-                    defaultValue={diamond.certificate}
-                    readOnly
-                    style={{ width: "100%" }}
+                    className="custom-placeholder"
+                    readOnly={!isEditing}
+                    placeholder={diamond.certificate}
+                    style={{ width: "100%", color: "black" }}
                   />
                 </Form.Item>
                 <Form.Item
@@ -485,7 +418,7 @@ function DiamondDetails() {
                   {isEditing ? (
                     <Select
                       style={{ width: "100%" }}
-                      defaultValue={diamond.status}
+                      defaultValue={diamond.status ? "Còn hàng" : "Hết hàng"}
                     >
                       {["Còn hàng", "Hết hàng"].map((status) => (
                         <Select.Option key={status} value={status}>
@@ -495,8 +428,9 @@ function DiamondDetails() {
                     </Select>
                   ) : (
                     <Input
-                      defaultValue={diamond.status}
+                      className="custom-placeholder"
                       readOnly
+                      placeholder={diamond.status ? "Còn hàng" : "Hết hàng"}
                       style={{ width: "100%" }}
                     />
                   )}
@@ -506,15 +440,16 @@ function DiamondDetails() {
               <Col className="infor-detail" span={24}>
                 <Form.Item
                   label="Giá Bán (VNĐ)"
-                  name="price"
+                  name="totalPrice"
                   rules={[
                     { required: true, message: "Vui lòng không để trống" },
                   ]}
                   className="custom-form-item"
                 >
                   <Input
-                    defaultValue={diamond.price}
+                    className="custom-placeholder"
                     readOnly={!isEditing}
+                    placeholder={diamond.totalPrice}
                     style={{ width: "100%" }}
                   />
                 </Form.Item>
@@ -524,7 +459,7 @@ function DiamondDetails() {
               className="button"
               style={{ display: "flex", justifyContent: "right" }}
             >
-              <Button className="button1" type="primary" onClick={handleDelete}>
+              <Button className="button1" type="primary">
                 Xóa
               </Button>
               {!isEditing && (
@@ -533,7 +468,7 @@ function DiamondDetails() {
                 </Button>
               )}
               {isEditing && (
-                <Button className="button2" type="primary" onClick={handleSave}>
+                <Button className="button2" type="primary">
                   Lưu
                 </Button>
               )}
@@ -546,4 +481,3 @@ function DiamondDetails() {
 }
 
 export default DiamondDetails;
-

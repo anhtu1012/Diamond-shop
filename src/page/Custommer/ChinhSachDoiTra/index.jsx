@@ -204,8 +204,10 @@ Từ 9.0mm	10.000.000 */}
             trình sử dụng.
           </h3>
         </div>
-        <h2 style={{ padding: "30px", fontWeight:"400" }}>Có thể bạn quan tâm</h2>
-          <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
+        <h2 style={{ padding: "30px", fontWeight: "400" }}>
+          Có thể bạn quan tâm
+        </h2>
+        <Relate numberOfSlides={4} autoplay data="diamonds" />
       </Container>
     </div>
   );

@@ -5,16 +5,22 @@ import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { SearchOutlined } from "@ant-design/icons";
 import { getDiamonds } from "../../../../../services/Uservices";
+import LoadingTruck from "../../../../components/loading";
 
 function ViewDiamond() {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
   const [dataSource, setDataSource] = useState([]);
-  
+  const [loading, setLoading] = useState(true); // Add loading state
+
   async function fetchDiamonds() {
+    setLoading(true); // Set loading to true when starting the fetch
     const response = await getDiamonds();
-    setDataSource(response.data.map((item, index) => ({ ...item, key: index })));
+    setDataSource(
+      response.data.map((item, index) => ({ ...item, key: index }))
+    );
+    setLoading(false); // Set loading to false when fetch is complete
   }
 
   useEffect(() => {
@@ -138,14 +144,19 @@ function ViewDiamond() {
   });
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   const start = () => {
-    setLoading(true);
-    const newData = dataSource.filter((item) => !selectedRowKeys.includes(item.key));
+    if (!deleteLoading) {
+      return <LoadingTruck />;
+    }
+    setDeleteLoading(true);
+    const newData = dataSource.filter(
+      (item) => !selectedRowKeys.includes(item.key)
+    );
     setDataSource(newData);
     setSelectedRowKeys([]);
-    setLoading(false);
+    setDeleteLoading(false);
   };
 
   const onSelectChange = (newSelectedRowKeys) => {
@@ -264,7 +275,9 @@ function ViewDiamond() {
       width: "10%",
       render: (text, record) => (
         <div style={{ textAlign: "center" }}>
-          <Link to={`/admin-page/san-pham/xem-tat-ca-kim-cuong/diamond-detail/${record.diamondID}`}>
+          <Link
+            to={`/admin-page/san-pham/xem-tat-ca-kim-cuong/diamond-detail/${record.diamondID}`}
+          >
             Xem chi tiết
           </Link>
         </div>
@@ -283,7 +296,7 @@ function ViewDiamond() {
           type="primary"
           onClick={start}
           disabled={!hasSelected}
-          loading={loading}
+          loading={deleteLoading}
         >
           Xóa sản phẩm
         </Button>
@@ -296,12 +309,16 @@ function ViewDiamond() {
         </span>
       </div>
       <div className="all-product">
-        <Table
-          rowSelection={rowSelection}
-          columns={columns}
-          dataSource={dataSource}
-          pagination={{ pageSize: 10 }}
-        />
+        {loading ? (
+          <LoadingTruck /> // Show LoadingTruck while loading
+        ) : (
+          <Table
+            rowSelection={rowSelection}
+            columns={columns}
+            dataSource={dataSource}
+            pagination={{ pageSize: 10 }}
+          />
+        )}
       </div>
     </div>
   );
