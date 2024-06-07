@@ -2,8 +2,12 @@ import Relate from "../../../components/carousel/related";
 import Container from "../../../components/container/Container";
 import { AiOutlineCheck } from "react-icons/ai";
 import "./index.scss";
+import { useEffect } from "react";
 
 function HuongDan() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <Container>

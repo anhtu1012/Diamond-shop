@@ -4,7 +4,11 @@ import { Breadcrumb, Form, Row } from "antd";
 import { Link } from "react-router-dom";
 import "./index.scss";
 import Relate from "../../../components/carousel/related";
+import { useEffect } from "react";
 function ChinhSachDoiTra() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <div className="banner">

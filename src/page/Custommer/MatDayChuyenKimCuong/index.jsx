@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./index.scss";
 import { Select, Space, Pagination, Breadcrumb, theme } from "antd";
 import { Col, Row } from "antd";
@@ -62,7 +62,9 @@ function MatDayChuyenKimCuong() {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <div className="baner">
