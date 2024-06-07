@@ -35,7 +35,6 @@ const onFinish = (values) => {
 };
 
 function NhanKimCuong() {
-
   const { allProduct } = useOutletContext(); // Lấy allProduct từ context
 
   useEffect(() => {
@@ -45,19 +44,18 @@ function NhanKimCuong() {
   const [currentCategory, setCurrentCategory] = useState("Nhẫn Kim Cương Nam");
   const [sortOrder, setSortOrder] = useState("default");
   const [priceFilter, setPriceFilter] = useState("default");
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
   const productsPerPage = 16;
 
   useEffect(() => {
-    setCurrentPage(1); // Reset page number when category, sort order, or price filter changes
+    setCurrentPage(1);
   }, [currentCategory, sortOrder, priceFilter]);
 
   useEffect(() => {
-    // Simulate data fetching with a timeout
-    setLoading(true); // Start loading
+    setLoading(true);
     setTimeout(() => {
-      setLoading(false); // End loading
-    }, 1000); // Adjust timeout as needed
+      setLoading(false);
+    }, 1000);
   }, []);
 
   const filterByPrice = (product) => {

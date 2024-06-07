@@ -209,7 +209,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
               </tr>
               <tr>
                 <th>KÍCH THƯỚC (MM)</th>
-                <td>Ơ{diamondDetail.dimensions}</td>
+                <td>{diamondDetail.dimensions}</td>
               </tr>
               <tr>
                 <th>TRỌNG LƯỢNG (CTS)</th>
