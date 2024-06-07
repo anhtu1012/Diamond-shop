@@ -35,7 +35,12 @@ const onFinish = (values) => {
 };
 
 function NhanKimCuong() {
+
   const { allProduct } = useOutletContext(); // Lấy allProduct từ context
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentCategory, setCurrentCategory] = useState("Nhẫn Kim Cương Nam");
   const [sortOrder, setSortOrder] = useState("default");

@@ -5,7 +5,11 @@ import { Link } from "react-router-dom";
 import { LuDot } from "react-icons/lu";
 import "./index.scss";
 import Relate from "../../../components/carousel/related";
+import { useEffect } from "react";
 function AboutDiamond() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <Container>

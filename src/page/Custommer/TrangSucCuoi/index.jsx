@@ -5,11 +5,14 @@ import { Link } from "react-router-dom";
 import "./index.scss";
 import Relate from "../../../components/carousel/related";
 import { RightOutlined } from "@ant-design/icons";
+import { useEffect } from "react";
 function TrangSucCuoi() {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <div className="baner1">

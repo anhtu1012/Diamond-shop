@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./index.scss";
 import { Select, Space, Pagination, Breadcrumb, theme } from "antd";
 import { Col, Row } from "antd";
@@ -37,6 +37,9 @@ const onFinish = (values) => {
 };
 
 function NhanCuoi() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 16;
 
