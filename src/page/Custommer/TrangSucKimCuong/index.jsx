@@ -14,7 +14,7 @@ import {
   Pagination,
 } from "antd";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CardIndex from "../../../components/Card";
 
 const layout = {
@@ -43,6 +43,9 @@ const onFinish = (values) => {
   console.log(values);
 };
 function TrangSucKimCuong() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 16;
 
