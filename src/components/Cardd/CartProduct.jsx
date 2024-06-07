@@ -51,7 +51,12 @@ export function CartProduct({ product, diamond }) {
           <h3 style={{ color: "#15393f" }}>{title}</h3>
         </Col>
         <Col span={24} style={{ textAlign: "center" }}>
-          <h4>{totalPrice}</h4>
+          <h4>
+            {totalPrice.toLocaleString("en-US", {
+              maximumFractionDigits: 0,
+            })}{" "}
+            đ
+          </h4>
         </Col>
       </Row>
     </Card>

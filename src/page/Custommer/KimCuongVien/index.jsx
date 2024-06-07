@@ -1,13 +1,15 @@
 import { Breadcrumb, Button, Col, Row, Select, Table, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import Container from "../../../components/container/Container";
 import "./index.scss";
 import { useState, useEffect } from "react";
-import { LuDot } from "react-icons/lu";
 import { FaArrowDown } from "react-icons/fa";
+import LoadingTruck from "../../../components/loading";
+import { LuDot } from "react-icons/lu";
 
 function KimCuongVien() {
+  const { allDiamond } = useOutletContext(); // Lấy allProduct từ context
   const [visibleProducts, setVisibleProducts] = useState(10);
 
   const handleLoadMore = () => {
@@ -46,450 +48,6 @@ function KimCuongVien() {
     "F-VS1-3.6",
     "E-VS2-3.6",
   ];
-  const diamondData = [
-    {
-      id: 1,
-      shape: "Round",
-      weight: 1.0,
-      color: "F",
-      clarity: "FL",
-      certification: "GIA",
-      size: "6.6",
-      fluorescence: "NONE",
-      cut: "Excellent",
-      price: 488800000,
-      details: "Link to details",
-    },
-    {
-      id: 2,
-      shape: "Round",
-      weight: 0.4,
-      color: "F",
-      clarity: "VS2",
-      certification: "GIA",
-      size: "4.8",
-      fluorescence: "NONE",
-      cut: "Excellent",
-      price: 30680660,
-      details: "Link to details",
-    },
-    {
-      id: 3,
-      shape: "Round",
-      weight: 0.91,
-      color: "D",
-      clarity: "VVS1",
-      certification: "GIA",
-      size: "6.3",
-      fluorescence: "MEDIUM",
-      cut: "Excellent",
-      price: 308860500,
-      details: "Link to details",
-    },
-    {
-      id: 4,
-      shape: "Round",
-      weight: 0.18,
-      color: "G",
-      clarity: "VS2",
-      certification: "GIA",
-      size: "3.6",
-      fluorescence: "NONE",
-      cut: "Excellent",
-      price: 9890000,
-      details: "Link to details",
-    },
-    {
-      id: 5,
-      shape: "Round",
-      weight: 0.18,
-      color: "F",
-      clarity: "VVS1",
-      certification: "GIA",
-      size: "3.6",
-      fluorescence: "NONE",
-      cut: "Excellent",
-      price: 13790000,
-      details: "Link to details",
-    },
-    {
-      id: 6,
-      shape: "Round",
-      weight: 0.17,
-      color: "F",
-      clarity: "VS1",
-      certification: "GIA",
-      size: "3.6",
-      fluorescence: "NONE",
-      cut: "Excellent",
-      price: 11500000,
-      details: "Link to details",
-    },
-    {
-      id: 7,
-      shape: "Round",
-      weight: 0.18,
-      color: "E",
-      clarity: "VS2",
-      certification: "GIA",
-      size: "3.6",
-      fluorescence: "FAINT",
-      cut: "Excellent",
-      price: 10980000,
-      details: "Link to details",
-    },
-    {
-      id: 8,
-      shape: "Round",
-      weight: 0.18,
-      color: "D",
-      clarity: "IF",
-      certification: "GIA",
-      size: "3.6",
-      fluorescence: "NONE",
-      cut: "Excellent",
-      price: 15920000,
-      details: "Link to details",
-    },
-    {
-      id: 9,
-      shape: "Round",
-      weight: 0.2,
-      color: "F",
-      clarity: "VS2",
-      certification: "GIA",
-      size: "3.8",
-      fluorescence: "NONE",
-      cut: "Excellent",
-      price: 12990000,
-      details: "Link to details",
-    },
-    {
-      id: 10,
-      shape: "Round",
-      weight: 0.24,
-      color: "D",
-      clarity: "VVS1",
-      certification: "GIA",
-      size: "4.0",
-      fluorescence: "FAINT",
-      cut: "Excellent",
-      price: 20980000,
-      details: "Link to details",
-    },
-    {
-      id: 11,
-      shape: "Round",
-      weight: 0.23,
-      color: "E",
-      clarity: "VVS2",
-      certification: "GIA",
-      size: "4.0",
-      fluorescence: "NONE",
-      cut: "Excellent",
-      price: 19550000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 12,
-      shape: "Round",
-      weight: 0.24,
-      color: "F",
-      clarity: "VVS1",
-      certification: "GIA",
-      size: "4.0",
-      fluorescence: "FAINT",
-      cut: "Excellent",
-      price: 19320000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 13,
-      shape: "Round",
-      weight: 0.23,
-      color: "F",
-      clarity: "VS1",
-      certification: "GIA",
-      size: "4.0",
-      fluorescence: "NONE",
-      cut: "Excellent",
-      price: 15920000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 14,
-      shape: "Round",
-      weight: 0.24,
-      color: "G",
-      clarity: "VS2",
-      certification: "GIA",
-      size: "4.0",
-      fluorescence: "NONE",
-      cut: "Excellent",
-      price: 16325000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 15,
-      shape: "Round",
-      weight: 0.24,
-      color: "H",
-      clarity: "VS1",
-      certification: "GIA",
-      size: "4.0",
-      fluorescence: "FAINT",
-      cut: "Excellent",
-      price: 13790000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 16,
-      shape: "Round",
-      weight: 0.25,
-      color: "I",
-      clarity: "VS2",
-      certification: "GIA",
-      size: "4.0",
-      fluorescence: "FAINT",
-      cut: "Excellent",
-      price: 11500000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 17,
-      shape: "Round",
-      weight: 0.27,
-      color: "D",
-      clarity: "VS2",
-      certification: "GIA",
-      size: "4.1",
-      fluorescence: "MEDIUM",
-      cut: "Excellent",
-      price: 17250000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 18,
-      shape: "Round",
-      weight: 0.25,
-      color: "F",
-      clarity: "VS2",
-      certification: "GIA",
-      size: "4.1",
-      fluorescence: "NONE",
-      cut: "Excellent",
-      price: 16990000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 19,
-      shape: "Round",
-      weight: 0.3,
-      color: "F",
-      clarity: "VS2",
-      certification: "GIA",
-      size: "4.3",
-      fluorescence: "MEDIUM",
-      cut: "Excellent",
-      price: 19300000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 20,
-      shape: "Round",
-      weight: 0.3,
-      color: "D",
-      clarity: "VS1",
-      certification: "GIA",
-      size: "4.3",
-      fluorescence: "FAINT",
-      cut: "Excellent",
-      price: 21390000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 21,
-      shape: "Round",
-      weight: 0.34,
-      color: "D",
-      clarity: "VS2",
-      certification: "GIA",
-      size: "4.4",
-      fluorescence: "FAINT",
-      cut: "Excellent",
-      price: 23400000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 22,
-      shape: "Round",
-      weight: 0.33,
-      color: "D",
-      clarity: "VS1",
-      certification: "GIA",
-      size: "4.4",
-      fluorescence: "MEDIUM",
-      cut: "Excellent",
-      price: 23630000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 23,
-      shape: "Round",
-      weight: 0.31,
-      color: "D",
-      clarity: "VVS1",
-      certification: "GIA",
-      size: "4.4",
-      fluorescence: "MEDIUM",
-      cut: "Excellent",
-      price: 27580000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 24,
-      shape: "Round",
-      weight: 0.31,
-      color: "E",
-      clarity: "VS2",
-      certification: "GIA",
-      size: "4.4",
-      fluorescence: "FAINT",
-      cut: "Excellent",
-      price: 21900000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 25,
-      shape: "Round",
-      weight: 0.33,
-      color: "F",
-      clarity: "VVS1",
-      certification: "GIA",
-      size: "4.4",
-      fluorescence: "MEDIUM",
-      cut: "Excellent",
-      price: 24550000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 26,
-      shape: "Round",
-      weight: 0.32,
-      color: "F",
-      clarity: "VS1",
-      certification: "GIA",
-      size: "4.4",
-      fluorescence: "MEDIUM",
-      cut: "Excellent",
-      price: 21150000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 27,
-      shape: "Round",
-      weight: 0.32,
-      color: "F",
-      clarity: "VS2",
-      certification: "GIA",
-      size: "4.4",
-      fluorescence: "FAINT",
-      cut: "Excellent",
-      price: 21390000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 28,
-      shape: "Round",
-      weight: 0.33,
-      color: "H",
-      clarity: "VS2",
-      certification: "GIA",
-      size: "4.4",
-      fluorescence: "FAINT",
-      cut: "Excellent",
-      price: 18860000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 29,
-      shape: "Round",
-      weight: 0.31,
-      color: "I",
-      clarity: "VS2",
-      certification: "GIA",
-      size: "4.4",
-      fluorescence: "MEDIUM",
-      cut: "Excellent",
-      price: 16790000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 30,
-      shape: "Round",
-      weight: 0.35,
-      color: "D",
-      clarity: "VS1",
-      certification: "GIA",
-      size: "4.5",
-      fluorescence: "MEDIUM",
-      cut: "Excellent",
-      price: 26790000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 31,
-      shape: "Round",
-      weight: 0.33,
-      color: "D",
-      clarity: "VVS1",
-      certification: "GIA",
-      size: "4.5",
-      fluorescence: "NONE",
-      cut: "Excellent",
-      price: 33860000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 32,
-      shape: "Round",
-      weight: 0.34,
-      color: "E",
-      clarity: "VS2",
-      certification: "GIA",
-      size: "4.5",
-      fluorescence: "FAINT",
-      cut: "Excellent",
-      price: 23345000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 33,
-      shape: "Round",
-      weight: 0.33,
-      color: "E",
-      clarity: "VS1",
-      certification: "GIA",
-      size: "4.5",
-      fluorescence: "MEDIUM",
-      cut: "Excellent",
-      price: 24820000,
-      details: "Chi Tiết >",
-    },
-    {
-      id: 34,
-      shape: "Round",
-      weight: 0.35,
-      color: "E",
-      clarity: "VVS2",
-      certification: "GIA",
-      size: "4.5",
-      fluorescence: "MEDIUM",
-      cut: "Excellent",
-      price: 26900000,
-      details: "Chi Tiết >",
-    },
-  ];
 
   const columns = [
     {
@@ -500,38 +58,38 @@ function KimCuongVien() {
     },
     {
       title: "Trọng Lượng (cts)",
-      dataIndex: "weight",
-      key: "weight",
+      dataIndex: "carat",
+      key: "carat",
       align: "center",
     },
     {
       title: "Cấp Màu",
-      dataIndex: "color",
-      key: "color",
+      dataIndex: "colorLevel",
+      key: "colorLevel",
       align: "center",
     },
     {
       title: "Độ Tinh Khiết",
-      dataIndex: "clarity",
-      key: "clarity",
+      dataIndex: "clarify",
+      key: "clarify",
       align: "center",
     },
     {
       title: "Kiểm Định",
-      dataIndex: "certification",
-      key: "certification",
+      dataIndex: "certificate",
+      key: "certificate",
       align: "center",
     },
     {
       title: "Kích Thước (mm)",
-      dataIndex: "size",
-      key: "size",
+      dataIndex: "dimensions",
+      key: "dimensions",
       align: "center",
     },
     {
       title: "Phát Quang",
-      dataIndex: "fluorescence",
-      key: "fluorescence",
+      dataIndex: "flourescence",
+      key: "flourescence",
       align: "center",
     },
     {
@@ -542,8 +100,8 @@ function KimCuongVien() {
     },
     {
       title: "Giá (VNĐ)",
-      dataIndex: "price",
-      key: "price",
+      dataIndex: "totalPrice",
+      key: "totalPrice",
       render: (text) => <span>{text.toLocaleString()}</span>,
       align: "center",
     },
@@ -557,34 +115,34 @@ function KimCuongVien() {
   ];
 
   const handleSearch = () => {
-    const filtered = diamondData.filter((item) => {
+    const filtered = allDiamond.filter((item) => {
       if (selectedOptions.carat !== "") {
         const [minCarat, maxCarat] = selectedOptions.carat.split("-");
         if (
-          item.weight < parseFloat(minCarat) ||
-          item.weight > parseFloat(maxCarat)
+          item.carat < parseFloat(minCarat) ||
+          item.carat > parseFloat(maxCarat)
         ) {
           return false;
         }
       }
-      if (selectedOptions.size !== "") {
-        const [minSize, maxSize] = selectedOptions.size.split("-");
+      if (selectedOptions.dimensions !== "") {
+        const [minSize, maxSize] = selectedOptions.dimensions.split("-");
         if (
-          item.size < parseFloat(minSize) ||
-          item.size > parseFloat(maxSize)
+          item.dimensions < parseFloat(minSize) ||
+          item.dimensions > parseFloat(maxSize)
         ) {
           return false;
         }
       }
       if (
-        selectedOptions.color !== "" &&
-        item.color !== selectedOptions.color
+        selectedOptions.colorLevel !== "" &&
+        item.colorLevel !== selectedOptions.colorLevel
       ) {
         return false;
       }
       if (
-        selectedOptions.clarity !== "" &&
-        item.clarity !== selectedOptions.clarity
+        selectedOptions.clarify !== "" &&
+        item.clarify !== selectedOptions.clarify
       ) {
         return false;
       }
@@ -596,18 +154,18 @@ function KimCuongVien() {
   const handleReset = () => {
     setSelectedOptions({
       carat: "",
-      size: "",
-      color: "",
-      clarity: "",
+      dimensions: "",
+      colorLevel: "",
+      clarify: "",
     });
     setSelectedPriceRange("");
   };
 
   const [selectedOptions, setSelectedOptions] = useState({
     carat: "",
-    size: "",
-    color: "",
-    clarity: "",
+    dimensions: "",
+    colorLevel: "",
+    clarify: "",
   });
 
   const handleOptionChange = (type, value) => {
@@ -633,7 +191,9 @@ function KimCuongVien() {
       setSelectedShapes([...selectedShapes, shape]);
     }
   };
-
+  if (!allDiamond) {
+    return <LoadingTruck />;
+  }
   return (
     <div>
       <Container>
@@ -944,7 +504,7 @@ function KimCuongVien() {
               <Table
                 dataSource={(filteredData.length > 0
                   ? filteredData
-                  : diamondData.filter((item) => {
+                  : allDiamond.filter((item) => {
                       if (
                         selectedShapes.length > 0 &&
                         !selectedShapes.includes(item.shape)
@@ -952,17 +512,19 @@ function KimCuongVien() {
                         return false;
                       }
                       if (selectedPriceRange === "duoi100") {
-                        return item.price < 100000000;
+                        return item.totalPrice < 100000000;
                       } else if (selectedPriceRange === "100den250") {
                         return (
-                          item.price >= 100000000 && item.price <= 250000000
+                          item.totalPrice >= 100000000 &&
+                          item.totalPrice <= 250000000
                         );
                       } else if (selectedPriceRange === "250den500") {
                         return (
-                          item.price >= 250000000 && item.price <= 500000000
+                          item.totalPrice >= 250000000 &&
+                          item.totalPrice <= 500000000
                         );
                       } else if (selectedPriceRange === "tren500") {
-                        return item.price > 500000000;
+                        return item.totalPrice > 500000000;
                       }
                       return true;
                     })
@@ -970,9 +532,9 @@ function KimCuongVien() {
 
                   .sort((a, b) => {
                     if (selectedSortOption === "price2") {
-                      return a.price - b.price;
+                      return a.totalPrice - b.totalPrice;
                     } else if (selectedSortOption === "price3") {
-                      return b.price - a.price;
+                      return b.totalPrice - a.totalPrice;
                     }
                     return 0;
                   })
@@ -999,9 +561,9 @@ function KimCuongVien() {
                       Hiển Thị{" "}
                       {Math.min(
                         filteredData.length || visibleProducts,
-                        diamondData.length
+                        allDiamond.length
                       )}{" "}
-                      Trên {diamondData.length} Sản Phẩm
+                      Trên {allDiamond.length} Sản Phẩm
                     </span>
                   </div>
                 </div>
@@ -1019,7 +581,6 @@ function KimCuongVien() {
                 >
                   Xem thêm <FaArrowDown />
                 </Button>
-                ;
               </div>
             </div>
           </Col>
