@@ -45,11 +45,7 @@ export const forgetPassword = (emailOrPhone) => {
     emailOrPhone
   );
 };
-export const getProducts = () => {
-  return api.get(
-    "https://diamondshopgroup6.azurewebsites.net/swp391/api/products/all_products"
-  );
-};
+
 export const createProduct = (productData) => {
   return api.post(
     "https://diamondshopgroup6.azurewebsites.net/swp391/api/products/create_product",
@@ -60,6 +56,11 @@ export const createDiamond = (finalData) => {
   return api.post(
     "https://diamondshopgroup6.azurewebsites.net/swp391/api/diamonds/create_diamond",
     finalData
+  );
+};
+export const getProducts = () => {
+  return api.get(
+    "https://diamondshopgroup6.azurewebsites.net/swp391/api/products/all_products"
   );
 };
 export const getDiamonds = () => {
@@ -80,8 +81,13 @@ export const updateDiamond = (id, data) => {
   );
 };
 
-export const fetchDiamondById = async (diamondId) => {
+export const fetchDiamondById = (diamond_id) => {
   return api.get(
-    `https://diamondshopgroup6.azurewebsites.net/swp391/api/diamond/diamond_id/${diamondId}`
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/diamonds/diamond_id/${diamond_id}`
+  );
+};
+export const fetchProductById = (product_id) => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/products/product/${product_id}`
   );
 };

@@ -1,0 +1,21 @@
+.dropdown {
+  .ant-collapse-header {
+    border: none;
+  }
+  h4{
+    margin-left: 10px;
+  }
+  .custom-list {
+    padding: 0;
+    margin-left: 30px;
+  }
+
+  .custom-list-item {
+    padding: 5px;
+    margin-bottom: 2px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

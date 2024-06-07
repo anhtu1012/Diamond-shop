@@ -75,6 +75,7 @@ function HomePage() {
               numberOfSlides={2}
               rows={2}
               autoplay
+              data="products"
               category="Bông Tai Kim Cương"
             />
           </Col>

@@ -3,23 +3,42 @@ import { Content } from "antd/es/layout/layout";
 import { Link } from "react-router-dom";
 import Container from "../../../components/container/Container";
 import "./index.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LuDot } from "react-icons/lu";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowDown } from "react-icons/fa";
 
 function KimCuongVien() {
+  const [visibleProducts, setVisibleProducts] = useState(10);
+
+  const handleLoadMore = () => {
+    setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 10);
+  };
+
+  const [filteredData, setFilteredData] = useState([]);
+  const [selectedSortOption, setSelectedSortOption] = useState("price1");
+  const [selectedPriceRange, setSelectedPriceRange] = useState("");
+
+  const handlePriceChange = (event) => {
+    setSelectedPriceRange(event.target.value);
+  };
+  const handleChange = (value) => {
+    setSelectedSortOption(value);
+  };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [clickedProduct, setClickedProduct] = useState("");
 
   const handleClick = (product) => {
     if (clickedProduct === product) {
-      setClickedProduct(""); 
+      setClickedProduct("");
     } else {
-      setClickedProduct(product); 
+      setClickedProduct(product);
     }
   };
 
   const recommendedProducts = [
-    "D-FL-6.6",
+    "F-FL-6.6",
     "F-VS2-4.8",
     "D-VVS1-6.3",
     "G-VS2-3.6",
@@ -158,69 +177,420 @@ function KimCuongVien() {
       price: 20980000,
       details: "Link to details",
     },
+    {
+      id: 11,
+      shape: "Round",
+      weight: 0.23,
+      color: "E",
+      clarity: "VVS2",
+      certification: "GIA",
+      size: "4.0",
+      fluorescence: "NONE",
+      cut: "Excellent",
+      price: 19550000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 12,
+      shape: "Round",
+      weight: 0.24,
+      color: "F",
+      clarity: "VVS1",
+      certification: "GIA",
+      size: "4.0",
+      fluorescence: "FAINT",
+      cut: "Excellent",
+      price: 19320000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 13,
+      shape: "Round",
+      weight: 0.23,
+      color: "F",
+      clarity: "VS1",
+      certification: "GIA",
+      size: "4.0",
+      fluorescence: "NONE",
+      cut: "Excellent",
+      price: 15920000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 14,
+      shape: "Round",
+      weight: 0.24,
+      color: "G",
+      clarity: "VS2",
+      certification: "GIA",
+      size: "4.0",
+      fluorescence: "NONE",
+      cut: "Excellent",
+      price: 16325000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 15,
+      shape: "Round",
+      weight: 0.24,
+      color: "H",
+      clarity: "VS1",
+      certification: "GIA",
+      size: "4.0",
+      fluorescence: "FAINT",
+      cut: "Excellent",
+      price: 13790000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 16,
+      shape: "Round",
+      weight: 0.25,
+      color: "I",
+      clarity: "VS2",
+      certification: "GIA",
+      size: "4.0",
+      fluorescence: "FAINT",
+      cut: "Excellent",
+      price: 11500000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 17,
+      shape: "Round",
+      weight: 0.27,
+      color: "D",
+      clarity: "VS2",
+      certification: "GIA",
+      size: "4.1",
+      fluorescence: "MEDIUM",
+      cut: "Excellent",
+      price: 17250000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 18,
+      shape: "Round",
+      weight: 0.25,
+      color: "F",
+      clarity: "VS2",
+      certification: "GIA",
+      size: "4.1",
+      fluorescence: "NONE",
+      cut: "Excellent",
+      price: 16990000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 19,
+      shape: "Round",
+      weight: 0.3,
+      color: "F",
+      clarity: "VS2",
+      certification: "GIA",
+      size: "4.3",
+      fluorescence: "MEDIUM",
+      cut: "Excellent",
+      price: 19300000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 20,
+      shape: "Round",
+      weight: 0.3,
+      color: "D",
+      clarity: "VS1",
+      certification: "GIA",
+      size: "4.3",
+      fluorescence: "FAINT",
+      cut: "Excellent",
+      price: 21390000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 21,
+      shape: "Round",
+      weight: 0.34,
+      color: "D",
+      clarity: "VS2",
+      certification: "GIA",
+      size: "4.4",
+      fluorescence: "FAINT",
+      cut: "Excellent",
+      price: 23400000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 22,
+      shape: "Round",
+      weight: 0.33,
+      color: "D",
+      clarity: "VS1",
+      certification: "GIA",
+      size: "4.4",
+      fluorescence: "MEDIUM",
+      cut: "Excellent",
+      price: 23630000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 23,
+      shape: "Round",
+      weight: 0.31,
+      color: "D",
+      clarity: "VVS1",
+      certification: "GIA",
+      size: "4.4",
+      fluorescence: "MEDIUM",
+      cut: "Excellent",
+      price: 27580000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 24,
+      shape: "Round",
+      weight: 0.31,
+      color: "E",
+      clarity: "VS2",
+      certification: "GIA",
+      size: "4.4",
+      fluorescence: "FAINT",
+      cut: "Excellent",
+      price: 21900000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 25,
+      shape: "Round",
+      weight: 0.33,
+      color: "F",
+      clarity: "VVS1",
+      certification: "GIA",
+      size: "4.4",
+      fluorescence: "MEDIUM",
+      cut: "Excellent",
+      price: 24550000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 26,
+      shape: "Round",
+      weight: 0.32,
+      color: "F",
+      clarity: "VS1",
+      certification: "GIA",
+      size: "4.4",
+      fluorescence: "MEDIUM",
+      cut: "Excellent",
+      price: 21150000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 27,
+      shape: "Round",
+      weight: 0.32,
+      color: "F",
+      clarity: "VS2",
+      certification: "GIA",
+      size: "4.4",
+      fluorescence: "FAINT",
+      cut: "Excellent",
+      price: 21390000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 28,
+      shape: "Round",
+      weight: 0.33,
+      color: "H",
+      clarity: "VS2",
+      certification: "GIA",
+      size: "4.4",
+      fluorescence: "FAINT",
+      cut: "Excellent",
+      price: 18860000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 29,
+      shape: "Round",
+      weight: 0.31,
+      color: "I",
+      clarity: "VS2",
+      certification: "GIA",
+      size: "4.4",
+      fluorescence: "MEDIUM",
+      cut: "Excellent",
+      price: 16790000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 30,
+      shape: "Round",
+      weight: 0.35,
+      color: "D",
+      clarity: "VS1",
+      certification: "GIA",
+      size: "4.5",
+      fluorescence: "MEDIUM",
+      cut: "Excellent",
+      price: 26790000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 31,
+      shape: "Round",
+      weight: 0.33,
+      color: "D",
+      clarity: "VVS1",
+      certification: "GIA",
+      size: "4.5",
+      fluorescence: "NONE",
+      cut: "Excellent",
+      price: 33860000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 32,
+      shape: "Round",
+      weight: 0.34,
+      color: "E",
+      clarity: "VS2",
+      certification: "GIA",
+      size: "4.5",
+      fluorescence: "FAINT",
+      cut: "Excellent",
+      price: 23345000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 33,
+      shape: "Round",
+      weight: 0.33,
+      color: "E",
+      clarity: "VS1",
+      certification: "GIA",
+      size: "4.5",
+      fluorescence: "MEDIUM",
+      cut: "Excellent",
+      price: 24820000,
+      details: "Chi Tiết >",
+    },
+    {
+      id: 34,
+      shape: "Round",
+      weight: 0.35,
+      color: "E",
+      clarity: "VVS2",
+      certification: "GIA",
+      size: "4.5",
+      fluorescence: "MEDIUM",
+      cut: "Excellent",
+      price: 26900000,
+      details: "Chi Tiết >",
+    },
   ];
 
   const columns = [
-    
     {
       title: "Hình dạng",
       dataIndex: "shape",
       key: "shape",
-      
+      align: "center",
     },
     {
       title: "Trọng Lượng (cts)",
       dataIndex: "weight",
       key: "weight",
+      align: "center",
     },
     {
       title: "Cấp Màu",
       dataIndex: "color",
       key: "color",
+      align: "center",
     },
     {
       title: "Độ Tinh Khiết",
       dataIndex: "clarity",
       key: "clarity",
+      align: "center",
     },
     {
       title: "Kiểm Định",
       dataIndex: "certification",
       key: "certification",
+      align: "center",
     },
     {
       title: "Kích Thước (mm)",
       dataIndex: "size",
       key: "size",
+      align: "center",
     },
     {
       title: "Phát Quang",
       dataIndex: "fluorescence",
       key: "fluorescence",
+      align: "center",
     },
     {
       title: "Nét Cắt/Độ Bóng/Đối Xứng",
       dataIndex: "cut",
       key: "cut",
+      align: "center",
     },
     {
       title: "Giá (VNĐ)",
       dataIndex: "price",
       key: "price",
       render: (text) => <span>{text.toLocaleString()}</span>,
+      align: "center",
     },
     {
       title: "Chi tiết",
       dataIndex: "details",
       key: "details",
       render: (text) => <a href={text}>Chi tiết</a>,
+      align: "center",
     },
   ];
 
-  const handlePriceChange = () => {};
-
   const handleSearch = () => {
-    console.log("Searching with filters:", selectedOptions);
+    const filtered = diamondData.filter((item) => {
+      if (selectedOptions.carat !== "") {
+        const [minCarat, maxCarat] = selectedOptions.carat.split("-");
+        if (
+          item.weight < parseFloat(minCarat) ||
+          item.weight > parseFloat(maxCarat)
+        ) {
+          return false;
+        }
+      }
+      if (selectedOptions.size !== "") {
+        const [minSize, maxSize] = selectedOptions.size.split("-");
+        if (
+          item.size < parseFloat(minSize) ||
+          item.size > parseFloat(maxSize)
+        ) {
+          return false;
+        }
+      }
+      if (
+        selectedOptions.color !== "" &&
+        item.color !== selectedOptions.color
+      ) {
+        return false;
+      }
+      if (
+        selectedOptions.clarity !== "" &&
+        item.clarity !== selectedOptions.clarity
+      ) {
+        return false;
+      }
+      return true;
+    });
+    setFilteredData(filtered);
   };
 
   const handleReset = () => {
@@ -230,7 +600,9 @@ function KimCuongVien() {
       color: "",
       clarity: "",
     });
+    setSelectedPriceRange("");
   };
+
   const [selectedOptions, setSelectedOptions] = useState({
     carat: "",
     size: "",
@@ -247,11 +619,7 @@ function KimCuongVien() {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  const handleChange = (value) => {
-    setValue(value);
-    console.log(value);
-  };
-  const [setValue] = useState("");
+
   const [selectedShapes, setSelectedShapes] = useState([]);
 
   const handleShapeClick = (shape) => {
@@ -307,14 +675,15 @@ function KimCuongVien() {
               style={{ width: 170 }}
               onChange={handleChange}
               options={[
-                { value: "price1", label: "Từ thấp đến cao" },
-                { value: "price2", label: "Từ cao đến thấp" },
-                { value: "price3", label: "Sản phẩm mới" },
+                { value: "price1", label: "Tất cả sản phẩm" },
+                { value: "price2", label: "Từ thấp đến cao" },
+                { value: "price3", label: "Từ cao đến thấp" },
+                { value: "price4", label: "Sản phẩm mới" },
               ]}
             />
           </Col>
         </div>
-        {/* <div className="divider"></div> */}
+
         <div className="divider-line"></div>
 
         <div className="thanh-phan">
@@ -333,7 +702,7 @@ function KimCuongVien() {
                   >
                     <img
                       src="https://jemmia.vn/wp-content/uploads/2023/06/diamond_shape_round.jpg"
-                      alt="Shape 1"
+                      alt="Round"
                       className="shape-img"
                     />
                   </div>
@@ -345,7 +714,7 @@ function KimCuongVien() {
                   >
                     <img
                       src="https://jemmia.vn/wp-content/uploads/2023/06/diamond_shape_emerald-1.png"
-                      alt="Shape 2"
+                      alt="Emerald"
                       className="shape-img"
                     />
                   </div>
@@ -357,7 +726,7 @@ function KimCuongVien() {
                   >
                     <img
                       src="https://trangkimluxury.vn/images/extend/2022/12/11/original/trai_1670760161.png"
-                      alt="Shape 3"
+                      alt="Heart"
                       className="shape-img"
                     />
                   </div>
@@ -369,7 +738,7 @@ function KimCuongVien() {
                   >
                     <img
                       src="https://jemmia.vn/wp-content/uploads/2023/06/diamond_shape_cushion-1.png"
-                      alt="Shape 4"
+                      alt="Cushion"
                       className="shape-img"
                     />
                   </div>
@@ -381,7 +750,7 @@ function KimCuongVien() {
                   >
                     <img
                       src="https://jemmia.vn/wp-content/uploads/2023/06/diamond_shape_pear-1.png"
-                      alt="Shape 5"
+                      alt="Pear"
                       className="shape-img"
                     />
                   </div>
@@ -401,6 +770,7 @@ function KimCuongVien() {
                   }}
                   onChange={handlePriceChange}
                 >
+                  <option value="">Tất cả sản phẩm</option>
                   <option value="duoi100">Dưới 100 triệu đồng</option>
                   <option value="100den250">Từ 100 - 250 triệu đồng</option>
                   <option value="250den500">Từ 250 - 500 triệu đồng</option>
@@ -544,7 +914,7 @@ function KimCuongVien() {
             <Col span={24}>
               <Row gutter={[16, 16]}>
                 {recommendedProducts.map((product, index) => (
-                  <Col key={index} xs={24} sm={12} md={8} lg={6} xl={4}>
+                  <Col key={index} xs={3} style={{ marginBottom: "16px" }}>
                     <div
                       className="product-item"
                       style={{
@@ -552,8 +922,14 @@ function KimCuongVien() {
                         padding: "10px",
                         cursor: "pointer",
                         backgroundColor:
-                          clickedProduct === product ? "#15393f" : "transparent",
+                          clickedProduct === product
+                            ? "#15393f"
+                            : "transparent",
                         color: clickedProduct === product ? "white" : "#15393f",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        height: "100%",
                       }}
                       onClick={() => handleClick(product)}
                     >
@@ -566,8 +942,42 @@ function KimCuongVien() {
 
             <Col span={24}>
               <Table
-              
-                dataSource={diamondData}
+                dataSource={(filteredData.length > 0
+                  ? filteredData
+                  : diamondData.filter((item) => {
+                      if (
+                        selectedShapes.length > 0 &&
+                        !selectedShapes.includes(item.shape)
+                      ) {
+                        return false;
+                      }
+                      if (selectedPriceRange === "duoi100") {
+                        return item.price < 100000000;
+                      } else if (selectedPriceRange === "100den250") {
+                        return (
+                          item.price >= 100000000 && item.price <= 250000000
+                        );
+                      } else if (selectedPriceRange === "250den500") {
+                        return (
+                          item.price >= 250000000 && item.price <= 500000000
+                        );
+                      } else if (selectedPriceRange === "tren500") {
+                        return item.price > 500000000;
+                      }
+                      return true;
+                    })
+                )
+
+                  .sort((a, b) => {
+                    if (selectedSortOption === "price2") {
+                      return a.price - b.price;
+                    } else if (selectedSortOption === "price3") {
+                      return b.price - a.price;
+                    }
+                    return 0;
+                  })
+
+                  .slice(0, visibleProducts)}
                 columns={columns}
                 pagination={false}
               />
@@ -583,8 +993,20 @@ function KimCuongVien() {
               }}
             >
               <div>
-                <span>Hiển Thị 10 Trên 97 Sản Phẩm</span>
+                <div>
+                  <div>
+                    <span>
+                      Hiển Thị{" "}
+                      {Math.min(
+                        filteredData.length || visibleProducts,
+                        diamondData.length
+                      )}{" "}
+                      Trên {diamondData.length} Sản Phẩm
+                    </span>
+                  </div>
+                </div>
               </div>
+
               <div style={{ marginLeft: "10px" }}>
                 <Button
                   type="primary"
@@ -593,14 +1015,17 @@ function KimCuongVien() {
                     backgroundColor: "#fff",
                     borderColor: "#000",
                   }}
+                  onClick={handleLoadMore}
                 >
-                  Xem thêm <FaArrowRight />
+                  Xem thêm <FaArrowDown />
                 </Button>
+                ;
               </div>
             </div>
           </Col>
           <div className="divider-line"></div>
         </div>
+        {/* ----------------------------------------------- --------------------------------------------------------------------------- */}
         <div className="kien-thuc-kc">
           <h2 className="kc-gia">
             Kim Cương GIA - Hàng thật, giá thật, chất lượng thật!
