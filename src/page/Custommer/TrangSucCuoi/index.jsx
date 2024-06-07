@@ -51,7 +51,7 @@ function TrangSucCuoi() {
         </div>
         <Row className="section">
           <Col span={24}>
-            <Relate numberOfSlides={4} category="KIM CƯƠNG THIÊN NHIÊN" />
+            <Relate numberOfSlides={4} category="Nhẫn Cầu Hôn Kim Cương" />
           </Col>
           <Col span={24} style={{ textAlign: "center", padding: "20px 0px" }}>
             <button>
@@ -70,7 +70,7 @@ function TrangSucCuoi() {
         </div>
         <Row className="section">
           <Col span={24}>
-            <Relate numberOfSlides={4} category="KIM CƯƠNG THIÊN NHIÊN" />
+            <Relate numberOfSlides={4} category="Nhẫn Cưới Kim Cương" />
           </Col>
           <Col span={24} style={{ textAlign: "center", padding: "20px 0px" }}>
             <button>
@@ -89,7 +89,7 @@ function TrangSucCuoi() {
         </div>
         <Row className="section">
           <Col span={24}>
-            <Relate numberOfSlides={4} category="KIM CƯƠNG THIÊN NHIÊN" />
+            <Relate numberOfSlides={4} data="diamonds" />
           </Col>
           <Col span={24} style={{ textAlign: "center", padding: "20px 0px" }}>
             <button>

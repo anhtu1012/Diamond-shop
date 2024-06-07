@@ -6,8 +6,8 @@ import { Button, Form, Input } from "antd";
 import Container from "../../../components/container/Container";
 import { Content } from "antd/es/layout/layout";
 import { Link } from "react-router-dom";
-import CardIndex from "../../../components/Card";
 import Relate from "../../../components/carousel/related";
+import CardIndex from "../../../components/Card";
 
 const layout = {
   labelCol: {

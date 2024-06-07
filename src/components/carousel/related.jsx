@@ -19,7 +19,7 @@ export default function Relate({
   rows = 1,
   shape = "Round",
   category = "Nhẫn Kim Cương Nữ",
-  data = "products", // New prop to determine whether to fetch diamonds or products
+  data = "products",
 }) {
   const swiperContainerStyle = {
     "--swiper-rows": rows,
@@ -27,7 +27,6 @@ export default function Relate({
   };
   const [items, setItems] = useState([]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchItems = async () => {
     let res;
     if (data === "diamonds") {
@@ -40,7 +39,7 @@ export default function Relate({
 
   useEffect(() => {
     fetchItems();
-  }, [data, fetchItems]);
+  }, [data]);
 
   return (
     <div className="swiper-container" style={swiperContainerStyle}>
@@ -68,9 +67,9 @@ export default function Relate({
             }
             return item.category.categoryName === category;
           })
-          .map((item, index) => (
+          .map((item) => (
             <SwiperSlide
-              key={`${item.productID || item.diamondID}-${index}`} // Ensure unique keys
+              key={item.productID || item.diamondID}
               className="multi-slide"
             >
               {data === "diamonds" ? (

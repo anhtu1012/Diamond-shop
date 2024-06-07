@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Row,
   Col,
@@ -14,43 +14,58 @@ import Container from "../../../components/container/Container";
 import { Collapse } from "antd";
 import "./index.scss";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import CommitmentQuality from "../../../components/DamBaoChatLuong";
 import { TbTruckDelivery } from "react-icons/tb";
 import Relate from "../../../components/carousel/related";
+
+import { fetchProductById } from "../../../../services/Uservices";
+import LoadingTruck from "../../../components/loading";
 
 const { Content } = Layout;
 const { Option } = Select;
 
 const ProductDetails = () => {
+  const [productDetail, setProductDetail] = useState(null);
+  const [mainImage, setMainImage] = useState("");
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  const { product_id } = useParams();
 
-  const [mainImage, setMainImage] = useState(
-    "https://jemmia.vn/wp-content/uploads/2024/03/1_cam_03-copy-1-1.jpg"
-  );
-  const [setSelectedSize] = useState(null);
-  const thumbnails = [
-    "https://jemmia.vn/wp-content/uploads/2024/03/1_cam_03-copy-1-1.jpg",
-    "https://jemmia.vn/wp-content/uploads/2024/03/1_cam_02-copy-1-1.jpg",
-    "https://jemmia.vn/wp-content/uploads/2024/03/1_cam_01-copy-1-1.jpg",
-    "https://jemmia.vn/wp-content/uploads/2024/03/4_cam_01-copy-1-1.jpg",
-  ];
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const fetchProductByIds = async (product_id) => {
+    try {
+      const response = await fetchProductById(product_id);
+      const productData = response.data;
+      setProductDetail(productData);
+      setMainImage(productData.productImages[0].imageUrl);
+    } catch (error) {
+      console.error("Error fetching product details:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProductByIds(product_id);
+  }, [product_id]);
+
+  if (!productDetail) {
+    return <LoadingTruck />;
+  }
+
+  const thumbnails = productDetail.productImages
+    ? productDetail.productImages.map((image) => image.imageUrl)
+    : [];
 
   const handleMainImageClick = () => {
     const nextIndex = (currentImageIndex + 1) % thumbnails.length;
     setCurrentImageIndex(nextIndex);
     setMainImage(thumbnails[nextIndex]);
   };
+
   const handleThumbnailClick = (index) => {
-    if (index >= 0 && index < thumbnails.length) {
-      setMainImage(thumbnails[index]);
-    }
-  };
-  const handleSizeChange = (value) => {
-    setSelectedSize(value);
+    setCurrentImageIndex(index);
+    setMainImage(thumbnails[index]);
   };
 
   const text1 = `  Trang Sức Kim Cương Tại Diamond
@@ -117,9 +132,9 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                       onClick={handleMainImageClick}
                     />
                     <div className="image-add">
-                      <Row gutter={0}>
+                      <Row gutter={56}>
                         {thumbnails.map((thumb, index) => (
-                          <Col key={index} span={6}>
+                          <Col key={thumb} span={6}>
                             <Image
                               width={100}
                               src={thumb}
@@ -135,12 +150,18 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
               </Col>
               <Col span={12} xs={24} sm={24} md={24} lg={12}>
                 <div className="description-product">
-                  <h1>NHẪN KIM CƯƠNG 18K</h1>
+                  <h1 style={{ color: "#15393f" }}>
+                    {productDetail.productName}
+                  </h1>
                   <Rate disabled defaultValue={5} />
                   <h5 style={{ marginTop: "10px", fontWeight: "300" }}>
-                    MS012345
+                    {productDetail.productID}
                   </h5>
-                  <h2 style={{ display: "flex" , fontWeight: '500'}}>123,123,123đ</h2>
+                  <h2 style={{ display: "flex", fontWeight: "500" }}>
+                    {productDetail.totalPrice.toLocaleString("en-US", {
+                      maximumFractionDigits: 0,
+                    })}{" "}
+                  </h2>
                   <h4>
                     <a href="/">Chính sách hoàn trả</a>
                   </h4>
@@ -159,7 +180,6 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                       <Select
                         placeholder="Size"
                         style={{ width: 70, height: "20px", marginTop: "10px" }}
-                        onChange={handleSizeChange}
                       >
                         <Option value="size1">10</Option>
                         <Option value="size2">11</Option>
@@ -197,11 +217,11 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                     </h4>
                   </div>
                   <div className="custom">
-                    <button className="custom_button1">
-                      Thêm vào giỏ hàng
-                    </button>
+                    <button className="custom_button1">Thêm Kim Cương</button>
                     <Link to="/">
-                      <button className="custom_button2">Thêm kim cương</button>
+                      <button className="custom_button2">
+                        Tư Vấn Sản Phẩm
+                      </button>
                     </Link>
                   </div>
                 </div>
@@ -281,7 +301,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                                             textDecoration: "none",
                                           }}
                                         >
-                                          Diamond
+                                          {productDetail.brand}
                                         </Link>
                                         <br />
                                       </span>
@@ -324,7 +344,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                                             marginLeft: "5px",
                                           }}
                                         >
-                                          Nhẫn cầu hôn
+                                          {productDetail.category.categoryName}
                                         </span>
                                       </div>
                                     </td>
@@ -364,7 +384,8 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                                           marginLeft: "5px",
                                         }}
                                       >
-                                        Round 4ly
+                                        {productDetail.shapeDiamond}{" "}
+                                        {productDetail.dimensionsDiamond} ly
                                       </span>
                                     </td>
                                   </tr>
@@ -405,7 +426,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                                             marginLeft: "5px",
                                           }}
                                         >
-                                          Kim cương
+                                          {productDetail.bathStone}
                                         </span>
                                       </div>
                                     </td>
@@ -447,7 +468,9 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                                             marginLeft: "5px",
                                           }}
                                         >
-                                          38
+                                          {
+                                            productDetail.quantityStonesOfDiamond
+                                          }
                                         </span>
                                       </div>
                                     </td>
@@ -489,7 +512,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                                             marginLeft: "5px",
                                           }}
                                         >
-                                          0.375
+                                          {productDetail.stoneWeight}
                                         </span>
                                       </div>
                                     </td>
@@ -531,7 +554,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                                             marginLeft: "5px",
                                           }}
                                         >
-                                          Vàng trắng
+                                          {productDetail.goldType}
                                         </span>
                                       </div>
                                     </td>
@@ -573,7 +596,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                                             marginLeft: "5px",
                                           }}
                                         >
-                                          18K
+                                          {productDetail.oldGold}
                                         </span>
                                       </div>
                                     </td>
@@ -615,7 +638,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                                             marginLeft: "5px",
                                           }}
                                         >
-                                          0.85 chỉ
+                                          {productDetail.goldWeight} chỉ
                                         </span>
                                       </div>
                                     </td>
@@ -657,7 +680,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                                             marginLeft: "5px",
                                           }}
                                         >
-                                          {" "}
+                                          {productDetail.message}
                                         </span>
                                       </div>
                                     </td>
@@ -720,7 +743,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
             </Row>
           </div>
           <div className="product-relate-container">
-            <h2>Các sản phẩm liên quan</h2>
+            <h2 style={{ fontWeight: "bold" }}>Các sản phẩm liên quan</h2>
 
             <Relate numberOfSlides={4} autoplay category="Nhẫn Kim Cương Nữ" />
           </div>

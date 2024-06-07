@@ -5,8 +5,11 @@
 }
 .button {
   padding: 0px 10px;
-  .button1{
+  .button1 {
     background-color: red;
     margin-right: 10px;
   }
+}
+.custom-placeholder::placeholder {
+  color: black;
 }
