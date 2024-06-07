@@ -1,63 +1,61 @@
 .chon-nhan-kim-cuong {
-    padding: 0px;
+  padding: 0px;
+  text-align: center;
+}
+.chon-nhan-kim-cuong {
+  margin-top: 20px;
+
+  h3 {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .ant-select {
+    margin-right: 10px;
+  }
+}
+.chpage {
+  padding: 20px;
+}
+.form-nhan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: bisque;
+  margin-top: 30px;
+
+  h2 {
+    padding: 30px;
     text-align: center;
+    width: 100%;
   }
-  .chon-nhan-kim-cuong {
-    margin-top: 20px;
-  
-    h3 {
-      display: inline-block;
-      margin-right: 10px;
-    }
-  
-    .ant-select {
-      margin-right: 10px;
-    }
-  }
-  .chpage {
-    padding: 20px;
-  }
-  .form-nhan {
+
+  .form-infor {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    background-color: bisque;
     margin-top: 30px;
-  
-    h2 {
-      padding: 30px;
-      text-align: center;
-      width: 100%;
-    }
-  
-    .form-infor {
+
+    form {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 30px;
-  
-      form {
-        display: flex;
-        flex-direction: column;
-        align-items: center; // Center the form items horizontally within the form
-  
-        .ant-form-item {
-          width: 100%; // Ensure form items take full width within the form
-  
-          input {
-            width: 100%; // Ensure input fields take full width within the form item
-          }
-          .button {
-            display: flex;
-            width: 100%;
-           
-  
-            button {
-              width: 50%; // Adjust the width of the button as needed
-            }
+      flex-direction: column;
+      align-items: center; // Center the form items horizontally within the form
+
+      .ant-form-item {
+        width: 100%; // Ensure form items take full width within the form
+
+        input {
+          width: 100%; // Ensure input fields take full width within the form item
+        }
+        .button {
+          display: flex;
+          width: 100%;
+
+          button {
+            width: 50%; // Adjust the width of the button as needed
           }
         }
       }
     }
   }
-  
+}

@@ -12,8 +12,8 @@ function ViewDiamond() {
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
   const [dataSource, setDataSource] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
 
+  const [loading, setLoading] = useState(true); // Add loading state
   async function fetchDiamonds() {
     setLoading(true); // Set loading to true when starting the fetch
     const response = await getDiamonds();
@@ -147,6 +147,7 @@ function ViewDiamond() {
   const [deleteLoading, setDeleteLoading] = useState(false);
 
   const start = () => {
+    setLoading(true);
     if (!deleteLoading) {
       return <LoadingTruck />;
     }
@@ -276,7 +277,7 @@ function ViewDiamond() {
       render: (text, record) => (
         <div style={{ textAlign: "center" }}>
           <Link
-            to={`/admin-page/san-pham/xem-tat-ca-kim-cuong/diamond-detail/${record.diamondID}`}
+            to={`/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/${record.diamondID}`}
           >
             Xem chi tiết
           </Link>

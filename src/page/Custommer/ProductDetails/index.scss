@@ -1,5 +1,5 @@
 .product-details {
-  h1{
+  h1 {
     margin-bottom: 10px;
   }
   h2 {
@@ -15,26 +15,26 @@
   }
 }
 
-.delivery-icon{
+.delivery-icon {
   display: flex;
   margin-top: 5px;
-  h4{
+  h4 {
     font-weight: 300;
   }
-  .icon-delivery{
+  .icon-delivery {
     margin-left: 10px;
     margin-right: 5px;
     font-size: 200%;
   }
-  .giao-hang{
-    h4{
-      font-weight: 400; 
-     }
+  .giao-hang {
+    h4 {
+      font-weight: 400;
+    }
   }
 }
-.focus{
+.focus {
   margin-top: 10px;
-  h4{
+  h4 {
     font-weight: 300;
   }
 }
@@ -98,19 +98,19 @@
     display: flex;
     align-items: center;
   }
-  
+
   .count {
     margin-top: 10px;
     margin-left: 10px;
     font-size: 14px;
     font-weight: normal;
   }
-  
+
   .button_count {
     display: flex;
     align-items: center; /* Center items vertically */
   }
-  
+
   .custom {
     margin-top: 20px;
     display: center;
@@ -139,20 +139,14 @@
       flex-direction: column;
       gap: 20px;
       color: #fff;
-      
     }
     .custom_button2 {
       margin-left: 20px;
       flex-direction: column;
       gap: 20px;
       color: #fff;
-
     }
   }
-}
-.details {
-  margin-top: 30px;
-  display: flex;
 }
 
 .intro {
@@ -214,11 +208,11 @@
     }
   }
 }
-.ant-collapse{
+.ant-collapse {
   border: none !important;
   margin-bottom: 10px;
 }
-.ant-collapse-header{
+.ant-collapse-header {
   border-radius: 8px !important;
   border: 1px solid;
 }
@@ -235,6 +229,58 @@
 
     .gutter-row {
       text-align: center;
+    }
+  }
+}
+.table-container {
+  display: flex;
+  justify-content: center;
+
+  .custom-table {
+    width: 80%;
+    border-collapse: collapse;
+    border: 1px solid #efefef;
+
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #efefef;
+      font-family: helvetica-neue;
+      padding-left: 20px;
+      color: #15393f;
+      height: 45px;
+    }
+
+    th {
+      border: none;
+      border-right: 1px solid #efefef;
+      color: #222;
+      font-family: helvetica-neue;
+      font-size: 12px;
+      font-weight: 400;
+      text-transform: uppercase;
+      width: 150px;
+      border-bottom: 1px solid #efefef;
+    }
+
+    tr:nth-child(2n) td {
+      background-color: #f2f2f2; // Màu xám nhạt cho hàng chẵn
+    }
+
+    tr:nth-child(2n + 1) td {
+      background-color: #fff; // Màu trắng cho hàng lẻ
+    }
+    tr:nth-child(2n) th {
+      background-color: #f2f2f2; // Màu xám nhạt cho hàng chẵn
+    }
+
+    tr:nth-child(2n + 1) th {
+      background-color: #fff; // Màu trắng cho hàng lẻ
+    }
+
+    td {
+      color: #15393f;
     }
   }
 }

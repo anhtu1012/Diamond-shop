@@ -12,6 +12,7 @@ import { IoMdNotifications } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutApi } from "../../../services/Uservices";
 import { useState } from "react";
+import "./Header.scss";
 
 function HeaderAdmin({ collapsed, setCollapsed }) {
   const onClick = ({ key }) => {
@@ -103,7 +104,7 @@ function HeaderAdmin({ collapsed, setCollapsed }) {
                   flex: "1",
                   display: "flex",
                   justifyContent: "flex-end",
-                  marginTop: '-20px',
+                  marginTop: "-20px",
                 }}
               >
                 <Badge size="default" count={1}></Badge>
@@ -118,7 +119,7 @@ function HeaderAdmin({ collapsed, setCollapsed }) {
                   flex: "1",
                   display: "flex",
                   justifyContent: "flex-end",
-                  marginTop: '-20px'
+                  marginTop: "-20px",
                 }}
               >
                 <Badge size="default" count={1}></Badge>

@@ -5,9 +5,10 @@ import { Col, Row } from "antd";
 import { Button, Form, Input } from "antd";
 import Container from "../../../components/container/Container";
 import { Content } from "antd/es/layout/layout";
-import { Link } from "react-router-dom";
-import CardIndex from "../../../components/Card";
+import { Link, useOutletContext } from "react-router-dom";
 import Relate from "../../../components/carousel/related";
+import LoadingTruck from "../../../components/loading";
+import { CartProduct } from "../../../components/Cardd/CartProduct";
 
 const layout = {
   labelCol: {
@@ -17,11 +18,6 @@ const layout = {
     span: 16,
   },
 };
-const products = Array.from({ length: 50 }, (_, index) => ({
-  id: index + 1,
-  name: `Product ${index + 1}`,
-}));
-
 const validateMessages = {
   required: "${label} không được để trống",
   types: {
@@ -37,34 +33,81 @@ const onFinish = (values) => {
 };
 
 function NhanCuoi() {
+  const { allProduct } = useOutletContext();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentCategory] = useState("Nhẫn Cưới Kim Cương");
+  const [sortOrder, setSortOrder] = useState("default");
+  const [priceFilter, setPriceFilter] = useState("default");
+  const [loading, setLoading] = useState(true); // Add loading state
   const productsPerPage = 16;
 
+  useEffect(() => {
+    setCurrentPage(1); // Reset page number when category, sort order, or price filter changes
+  }, [currentCategory, sortOrder, priceFilter]);
+
+  useEffect(() => {
+    // Simulate data fetching with a timeout
+    setLoading(true); // Start loading
+    setTimeout(() => {
+      setLoading(false); // End loading
+    }, 1000); // Adjust timeout as needed
+  }, []);
+
+  const filterByPrice = (product) => {
+    if (priceFilter === "default") return true;
+    const price = product.totalPrice;
+    switch (priceFilter) {
+      case "50-100":
+        return price >= 50 && price <= 100;
+      case "500-700":
+        return price >= 500 && price <= 700;
+      default:
+        return true;
+    }
+  };
+  const sortByPrice = (a, b) => {
+    if (sortOrder === "default") return 0;
+    return sortOrder === "asc"
+      ? a.totalPrice - b.totalPrice
+      : b.totalPrice - a.totalPrice;
+  };
+
+  const filteredProducts = allProduct
+    ? allProduct
+        .filter((product) => product.category.categoryName === currentCategory)
+        .filter(filterByPrice)
+        .sort(sortByPrice)
+    : [];
   // Calculate the products for the current page
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
+  const currentProducts = filteredProducts
+    ? filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct)
+    : [];
 
   // Function to handle page change
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  const [, /*value*/ setValue] = useState("");
+  const handleSortChange = (value) => {
+    setSortOrder(value);
+  };
 
-  const handleChange = (value) => {
-    setValue(value);
-    console.log(value);
+  const handlePriceFilterChange = (value) => {
+    setPriceFilter(value);
   };
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  if (loading) {
+    return <LoadingTruck />; // Render LoadingTruck while loading
+  }
 
   return (
     <div>
@@ -95,46 +138,25 @@ function NhanCuoi() {
           <h1>Nhẫn Cưới Kim Cương</h1>
           <div className="chproduct">
             <Row>
-              <Col span={8}>
+              <Col span={24}>
                 <Space wrap>
-                  <h3>Bộ lọc:</h3>
-                  <Select
-                    defaultValue="Danh mục sản phẩm"
-                    style={{ width: 170 }}
-                    onChange={handleChange}
-                    options={[
-                      { value: "category1", label: "Nhẫn Cầu Hôn" },
-                      { value: "category2", label: "Nhẫn Đính Hôn" },
-                      {
-                        value: "category4",
-                        label: "Nhẫn Cưới Hỏi",
-                        disabled: true,
-                      },
-                    ]}
-                  />
                   <Select
                     defaultValue="Mức giá"
-                    style={{ width: 100 }}
-                    onChange={handleChange}
+                    style={{ width: 150, paddingInlineStart: "3px" }}
+                    onChange={handleSortChange}
                     options={[
-                      { value: "price1", label: "Từ 50-100 triệu" },
-                      { value: "price2", label: "Từ 500-700 triệu" },
-                      {
-                        value: "price4",
-                        label: "Từ 700 triệu trở lên",
-                        disabled: true,
-                      },
+                      { value: "default", label: "Mặc định" },
+                      { value: "asc", label: "Giá tăng dần" },
+                      { value: "desc", label: "Giá giảm dần" },
                     ]}
                   />
                 </Space>
-              </Col>
-              <Col span={8} offset={8}>
+
                 <Space>
-                  <h3>Sắp xếp:</h3>
                   <Select
-                    defaultValue="Mức giá"
-                    style={{ width: 170 }}
-                    onChange={handleChange}
+                    defaultValue="Sắp xếp"
+                    style={{ width: 150, paddingInlineStart: "10px" }}
+                    onChange={handlePriceFilterChange}
                     options={[
                       { value: "price1", label: "Từ 90-100 triệu" },
                       { value: "price2", label: "Từ 530-600 triệu" },
@@ -161,25 +183,21 @@ function NhanCuoi() {
             >
               {currentProducts.map((product) => (
                 <Col
-                  key={product.id}
+                  key={product.productID}
                   className="gutter-row"
                   xs={12}
                   sm={12}
                   md={12}
                   lg={6}
                 >
-                  <Link to={`/product-details`}>
-                    {" "}
-                    {/* /${product.id} */}
-                    <div
-                      style={{ padding: "20px 0px", width: "250px !important" }}
-                    >
-                      <CardIndex
-                        style={{ width: "250px !important" }}
-                        product={product}
-                      />
-                    </div>
-                  </Link>
+                  <div
+                    style={{ padding: "20px 0px", width: "250px !important" }}
+                  >
+                    <CartProduct
+                      style={{ width: "250px !important" }}
+                      product={product}
+                    />
+                  </div>
                 </Col>
               ))}
             </Row>
@@ -187,13 +205,15 @@ function NhanCuoi() {
           <div className="chpage">
             <Pagination
               current={currentPage}
-              total={products.length}
+              total={filteredProducts ? filteredProducts.length : 0}
               pageSize={productsPerPage}
               onChange={handlePageChange}
             />
           </div>
-          <h2 style={{ padding: "30px" }}>Có thể bạn quan tâm</h2>
-          <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
+          <h2 style={{ padding: "30px", fontWeight: "500" }}>
+            Có thể bạn quan tâm
+          </h2>
+          <Relate numberOfSlides={4} autoplay category="Nhẫn Cầu Hôn Kim Cương" />
           <div className="form-nhan">
             <h2 style={{ fontWeight: "400" }}>
               Nhận tư vấn miễn phí từ Diamond

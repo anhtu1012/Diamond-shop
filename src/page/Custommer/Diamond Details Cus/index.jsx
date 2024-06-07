@@ -1,7 +1,6 @@
 import {
   Breadcrumb,
   Col,
-  Collapse,
   Divider,
   Image,
   Layout,
@@ -20,6 +19,7 @@ import Relate from "../../../components/carousel/related";
 
 import { fetchDiamondById } from "../../../../services/Uservices";
 import LoadingTruck from "../../../components/loading";
+import ToggleTab from "../../../components/caccauhoivisao";
 
 const { Content } = Layout;
 
@@ -48,28 +48,6 @@ const DiamondDetailss = () => {
     return <LoadingTruck />;
   }
 
-  const text1 = `  Trang Sức Kim Cương Tại Diamond
-   - Trang Sức Đa Dạng Mẫu Mã, Thiết Kế Theo Cá Nhân Hoá.
-   - Trang Thiết Bị Công Nghệ Kiểm Định Hiện Đại Nhất.
-   - Trải Nghiệm Dịch Vụ Kim Cương Đẳng Cấp.
-  Kim Cương Viên Tại Diamond
-   - Có giấy Kiểm Định GIA
-   - Có xuất Hoá Đơn VAT
-   - Nhập Khẩu Hải Quan Chính Ngạch
-  `;
-  const text2 = ` - Nếu nhận hàng mà sản phẩm không đạt chất lượng thì sao?
-Quý khách hàng vui lòng liên hệ với tư vấn viên trong vòng 24 GIỜ kể từ khi nhận sản phẩm, Diamond sẽ hỗ trợ đổi hàng hoàn toàn miễn phí trong trường hợp sản phẩm bị lỗi do sản xuất.
-  
-   - Mua hàng online làm sao biết kích thước nhẫn nào vừa tay?
-Diamond sẽ gửi tặng bộ đo ni tay đến tận nơi của Quý khách hoàn toàn miễn phí. Bạn chỉ cần chọn ni nhẫn phù hợp và thông báo với tư vấn viên của chúng tôi. Ngoài ra, Diamond hỗ trợ điều chỉnh size nhẫn miễn phí trọn đời trong trường hợp bạn muốn thay đổi.
-  
-   - Có gì để chứng minh tôi đã mua sản phẩm của Diamond không?
-Sản phẩm Diamond được đảm bảo tính pháp lý qua 03 loại chứng từ sau: hóa đơn bán hàng, hợp đồng mua bán và hóa đơn VAT đảm bảo mọi quyền lợi của khách hàng.
-  
-   - Diamond có thiết kế sản phẩm theo yêu cầu không?
-Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế trang sức độc bản. Chúng tôi sẵn sàng lắng nghe ý tưởng, phác thảo, hoàn thiện và gia công theo yêu cầu riêng của bạn.
-  `;
-
   return (
     <div>
       <Container>
@@ -79,10 +57,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
               <Breadcrumb.Item>
                 <Link to="/">Trang chủ</Link>
               </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <Link to="/nhan-cau-hon">Nhẫn cầu hôn</Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>Nhẫn kim cương 18k</Breadcrumb.Item>
+              <Breadcrumb.Item>{diamondDetail.diamondName}</Breadcrumb.Item>
             </Breadcrumb>
             <div
               style={{
@@ -156,9 +131,11 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                   </div>
                   <div className="focus">
                     <h4>
-                      * Giá trên là giá vỏ trang sức chưa bao gồm viên chủ. Giá
-                      sản phẩm thay đổi tùy theo trọng lượng thực tế của sản
-                      phẩm. Vui lòng gọi 01234567890 để được hỗ trợ.{" "}
+                      * Viên kim cương có xuất xứ hoàn toàn từ tự nhiên. Có giấy
+                      kiểm định chắc chẽ được cung cấp từ GIA. Được bảo hành
+                      trọn đời. Nếu sản phẩm có vấn đề gì liên hệ Diamond King
+                      để được hỗ trợ tận tình. Vui lòng gọi 01234567890 để được
+                      hỗ trợ.{" "}
                     </h4>
                   </div>
                   <div className="custom">
@@ -221,45 +198,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
             <Row justify="center" gutter={[16, 16]}>
               <Col span={12} xs={24} sm={24} md={24} lg={12}>
                 <div className="intro">
-                  <Collapse
-                    size="small"
-                    style={{ width: 500 }}
-                    items={[
-                      {
-                        key: "1",
-                        label: <strong>Vì sao chọn Diamond</strong>,
-                        children: (
-                          <pre style={{ whiteSpace: "pre-wrap" }}>{text1}</pre>
-                        ),
-                      },
-                    ]}
-                  />
-                  <Collapse
-                    size="small"
-                    style={{ width: 500 }}
-                    items={[
-                      {
-                        key: "1",
-                        label: <strong>Bình luận và đánh giá</strong>,
-                        children: (
-                          <pre style={{ whiteSpace: "pre-wrap" }}>{text2}</pre>
-                        ),
-                      },
-                    ]}
-                  />
-                  <Collapse
-                    size="small"
-                    style={{ width: 500 }}
-                    items={[
-                      {
-                        key: "1",
-                        label: <strong>Một số câu hỏi thường gặp</strong>,
-                        children: (
-                          <pre style={{ whiteSpace: "pre-wrap" }}>{text1}</pre>
-                        ),
-                      },
-                    ]}
-                  />
+                  <ToggleTab />
                 </div>
               </Col>
 

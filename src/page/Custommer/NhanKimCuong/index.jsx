@@ -35,7 +35,6 @@ const onFinish = (values) => {
 };
 
 function NhanKimCuong() {
-
   const { allProduct } = useOutletContext(); // Lấy allProduct từ context
 
   useEffect(() => {
@@ -151,7 +150,7 @@ function NhanKimCuong() {
           <h1 style={{ color: "#15393f" }}>Nhẫn Kim Cương</h1>
           <div className="chproduct">
             <Row>
-              <Col span={8}>
+              <Col span={12}>
                 <Space wrap>
                   <h3>Bộ lọc:</h3>
                   <Select
@@ -171,7 +170,7 @@ function NhanKimCuong() {
                   />
                   <Select
                     defaultValue="Mức giá"
-                    style={{ width: 170 }}
+                    style={{ width: 150 }}
                     onChange={handlePriceFilterChange}
                     options={[
                       { value: "default", label: "Tất cả" },
@@ -181,12 +180,12 @@ function NhanKimCuong() {
                   />
                 </Space>
               </Col>
-              <Col span={8} offset={8}>
+              <Col span={12}>
                 <Space>
                   <h3>Sắp xếp:</h3>
                   <Select
                     defaultValue="default"
-                    style={{ width: 170 }}
+                    style={{ width: 150 }}
                     onChange={handleSortChange}
                     options={[
                       { value: "default", label: "Mặc định" },

@@ -5,9 +5,10 @@ import { Col, Row } from "antd";
 import { Button, Form, Input } from "antd";
 import Container from "../../../components/container/Container";
 import { Content } from "antd/es/layout/layout";
-import { Link } from "react-router-dom";
-import CardIndex from "../../../components/Card";
+import { Link, useOutletContext } from "react-router-dom";
 import Relate from "../../../components/carousel/related";
+import LoadingTruck from "../../../components/loading";
+import { CartProduct } from "../../../components/Cardd/CartProduct";
 
 const layout = {
   labelCol: {
@@ -17,10 +18,6 @@ const layout = {
     span: 16,
   },
 };
-const products = Array.from({ length: 50 }, (_, index) => ({
-  id: index + 1,
-  name: `Product ${index + 1}`,
-}));
 
 const validateMessages = {
   required: "${label} không được để trống",
@@ -37,34 +34,88 @@ const onFinish = (values) => {
 };
 
 function MatDayChuyenKimCuong() {
+  const { allProduct } = useOutletContext();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [currentPage, setCurrentPage] = useState(1);
+  const [categories] = useState([
+    "Mặt Dây Chuyền Kim Cương",
+    "Dây Chuyền Kim Cương",
+  ]);
+  const [sortOrder, setSortOrder] = useState("default");
+  const [priceFilter, setPriceFilter] = useState("default");
+  const [loading, setLoading] = useState(true);
   const productsPerPage = 16;
+
+  useEffect(() => {
+    setCurrentPage(1); // Reset page number when categories, sort order, or price filter changes
+  }, [categories, sortOrder, priceFilter]);
+
+  useEffect(() => {
+    // Simulate data fetching with a timeout
+    setLoading(true); // Start loading
+    setTimeout(() => {
+      setLoading(false); // End loading
+    }, 1000); // Adjust timeout as needed
+  }, []);
+
+  const filterByPrice = (product) => {
+    if (priceFilter === "default") return true;
+    const price = product.totalPrice;
+    switch (priceFilter) {
+      case "50-100":
+        return price >= 50 && price <= 100;
+      case "500-700":
+        return price >= 500 && price <= 700;
+      default:
+        return true;
+    }
+  };
+
+  const sortByPrice = (a, b) => {
+    if (sortOrder === "default") return 0;
+    return sortOrder === "asc"
+      ? a.totalPrice - b.totalPrice
+      : b.totalPrice - a.totalPrice;
+  };
+
+  const filteredProducts = allProduct
+    ? allProduct
+        .filter((product) => categories.includes(product.category.categoryName))
+        .filter(filterByPrice)
+        .sort(sortByPrice)
+    : [];
 
   // Calculate the products for the current page
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(
+  const currentProducts = filteredProducts.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
 
-  // Function to handle page change
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  const [, /*value*/ setValue] = useState("");
-
-  const handleChange = (value) => {
-    setValue(value);
-    console.log(value);
+  const handleSortChange = (value) => {
+    setSortOrder(value);
   };
+
+  const handlePriceFilterChange = (value) => {
+    setPriceFilter(value);
+  };
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
+  if (loading) {
+    return <LoadingTruck />; // Render LoadingTruck while loading
+  }
+
   return (
     <div>
       <div className="baner">
@@ -97,47 +148,27 @@ function MatDayChuyenKimCuong() {
           <h1>Mặt dây chuyền kim cương</h1>
           <div className="choose-product">
             <Row>
-              <Col span={8}>
+              <Col span={24}>
                 <Space wrap>
-                  <h3>Bộ lọc:</h3>
                   <Select
-                    defaultValue="Danh mục sản phẩm"
-                    style={{ width: 170 }}
-                    onChange={handleChange}
+                    defaultValue="Sắp xếp"
+                    style={{ width: 150, paddingInlineStart: "3px" }}
+                    onChange={handleSortChange}
                     options={[
-                      { value: "category1", label: "Nhẫn Cầu Hôn" },
-                      { value: "category2", label: "Nhẫn Cầu Hôn" },
-                      {
-                        value: "category4",
-                        label: "Nhẫn Cầu Hôn",
-                        disabled: true,
-                      },
-                    ]}
-                  />
-                  <Select
-                    defaultValue="Mức giá"
-                    style={{ width: 100 }}
-                    onChange={handleChange}
-                    options={[
-                      { value: "price1", label: "Price 1" },
-                      { value: "price2", label: "Price 2" },
-                      { value: "price4", label: "Price 4", disabled: true },
+                      { value: "default", label: "Mặc định" },
+                      { value: "asc", label: "Giá tăng dần" },
+                      { value: "desc", label: "Giá giảm dần" },
                     ]}
                   />
                 </Space>
-              </Col>
-              <Col span={8} offset={8}>
                 <Space>
-                  <h3>Sắp xếp:</h3>
                   <Select
                     defaultValue="Mức giá"
-                    style={{ width: 170 }}
-                    onChange={handleChange}
+                    style={{ width: 150, paddingInlineStart: "10px" }}
+                    onChange={handlePriceFilterChange}
                     options={[
-                      { value: "price1", label: "Price 1" },
-                      { value: "price2", label: "Price 2" },
-                      { value: "price3", label: "Price 3" },
-                      { value: "price4", label: "Price 4", disabled: true },
+                      { value: "50-100", label: "Từ 50-100 triệu" },
+                      { value: "500-700", label: "Từ 500-700 triệu" },
                     ]}
                   />
                 </Space>
@@ -155,25 +186,21 @@ function MatDayChuyenKimCuong() {
             >
               {currentProducts.map((product) => (
                 <Col
-                  key={product.id}
+                  key={product.productID}
                   className="gutter-row"
                   xs={12}
                   sm={12}
                   md={12}
                   lg={6}
                 >
-                  <Link to={`/product-details`}>
-                    {" "}
-                    {/* /${product.id} */}
-                    <div
-                      style={{ padding: "20px 0px", width: "250px !important" }}
-                    >
-                      <CardIndex
-                        style={{ width: "250px !important" }}
-                        product={product}
-                      />
-                    </div>
-                  </Link>
+                  <div
+                    style={{ padding: "20px 0px", width: "250px !important" }}
+                  >
+                    <CartProduct
+                      style={{ width: "250px !important" }}
+                      product={product}
+                    />
+                  </div>
                 </Col>
               ))}
             </Row>
@@ -181,15 +208,19 @@ function MatDayChuyenKimCuong() {
           <div className="choose-page">
             <Pagination
               current={currentPage}
-              total={products.length}
+              total={filteredProducts.length}
               pageSize={productsPerPage}
               onChange={handlePageChange}
             />
           </div>
-          <h2 style={{ padding: "30px", fontWeight: "400" }}>
+          <h2 style={{ padding: "30px", fontWeight: "500" }}>
             Có thể bạn quan tâm
           </h2>
-          <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
+          <Relate
+            numberOfSlides={4}
+            autoplay
+            category="Nhẫn Cầu Hôn Kim Cương"
+          />
           <div className="form">
             <h2 style={{ fontWeight: "400" }}>
               Nhận tư vấn miễn phí từ Diamond

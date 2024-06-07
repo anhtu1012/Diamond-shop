@@ -9,9 +9,9 @@ import {
   Select,
   Space,
   Rate,
+  Divider,
 } from "antd";
 import Container from "../../../components/container/Container";
-import { Collapse } from "antd";
 import "./index.scss";
 
 import { Link, useParams } from "react-router-dom";
@@ -21,6 +21,7 @@ import Relate from "../../../components/carousel/related";
 
 import { fetchProductById } from "../../../../services/Uservices";
 import LoadingTruck from "../../../components/loading";
+import ToggleTab from "../../../components/caccauhoivisao";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -29,6 +30,7 @@ const ProductDetails = () => {
   const [productDetail, setProductDetail] = useState(null);
   const [mainImage, setMainImage] = useState("");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [sizeOptions, setSizeOptions] = useState([]);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -40,6 +42,12 @@ const ProductDetails = () => {
       const productData = response.data;
       setProductDetail(productData);
       setMainImage(productData.productImages[0].imageUrl);
+      const sizeOptions = productData.productSizes.map((size) => (
+        <Option key={size.id} value={size.sizeValue}>
+          {size.sizeValue} ({size.quantiy})
+        </Option>
+      ));
+      setSizeOptions(sizeOptions);
     } catch (error) {
       console.error("Error fetching product details:", error);
     }
@@ -68,28 +76,6 @@ const ProductDetails = () => {
     setMainImage(thumbnails[index]);
   };
 
-  const text1 = `  Trang Sức Kim Cương Tại Diamond
-   - Trang Sức Đa Dạng Mẫu Mã, Thiết Kế Theo Cá Nhân Hoá.
-   - Trang Thiết Bị Công Nghệ Kiểm Định Hiện Đại Nhất.
-   - Trải Nghiệm Dịch Vụ Kim Cương Đẳng Cấp.
-  Kim Cương Viên Tại Diamond
-   - Có giấy Kiểm Định GIA
-   - Có xuất Hoá Đơn VAT
-   - Nhập Khẩu Hải Quan Chính Ngạch
-  `;
-  const text2 = ` - Nếu nhận hàng mà sản phẩm không đạt chất lượng thì sao?
-Quý khách hàng vui lòng liên hệ với tư vấn viên trong vòng 24 GIỜ kể từ khi nhận sản phẩm, Diamond sẽ hỗ trợ đổi hàng hoàn toàn miễn phí trong trường hợp sản phẩm bị lỗi do sản xuất.
-  
-   - Mua hàng online làm sao biết kích thước nhẫn nào vừa tay?
-Diamond sẽ gửi tặng bộ đo ni tay đến tận nơi của Quý khách hoàn toàn miễn phí. Bạn chỉ cần chọn ni nhẫn phù hợp và thông báo với tư vấn viên của chúng tôi. Ngoài ra, Diamond hỗ trợ điều chỉnh size nhẫn miễn phí trọn đời trong trường hợp bạn muốn thay đổi.
-  
-   - Có gì để chứng minh tôi đã mua sản phẩm của Diamond không?
-Sản phẩm Diamond được đảm bảo tính pháp lý qua 03 loại chứng từ sau: hóa đơn bán hàng, hợp đồng mua bán và hóa đơn VAT đảm bảo mọi quyền lợi của khách hàng.
-  
-   - Diamond có thiết kế sản phẩm theo yêu cầu không?
-Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế trang sức độc bản. Chúng tôi sẵn sàng lắng nghe ý tưởng, phác thảo, hoàn thiện và gia công theo yêu cầu riêng của bạn.
-  `;
-
   return (
     <div>
       <Container>
@@ -99,10 +85,7 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
               <Breadcrumb.Item>
                 <Link to="/">Trang chủ</Link>
               </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <Link to="/nhan-cau-hon">Nhẫn cầu hôn</Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>Nhẫn kim cương 18k</Breadcrumb.Item>
+              <Breadcrumb.Item>{productDetail.productName}</Breadcrumb.Item>
             </Breadcrumb>
             <div
               style={{
@@ -179,12 +162,9 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
                       <h4>Size:</h4>
                       <Select
                         placeholder="Size"
-                        style={{ width: 70, height: "20px", marginTop: "10px" }}
+                        style={{ width: 100, height: "30px", marginTop: "10px" }}
                       >
-                        <Option value="size1">10</Option>
-                        <Option value="size2">11</Option>
-                        <Option value="size3">12</Option>
-                        <Option value="size4">13</Option>
+                        {sizeOptions}
                       </Select>
                     </Space>
                   </div>
@@ -228,513 +208,76 @@ Diamond rất hân hạnh được cùng bạn tạo nên những thiết kế t
               </Col>
             </Row>
           </div>
+          <Divider style={{ fontSize: "30px", color: "#15393f" }}>
+            Chi Tiết Sản Phẩm
+          </Divider>
+          <div className="table-container">
+            <table className="custom-table">
+              <tbody>
+                <tr>
+                  <th>Thương hiệu</th>
+                  <td>
+                    <Link
+                      to="/"
+                      style={{
+                        color: "black",
+                        textDecoration: "none",
+                        fontFamily: "helvetica-neue",
+                      }}
+                    >
+                      {productDetail.brand}
+                    </Link>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Loại sản phẩm</th>
+                  <td>{productDetail.category.categoryName}</td>
+                </tr>
+                <tr>
+                  <th>Kích thước đá chủ</th>
+                  <td>
+                    {productDetail.shapeDiamond}{" "}
+                    {productDetail.dimensionsDiamond} ly
+                  </td>
+                </tr>
+                <tr>
+                  <th>Loại đá tẩm</th>
+                  <td>{productDetail.bathStone}</td>
+                </tr>
+                <tr>
+                  <th>Số lượng đá tẩm</th>
+                  <td>{productDetail.quantityStonesOfDiamond}</td>
+                </tr>
+                <tr>
+                  <th>Trọng lượng đá (ct)</th>
+                  <td>{productDetail.stoneWeight}</td>
+                </tr>
+                <tr>
+                  <th>Loại vàng</th>
+                  <td>{productDetail.goldType}</td>
+                </tr>
+                <tr>
+                  <th>Tuổi vàng</th>
+                  <td>{productDetail.oldGold}</td>
+                </tr>
+                <tr>
+                  <th>Trọng lượng vàng</th>
+                  <td>{productDetail.goldWeight} chỉ</td>
+                </tr>
+                <tr>
+                  <th>Chất liệu khác</th>
+                  <td>{productDetail.message}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <div className="details">
             <Row justify="center" gutter={[16, 16]}>
               <Col span={12} xs={24} sm={24} md={24} lg={12}>
                 <div className="intro">
-                  <Collapse
-                    size="small"
-                    style={{ width: 500 }}
-                    items={[
-                      {
-                        key: "1",
-                        label: <strong>Chi tiết sản phẩm và mô tả</strong>,
-                        children: (
-                          <pre
-                            style={{
-                              whiteSpace: "pre-wrap",
-                              margin: "0",
-                              fontSize: "16px",
-                              fontFamily: "Arial",
-                            }}
-                          >
-                            <div className="card-body">
-                              <table
-                                className="table table-bordered"
-                                style={{
-                                  width: "100%",
-                                  height: "313px",
-                                  borderCollapse: "collapse",
-                                }}
-                              >
-                                <tbody style={{ fontStyle: "initial" }}>
-                                  <tr
-                                    style={{
-                                      height: "33px",
-                                      border: "1px solid #000",
-                                    }}
-                                  >
-                                    <td
-                                      style={{
-                                        height: "33px",
-                                        width: "61.44%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <span
-                                        style={{
-                                          fontSize: "14px",
-                                          marginLeft: "5px",
-                                        }}
-                                      >
-                                        Thương hiệu
-                                      </span>
-                                    </td>
-                                    <td
-                                      className="last td-content"
-                                      style={{
-                                        height: "33px",
-                                        width: "38.4%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <span
-                                        style={{
-                                          fontSize: "14px",
-                                          marginLeft: "5px",
-                                        }}
-                                      >
-                                        <Link
-                                          to="/"
-                                          style={{
-                                            color: "black",
-                                            textDecoration: "none",
-                                          }}
-                                        >
-                                          {productDetail.brand}
-                                        </Link>
-                                        <br />
-                                      </span>
-                                    </td>
-                                  </tr>
-                                  <tr
-                                    style={{
-                                      height: "28px",
-                                      border: "1px solid #000",
-                                    }}
-                                  >
-                                    <td
-                                      style={{
-                                        height: "28px",
-                                        width: "61.44%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <span
-                                        style={{
-                                          fontSize: "14px",
-                                          marginLeft: "5px",
-                                        }}
-                                      >
-                                        Loại sản phẩm
-                                      </span>
-                                    </td>
-                                    <td
-                                      className="last td-content"
-                                      style={{
-                                        height: "28px",
-                                        width: "38.4%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <div>
-                                        <span
-                                          style={{
-                                            fontSize: "14px",
-                                            marginLeft: "5px",
-                                          }}
-                                        >
-                                          {productDetail.category.categoryName}
-                                        </span>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr
-                                    style={{
-                                      height: "28px",
-                                      border: "1px solid #000",
-                                    }}
-                                  >
-                                    <td
-                                      style={{
-                                        height: "28px",
-                                        width: "61.44%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <span
-                                        style={{
-                                          fontSize: "14px",
-                                          marginLeft: "5px",
-                                        }}
-                                      >
-                                        Kích thước đá chủ
-                                      </span>
-                                    </td>
-                                    <td
-                                      style={{
-                                        height: "28px",
-                                        width: "38.4%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <span
-                                        style={{
-                                          fontSize: "14px",
-                                          marginLeft: "5px",
-                                        }}
-                                      >
-                                        {productDetail.shapeDiamond}{" "}
-                                        {productDetail.dimensionsDiamond} ly
-                                      </span>
-                                    </td>
-                                  </tr>
-                                  <tr
-                                    style={{
-                                      height: "28px",
-                                      border: "1px solid #000",
-                                    }}
-                                  >
-                                    <td
-                                      style={{
-                                        height: "28px",
-                                        width: "61.44%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <span
-                                        style={{
-                                          fontSize: "14px",
-                                          marginLeft: "5px",
-                                        }}
-                                      >
-                                        Loại đá tẩm
-                                      </span>
-                                    </td>
-                                    <td
-                                      className="last td-content"
-                                      style={{
-                                        height: "28px",
-                                        width: "38.4%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <div>
-                                        <span
-                                          style={{
-                                            fontSize: "14px",
-                                            marginLeft: "5px",
-                                          }}
-                                        >
-                                          {productDetail.bathStone}
-                                        </span>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr
-                                    style={{
-                                      height: "28px",
-                                      border: "1px solid #000",
-                                    }}
-                                  >
-                                    <td
-                                      style={{
-                                        height: "28px",
-                                        width: "61.44%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <span
-                                        style={{
-                                          fontSize: "14px",
-                                          marginLeft: "5px",
-                                        }}
-                                      >
-                                        Số lượng đá tẩm
-                                      </span>
-                                    </td>
-                                    <td
-                                      className="last td-content"
-                                      style={{
-                                        height: "28px",
-                                        width: "38.4%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <div>
-                                        <span
-                                          style={{
-                                            fontSize: "14px",
-                                            marginLeft: "5px",
-                                          }}
-                                        >
-                                          {
-                                            productDetail.quantityStonesOfDiamond
-                                          }
-                                        </span>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr
-                                    style={{
-                                      height: "28px",
-                                      border: "1px solid #000",
-                                    }}
-                                  >
-                                    <td
-                                      style={{
-                                        height: "28px",
-                                        width: "61.44%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <span
-                                        style={{
-                                          fontSize: "14px",
-                                          marginLeft: "5px",
-                                        }}
-                                      >
-                                        Trọng lượng đá (ct)
-                                      </span>
-                                    </td>
-                                    <td
-                                      className="last td-content"
-                                      style={{
-                                        height: "28px",
-                                        width: "38.4%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <div>
-                                        <span
-                                          style={{
-                                            fontSize: "14px",
-                                            marginLeft: "5px",
-                                          }}
-                                        >
-                                          {productDetail.stoneWeight}
-                                        </span>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr
-                                    style={{
-                                      height: "28px",
-                                      border: "1px solid #000",
-                                    }}
-                                  >
-                                    <td
-                                      style={{
-                                        height: "28px",
-                                        width: "61.44%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <span
-                                        style={{
-                                          fontSize: "14px",
-                                          marginLeft: "5px",
-                                        }}
-                                      >
-                                        Loại vàng
-                                      </span>
-                                    </td>
-                                    <td
-                                      className="last td-content"
-                                      style={{
-                                        height: "28px",
-                                        width: "38.4%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <div>
-                                        <span
-                                          style={{
-                                            fontSize: "14px",
-                                            marginLeft: "5px",
-                                          }}
-                                        >
-                                          {productDetail.goldType}
-                                        </span>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr
-                                    style={{
-                                      height: "28px",
-                                      border: "1px solid #000",
-                                    }}
-                                  >
-                                    <td
-                                      style={{
-                                        height: "28px",
-                                        width: "61.44%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <span
-                                        style={{
-                                          fontSize: "14px",
-                                          marginLeft: "5px",
-                                        }}
-                                      >
-                                        Tuổi vàng
-                                      </span>
-                                    </td>
-                                    <td
-                                      className="last td-content"
-                                      style={{
-                                        height: "28px",
-                                        width: "38.4%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <div>
-                                        <span
-                                          style={{
-                                            fontSize: "14px",
-                                            marginLeft: "5px",
-                                          }}
-                                        >
-                                          {productDetail.oldGold}
-                                        </span>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr
-                                    style={{
-                                      height: "28px",
-                                      border: "1px solid #000",
-                                    }}
-                                  >
-                                    <td
-                                      style={{
-                                        height: "28px",
-                                        width: "61.44%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <span
-                                        style={{
-                                          fontSize: "14px",
-                                          marginLeft: "5px",
-                                        }}
-                                      >
-                                        Trọng lượng vàng
-                                      </span>
-                                    </td>
-                                    <td
-                                      className="last td-content"
-                                      style={{
-                                        height: "28px",
-                                        width: "38.4%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <div>
-                                        <span
-                                          style={{
-                                            fontSize: "14px",
-                                            marginLeft: "5px",
-                                          }}
-                                        >
-                                          {productDetail.goldWeight} chỉ
-                                        </span>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr
-                                    style={{
-                                      height: "28px",
-                                      border: "1px solid #000",
-                                    }}
-                                  >
-                                    <td
-                                      style={{
-                                        height: "28px",
-                                        width: "61.44%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <span
-                                        style={{
-                                          fontSize: "14px",
-                                          marginLeft: "5px",
-                                        }}
-                                      >
-                                        Chất liệu khác
-                                      </span>
-                                    </td>
-                                    <td
-                                      className="last td-content"
-                                      style={{
-                                        height: "28px",
-                                        width: "38.4%",
-                                        border: "1px solid #000",
-                                      }}
-                                    >
-                                      <div>
-                                        <span
-                                          style={{
-                                            fontSize: "14px",
-                                            marginLeft: "5px",
-                                          }}
-                                        >
-                                          {productDetail.message}
-                                        </span>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </pre>
-                        ),
-                      },
-                    ]}
-                  />
-                  <Collapse
-                    size="small"
-                    style={{ width: 500 }}
-                    items={[
-                      {
-                        key: "1",
-                        label: <strong>Vì sao chọn Diamond</strong>,
-                        children: (
-                          <pre style={{ whiteSpace: "pre-wrap" }}>{text1}</pre>
-                        ),
-                      },
-                    ]}
-                  />
-                  <Collapse
-                    size="small"
-                    style={{ width: 500 }}
-                    items={[
-                      {
-                        key: "1",
-                        label: <strong>Bình luận và đánh giá</strong>,
-                        children: (
-                          <pre style={{ whiteSpace: "pre-wrap" }}>{text2}</pre>
-                        ),
-                      },
-                    ]}
-                  />
-                  <Collapse
-                    size="small"
-                    style={{ width: 500 }}
-                    items={[
-                      {
-                        key: "1",
-                        label: <strong>Một số câu hỏi thường gặp</strong>,
-                        children: (
-                          <pre style={{ whiteSpace: "pre-wrap" }}>{text1}</pre>
-                        ),
-                      },
-                    ]}
-                  />
+                  <ToggleTab />
                 </div>
               </Col>
-
               <Col span={12} xs={24} sm={24} md={24} lg={12}>
                 <div className="elementor-column">
                   <CommitmentQuality />

@@ -13,9 +13,10 @@ import {
   Button,
   Pagination,
 } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
-import CardIndex from "../../../components/Card";
+import LoadingTruck from "../../../components/loading";
+import { CartProduct } from "../../../components/Cardd/CartProduct";
 
 const layout = {
   labelCol: {
@@ -25,10 +26,7 @@ const layout = {
     span: 16,
   },
 };
-const products = Array.from({ length: 50 }, (_, index) => ({
-  id: index + 1,
-  name: `Product ${index + 1}`,
-}));
+
 const validateMessages = {
   required: "${label} không được để trống",
   types: {
@@ -39,38 +37,102 @@ const validateMessages = {
     range: "${label} must be between ${min} and ${max}",
   },
 };
+
 const onFinish = (values) => {
   console.log(values);
 };
+
 function TrangSucKimCuong() {
+  const { allProduct } = useOutletContext();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentCategory, setCurrentCategory] = useState([
+    "Nhẫn Kim Cương Nam",
+    "Nhẫn Kim Cương Nữ",
+    "Bông Tai Kim Cương",
+    "Lắc/ Vòng Tay Kim Cương",
+    "Mặt Dây Chuyền Kim Cương",
+    "Dây Chuyền Kim Cương",
+  ]);
+  const [sortOrder, setSortOrder] = useState("default");
+  const [priceFilter, setPriceFilter] = useState("default");
+  const [loading, setLoading] = useState(true);
   const productsPerPage = 16;
 
-  // Calculate the products for the current page
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [currentCategory, sortOrder, priceFilter]);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
+  const filterByPrice = (product) => {
+    if (priceFilter === "default") return true;
+    const price = product.totalPrice;
+    switch (priceFilter) {
+      case "50-100":
+        return price >= 50 && price <= 100;
+      case "500-700":
+        return price >= 500 && price <= 700;
+      default:
+        return true;
+    }
+  };
+
+  const sortByPrice = (a, b) => {
+    if (sortOrder === "default") return 0;
+    return sortOrder === "asc"
+      ? a.totalPrice - b.totalPrice
+      : b.totalPrice - a.totalPrice;
+  };
+
+  const filteredProducts = allProduct
+    ? allProduct
+        .filter((product) =>
+          currentCategory.includes(product.category.categoryName)
+        )
+        .filter(filterByPrice)
+        .sort(sortByPrice)
+    : [];
+
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(
+  const currentProducts = filteredProducts.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
 
-  // Function to handle page change
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  const [, /*value*/ setValue] = useState("");
-
-  const handleChange = (value) => {
-    setValue(value);
-    console.log(value);
+  const handleCategoryChange = (value) => {
+    setCurrentCategory([value]);
   };
+
+  const handleSortChange = (value) => {
+    setSortOrder(value);
+  };
+
+  const handlePriceFilterChange = (value) => {
+    setPriceFilter(value);
+  };
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  if (loading) {
+    return <LoadingTruck />;
+  }
 
   return (
     <div>
@@ -100,7 +162,7 @@ function TrangSucKimCuong() {
           </Content>
         </div>
         <Col span={24}>
-          <h2 className="tieu-de">TRANG SỨC KIM CƯƠNG TỰ NHIÊN</h2>
+          <h1 className="tieu-de">TRANG SỨC KIM CƯƠNG TỰ NHIÊN</h1>
         </Col>
 
         <div className="san-pham">
@@ -109,29 +171,32 @@ function TrangSucKimCuong() {
               <Select
                 defaultValue="Danh mục sản phẩm"
                 style={{ width: 170 }}
-                onChange={handleChange}
+                onChange={handleCategoryChange}
                 options={[
-                  { value: "category1", label: "Nhẫn Cầu Hôn" },
-                  { value: "category2", label: "Nhẫn Đính Hôn" },
+                  { value: "Nhẫn Kim Cương Nam", label: "Nhẫn Kim Cương Nam" },
+                  { value: "Nhẫn Kim Cương Nữ", label: "Nhẫn Kim Cương Nữ" },
+                  { value: "Bông Tai Kim Cương", label: "Bông Tai Kim Cương" },
                   {
-                    value: "category4",
-                    label: "Nhẫn Cưới Hỏi",
-                    disabled: true,
+                    value: "Lắc/ Vòng Tay Kim Cương",
+                    label: "Lắc/ Vòng Tay Kim Cương",
+                  },
+                  {
+                    value: "Mặt Dây Chuyền Kim Cương",
+                    label: "Mặt Dây Chuyền Kim Cương",
+                  },
+                  {
+                    value: "Dây Chuyền Kim Cương",
+                    label: "Dây Chuyền Kim Cương",
                   },
                 ]}
               />
               <Select
                 defaultValue="Mức giá"
-                style={{ width: 100, paddingInlineStart: "3px" }}
-                onChange={handleChange}
+                style={{ width: 150, paddingInlineStart: "3px" }}
+                onChange={handlePriceFilterChange}
                 options={[
-                  { value: "price1", label: "Từ 50-100 triệu" },
-                  { value: "price2", label: "Từ 500-700 triệu" },
-                  {
-                    value: "price4",
-                    label: "Từ 700 triệu trở lên",
-                    disabled: true,
-                  },
+                  { value: "50-100", label: "Từ 50-100 triệu" },
+                  { value: "500-700", label: "Từ 500-700 triệu" },
                 ]}
               />
             </Space>
@@ -139,17 +204,12 @@ function TrangSucKimCuong() {
             <Space>
               <Select
                 defaultValue="Sắp xếp"
-                style={{ width: 100, paddingInlineStart: "10px" }}
-                onChange={handleChange}
+                style={{ width: 150, paddingInlineStart: "10px" }}
+                onChange={handleSortChange}
                 options={[
-                  { value: "price1", label: "Từ 90-100 triệu" },
-                  { value: "price2", label: "Từ 530-600 triệu" },
-                  { value: "price3", label: "Từ 690-900 triệu" },
-                  {
-                    value: "price4",
-                    label: "Từ 900 triệu 1 tỷ",
-                    disabled: true,
-                  },
+                  { value: "default", label: "Mặc định" },
+                  { value: "asc", label: "Giá tăng dần" },
+                  { value: "desc", label: "Giá giảm dần" },
                 ]}
               />
             </Space>
@@ -165,25 +225,21 @@ function TrangSucKimCuong() {
             >
               {currentProducts.map((product) => (
                 <Col
-                  key={product.id}
+                  key={product.productID}
                   className="gutter-row"
                   xs={12}
                   sm={12}
                   md={12}
                   lg={6}
                 >
-                  <Link to={`/product-details`}>
-                    {" "}
-                    {/* /${product.id} */}
-                    <div
-                      style={{ padding: "20px 0px", width: "250px !important" }}
-                    >
-                      <CardIndex
-                        style={{ width: "250px !important" }}
-                        product={product}
-                      />
-                    </div>
-                  </Link>
+                  <div
+                    style={{ padding: "20px 0px", width: "250px !important" }}
+                  >
+                    <CartProduct
+                      style={{ width: "250px !important" }}
+                      product={product}
+                    />
+                  </div>
                 </Col>
               ))}
             </Row>
@@ -191,7 +247,7 @@ function TrangSucKimCuong() {
           <div className="chon-trang">
             <Pagination
               current={currentPage}
-              total={products.length}
+              total={filteredProducts.length}
               pageSize={productsPerPage}
               onChange={handlePageChange}
             />

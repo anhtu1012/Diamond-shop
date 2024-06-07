@@ -87,7 +87,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/diamond-details/:diamondID",
-        element:<DiamondDetailss/>,
+        element: <DiamondDetailss />,
       },
       {
         path: "/product-payment",
