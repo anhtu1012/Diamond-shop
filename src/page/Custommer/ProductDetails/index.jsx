@@ -44,7 +44,7 @@ const ProductDetails = () => {
       setMainImage(productData.productImages[0].imageUrl);
       const sizeOptions = productData.productSizes.map((size) => (
         <Option key={size.id} value={size.sizeValue}>
-          {size.sizeValue} ({size.quantiy})
+          {size.sizeValue} (Còn {size.quantiy})
         </Option>
       ));
       setSizeOptions(sizeOptions);
@@ -162,7 +162,11 @@ const ProductDetails = () => {
                       <h4>Size:</h4>
                       <Select
                         placeholder="Size"
-                        style={{ width: 100, height: "30px", marginTop: "10px" }}
+                        style={{
+                          width: 100,
+                          height: "30px",
+                          marginTop: "10px",
+                        }}
                       >
                         {sizeOptions}
                       </Select>

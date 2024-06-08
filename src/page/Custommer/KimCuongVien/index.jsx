@@ -17,8 +17,8 @@ function KimCuongVien() {
   };
 
   const [filteredData, setFilteredData] = useState([]);
-  const [selectedSortOption, setSelectedSortOption] = useState("price1");
-  const [selectedPriceRange, setSelectedPriceRange] = useState("");
+  const [selectedSortOption, setSelectedSortOption] = useState("price");
+  const [selectedPriceRange, setSelectedPriceRange] = useState("price");
 
   const handlePriceChange = (event) => {
     setSelectedPriceRange(event.target.value);
@@ -109,13 +109,23 @@ function KimCuongVien() {
       title: "Chi tiết",
       dataIndex: "details",
       key: "details",
-      render: (text) => <a href={text}>Chi tiết</a>,
+      render: (text, record) => (
+        <Link to={`/diamond-details/${record.diamondID}`}>Chi tiết</Link>
+      ),
       align: "center",
     },
   ];
 
   const handleSearch = () => {
     const filtered = allDiamond.filter((item) => {
+      if (!item || !item.shape) {
+        console.log("Item or item.shape does not exist:", item);
+        return false;
+      }
+      if (selectedShapes.length > 0 && !selectedShapes.includes(item.shape)) {
+        return false;
+      }
+  
       if (selectedOptions.carat !== "") {
         const [minCarat, maxCarat] = selectedOptions.carat.split("-");
         if (
@@ -142,7 +152,31 @@ function KimCuongVien() {
       }
       if (
         selectedOptions.clarify !== "" &&
-        item.clarify !== selectedOptions.clarify
+        item.clarity !== selectedOptions.clarify
+      ) {
+        return false;
+      }
+      if (
+        selectedPriceRange === "duoi100" &&
+        item.totalPrice >= 100000000
+      ) {
+        return false;
+      }
+      if (
+        selectedPriceRange === "100den250" &&
+        (item.totalPrice < 100000000 || item.totalPrice > 250000000)
+      ) {
+        return false;
+      }
+      if (
+        selectedPriceRange === "250den500" &&
+        (item.totalPrice < 250000000 || item.totalPrice > 500000000)
+      ) {
+        return false;
+      }
+      if (
+        selectedPriceRange === "tren500" &&
+        item.totalPrice <= 500000000
       ) {
         return false;
       }
@@ -150,6 +184,7 @@ function KimCuongVien() {
     });
     setFilteredData(filtered);
   };
+  
 
   const handleReset = () => {
     setSelectedOptions({
@@ -159,6 +194,7 @@ function KimCuongVien() {
       clarify: "",
     });
     setSelectedPriceRange("");
+    setSelectedShapes([]);
   };
 
   const [selectedOptions, setSelectedOptions] = useState({
@@ -182,7 +218,6 @@ function KimCuongVien() {
 
   const handleShapeClick = (shape) => {
     const isSelected = selectedShapes.includes(shape);
-
     if (isSelected) {
       setSelectedShapes(
         selectedShapes.filter((selectedShape) => selectedShape !== shape)
@@ -191,6 +226,7 @@ function KimCuongVien() {
       setSelectedShapes([...selectedShapes, shape]);
     }
   };
+
   if (!allDiamond) {
     return <LoadingTruck />;
   }
@@ -256,33 +292,35 @@ function KimCuongVien() {
                 <div className="shape-selector-row">
                   <div
                     className={`shape-selector ${
-                      selectedShapes.includes(1) ? "selected" : ""
+                      selectedShapes.includes("Round") ? "selected" : ""
                     }`}
-                    onClick={() => handleShapeClick(1)}
+                    onClick={() => handleShapeClick("Round")}
                   >
                     <img
                       src="https://jemmia.vn/wp-content/uploads/2023/06/diamond_shape_round.jpg"
                       alt="Round"
+                      title="Round"
                       className="shape-img"
                     />
                   </div>
                   <div
                     className={`shape-selector ${
-                      selectedShapes.includes(2) ? "selected" : ""
+                      selectedShapes.includes("Emerald") ? "selected" : ""
                     }`}
-                    onClick={() => handleShapeClick(2)}
+                    onClick={() => handleShapeClick("Emerald")}
                   >
                     <img
                       src="https://jemmia.vn/wp-content/uploads/2023/06/diamond_shape_emerald-1.png"
                       alt="Emerald"
+                      title="Emerald"
                       className="shape-img"
                     />
                   </div>
                   <div
                     className={`shape-selector ${
-                      selectedShapes.includes(3) ? "selected" : ""
+                      selectedShapes.includes("Heart") ? "selected" : ""
                     }`}
-                    onClick={() => handleShapeClick(3)}
+                    onClick={() => handleShapeClick("Heart")}
                   >
                     <img
                       src="https://trangkimluxury.vn/images/extend/2022/12/11/original/trai_1670760161.png"
@@ -292,9 +330,9 @@ function KimCuongVien() {
                   </div>
                   <div
                     className={`shape-selector ${
-                      selectedShapes.includes(4) ? "selected" : ""
+                      selectedShapes.includes("Cushion") ? "selected" : ""
                     }`}
-                    onClick={() => handleShapeClick(4)}
+                    onClick={() => handleShapeClick("Cushion")}
                   >
                     <img
                       src="https://jemmia.vn/wp-content/uploads/2023/06/diamond_shape_cushion-1.png"
@@ -304,9 +342,9 @@ function KimCuongVien() {
                   </div>
                   <div
                     className={`shape-selector ${
-                      selectedShapes.includes(5) ? "selected" : ""
+                      selectedShapes.includes("Pear") ? "selected" : ""
                     }`}
-                    onClick={() => handleShapeClick(5)}
+                    onClick={() => handleShapeClick("Pear")}
                   >
                     <img
                       src="https://jemmia.vn/wp-content/uploads/2023/06/diamond_shape_pear-1.png"
@@ -353,7 +391,7 @@ function KimCuongVien() {
                       "0.9 - 1.29",
                       "1.3 - 1.9",
                       "2.0 - 3.0",
-                      "Trên 3.0",
+                      "3.0 Trở Lên",
                     ].map((value, index) => (
                       <button
                         key={index}
@@ -379,14 +417,14 @@ function KimCuongVien() {
                       "6.0 - 6.9",
                       "7.0 - 7.9",
                       "8.0 - 8.9",
-                      "Trên 9.0",
+                      "9.0 Trở lên",
                     ].map((value, index) => (
                       <button
                         key={index}
                         className={`chon-kl-button ${
-                          selectedOptions.size === value ? "selected" : ""
+                          selectedOptions.dimensions === value ? "selected" : ""
                         }`}
-                        onClick={() => handleOptionChange("size", value)}
+                        onClick={() => handleOptionChange("dimensions", value)}
                       >
                         {value}
                       </button>
@@ -414,9 +452,9 @@ function KimCuongVien() {
                       <button
                         key={index}
                         className={`chon-kl-button ${
-                          selectedOptions.color === value ? "selected" : ""
+                          selectedOptions.colorLevel === value ? "selected" : ""
                         }`}
-                        onClick={() => handleOptionChange("color", value)}
+                        onClick={() => handleOptionChange("colorLevel", value)}
                       >
                         {value}
                       </button>
@@ -443,9 +481,9 @@ function KimCuongVien() {
                       <button
                         key={index}
                         className={`chon-kl-button ${
-                          selectedOptions.clarity === value ? "selected" : ""
+                          selectedOptions.clarify === value ? "selected" : ""
                         }`}
-                        onClick={() => handleOptionChange("clarity", value)}
+                        onClick={() => handleOptionChange("clarify", value)}
                       >
                         {value}
                       </button>
@@ -536,7 +574,7 @@ function KimCuongVien() {
                     } else if (selectedSortOption === "price3") {
                       return b.totalPrice - a.totalPrice;
                     }
-                    return 0;
+                    return false;
                   })
 
                   .slice(0, visibleProducts)}
