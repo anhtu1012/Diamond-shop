@@ -210,7 +210,7 @@ const router = createBrowserRouter([
         element: <ViewDiamond />,
       },
       {
-        path: "/admin-page/san-pham/xem-tat-ca-kim-cuong/diamond-detail/:diamondID",
+        path: "/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/:diamondID",
         element: <DiamondDetails />,
       },
       {

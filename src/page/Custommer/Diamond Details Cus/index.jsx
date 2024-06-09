@@ -13,7 +13,7 @@ import Container from "../../../components/container/Container";
 import "./index.scss";
 
 import { TbTruckDelivery } from "react-icons/tb";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import CommitmentQuality from "../../../components/DamBaoChatLuong";
 import Relate from "../../../components/carousel/related";
 
@@ -25,6 +25,7 @@ const { Content } = Layout;
 
 const DiamondDetailss = () => {
   const [diamondDetail, setDiamondDetail] = useState(null);
+  const navigate = useNavigate();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -47,7 +48,9 @@ const DiamondDetailss = () => {
   if (!diamondDetail) {
     return <LoadingTruck />;
   }
-
+  const handleAddDetailsClick = () => {
+    navigate("/tuy-chinh", { state: { diamond: diamondDetail } });
+  };
   return (
     <div>
       <Container>
@@ -139,7 +142,12 @@ const DiamondDetailss = () => {
                     </h4>
                   </div>
                   <div className="custom">
-                    <button className="custom_button1">Thêm Trang Sức</button>
+                    <button
+                      className="custom_button1"
+                      onClick={handleAddDetailsClick}
+                    >
+                      Thêm Trang Sức
+                    </button>
                     <Link to="/">
                       <button className="custom_button2">
                         Thêm Vào Giỏ Hàng

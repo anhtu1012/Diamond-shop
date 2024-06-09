@@ -22,7 +22,6 @@ function Layout() {
     fetchAllProduct();
     fetchAllDiamond();
   }, []);
-  console.log(allDiamond);
 
   const contextValue = { allProduct, allDiamond }; // Tạo một object chứa các state
 

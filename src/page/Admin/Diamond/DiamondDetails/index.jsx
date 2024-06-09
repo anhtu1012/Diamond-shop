@@ -22,7 +22,7 @@ function DiamondDetails() {
   const [diamond, setDiamond] = useState([]); // Change to null initially
   const [isEditing, setIsEditing] = useState(false);
   const [form] = Form.useForm();
-
+  console.log(diamondID);
   const fetchDiamondByIds = async (diamondID) => {
     const response = await fetchDiamondById(diamondID);
     const diamondData = response.data;
@@ -51,7 +51,7 @@ function DiamondDetails() {
     fetchDiamondByIds(diamondID);
   }, [diamondID]);
 
-  if (!diamond) {
+  if (!diamondID) {
     return <LoadingTruck />;
   }
   const handleEdit = () => {
