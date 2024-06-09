@@ -1,0 +1,46 @@
+:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > th,
+:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > td {
+  position: relative;
+  color: #fff;
+  font-weight: 600;
+  text-align: start;
+  background: #15393f;
+  border-bottom: 1px solid #15393f;
+  transition: background 0.2s ease;
+}
+.ant-dropdown-trigger.ant-table-filter-trigger {
+  color: #fff;
+}
+
+:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
+  .ant-table-thead
+  th.ant-table-column-has-sorters:hover {
+  background: #15393f;
+  background-color: #15393f;
+}
+
+:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
+  .ant-table-tbody
+  .ant-table-row.ant-table-row-selected
+  > .ant-table-cell-row-hover {
+  background: #15393f;
+  background-color: #15393f;
+}
+
+:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
+  .ant-table-tbody
+  .ant-table-row.ant-table-row-selected
+  > .ant-table-cell {
+  background: #ccc;
+}
+:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
+  .ant-table-thead
+  th.ant-table-column-sort {
+  background: #15393f;
+}
