@@ -14,7 +14,7 @@ import {
 import Container from "../../../components/container/Container";
 import "./index.scss";
 
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import CommitmentQuality from "../../../components/DamBaoChatLuong";
 import { TbTruckDelivery } from "react-icons/tb";
 import Relate from "../../../components/carousel/related";
@@ -31,6 +31,7 @@ const ProductDetails = () => {
   const [mainImage, setMainImage] = useState("");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [sizeOptions, setSizeOptions] = useState([]);
+  const navigate = useNavigate();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -42,9 +43,11 @@ const ProductDetails = () => {
       const productData = response.data;
       setProductDetail(productData);
       setMainImage(productData.productImages[0].imageUrl);
-      const sizeOptions = productData.productSizes.map((size) => (
-        <Option key={size.id} value={size.sizeValue}>
-          {size.sizeValue} (Còn {size.quantiy})
+
+      const sizeOptions = productData.sizes.map((size) => (
+        <Option key={size.sizeID} value={size.sizeValue}>
+          {size.sizeValue} ({size.quantity})
+
         </Option>
       ));
       setSizeOptions(sizeOptions);
@@ -74,6 +77,9 @@ const ProductDetails = () => {
   const handleThumbnailClick = (index) => {
     setCurrentImageIndex(index);
     setMainImage(thumbnails[index]);
+  };
+  const handleAddDetailsClick = () => {
+    navigate("/tuy-chinh", { state: { product: productDetail } });
   };
 
   return (
@@ -140,10 +146,17 @@ const ProductDetails = () => {
                   <h5 style={{ marginTop: "10px", fontWeight: "300" }}>
                     {productDetail.productID}
                   </h5>
-                  <h2 style={{ display: "flex", fontWeight: "500" }}>
+                  <h2
+                    style={{
+                      display: "flex",
+                      fontWeight: "bold",
+                      color: "#15393f",
+                    }}
+                  >
                     {productDetail.totalPrice.toLocaleString("en-US", {
                       maximumFractionDigits: 0,
                     })}{" "}
+                    đ
                   </h2>
                   <h4>
                     <a href="/">Chính sách hoàn trả</a>
@@ -201,7 +214,7 @@ const ProductDetails = () => {
                     </h4>
                   </div>
                   <div className="custom">
-                    <button className="custom_button1">Thêm Kim Cương</button>
+                    <button className="custom_button1" onClick={handleAddDetailsClick}>Thêm Kim Cương</button>
                     <Link to="/">
                       <button className="custom_button2">
                         Tư Vấn Sản Phẩm

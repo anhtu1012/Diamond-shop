@@ -145,6 +145,10 @@ function Header() {
   const handleLogout = async () => {
     await logoutApi();
     localStorage.removeItem("token");
+    localStorage.removeItem("product");
+    localStorage.removeItem("idProduct");
+    localStorage.removeItem("diamond");
+    localStorage.removeItem("idDiamond");
     setUser(null);
     navigate("/");
     message.success("Đăng Xuất Thành Công");
