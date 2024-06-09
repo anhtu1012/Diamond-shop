@@ -43,9 +43,11 @@ const ProductDetails = () => {
       const productData = response.data;
       setProductDetail(productData);
       setMainImage(productData.productImages[0].imageUrl);
+
       const sizeOptions = productData.sizes.map((size) => (
         <Option key={size.sizeID} value={size.sizeValue}>
           {size.sizeValue} ({size.quantity})
+
         </Option>
       ));
       setSizeOptions(sizeOptions);

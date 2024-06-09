@@ -198,7 +198,7 @@ const router = createBrowserRouter([
         element: <ViewProduct />,
       },
       {
-        path: "san-pham/xem-tat-ca-san-pham/product-detail/:productID",
+        path: "/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/:productID",
         element: <ProductDetail />,
       },
       {
