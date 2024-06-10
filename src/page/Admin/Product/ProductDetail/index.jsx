@@ -5,6 +5,7 @@ import {
   Form,
   Image,
   Input,
+  Modal,
   Row,
   Select,
   message,
@@ -71,6 +72,10 @@ function ProductDetail() {
     message.success("Lưu thành công!");
   };
 
+  const handleCancel = () => {
+    setIsEditing(false);
+  };
+
   const handleDelete = () => {
     message.success("Xóa thành công");
   };
@@ -110,108 +115,60 @@ function ProductDetail() {
                   <Form.Item
                     label="Tên Sản Phẩm"
                     name="productName"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: true }]}
                     className="custom-form-item"
                   >
-                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
+                    <Input readOnly style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
                   <Form.Item
                     label="Mã sản phẩm"
                     name="productID"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: true }]}
                     className="custom-form-item"
                   >
-                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
+                    <Input readOnlystyle={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col span={12} className="infor-detail">
                   <Form.Item
                     label="Loại sản phẩm"
                     name="categoryName"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: true }]}
                     className="custom-form-item"
                   >
-                    {isEditing ? (
-                      <Select
-                        style={{ width: "100%" }}
-                        defaultValue={product?.category?.categoryName}
-                      >
-                        {[
-                          "Nhẫn cầu hôn kim cương",
-                          "Nhẫn cưới kim cương",
-                          "Nhẫn kim cương",
-                          "Bông tai kim cương",
-                          "Lắc/Vòng tay kim cương",
-                          "Mặt dây chuyền kim cương",
-                        ].map((category) => (
-                          <Select.Option key={category} value={category}>
-                            {category}
-                          </Select.Option>
-                        ))}
-                      </Select>
-                    ) : (
-                      <Input
-                        defaultValue={product?.category?.categoryName}
-                        readOnly
-                        style={{ width: "100%" }}
-                      />
-                    )}
+                    <Input
+                      defaultValue={product?.category?.categoryName}
+                      readOnly
+                      style={{ width: "100%" }}
+                    />
                   </Form.Item>
                 </Col>
                 <Col span={12} className="infor-detail">
                   <Form.Item
                     label="Phân loại"
                     name="productType"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: true }]}
                     className="custom-form-item"
                   >
-                    {isEditing ? (
-                      <Select
-                        style={{ width: "100%" }}
-                        defaultValue={product.productType}
-                      >
-                        {["Nhẫn", "Lắc/Vòng tay", "Dây chuyền", "Bông tai"].map(
-                          (productType) => (
-                            <Select.Option
-                              key={productType}
-                              value={productType}
-                            >
-                              {productType}
-                            </Select.Option>
-                          )
-                        )}
-                      </Select>
-                    ) : (
-                      <Input
-                        value={product.productType}
-                        readOnly
-                        style={{ width: "100%" }}
-                      />
-                    )}
+                    <Input
+                      value={product.productType}
+                      readOnly
+                      style={{ width: "100%" }}
+                    />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
                   <Form.Item
                     label="Kích thước đá chủ"
                     name="dimensionsDiamond"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: true }]}
                     className="custom-form-item"
                   >
                     <Input
                       className="input"
-                      readOnly={!isEditing}
+                      readOnly
                       style={{ width: "100%" }}
                     />
                   </Form.Item>
@@ -220,14 +177,12 @@ function ProductDetail() {
                   <Form.Item
                     label="Loại đá tẩm"
                     name="bathStone"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: true }]}
                     className="custom-form-item"
                   >
                     <Input
                       className="input"
-                      readOnly={!isEditing}
+                      readOnly
                       style={{ width: "100%" }}
                     />
                   </Form.Item>
@@ -236,14 +191,12 @@ function ProductDetail() {
                   <Form.Item
                     label="Số lượng đá tẩm"
                     name="quantityStonesOfDiamond"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: true }]}
                     className="custom-form-item"
                   >
                     <Input
                       className="input"
-                      readOnly={!isEditing}
+                      readOnly
                       style={{ width: "100%" }}
                     />
                   </Form.Item>
@@ -252,14 +205,12 @@ function ProductDetail() {
                   <Form.Item
                     label="Loại vàng"
                     name="goldType"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: true }]}
                     className="custom-form-item"
                   >
                     <Input
                       className="input"
-                      readOnly={!isEditing}
+                      readOnly
                       style={{ width: "100%" }}
                     />
                   </Form.Item>
@@ -268,38 +219,32 @@ function ProductDetail() {
                   <Form.Item
                     label="Tuổi vàng"
                     name="oldGold"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: true }]}
                     className="custom-form-item"
                   >
-                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
+                    <Input readOnly style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
                   <Form.Item
                     label="Trọng lượng vàng"
                     name="goldWeight"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: true }]}
                     className="custom-form-item"
                   >
-                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
+                    <Input readOnly style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
                   <Form.Item
                     label="Thương hiệu"
                     name="brand"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: true }]}
                     className="custom-form-item"
                   >
                     <Input
                       className="input"
-                      readOnly={!isEditing}
+                      readOnly
                       style={{ width: "100%" }}
                     />
                   </Form.Item>
@@ -308,14 +253,12 @@ function ProductDetail() {
                   <Form.Item
                     label="Tỉ lệ"
                     name="ratio"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: true }]}
                     className="custom-form-item"
                   >
                     <Input
                       className="input"
-                      readOnly={!isEditing}
+                      readOnly
                       style={{ width: "100%" }}
                     />
                   </Form.Item>
@@ -324,14 +267,12 @@ function ProductDetail() {
                   <Form.Item
                     label="Trọng lượng đá"
                     name="stoneWeight"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: true }]}
                     className="custom-form-item"
                   >
                     <Input
                       className="input"
-                      readOnly={!isEditing}
+                      readOnly
                       style={{ width: "100%" }}
                     />
                   </Form.Item>
@@ -363,11 +304,11 @@ function ProductDetail() {
               <Form.Item
                 label="Ghi chú"
                 name="message"
-                rules={[{ required: true, message: "Vui lòng không để trống" }]}
+                rules={[{ required: true }]}
                 className="custom-form-item"
               >
                 <Input.TextArea
-                  readOnly={!isEditing}
+                  readOnly
                   autoSize={{ minRows: 3, maxRows: 5 }}
                 />
               </Form.Item>
@@ -435,9 +376,7 @@ function ProductDetail() {
                   <Form.Item
                     label="Ngày Nhập"
                     name="inputDate"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: false }]}
                     className="custom-form-item"
                   >
                     {isEditing ? (
@@ -459,9 +398,7 @@ function ProductDetail() {
                   <Form.Item
                     label="Ngày Cập Nhật"
                     name="updateAt"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: false }]}
                     className="custom-form-item"
                   >
                     {isEditing ? (
@@ -483,32 +420,26 @@ function ProductDetail() {
                   <Form.Item
                     label="Giá gốc (VNĐ)"
                     name="originalPrice"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: false }]}
                     className="custom-form-item"
                   >
-                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
+                    <Input readOnly style={{ width: "100%" }} />
                   </Form.Item>
                   <Form.Item
                     label="Giá bán (VNĐ)"
                     name="totalPrice"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: true }]}
                     className="custom-form-item"
                   >
-                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
+                    <Input readOnly style={{ width: "100%" }} />
                   </Form.Item>
                   <Form.Item
                     label="Trạng thái"
                     name="status"
-                    rules={[
-                      { required: true, message: "Vui lòng không để trống" },
-                    ]}
+                    rules={[{ required: true }]}
                     className="custom-form-item"
                   >
-                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
+                    <Input readOnly style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={24}></Col>
@@ -533,15 +464,297 @@ function ProductDetail() {
                     Chỉnh sửa
                   </Button>
                 )}
-                {isEditing && (
-                  <Button
-                    className="button2"
-                    type="primary"
-                    onClick={handleSave}
-                  >
-                    Lưu
-                  </Button>
-                )}
+                <Modal
+                  title="Chỉnh sửa sản phẩm"
+                  open={isEditing}
+                  onCancel={handleCancel}
+                  onOk={handleSave}
+                  cancelText="Hủy"
+                  okText="Lưu"
+                >
+                  <Form form={form} layout="vertical">
+                    <Row gutter={24}>
+                      <Col span={24}>
+                        <Form.Item
+                          label="Tên Sản Phẩm"
+                          name="productName"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Vui lòng không để trống",
+                            },
+                          ]}
+                          className="custom-form-item"
+                        >
+                          <Input
+                            readOnly={!isEditing}
+                            style={{ width: "100%" }}
+                          />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item
+                          label="Mã sản phẩm"
+                          name="productID"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Vui lòng không để trống",
+                            },
+                          ]}
+                          className="custom-form-item"
+                        >
+                          <Input
+                            readOnly={!isEditing}
+                            style={{ width: "100%" }}
+                          />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item
+                          label="Loại sản phẩm"
+                          name="categoryName"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Vui lòng không để trống",
+                            },
+                          ]}
+                          className="custom-form-item"
+                        >
+                          {isEditing ? (
+                            <Select
+                              style={{ width: "100%" }}
+                              defaultValue={product?.category?.categoryName}
+                            >
+                              {[
+                                "Nhẫn cầu hôn kim cương",
+                                "Nhẫn cưới kim cương",
+                                "Nhẫn kim cương",
+                                "Bông tai kim cương",
+                                "Lắc/Vòng tay kim cương",
+                                "Mặt dây chuyền kim cương",
+                              ].map((category) => (
+                                <Select.Option key={category} value={category}>
+                                  {category}
+                                </Select.Option>
+                              ))}
+                            </Select>
+                          ) : (
+                            <Input
+                              defaultValue={product?.category?.categoryName}
+                              readOnly
+                              style={{ width: "100%" }}
+                            />
+                          )}
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item
+                          label="Phân loại"
+                          name="productType"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Vui lòng không để trống",
+                            },
+                          ]}
+                          className="custom-form-item"
+                        >
+                          {isEditing ? (
+                            <Select
+                              style={{ width: "100%" }}
+                              defaultValue={product.productType}
+                            >
+                              {[
+                                "Nhẫn",
+                                "Lắc/Vòng tay",
+                                "Dây chuyền",
+                                "Bông tai",
+                              ].map((productType) => (
+                                <Select.Option
+                                  key={productType}
+                                  value={productType}
+                                >
+                                  {productType}
+                                </Select.Option>
+                              ))}
+                            </Select>
+                          ) : (
+                            <Input
+                              value={product.productType}
+                              readOnly
+                              style={{ width: "100%" }}
+                            />
+                          )}
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item
+                          label="Kích thước đá chủ"
+                          name="dimensionsDiamond"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Vui lòng không để trống",
+                            },
+                          ]}
+                          className="custom-form-item"
+                        >
+                          <Input
+                            className="input"
+                            readOnly={!isEditing}
+                            style={{ width: "100%" }}
+                          />
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item
+                          label="Loại đá tẩm"
+                          name="bathStone"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Vui lòng không để trống",
+                            },
+                          ]}
+                          className="custom-form-item"
+                        >
+                          <Input
+                            className="input"
+                            readOnly={!isEditing}
+                            style={{ width: "100%" }}
+                          />
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item
+                          label="Số lượng đá tẩm"
+                          name="quantityStonesOfDiamond"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Vui lòng không để trống",
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item
+                          label="Loại vàng"
+                          name="goldType"
+                          rules={[
+                            {
+                              required: false,
+                            },
+                          ]}
+                          className="custom-form-item"
+                        >
+                          <Input
+                            className="input"
+                            readOnly={!isEditing}
+                            style={{ width: "100%" }}
+                          />
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item
+                          label="Tuổi vàng"
+                          name="oldGold"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Vui lòng không để trống",
+                            },
+                          ]}
+                          className="custom-form-item"
+                        >
+                          <Input
+                            readOnly={!isEditing}
+                            style={{ width: "100%" }}
+                          />
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item
+                          label="Thương hiệu"
+                          name="brand"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Vui lòng không để trống",
+                            },
+                          ]}
+                          className="custom-form-item"
+                        >
+                          <Input
+                            readOnly={!isEditing}
+                            style={{ width: "100%" }}
+                          />
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item
+                          label="Tỉ lệ"
+                          name="ratio"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Vui lòng không để trống",
+                            },
+                          ]}
+                          className="custom-form-item"
+                        >
+                          <Input
+                            readOnly={!isEditing}
+                            style={{ width: "100%" }}
+                          />
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item
+                          label="Trọng lượng đá"
+                          name="stoneWeight"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Vui lòng không để trống",
+                            },
+                          ]}
+                          className="custom-form-item"
+                        >
+                          <Input
+                            readOnly={!isEditing}
+                            style={{ width: "100%" }}
+                          />
+                        </Form.Item>
+                      </Col>
+                      {product.sizes?.map((size) => (
+                        <Col
+                          span={8}
+                          key={size.sizeID}
+                          className="infor-detail"
+                        >
+                          <Form.Item
+                            label={`Size ${size.sizeValue}`}
+                            className="custom-form-item"
+                          >
+                            <Input
+                              defaultValue={size.quantity}
+                              className="input"
+                              readOnly={!isEditing}
+                              style={{
+                                width: "100%",
+                              }}
+                            />
+                          </Form.Item>
+                        </Col>
+                      ))}
+                    </Row>
+                  </Form>
+                </Modal>
               </div>
             </Form>
           </div>

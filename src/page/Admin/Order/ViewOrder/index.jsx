@@ -276,7 +276,7 @@ function ViewOrderDetails() {
             }}
           >
             <Row style={{ padding: "10px 10px" }}>
-              <Col span={4}>
+              <Col span={6}>
                 <Steps
                   direction="vertical"
                   style={{ gap: "20px" }}
@@ -294,7 +294,7 @@ function ViewOrderDetails() {
                   ]}
                 />
               </Col>
-              <Col span={12}>
+              <Col span={10}>
                 <div className="information">
                   <p style={{ fontWeight: "500", fontSize: "16px" }}>
                     Thông tin chi khách hàng
