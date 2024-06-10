@@ -46,7 +46,7 @@ const ProductDetails = () => {
 
       const sizeOptions = productData.sizes.map((size) => (
         <Option key={size.sizeID} value={size.sizeValue}>
-          {size.sizeValue} ({size.quantity})
+          {size.sizeValue} (SL: {size.quantity})
 
         </Option>
       ));

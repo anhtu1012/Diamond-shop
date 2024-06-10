@@ -20,7 +20,7 @@ import LoadingTruck from "../../../../components/loading";
 
 function ProductDetail() {
   const { productID } = useParams();
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [form] = Form.useForm();
 
@@ -43,10 +43,14 @@ function ProductDetail() {
       productType: productData.productType,
       quantity: productData.quantity,
       quantityStonesOfDiamond: productData.quantityStonesOfDiamond,
-      totalPrice: productData.totalPrice,
+      totalPrice: productData.totalPrice.toLocaleString("en-US", {
+        maximumFractionDigits: 0,
+      }),
       status: productData.status ? "Còn hàng" : "Hết hàng",
       stoneWeight: productData.stoneWeight,
-      originalPrice: productData.originalPrice,
+      originalPrice: productData.originalPrice.toLocaleString("en-US", {
+        maximumFractionDigits: 0,
+      }),
       ratio: productData.ratio,
       categoryName: productData.category.categoryName,
 
@@ -440,6 +444,7 @@ function ProductDetail() {
                       <DatePicker
                         style={{ width: "100%" }}
                         defaultValue={moment(product.createAt, "YYYY-MM-DD")}
+                        format="YYYY-MM-DD"
                       />
                     ) : (
                       <Input
@@ -452,7 +457,7 @@ function ProductDetail() {
                     )}
                   </Form.Item>
                   <Form.Item
-                    label="Ngày cập nhật"
+                    label="Ngày Cập Nhật"
                     name="updateAt"
                     rules={[
                       { required: true, message: "Vui lòng không để trống" },
@@ -463,6 +468,7 @@ function ProductDetail() {
                       <DatePicker
                         style={{ width: "100%" }}
                         defaultValue={moment(product.updateAt, "YYYY-MM-DD")}
+                        format="YYYY-MM-DD"
                       />
                     ) : (
                       <Input
@@ -474,9 +480,8 @@ function ProductDetail() {
                       />
                     )}
                   </Form.Item>
-
                   <Form.Item
-                    label="Giá gốc"
+                    label="Giá gốc (VNĐ)"
                     name="originalPrice"
                     rules={[
                       { required: true, message: "Vui lòng không để trống" },
@@ -486,7 +491,7 @@ function ProductDetail() {
                     <Input readOnly={!isEditing} style={{ width: "100%" }} />
                   </Form.Item>
                   <Form.Item
-                    label="Giá bán"
+                    label="Giá bán (VNĐ)"
                     name="totalPrice"
                     rules={[
                       { required: true, message: "Vui lòng không để trống" },

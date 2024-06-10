@@ -48,7 +48,7 @@ function HuongDan() {
               <div className="img">
                 <img
                   src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/size-nhan.jpg?alt=media&token=2efc6a59-d10a-4741-b112-1eb89c42c13d"
-                  style={{ width: "50%", marginTop: '20px' }}
+                  style={{ width: "50%", marginTop: "20px" }}
                 />
               </div>
             </div>
@@ -75,7 +75,7 @@ function HuongDan() {
               <div className="img">
                 <img
                   src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/Huong-dan-do-ni.png?alt=media&token=baae852f-421c-4aed-8a52-d1327efc5874"
-                  style={{ width: "50%",marginTop: '20px' }}
+                  style={{ width: "50%", marginTop: "20px" }}
                 />
               </div>
             </div>
@@ -121,7 +121,7 @@ function HuongDan() {
               <div className="img">
                 <img
                   src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/luu-y-khi-do-ni-nhan.jpg?alt=media&token=6279c759-11d7-4f44-954d-23134b595635"
-                  style={{ width: "50%",marginTop: '20px' }}
+                  style={{ width: "50%", marginTop: "20px" }}
                 />
               </div>
             </div>
@@ -151,7 +151,11 @@ function HuongDan() {
         </div>
         <div className="product-relate">
           <h2>Các sản phẩm bạn có thể thích</h2>
-          <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
+          <Relate
+            numberOfSlides={4}
+            autoplay
+            category="Nhẫn Cầu Hôn Kim Cương"
+          />
         </div>
       </Container>
     </div>
