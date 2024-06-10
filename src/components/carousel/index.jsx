@@ -34,6 +34,7 @@ export default function Carousel() {
             alt=""
           />
         </SwiperSlide>
+
         <SwiperSlide>
           <img
             src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/disney-kc-1200x450CTA.jpg?alt=media&token=088e2a9d-bd07-407e-9f3b-7dc7b6b04648"

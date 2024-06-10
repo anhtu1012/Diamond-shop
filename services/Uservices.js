@@ -74,10 +74,10 @@ export const deleteDiamond = (id) => {
   );
 };
 
-export const updateDiamond = (id, data) => {
+export const updateDiamond = (id, diamond) => {
   return api.put(
-    `https://diamondshopgroup6.azurewebsites.net/swp391/api/diamond/update_diamond/${id}`,
-    data
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/diamonds/update_diamond/${id}`,
+    diamond
   );
 };
 
@@ -89,5 +89,10 @@ export const fetchDiamondById = (diamond_id) => {
 export const fetchProductById = (product_id) => {
   return api.get(
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/products/product/${product_id}`
+  );
+};
+export const addToCart = (id) => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/cart/add_cart/${id}`
   );
 };

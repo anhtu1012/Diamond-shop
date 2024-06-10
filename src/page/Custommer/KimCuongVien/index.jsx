@@ -533,7 +533,7 @@ function KimCuongVien() {
 
             <Col span={24}>
               <Table
-                dataSource={(filteredData.length > 0
+                dataSource={(filteredData
                   ? filteredData
                   : allDiamond.filter((item) => {
                       if (

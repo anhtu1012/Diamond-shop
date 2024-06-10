@@ -20,39 +20,69 @@ function Custommize() {
   const [totalPriceCustom, setTotalPriceCusTom] = useState(0);
 
   const location = useLocation(); // Lấy state từ location
+  const userToken = localStorage.getItem("token");
+
   useEffect(() => {
     if (location.state && location.state.product) {
       const productDetail = location.state.product;
       setProduct(productDetail);
       setIdProduct(productDetail.productID);
-      localStorage.setItem("product", JSON.stringify(productDetail));
-      localStorage.setItem("idProduct", productDetail.productID);
+      localStorage.setItem(
+        "product",
+        JSON.stringify({ product: productDetail, token: userToken })
+      );
+      localStorage.setItem(
+        "idProduct",
+        JSON.stringify({ id: productDetail.productID, token: userToken })
+      );
     } else {
-      const storedProduct = localStorage.getItem("product");
-      const storedIdProduct = localStorage.getItem("idProduct");
-      if (storedProduct && storedIdProduct) {
-        setProduct(JSON.parse(storedProduct));
-        setIdProduct(storedIdProduct);
+      try {
+        const storedProduct = JSON.parse(localStorage.getItem("product"));
+        const storedIdProduct = JSON.parse(localStorage.getItem("idProduct"));
+        if (
+          storedProduct &&
+          storedIdProduct &&
+          storedProduct.token === userToken
+        ) {
+          setProduct(storedProduct.product);
+          setIdProduct(storedIdProduct.id);
+        }
+      } catch (error) {
+        console.error("Failed to parse product from localStorage", error);
       }
     }
-  }, [location.state]);
+  }, [location.state, userToken]);
 
   useEffect(() => {
     if (location.state && location.state.diamond) {
       const diamondDetail = location.state.diamond;
       setDiamond(diamondDetail);
       setIdDiamond(diamondDetail.diamondID);
-      localStorage.setItem("diamond", JSON.stringify(diamondDetail));
-      localStorage.setItem("idDiamond", diamondDetail.diamondID);
+      localStorage.setItem(
+        "diamond",
+        JSON.stringify({ diamond: diamondDetail, token: userToken })
+      );
+      localStorage.setItem(
+        "idDiamond",
+        JSON.stringify({ id: diamondDetail.diamondID, token: userToken })
+      );
     } else {
-      const storedDiamond = localStorage.getItem("diamond");
-      const storedIdDiamond = localStorage.getItem("idDiamond");
-      if (storedDiamond && storedIdDiamond) {
-        setDiamond(JSON.parse(storedDiamond));
-        setIdDiamond(storedIdDiamond);
+      try {
+        const storedDiamond = JSON.parse(localStorage.getItem("diamond"));
+        const storedIdDiamond = JSON.parse(localStorage.getItem("idDiamond"));
+        if (
+          storedDiamond &&
+          storedIdDiamond &&
+          storedDiamond.token === userToken
+        ) {
+          setDiamond(storedDiamond.diamond);
+          setIdDiamond(storedIdDiamond.id);
+        }
+      } catch (error) {
+        console.error("Failed to parse diamond from localStorage", error);
       }
     }
-  }, [location.state]);
+  }, [location.state, userToken]);
 
   const handleDeleteProduct = () => {
     setProduct(null);
@@ -69,10 +99,12 @@ function Custommize() {
     localStorage.removeItem("idDiamond");
     setIdComplete(null);
   };
+
   const truncateProductName = (name) => {
     const words = name.split(" ");
     return words.length > 4 ? `${words.slice(0, 4).join(" ")}...` : name;
   };
+
   const handleStep3Click = () => {
     if (
       product.shapeDiamond === diamond.shape &&
@@ -81,12 +113,13 @@ function Custommize() {
       setCurrentStep(3);
     } else {
       notification.error({
-        message: "Cảnh Báo ",
+        message: "Cảnh Báo",
         description:
           "Hình dạng hoặc kích thước của Kim Cương và Trang Sức Không Bằng Nhau",
       });
     }
   };
+
   useEffect(() => {
     if (product && diamond) {
       if (
@@ -134,7 +167,6 @@ function Custommize() {
       <Container>
         <Row className="step_main">
           <Col span={24}>
-            {" "}
             <Breadcrumb style={{ margin: "16px 0" }}>
               <Breadcrumb.Item>
                 <Link to="/">Trang chủ</Link>
@@ -183,17 +215,21 @@ function Custommize() {
                     </Col>
                   </>
                 ) : (
-                  <>
-                    <Col span={4}>
-                      <span className="title_1">1</span>
-                    </Col>
-                    <Col span={16}>
-                      <p className="title_2">Chọn Trang sức</p>
-                    </Col>
-                    <Col span={4}>
-                      <GiBigDiamondRing size={25} />
-                    </Col>
-                  </>
+                  <Col span={24}>
+                    <Row className="body_step">
+                      <Col span={6}>
+                        <span className="title_1">1</span>
+                      </Col>
+                      <Col span={14}>
+                        <span className="title_2">CHỌN TRANG SỨC</span>
+                      </Col>
+                      <Col span={4}>
+                        <span className="title_icon">
+                          <GiBigDiamondRing />
+                        </span>
+                      </Col>
+                    </Row>
+                  </Col>
                 )}
               </Row>
             </Button>
@@ -215,10 +251,7 @@ function Custommize() {
                           to={`/diamond-details/${idDiamond}`}
                           style={{ color: "white" }}
                         >
-                          <p>
-                            {diamond.carat} Carat {diamond.shape}{" "}
-                            {diamond.dimensions} ly
-                          </p>
+                          <p>{truncateProductName(diamond.diamondName)}</p>
                         </Link>
                       </div>
                       <div className="title_main">
@@ -235,38 +268,35 @@ function Custommize() {
                     </Col>
                     <Col span={4}>
                       <img
-                        src="https://jemmia.vn/wp-content/uploads/2024/05/kim-cuong-vien.png"
+                        src={diamond.image}
                         alt="Diamond"
                         style={{ width: "50px", height: "50px" }}
                       />
                     </Col>
                   </>
                 ) : (
-                  <>
-                    <Col span={4}>
-                      <span className="title_1">2</span>
-                    </Col>
-                    <Col span={16}>
-                      <p className="title_2">Chọn Kim Cương</p>
-                    </Col>
-                    <Col span={4}>
-                      <IoDiamondOutline size={25} />
-                    </Col>
-                  </>
+                  <Col span={24}>
+                    <Row className="body_step">
+                      <Col span={6}>
+                        <span className="title_1">2</span>
+                      </Col>
+                      <Col span={14}>
+                        <span className="title_2">CHỌN KIM CƯƠNG</span>
+                      </Col>
+                      <Col span={4}>
+                        <span className="title_icon">
+                          <GiDiamondHard />
+                        </span>
+                      </Col>
+                    </Row>
+                  </Col>
                 )}
               </Row>
             </Button>
           </Col>
           <Col span={8}>
             <Button
-              className={`step_main_button_3 ${
-                product &&
-                diamond &&
-                product.shapeDiamond === diamond.shape &&
-                product.dimensionsDiamond === diamond.dimensions
-                  ? "selected3"
-                  : ""
-              }`}
+              className={`step_main_button_3 ${idComplete ? "selected3" : ""}`}
               onClick={handleStep3Click}
               disabled={!idProduct || !idDiamond}
             >
@@ -278,46 +308,45 @@ function Custommize() {
                     </Col>
                     <Col span={16}>
                       <div>
-                        <p>Hoàn thành</p>
+                        <p>Hoàn Thành</p>
                       </div>
                       <div className="title_main">
                         <span>
-                          {" "}
                           {totalPriceCustom.toLocaleString("en-US", {
                             maximumFractionDigits: 0,
-                          })}
+                          })}{" "}
                           đ
                         </span>
                       </div>
                     </Col>
                     <Col span={4}>
-                      <img
-                        src="https://jemmia.vn/wp-content/uploads/2024/05/kim-cuong-vien.png"
-                        alt="Diamond"
-                        style={{ width: "50px", height: "50px" }}
-                      />
+                      <span className="title_icon">
+                        <IoDiamondOutline />
+                      </span>
                     </Col>
                   </>
                 ) : (
-                  <>
-                    <Col span={4}>
-                      <span className="title_1">3</span>
-                    </Col>
-                    <Col span={16}>
-                      <p className="title_2">Hoàn Thành</p>
-                    </Col>
-                    <Col span={4}>
-                      <GiDiamondHard size={25} />
-                    </Col>
-                  </>
+                  <Col span={24}>
+                    <Row className="body_step">
+                      <Col span={6}>
+                        <span className="title_1">3</span>
+                      </Col>
+                      <Col span={14}>
+                        <span className="title_2">HOÀN THÀNH</span>
+                      </Col>
+                      <Col span={4}>
+                        <span className="title_icon">
+                          <IoDiamondOutline />
+                        </span>
+                      </Col>
+                    </Row>
+                  </Col>
                 )}
               </Row>
             </Button>
           </Col>
         </Row>
-        <Row className="form-main">
-          <Col span={24}>{renderStepForm()}</Col>
-        </Row>
+        <div className="steps-content">{renderStepForm()}</div>
       </Container>
     </>
   );
