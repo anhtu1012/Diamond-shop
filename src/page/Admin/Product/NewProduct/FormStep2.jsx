@@ -76,20 +76,7 @@ function FormProductStep2({ onFinish, initialValues }) {
           </Form.Item>
         </Col>
         <Col span={12} className="info_detail2">
-          <Form.Item
-            label="Chất liệu khác"
-            name="message"
-            rules={[
-              {
-                required: true,
-                message: "Vui lòng không để trống",
-              },
-              {
-                pattern: /^[^!@#$%^&*()+=]+$/,
-                message: "Vui lòng không nhập kí tự đặc biệt",
-              },
-            ]}
-          >
+          <Form.Item label="Chất liệu khác" name="message">
             <Input
               className="input"
               allowClear

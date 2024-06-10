@@ -186,7 +186,18 @@ function Complete({ diamond, product, setCurrentStep }) {
                 <h4>Miễn phí vận chuyển</h4>
               </div>
             </div>
-
+            <div className="delivery-icon" style={{paddingBottom:"5px"}}>
+              <h4>Tiền Công:</h4>
+              <div className="giao-hang">
+                <h4>
+                  {" "}
+                  {product.wagePrice.toLocaleString("en-US", {
+                    maximumFractionDigits: 0,
+                  })}{" "}
+                  đ
+                </h4>{" "}
+              </div>
+            </div>
             <h2
               style={{
                 display: "flex",
@@ -200,7 +211,9 @@ function Complete({ diamond, product, setCurrentStep }) {
               })}{" "}
               đ
             </h2>
-
+            <div className="delivery-icon">
+              <h4>(Tiền công đã được cộng vào giá trang sức)</h4>
+            </div>
             <div className="custom">
               <button
                 style={{

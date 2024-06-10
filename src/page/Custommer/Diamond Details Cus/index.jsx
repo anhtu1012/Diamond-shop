@@ -150,7 +150,7 @@ const DiamondDetailss = () => {
                       className="custom_button1"
                       onClick={handleAddDetailsClick}
                     >
-                      Vào Tùy Chỉnh
+                      Thêm Vào Tùy Chỉnh
                     </button>
                     <button
                       className="custom_button2"

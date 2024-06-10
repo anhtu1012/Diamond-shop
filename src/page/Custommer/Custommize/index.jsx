@@ -308,7 +308,7 @@ function Custommize() {
                     </Col>
                     <Col span={16}>
                       <div>
-                        <p>Hoàn Thành</p>
+                        <p>HOÀN THÀNH</p>
                       </div>
                       <div className="title_main">
                         <span>

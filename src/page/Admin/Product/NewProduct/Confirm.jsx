@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
-import { Result, Button } from "antd";
+import { Result, Button, message } from "antd";
 import { FcReadingEbook } from "react-icons/fc";
 import uploadFile from "../../../../utils/upload";
 import { createProduct } from "../../../../../services/Uservices";
@@ -34,13 +34,14 @@ function Confirm({ onFinish, combinedData }) {
           ratio: restData.ratio,
           originalPrice: restData.originalPrice,
           quantity: restData.quantity,
+          wagePrice: restData.wagePrice,
           stoneWeight: restData.stoneWeight || 0,
           category: {
             categoryName: subcategory,
           },
         },
         sizes: restData.sizes,
-        thumnails: imageUrls.map((url) => ({
+        productImages: imageUrls.map((url) => ({
           imageUrl: url,
         })),
       };
@@ -49,7 +50,7 @@ function Confirm({ onFinish, combinedData }) {
       console.log("Product Data:", productData);
 
       await createProduct(productData);
-
+      message.success("Tạo Sản Phẩm Thành Công!");
       // Tiếp tục với onFinish
       onFinish(productData);
     } catch (error) {
