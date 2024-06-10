@@ -28,6 +28,7 @@ function KimCuongVien() {
   };
   useEffect(() => {
     window.scrollTo(0, 0);
+    setFilteredData(allDiamond);
   }, []);
   const [clickedProduct, setClickedProduct] = useState("");
 
@@ -591,7 +592,7 @@ function KimCuongVien() {
                     <span>
                       Hiển Thị{" "}
                       {Math.min(
-                        filteredData.length || visibleProducts,
+                        filteredData || visibleProducts,
                         allDiamond.length
                       )}{" "}
                       Trên {allDiamond.length} Sản Phẩm

@@ -31,7 +31,7 @@ function Confirm({ onFinish, combinedData }) {
       };
       // Call the API to create the diamond
       await createDiamond(finalData);
-      message.success("Diamond created successfully!");
+      message.success("Tạo Kim Cương Thành Công!");
       console.log(finalData);
       onFinish(finalData);
     } catch (errorInfo) {
