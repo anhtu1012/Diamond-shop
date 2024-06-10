@@ -114,8 +114,9 @@ function LoginPage({ setUser, onLoginSuccess }) {
         recaptchaResponse
       );
       const usertoken = res.data.token;
-
+      console.log(usertoken);
       localStorage.setItem("token", usertoken);
+
       const base64Url = usertoken.split(".")[1];
       const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
       const payload = JSON.parse(window.atob(base64));

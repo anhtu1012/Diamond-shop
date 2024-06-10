@@ -125,7 +125,7 @@ function KimCuongVien() {
       if (selectedShapes.length > 0 && !selectedShapes.includes(item.shape)) {
         return false;
       }
-  
+
       if (selectedOptions.carat !== "") {
         const [minCarat, maxCarat] = selectedOptions.carat.split("-");
         if (
@@ -156,10 +156,7 @@ function KimCuongVien() {
       ) {
         return false;
       }
-      if (
-        selectedPriceRange === "duoi100" &&
-        item.totalPrice >= 100000000
-      ) {
+      if (selectedPriceRange === "duoi100" && item.totalPrice >= 100000000) {
         return false;
       }
       if (
@@ -174,17 +171,13 @@ function KimCuongVien() {
       ) {
         return false;
       }
-      if (
-        selectedPriceRange === "tren500" &&
-        item.totalPrice <= 500000000
-      ) {
+      if (selectedPriceRange === "tren500" && item.totalPrice <= 500000000) {
         return false;
       }
       return true;
     });
     setFilteredData(filtered);
   };
-  
 
   const handleReset = () => {
     setSelectedOptions({
@@ -540,7 +533,7 @@ function KimCuongVien() {
 
             <Col span={24}>
               <Table
-                dataSource={(filteredData.length > 0
+                dataSource={(filteredData
                   ? filteredData
                   : allDiamond.filter((item) => {
                       if (

@@ -17,7 +17,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import CommitmentQuality from "../../../components/DamBaoChatLuong";
 import Relate from "../../../components/carousel/related";
 
-import { fetchDiamondById } from "../../../../services/Uservices";
+import { addToCart, fetchDiamondById } from "../../../../services/Uservices";
 import LoadingTruck from "../../../components/loading";
 import ToggleTab from "../../../components/caccauhoivisao";
 
@@ -44,6 +44,10 @@ const DiamondDetailss = () => {
   useEffect(() => {
     fetchProductByIds(diamondID);
   }, [diamondID]);
+  const hanldeAddtoCart = async (diamondDetail) => {
+    const res = await addToCart(diamondDetail);
+    console.log(res.data);
+  };
 
   if (!diamondDetail) {
     return <LoadingTruck />;
@@ -146,13 +150,14 @@ const DiamondDetailss = () => {
                       className="custom_button1"
                       onClick={handleAddDetailsClick}
                     >
-                      Thêm Trang Sức
+                      Vào Tùy Chỉnh
                     </button>
-                    <Link to="/">
-                      <button className="custom_button2">
-                        Thêm Vào Giỏ Hàng
-                      </button>
-                    </Link>
+                    <button
+                      className="custom_button2"
+                      onClick={hanldeAddtoCart}
+                    >
+                      Thêm Vào Giỏ Hàng
+                    </button>
                   </div>
                 </div>
               </Col>

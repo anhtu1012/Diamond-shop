@@ -14,12 +14,15 @@ import "./index.scss";
 import { useEffect, useState } from "react";
 import { Content } from "antd/es/layout/layout";
 import moment from "moment";
-import { fetchDiamondById } from "../../../../../services/Uservices";
+import {
+  fetchDiamondById,
+  updateDiamond,
+} from "../../../../../services/Uservices";
 import LoadingTruck from "../../../../components/loading";
 
 function DiamondDetails() {
   const { diamondID } = useParams();
-  const [diamond, setDiamond] = useState([]); // Change to null initially
+  const [diamond, setDiamond] = useState([]); // Initialize as null
   const [isEditing, setIsEditing] = useState(false);
   const [form] = Form.useForm();
   console.log(diamondID);
@@ -47,6 +50,23 @@ function DiamondDetails() {
     });
   };
 
+  const handleUpdate = async () => {
+    try {
+      const values = await form.validateFields();
+      console.log("Form values before API call:", values);
+      setIsEditing(false);
+      const updatedDetails = {
+        originPrice: values.originPrice,
+        ratio: values.ratio,
+        status: values.status === "Còn hàng",
+      };
+      await updateDiamond(diamond.diamondID, updatedDetails);
+      fetchDiamondByIds(diamond.diamondID);
+    } catch (error) {
+      console.error("Error when updating diamond:", error);
+    }
+  };
+
   useEffect(() => {
     fetchDiamondByIds(diamondID);
   }, [diamondID]);
@@ -54,6 +74,7 @@ function DiamondDetails() {
   if (!diamondID) {
     return <LoadingTruck />;
   }
+
   const handleEdit = () => {
     setIsEditing(true);
   };
@@ -109,7 +130,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
+                    <Input readOnly style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
@@ -157,18 +178,11 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    {isEditing ? (
-                      <DatePicker
-                        style={{ width: "100%" }}
-                        defaultValue={moment(diamond.inputDate, "YYYY-MM-DD")}
-                      />
-                    ) : (
-                      <Input
-                        value={moment(diamond.inputDate).format("YYYY-MM-DD")}
-                        readOnly
-                        style={{ width: "100%", marginRight: "10px" }}
-                      />
-                    )}
+                    <DatePicker
+                      style={{ width: "100%" }}
+                      disabled
+                      defaultValue={moment(diamond.inputDate, "YYYY-MM-DD")}
+                    />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
@@ -180,25 +194,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    {isEditing ? (
-                      <Select
-                        style={{ width: "100%" }}
-                        defaultValue={diamond.flourescence}
-                      >
-                        {["Faint", "Medium", "Strong", "Very Strong"].map(
-                          (flourescence) => (
-                            <Select.Option
-                              key={flourescence}
-                              value={flourescence}
-                            >
-                              {flourescence}
-                            </Select.Option>
-                          )
-                        )}
-                      </Select>
-                    ) : (
-                      <Input readOnly style={{ width: "100%" }} />
-                    )}
+                    <Input readOnly style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
@@ -210,31 +206,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    {isEditing ? (
-                      <Select
-                        style={{ width: "100%" }}
-                        defaultValue={diamond.shape}
-                      >
-                        {[
-                          "Round",
-                          "Princess",
-                          "Radiant",
-                          "Emerald",
-                          "Asscher",
-                          "Marquise",
-                          "Oval",
-                          "Pearl",
-                          "Heart",
-                          "Cushion",
-                        ].map((shape) => (
-                          <Select.Option key={shape} value={shape}>
-                            {shape}
-                          </Select.Option>
-                        ))}
-                      </Select>
-                    ) : (
-                      <Input readOnly style={{ width: "100%" }} />
-                    )}
+                    <Input readOnly style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
@@ -246,22 +218,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    {isEditing ? (
-                      <Select
-                        style={{ width: "100%" }}
-                        defaultValue={diamond.colorLevel}
-                      >
-                        {["D", "E", "F", "G", "H", "I", "J", "K", "L", "M"].map(
-                          (colorLevel) => (
-                            <Select.Option key={colorLevel} value={colorLevel}>
-                              {colorLevel}
-                            </Select.Option>
-                          )
-                        )}
-                      </Select>
-                    ) : (
-                      <Input readOnly style={{ width: "100%" }} />
-                    )}
+                    <Input readOnly style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
@@ -273,7 +230,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
+                    <Input readOnly style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
@@ -285,32 +242,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    {isEditing ? (
-                      <Select
-                        style={{ width: "100%" }}
-                        defaultValue={diamond.clarify}
-                      >
-                        {[
-                          "FL",
-                          "IF",
-                          "VVS1",
-                          "VVS2",
-                          "VS1",
-                          "VS2",
-                          "SI1",
-                          "SI2",
-                          "I1",
-                          "I2",
-                          "I3",
-                        ].map((clarify) => (
-                          <Select.Option key={clarify} value={clarify}>
-                            {clarify}
-                          </Select.Option>
-                        ))}
-                      </Select>
-                    ) : (
-                      <Input readOnly style={{ width: "100%" }} />
-                    )}
+                    <Input readOnly style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
@@ -322,7 +254,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
+                    <Input readOnly style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
@@ -334,7 +266,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
+                    <Input readOnly style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col className="infor-detail" span={12}>
@@ -346,7 +278,7 @@ function DiamondDetails() {
                     ]}
                     className="custom-form-item"
                   >
-                    <Input readOnly={!isEditing} style={{ width: "100%" }} />
+                    <Input readOnly style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
               </Row>
@@ -402,7 +334,7 @@ function DiamondDetails() {
                 >
                   <Input
                     className="custom-placeholder"
-                    readOnly={!isEditing}
+                    readOnly
                     placeholder={diamond.certificate}
                     style={{ width: "100%", color: "black" }}
                   />
@@ -448,7 +380,7 @@ function DiamondDetails() {
                 >
                   <Input
                     className="custom-placeholder"
-                    readOnly={!isEditing}
+                    readOnly
                     placeholder={diamond.totalPrice}
                     style={{ width: "100%" }}
                   />
@@ -468,7 +400,11 @@ function DiamondDetails() {
                 </Button>
               )}
               {isEditing && (
-                <Button className="button2" type="primary">
+                <Button
+                  className="button2"
+                  type="primary"
+                  onClick={handleUpdate}
+                >
                   Lưu
                 </Button>
               )}

@@ -63,9 +63,9 @@ function NhanKimCuong() {
     const price = product.totalPrice;
     switch (priceFilter) {
       case "50-100":
-        return price >= 50000 && price <= 100000;
+        return price >= 50000000 && price <= 100000000;
       case "500-700":
-        return price >= 500000 && price <= 700000;
+        return price >= 50000000 && price <= 700000000;
       default:
         return true;
     }
