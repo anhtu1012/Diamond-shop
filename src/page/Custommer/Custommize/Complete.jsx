@@ -16,7 +16,7 @@ function Complete({ diamond, product, setCurrentStep }) {
   useEffect(() => {
     const sizeOptions = product.sizes.map((size) => (
       <Option key={size.sizeID} value={size.sizeValue}>
-        {size.sizeValue} ({size.quantity})
+        {size.sizeValue} (SL: {size.quantity})
       </Option>
     ));
     setTotalPriceCusTom(
