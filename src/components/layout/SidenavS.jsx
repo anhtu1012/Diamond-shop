@@ -1,32 +1,41 @@
-import { PieChartFilled, SketchCircleFilled } from "@ant-design/icons";
+import {
+  ContainerOutlined,
+  ProductOutlined,
+  ShoppingCartOutlined,
+  SketchCircleFilled,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./layout.scss";
 import { useState } from "react";
+
 const items = [
   {
     key: "/staff-page/don-hang-moi",
-    icon: <PieChartFilled className="side-icon" />,
+    icon: <ShoppingCartOutlined className="side-icon" />,
     label: <h3>Đơn Hàng Mới</h3>,
   },
   {
     key: "/staff-page/don-hang",
-    icon: <PieChartFilled className="side-icon" />,
+    icon: <ShoppingCartOutlined className="side-icon" />,
     label: "Đơn Hàng",
   },
   {
     key: "/staff-page/tai-khoan",
-    icon: <PieChartFilled className="side-icon" />,
+    icon: <UserOutlined className="side-icon" />,
     label: "Tài Khoản",
   },
   {
     key: "/staff-page/san-pham",
-    icon: <PieChartFilled className="side-icon" />,
+    icon: <ProductOutlined className="side-icon" />,
+
     label: "Sản Phẩm",
   },
   {
     key: "/staff-page/bao-hanh",
-    icon: <PieChartFilled className="side-icon" />,
+    icon: <ContainerOutlined className="side-icon" />,
+
     label: "Phiếu Bảo Hành",
   },
 ];
