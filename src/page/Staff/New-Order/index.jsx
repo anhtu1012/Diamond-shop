@@ -74,14 +74,12 @@ const NewOrder = () => {
             <Col span={18} className="text-left">
               <span>2 Sản Phẩm</span>
               <div>
-                <Link to="/admin-page/don-hang/all/order-detail/OD123456">
-                  Xem Chi Tiết
-                </Link>
+                <Link to="/staff-page/chi-tiet-don-hang">Xem Chi Tiết</Link>
               </div>
             </Col>
             <Col span={6} className="text-right">
               <h2>Thành tiền</h2>
-              <h3> 67.753.000đ</h3>
+              <h3> 23.506.000đ</h3>
               <button className={`status-button ${buttonColor}`}>
                 {buttonText}
               </button>
@@ -110,16 +108,14 @@ const NewOrder = () => {
           </Row>
           <Row className="card_row_bottom">
             <Col span={18} className="text-left">
-              <span>2 Sản Phẩm</span>
+              <span>1 Sản Phẩm</span>
               <div>
-                <Link to="/admin-page/don-hang/all/order-detail/OD123456">
-                  Xem Chi Tiết
-                </Link>
+                <Link to="/staff-page/chi-tiet-don-hang">Xem Chi Tiết</Link>
               </div>
             </Col>
             <Col span={6} className="text-right">
               <h2>Thành tiền</h2>
-              <h3> 67.753.000đ</h3>
+              <h3> 11.753.000đ</h3>
               <button className={`status-button ${buttonColor}`}>
                 {buttonText}
               </button>

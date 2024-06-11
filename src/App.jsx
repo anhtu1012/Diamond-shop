@@ -55,6 +55,7 @@ import ViewOrderDetails from "./page/Admin/Order/ViewOrder";
 import ViewAccountDetail from "./page/Admin/Account/ViewAccountDetail";
 import LienHe from "./page/Custommer/LienHe";
 import DiamondDetailss from "./page/Custommer/Diamond Details Cus";
+import DetailProduct from "./page/Staff/Product/DetailProduct";
 
 const router = createBrowserRouter([
   {
@@ -266,6 +267,10 @@ const router = createBrowserRouter([
       {
         path: "/staff-page/bao-hanh",
         element: <Warranty />,
+      },
+      {
+        path: "/staff-page/chi-tiet-don-hang",
+        element: <DetailProduct />,
       },
     ],
   },
