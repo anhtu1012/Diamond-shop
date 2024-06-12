@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { CaretLeftFilled, DeleteOutlined } from "@ant-design/icons";
 import {
   AutoComplete,
@@ -10,12 +11,13 @@ import {
   Row,
   Select,
 } from "antd";
-import { useEffect, useState } from "react";
 import { IoTicket } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import Relate from "../../../components/carousel/related";
 import Container from "../../../components/container/Container";
 import "./index.scss";
+import { getProvinces, getDistricts, getWards } from "vietnam-provinces";
+
 const { Option } = Select;
 const items = [
   {
@@ -32,17 +34,35 @@ const items = [
   },
   {
     value: "4",
-    label: "4",
     disabled: true,
   },
 ];
 
 function Cart() {
-  // Vùng JS
   const [form] = Form.useForm();
-
   const [email, setEmail] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
+
+  useEffect(() => {
+    const provincesList = getProvinces();
+    setProvinces(provincesList);
+  }, []);
+
+  const handleProvinceChange = (value) => {
+    const districtsList = getDistricts(value);
+    setDistricts(districtsList);
+    setWards([]);
+    form.setFieldsValue({ district: undefined, ward: undefined });
+  };
+
+  const handleDistrictChange = (value) => {
+    const wardsList = getWards(value);
+    setWards(wardsList);
+    form.setFieldsValue({ ward: undefined });
+  };
 
   const handleEmailChange = (e) => {
     const value = e.target.value;
@@ -65,15 +85,6 @@ function Cart() {
     console.log("Received values: ", values);
   };
 
-  const sizeOptions = [];
-  for (let i = 6; i <= 20; i++) {
-    sizeOptions.push(
-      <Select.Option key={i} value={i}>
-        {i}
-      </Select.Option>
-    );
-  }
-
   const renderProductItem = (
     index,
     name,
@@ -91,7 +102,7 @@ function Cart() {
         </button>
         <div className="cart_detail">
           <Col span={6} className="img_cart">
-            <img src={imageUrl} width={130} />
+            <img src={imageUrl} width={180} />
             {imgDM && (
               <img
                 src={imgDM}
@@ -103,14 +114,16 @@ function Cart() {
           </Col>
           <Col span={18} className="infor">
             <div className="infor_detail">
-              <p>{name}</p>
-              <span>{code}</span>
+              <div style={{paddingBottom:"20px"}}>
+                <p>{name}</p>
+                <span>{code}</span>
+              </div>
               <p>{nameDM}</p>
               <span>{codeDM}</span>
               <Select
-                defaultValue="1"
+                defaultValue="Size"
                 style={{
-                  width: 50,
+                  width: 70,
                 }}
                 options={items}
               />
@@ -167,6 +180,7 @@ function Cart() {
         "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
     },
   ];
+
   useEffect(() => {
     const handleScroll = () => {
       const cartTotalElement = document.querySelector(".cart_total");
@@ -185,6 +199,7 @@ function Cart() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   return (
     <div className="cart">
       <Container>
@@ -207,15 +222,15 @@ function Cart() {
               <Form style={{ padding: "25px 30px" }}>
                 <Form.Item>
                   <Radio.Group>
-                    <Radio value="apple"> Nam </Radio>
-                    <Radio value="pear"> Nữ </Radio>
+                    <Radio value="male"> Nam </Radio>
+                    <Radio value="female"> Nữ </Radio>
                   </Radio.Group>
                 </Form.Item>
 
                 <Form.Item
                   name="name"
                   rules={[
-                    { required: true, message: "Xin hãy nhập vào Name!" },
+                    { required: true, message: "Xin hãy nhập vào Họ và tên!" },
                   ]}
                 >
                   <Input
@@ -292,42 +307,80 @@ function Cart() {
                 onFinish={onFinish}
                 style={{ padding: "25px 30px" }}
               >
-                <Form.Item name="city">
+                <Form.Item
+                  name="city"
+                  rules={[{ required: true, message: "Xin hãy chọn Tỉnh/TP!" }]}
+                >
                   <Select
                     className="input"
                     placeholder="Tỉnh/TP*"
                     style={{ width: "350px", height: "40px" }}
+                    onChange={handleProvinceChange}
+                    showSearch
+                    filterOption={(input, option) =>
+                      option.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
                   >
-                    <Option value="hanoi">Hà Nội</Option>
-                    <Option value="tphcm">TP.HCM</Option>
-                    <Option value="vungtau">TP.Vũng Tàu</Option>
-                    <Option value="baoloc">TP.Bảo Lộc</Option>
+                    {provinces.map((province) => (
+                      <Option key={province.code} value={province.code}>
+                        {province.name}
+                      </Option>
+                    ))}
                   </Select>
                 </Form.Item>
 
-                <Form.Item name="district">
+                <Form.Item
+                  name="district"
+                  rules={[
+                    { required: true, message: "Xin hãy chọn Quận/Huyện!" },
+                  ]}
+                >
                   <Select
                     className="input"
                     placeholder="Quận/Huyện*"
                     style={{ width: "350px", height: "40px" }}
+                    onChange={handleDistrictChange}
+                    disabled={!districts.length}
+                    showSearch
+                    filterOption={(input, option) =>
+                      option.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
                   >
-                    <Option value="namtulien">Nam Từ Liêm</Option>
-                    <Option value="quan1">Quận 1</Option>
-                    <Option value="vung">Huyện.Vũng Tàu</Option>
-                    <Option value="baolam">Huyện Bảo Lâm</Option>
+                    {districts.map((district) => (
+                      <Option key={district.code} value={district.code}>
+                        {district.name}
+                      </Option>
+                    ))}
                   </Select>
                 </Form.Item>
 
-                <Form.Item name="ward">
+                <Form.Item
+                  name="ward"
+                  rules={[
+                    { required: true, message: "Xin hãy chọn Phường/Xã!" },
+                  ]}
+                >
                   <Select
                     className="input"
                     placeholder="Phường/Xã*"
                     style={{ width: "350px", height: "40px" }}
+                    disabled={!wards.length}
+                    showSearch
+                    filterOption={(input, option) =>
+                      option.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
                   >
-                    <Option value="xhn">P/X ở HN</Option>
-                    <Option value="xhcm">Xã hcm</Option>
-                    <Option value="xvt">xã ở Vũng Tàu</Option>
-                    <Option value="xbl">Phường Xã</Option>
+                    {wards.map((ward) => (
+                      <Option key={ward.code} value={ward.code}>
+                        {ward.name}
+                      </Option>
+                    ))}
                   </Select>
                 </Form.Item>
 
@@ -347,15 +400,10 @@ function Cart() {
                   />
                 </Form.Item>
 
-                <Form.Item
-                  name="note"
-                  rules={[
-                    { required: true, message: "Xin hãy nhập vào Ghi chú!" },
-                  ]}
-                >
+                <Form.Item name="note">
                   <Input
                     className="input"
-                    placeholder="Ghi chú*"
+                    placeholder="Ghi chú"
                     style={{ width: "350px", height: "40px" }}
                   />
                 </Form.Item>
@@ -364,11 +412,8 @@ function Cart() {
           </Col>
 
           <Col span={15}>
-            <div
-              style={{ paddingTop: "0px 20px" }}
-              className="cart_form_content"
-            >
-              <div className="cart_form_title_h2">
+            <div className="cart_form_content" style={{ padding: "0px 20px" }}>
+              <div className="cart_form_title">
                 <h2 style={{ fontSize: "24px", margin: "5px 10px 5px 10px" }}>
                   Thông tin giỏ hàng
                 </h2>
@@ -444,11 +489,12 @@ function Cart() {
               textAlign: "center",
               paddingBottom: "20px",
               fontSize: "25px",
+              fontWeight: "bold",
             }}
           >
             Có thể bạn quan tâm
           </h2>
-          <Relate numberOfSlides={4} autoplay category="NHẪN KIM CƯƠNG" />
+          <Relate numberOfSlides={4} autoplay data="diamonds" />
         </div>
       </Container>
     </div>

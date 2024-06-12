@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Card, Col, Row } from "antd";
+import { Card, Col, Row, Skeleton } from "antd";
 import "./index.scss";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export function CartProduct({ product, diamond }) {
   const isDiamond = Boolean(diamond);
@@ -11,6 +12,14 @@ export function CartProduct({ product, diamond }) {
   const title = isDiamond ? item.diamondName : item.productName;
   const totalPrice = isDiamond ? item.totalPrice : item.totalPrice;
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (product || diamond) {
+      setLoading(false);
+    }
+  }, [product, diamond]);
+
   const handleClick = async () => {
     if (isDiamond) {
       navigate(`/diamond-details/${id}`);
@@ -18,6 +27,11 @@ export function CartProduct({ product, diamond }) {
       navigate(`/product-details/${id}`);
     }
   };
+
+  if (loading) {
+    return <Skeleton active />;
+  }
+
   return (
     <Card
       onClick={handleClick}
@@ -28,20 +42,12 @@ export function CartProduct({ product, diamond }) {
       className="cart-product"
       cover={
         <div className="image-container">
-          {/*<div className="sale-badge">Giảm giá!</div>*/}
-          <img
-            alt="example"
-            // eslint-disable-next-line react/prop-types
-            src={imageUrl}
-            className="product-image"
-          />
+          <img alt="example" src={imageUrl} className="product-image" />
           <div className="overlay">
             <button className="overlay-button">XEM CHI TIẾT</button>
           </div>
         </div>
       }
-      // eslint-disable-next-line react/prop-types
-      // key={product.product_id} // Adding key prop
     >
       <Row>
         <Col span={24} style={{ textAlign: "center" }}>

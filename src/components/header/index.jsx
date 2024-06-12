@@ -10,15 +10,17 @@ import {
   FaUserSecret,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { getProducts, logoutApi } from "../../../services/Uservices";
-import LoginPage from "../../page/login";
+import { logoutApi } from "../../../services/Uservices";
 import "./index.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../../redux/features/counterSlice";
+import Login from "../login";
 
 const items = [
   {
     label: (
       <div style={{ fontSize: "15px", padding: "10px" }}>
-        Vì sao chọn Diamond
+        Vì sao bạn chọn Diamond
       </div>
     ),
     key: "gioi-thieu-ve-diamond",
@@ -104,8 +106,8 @@ function Header() {
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const navigate = useNavigate(); // Hook useNavigate
-  const [user, setUser] = useState(null); // State lưu trữ thông tin người dùng
-
+  const user = useSelector(selectUser);
+  console.log(user);
   useEffect(() => {
     const handleScroll = () => {
       const header = document.querySelector(".container-fluid");
@@ -123,15 +125,7 @@ function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const base64Url = token.split(".")[1];
-      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-      const payload = JSON.parse(window.atob(base64));
-      setUser(payload);
-    }
-  }, []);
+
   const showModal = () => {
     setIsLoginModalVisible(true);
   };
@@ -142,10 +136,11 @@ function Header() {
   const toggleSearch = () => {
     setIsSearchVisible((prev) => !prev);
   };
+  const dispatch = useDispatch();
   const handleLogout = async () => {
     await logoutApi();
     localStorage.removeItem("token");
-    setUser(null);
+    dispatch(logout());
     navigate("/");
     message.success("Đăng Xuất Thành Công");
   };
@@ -171,15 +166,12 @@ function Header() {
       ),
     },
   ];
-  const hanldeGetProduct = async () => {
-    const res = await getProducts();
-    console.log(res.data);
-  };
+
   return (
     <div className="container-fluid">
       <header className="header">
         <div className="header_social_left">
-          <FaFacebookSquare onClick={() => hanldeGetProduct()} />
+          <FaFacebookSquare />
           <FaInstagramSquare />
           <FaMapMarkerAlt />
         </div>
@@ -278,7 +270,9 @@ function Header() {
             <Link to="/huong-dan-do-ni">Hướng dẫn</Link>
           </li>
           <li>
-            <Link to="/tuy-chinh">Tùy chỉnh</Link>
+            <Link to="/tuy-chinh" style={{ color: "red ", fontWeight: "500" }}>
+              Tùy chỉnh
+            </Link>
           </li>
           <li>
             <Link to="/lien-he">Liên hệ</Link>
@@ -291,11 +285,10 @@ function Header() {
         open={isLoginModalVisible}
         onCancel={handleCancel}
         footer={null}
-        width={1010} // chỉ định chiều rộng của Modal
-        className="custom-modal-style" // sử dụng class CSS mới để kiểm soát style của Modal
+        width={1010}
+        className="custom-modal-style"
       >
-        {/* Đây là nơi cho form đăng nhập */}
-        <LoginPage setUser={setUser} onLoginSuccess={handleCancel} />
+        <Login onLoginSuccess={handleCancel} />
       </Modal>
     </div>
   );

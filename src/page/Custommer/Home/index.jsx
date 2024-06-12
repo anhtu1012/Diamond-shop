@@ -1,16 +1,61 @@
+import { useEffect, useState } from "react";
 import { RightOutlined } from "@ant-design/icons";
-import { Col, Row } from "antd";
+import { Col, Row, Modal, Button } from "antd";
 import Carousel from "../../../components/carousel";
 import Relate from "../../../components/carousel/related";
 import Container from "../../../components/container/Container";
+import VideoEmbed from "../../../components/video";
 import "./index.scss";
 
 function HomePage() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  useEffect(() => {
+    const hasShownModal = sessionStorage.getItem("hasShownModal");
+    if (!hasShownModal) {
+      setIsModalVisible(true);
+      sessionStorage.setItem("hasShownModal", "true");
+    }
+  }, []);
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <div style={{ overflow: "hidden" }}>
       <Carousel />
+
       <Container>
         <Row className="home_diamond_nature">
+          <Row className="section">
+            <Col span={24}>
+              <h2 style={{ color: "black", fontWeight: "bold" }}>
+                SẢN PHẨM MỚI NHẤT
+              </h2>
+            </Col>
+            <Col span={24}>
+              <Relate
+                numberOfSlides={4}
+                data="products"
+                showAllProducts={true}
+                isNewest
+                showAllCategories
+              />
+            </Col>
+            <Col span={24} style={{ textAlign: "center", padding: "20px 0px" }}>
+              <button>
+                Xem Thêm <RightOutlined />
+              </button>
+            </Col>
+          </Row>
+          <Col span={24} style={{ paddingBottom: "50px" }}>
+            <VideoEmbed />
+          </Col>
           <Col span={24}>
             <h2 className="h2">KIM CƯƠNG THIÊN NHIÊN</h2>
           </Col>
@@ -181,6 +226,22 @@ function HomePage() {
           </div>
         </Col>
       </Row>
+      <Modal
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+        className="custom-modal"
+      >
+        <div className="modal-content">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/OIG1.jpeg?alt=media&token=f035e590-c838-4a41-8c78-3e7dc70e86b7"
+            alt="Promotion"
+            className="modal-image"
+          />
+          <Button className="buy-now-btn">Mua Ngay</Button>
+        </div>
+      </Modal>
     </div>
   );
 }

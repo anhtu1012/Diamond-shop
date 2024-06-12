@@ -13,18 +13,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { logoutApi } from "../../../services/Uservices";
 import { useState } from "react";
 import "./Header.scss";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/features/counterSlice";
 
 function HeaderAdmin({ collapsed, setCollapsed }) {
   const onClick = ({ key }) => {
     // message.info(`Click on item ${key}`);
     navigate(`${key}`);
   };
+  const dispatch = useDispatch();
   const navigate = useNavigate(); // Hook useNavigate
-  const [user, setUser] = useState(null); // State lưu trữ thông tin người dùng
   const handleLogout = async () => {
     await logoutApi();
     localStorage.removeItem("token");
-    setUser(null);
+    dispatch(logout());
     navigate("/");
     message.success("Đăng Xuất Thành Công");
   };

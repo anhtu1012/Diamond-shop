@@ -134,3 +134,62 @@
     }
   }
 }
+.custom-modal .ant-modal-content {
+  background: transparent;
+  box-shadow: none;
+}
+
+.modal-content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+}
+
+.buy-now-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgb(128, 128, 128, 0.5);
+  width: 200px;
+  overflow: hidden;
+  color: white;
+  transform: 0.4s;
+  &:hover {
+    background-color: rgb(7, 157, 174) !important;
+    color: #fff !important;
+  }
+}
+
+.buy-now-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: skewX(-25deg);
+}
+
+.buy-now-btn:hover::before {
+  animation: sparkle 0.75s infinite;
+}
+
+@keyframes sparkle {
+  0% {
+    left: -75%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
