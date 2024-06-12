@@ -223,6 +223,7 @@ function AllOrder() {
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
 
+
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -335,6 +336,7 @@ function AllOrder() {
         text
       ),
   });
+
 
   const columns = [
     {
