@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import { Button, Col, Row } from "antd";
 import "./index.scss";
 import { GiJewelCrown } from "react-icons/gi";
 
@@ -7,10 +7,12 @@ function DetailProduct() {
     <div>
       <Row gutter={10}>
         <Col span={10}>
-          <div className="khung">
-            <div className="thong-tin-nguoi-mua">
+          <div className="khung1">
+            <div className="code-user">ID: US123456</div>
+            <div className="thong-tin-nguoi-mua" style={{ padding: "10px " }}>
               <span>Thông tin người mua</span>
             </div>
+
             <div className="thong-tin-chi-tiet">
               <div className="thong-tin-item">
                 <p className="label">Tên:</p>
@@ -33,11 +35,21 @@ function DetailProduct() {
                 <p className="value">01/01/2003</p>
               </div>
             </div>
+            <div style={{ marginTop: "10px", marginLeft: "auto" }}>
+              <Button type="primary" danger style={{ marginRight: "10px" }}>
+                Xóa
+              </Button>
+
+              <Button type="primary" className="custom-black-button">
+                Tạo đơn hàng
+              </Button>
+            </div>
           </div>
         </Col>
         <Col span={14}>
           <div className="khung">
-            <div className="thong-tin-don-mua">
+            <div className="code-box">OD: OD123456</div>
+            <div className="thong-tin-don-mua" style={{ padding: "10px " }}>
               <span>Thông tin đơn hàng</span>
             </div>
             <hr />
@@ -47,11 +59,11 @@ function DetailProduct() {
                   <Col span={9} clasName="pay_img">
                     <img
                       src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7"
-                      width={150}
+                      width={130}
                     />
                   </Col>
+
                   <Col span={15} className="pay_product_detail">
-                    <div>Mã đơn hàng</div>
                     <div className="product1">
                       <GiJewelCrown style={{ fontSize: "20px" }} />
                       <div>
@@ -59,7 +71,16 @@ function DetailProduct() {
                         <span>GD0000Y011997</span>
                       </div>
                     </div>
-
+                    <div className="product1">
+                      <img
+                        src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7"
+                        width={30}
+                      />
+                      <div>
+                        <p>KIM CƯƠNG VIÊN GIA 5LY4</p>
+                        <span>1453851108</span>
+                      </div>
+                    </div>
                     <Col span={24} className="size_productdp">
                       Size: 45
                     </Col>

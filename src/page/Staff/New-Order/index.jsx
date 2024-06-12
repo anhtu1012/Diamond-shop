@@ -1,142 +1,382 @@
-import { Card, Col, Row, Tabs, Image } from "antd";
-
+import { useRef, useState } from "react";
+import { SearchOutlined } from "@ant-design/icons";
+import { Button, Input, Select, Space, Table } from "antd";
+import Highlighter from "react-highlight-words";
 import { Link } from "react-router-dom";
 
-const NewOrder = () => {
-  const onChange = (key) => {
-    console.log(key);
+const data = [
+  {
+    key: "1",
+    idorder: "OD123456",
+    idcus: "US123456",
+    email: "trungnguyen@example.com",
+    date: "29-5-2024",
+    quantity: "2",
+    status: "Chờ xác nhận",
+    infor: (
+      <Link
+        to={"/staff-page/new-order-page"}
+        style={{ color: "black", fontWeight: 600 }}
+      >
+        Xem chi tiết
+      </Link>
+    ),
+  },
+  {
+    key: "2",
+    idorder: "OD123457",
+    idcus: "US123457",
+    email: "huy263672@gmail.com",
+    date: "28-5-2024",
+    quantity: "2",
+    status: "Chờ xác nhận",
+    infor: (
+      <Link
+        to={"/staff-page/new-order-page"}
+        style={{ color: "black", fontWeight: 600 }}
+      >
+        Xem chi tiết
+      </Link>
+    ),
+  },
+  {
+    key: "3",
+    idorder: "OD123458",
+    idcus: "US123458",
+    email: "hhung263672@gmail.com",
+    date: "30-5-2024",
+    quantity: "2",
+    status: "Chờ xác nhận",
+    infor: (
+      <Link
+        to={"/staff-page/new-order-page"}
+        style={{ color: "black", fontWeight: 600 }}
+      >
+        Xem chi tiết
+      </Link>
+    ),
+  },
+  // {
+  //   key: "4",
+  //   idorder: "OD123459",
+  //   idcus: "US123459",
+  //   email: "hai263673@gmail.com",
+  //   date: "6-5-2024",
+  //   quantity: "2",
+  //   status: "Đã giao",
+  //   infor: (
+  //     <Link
+  //       to={"/admin-page/don-hang/all/order-detail/OD123459"}
+  //       style={{ color: "black", fontWeight: 600 }}
+  //     >
+  //       Xem chi tiết
+  //     </Link>
+  //   ),
+  // },
+  // {
+  //   key: "5",
+  //   idorder: "OD123460",
+  //   idcus: "US123460",
+  //   email: "hai263674@gmail.com",
+  //   date: "5-5-2024",
+  //   quantity: "2",
+  //   status: "Đã hủy",
+  //   infor: (
+  //     <Link
+  //       to={"/admin-page/don-hang/all/order-detail/OD123460"}
+  //       style={{ color: "black", fontWeight: 600 }}
+  //     >
+  //       Xem chi tiết
+  //     </Link>
+  //   ),
+  // },
+  // {
+  //   key: "6",
+  //   idorder: "OD123461",
+  //   idcus: "US123461",
+  //   email: "hai263675@gmail.com",
+  //   date: "4-5-2024",
+  //   quantity: "2",
+  //   status: "Đã giao",
+  //   infor: (
+  //     <Link
+  //       to={"/admin-page/don-hang/all/order-detail/OD123461"}
+  //       style={{ color: "black", fontWeight: 600 }}
+  //     >
+  //       Xem chi tiết
+  //     </Link>
+  //   ),
+  // },
+  // {
+  //   key: "7",
+  //   idorder: "OD123462",
+  //   idcus: "US123462",
+  //   email: "hai263676@gmail.com",
+  //   date: "3-5-2024",
+  //   quantity: "2",
+  //   status: "Đã hủy",
+  //   infor: (
+  //     <Link
+  //       to={"/admin-page/don-hang/all/order-detail/OD123462"}
+  //       style={{ color: "black", fontWeight: 600 }}
+  //     >
+  //       Xem chi tiết
+  //     </Link>
+  //   ),
+  // },
+  // {
+  //   key: "8",
+  //   idorder: "OD123463",
+  //   idcus: "US123463",
+  //   email: "hai263677@gmail.com",
+  //   date: "2-5-2024",
+  //   quantity: "2",
+  //   status: "Đã giao",
+  //   infor: (
+  //     <Link
+  //       to={"/admin-page/don-hang/all/order-detail/OD123463"}
+  //       style={{ color: "black", fontWeight: 600 }}
+  //     >
+  //       Xem chi tiết
+  //     </Link>
+  //   ),
+  // },
+  // {
+  //   key: "9",
+  //   idorder: "OD123463",
+  //   idcus: "US123463",
+  //   email: "hai263677@gmail.com",
+  //   date: "3-4-2024",
+  //   quantity: "4",
+  //   status: "Chờ giao hàng",
+  //   infor: (
+  //     <Link
+  //       to={"/admin-page/don-hang/all/order-detail/OD123463"}
+  //       style={{ color: "black", fontWeight: 600 }}
+  //     >
+  //       Xem chi tiết
+  //     </Link>
+  //   ),
+  // },
+  // {
+  //   key: "10",
+  //   idorder: "OD123463",
+  //   idcus: "US123463",
+  //   email: "263677@gmail.com",
+  //   date: "3-3-2024",
+  //   quantity: "3",
+  //   status: "Chờ thanh toán",
+  //   infor: (
+  //     <Link
+  //       to={"/admin-page/don-hang/all/order-detail/OD123463"}
+  //       style={{ color: "black", fontWeight: 600 }}
+  //     >
+  //       Xem chi tiết
+  //     </Link>
+  //   ),
+  // },
+  // {
+  //   key: "11",
+  //   idorder: "OD123463",
+  //   idcus: "US123463",
+  //   email: "hai263677@gmail.com",
+  //   date: "3-2-2024",
+  //   quantity: "1",
+  //   status: "Chờ xác nhận",
+  //   infor: (
+  //     <Link
+  //       to={"/admin-page/don-hang/all/order-detail/OD123463"}
+  //       style={{ color: "black", fontWeight: 600 }}
+  //     >
+  //       Xem chi tiết
+  //     </Link>
+  //   ),
+  // },
+];
+
+function PageNewOrder() {
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
+  const searchInput = useRef(null);
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
   };
 
-  const tabs = [
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText("");
+  };
+
+  const getColumnSearchProps = (dataIndex, dropdownOptions) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+      close,
+    }) => (
+      <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
+        {dataIndex === "status" ? (
+          <Select
+            style={{ width: 188, marginBottom: 8, display: "block" }}
+            placeholder={`Search ${dataIndex}`}
+            value={selectedKeys[0]}
+            onChange={(value) => {
+              setSelectedKeys(value ? [value] : []);
+              confirm();
+              setSearchText(value);
+              setSearchedColumn(dataIndex);
+            }}
+          >
+            {dropdownOptions.map((option) => (
+              <Select.Option key={option} value={option}>
+                {option}
+              </Select.Option>
+            ))}
+          </Select>
+        ) : (
+          <Input
+            ref={searchInput}
+            placeholder={`Search ${dataIndex}`}
+            value={selectedKeys[0]}
+            onChange={(e) =>
+              setSelectedKeys(e.target.value ? [e.target.value] : [])
+            }
+            onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            style={{ marginBottom: 8, display: "block" }}
+          />
+        )}
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => clearFilters && handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              confirm({ closeDropdown: false });
+              setSearchText(selectedKeys[0]);
+              setSearchedColumn(dataIndex);
+            }}
+          >
+            Filter
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              close();
+            }}
+          >
+            Close
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined style={{ color: filtered ? "#1677ff" : undefined }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+    onFilterDropdownOpenChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
+  });
+
+  const columns = [
     {
-      label: "Chờ xác nhận",
-      key: "1",
-      content: renderCard("Đang xử lý", "default"),
+      title: "Mã đơn hàng",
+      dataIndex: "idorder",
+      key: "idorder",
+      width: "15%",
+      ...getColumnSearchProps("idorder"),
     },
     {
-      label: "Chờ thanh toán",
-      key: "2",
-      content: renderCard("Chờ thanh toán", "default"),
+      title: "ID Khách Hàng",
+      dataIndex: "idcus",
+      key: "idcus",
+      width: "10%",
+      ...getColumnSearchProps("idcus"),
     },
     {
-      label: "Chờ giao hàng",
-      key: "3",
-      content: renderCard("Chờ giao hàng", "default"),
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      width: "20%",
+      ...getColumnSearchProps("email"),
     },
-    { label: "Đã giao", key: "4", content: renderCard("Đã giao", "green") },
-    { label: "Đã hủy", key: "5", content: renderCard("Đã hủy", "red") },
-    // { label: "Lịch sử", key: "6", content: renderCard("Đánh giá", "yellow") },
+    {
+      title: "Ngày đặt hàng",
+      dataIndex: "date",
+      key: "date",
+      width: "15%",
+      ...getColumnSearchProps("date"),
+      sorter: (a, b) =>
+        new Date(a.date.split("-").reverse().join("-")) -
+        new Date(b.date.split("-").reverse().join("-")),
+      sortDirections: ["descend", "ascend"],
+    },
+    {
+      title: "Số lượng sản phẩm",
+      dataIndex: "quantity",
+      key: "quantity",
+      width: "10%",
+      ...getColumnSearchProps("quantity"),
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "status",
+      key: "status",
+      width: "15%",
+      ...getColumnSearchProps("status", [
+        "Chờ xác nhận",
+        "Chờ thanh toán",
+        "Chờ giao hàng",
+        "Đã giao",
+        "Đã hủy",
+      ]),
+    },
+    {
+      dataIndex: "infor",
+      key: "infor",
+      width: "15%",
+    },
   ];
 
-  function renderCard(buttonText, buttonColor) {
-    return (
-      <div>
-        <Card className="card">
-          <Row className="card_row">
-            <Col span={4}>
-              <Image
-                width={150}
-                src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7"
-              />
-            </Col>
-            <Col span={11} className="infoo">
-              <h2>NHẪN KIM CƯƠNG NỮ 18K</h2>
-              <p>Mã:GD0000Y011997</p>
-              <p>Size dây chuyền: 45</p>
-            </Col>
-            <Col span={5}>
-              <span>x1</span>
-            </Col>
-            <Col span={4}>
-              <h3> 11.753.000đ</h3>
-            </Col>
-          </Row>
-          <Row className="card_row">
-            <Col span={4}>
-              <Image
-                width={150}
-                src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7"
-              />
-            </Col>
-            <Col span={11} className="infoo">
-              <h2>NHẪN KIM CƯƠNG NỮ 18K</h2>
-              <p>Mã:GD0000Y011997</p>
-              <p>Size dây chuyền: 45</p>
-            </Col>
-            <Col span={5}>
-              <span>x1</span>
-            </Col>
-            <Col span={4}>
-              <h3> 11.753.000đ</h3>
-            </Col>
-          </Row>
-          <Row className="card_row_bottom">
-            <Col span={18} className="text-left">
-              <span>2 Sản Phẩm</span>
-              <div>
-                <Link to="/staff-page/chi-tiet-don-hang">Xem Chi Tiết</Link>
-              </div>
-            </Col>
-            <Col span={6} className="text-right">
-              <h2>Thành tiền</h2>
-              <h3> 23.506.000đ</h3>
-              <button className={`status-button ${buttonColor}`}>
-                {buttonText}
-              </button>
-            </Col>
-          </Row>
-        </Card>
-        <Card className="card">
-          <Row className="card_row">
-            <Col span={4}>
-              <Image
-                width={150}
-                src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7"
-              />
-            </Col>
-            <Col span={11} className="infoo">
-              <h2>NHẪN KIM CƯƠNG NỮ 18K</h2>
-              <p>Mã:GD0000Y011997</p>
-              <p>Size dây chuyền: 45</p>
-            </Col>
-            <Col span={5}>
-              <span>x1</span>
-            </Col>
-            <Col span={4}>
-              <h3> 11.753.000đ</h3>
-            </Col>
-          </Row>
-          <Row className="card_row_bottom">
-            <Col span={18} className="text-left">
-              <span>1 Sản Phẩm</span>
-              <div>
-                <Link to="/staff-page/chi-tiet-don-hang">Xem Chi Tiết</Link>
-              </div>
-            </Col>
-            <Col span={6} className="text-right">
-              <h2>Thành tiền</h2>
-              <h3> 11.753.000đ</h3>
-              <button className={`status-button ${buttonColor}`}>
-                {buttonText}
-              </button>
-            </Col>
-          </Row>
-        </Card>
-      </div>
-    );
-  }
-
   return (
-    <div className="tabs-container">
-      <Tabs onChange={onChange} type="card">
-        {tabs.map((tab) => (
-          <Tabs.TabPane tab={tab.label} key={tab.key}>
-            {tab.content}
-          </Tabs.TabPane>
-        ))}
-      </Tabs>
+    <div className="all-order">
+      <Table columns={columns} dataSource={data} />
     </div>
   );
-};
+}
 
-export default NewOrder;
+export default PageNewOrder;
