@@ -96,3 +96,8 @@ export const addToCart = (id) => {
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/cart/add_cart/${id}`
   );
 };
+export const addToCartCustomize = (userID) => {
+  return api.post(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/productcustomes/create_customizeProduct/${userID}`
+  );
+};

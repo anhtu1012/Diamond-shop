@@ -1,0 +1,43 @@
+.N404 {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button {
+    background-color: red;
+    position: absolute;
+    width: 200px;
+    left: 43%;
+    &:hover {
+      background-color: rgb(223, 17, 106) !important;
+      color: #fff !important;
+    }
+  }
+  button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: skewX(-25deg);
+  }
+
+  button:hover::before {
+    animation: sparkle 0.75s infinite;
+  }
+
+  @keyframes sparkle {
+    0% {
+      left: -65%;
+    }
+    50% {
+      left: 100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+}

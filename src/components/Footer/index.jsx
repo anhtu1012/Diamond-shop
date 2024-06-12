@@ -24,7 +24,7 @@ const Footer = () => {
           <br />
           <div className="social-icons">
             <Link to="/gioi-thieu-ve-diamond" rel="nofollow" style={linkStyle}>
-              Vì sao chọn Diamond
+              Vì sao bạn chọn Diamond
             </Link>
           </div>
           <div className="social-icons">
@@ -34,19 +34,19 @@ const Footer = () => {
           </div>
           <div className="social-icons">
             <Link to="/chinh-sach-doi-tra" rel="nofollow" style={linkStyle}>
-              Chính Sách Thu Mua, Thu Đổi và Bảo Hành
+              Chính Sách Thu Mua, Đổi Trả và Bảo Hành
             </Link>
           </div>
           <div className="social-icons">
             <Link to="/huong-dan-do-ni" rel="nofollow" style={linkStyle}>
-              Hướng Dẫn Đo Ni
+              Hướng Dẫn Đo Kích Thước Nhẫn
             </Link>
           </div>
           <div className="icon">
-            <FaTiktok className="icon-con"/>
-            <FaFacebook  className="icon-con"/>
-            <FaInstagram className="icon-con"/>
-            <FaYoutube className="icon-con"/>
+            <FaTiktok className="icon-con" />
+            <FaFacebook className="icon-con" />
+            <FaInstagram className="icon-con" />
+            <FaYoutube className="icon-con" />
           </div>
         </div>
         <div className="footer-section">
