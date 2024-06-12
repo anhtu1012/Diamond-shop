@@ -274,7 +274,7 @@ const columns = [
     
   },
   {
-    title: "Số lượng sản phẩm",
+    title: "Số lượng ",
     dataIndex: "quantity",
     key: "quantity",
     width: "10%",
