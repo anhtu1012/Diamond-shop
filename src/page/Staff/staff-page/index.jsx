@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Breadcrumb, Layout, theme } from "antd";
 import { Link, Outlet } from "react-router-dom";
-import HeaderAdmin from "../../../components/layout/Header";
 import "./index.scss";
 import { Footer } from "antd/es/layout/layout";
 import SidenavS from "../../../components/layout/SidenavS";
+import HeaderStaff from "../../../components/layout/HeaderS";
 const { Header, Sider, Content } = Layout;
 const StaffPage = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -33,7 +33,7 @@ const StaffPage = () => {
       </Sider>
       <Layout>
         <Header className="header_Admin">
-          <HeaderAdmin collapsed={collapsed} setCollapsed={setCollapsed} />
+          <HeaderStaff collapsed={collapsed} setCollapsed={setCollapsed} />
         </Header>
         <Content
           style={{
