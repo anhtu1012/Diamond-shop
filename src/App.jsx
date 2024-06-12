@@ -12,7 +12,7 @@ import AllOrder from "./page/Admin/Order/All order";
 import Invoice from "./page/Admin/Order/Invoice";
 import NewProduct from "./page/Admin/Product/NewProduct";
 import ViewProduct from "./page/Admin/Product/ViewProduct";
-import NewOrder from "./page/Staff/New-Order";
+import NewOrder from "./page/Staff/New-Order/NewOrder";
 import ViewOrder from "./page/Staff/Order";
 import ViewProductS from "./page/Staff/Product";
 import ViewUser from "./page/Staff/View-User";
@@ -54,9 +54,14 @@ import ViewOrderDetails from "./page/Admin/Order/ViewOrder";
 import ViewAccountDetail from "./page/Admin/Account/ViewAccountDetail";
 import LienHe from "./page/Custommer/LienHe";
 import DiamondDetailss from "./page/Custommer/Diamond Details Cus";
+
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import LoginPage from "./page/login";
 import NotFound from "./page/404";
+
+import DetailProduct from "./page/Staff/Product/DetailProduct";
+// import PageNewOrder from "./page/Staff/New-Order";
+
 
 const router = createBrowserRouter([
   {
@@ -261,6 +266,7 @@ const router = createBrowserRouter([
         path: "/staff-page/don-hang-moi",
         element: <NewOrder />,
       },
+      
       {
         path: "/staff-page/don-hang",
         element: <ViewOrder />,
@@ -276,6 +282,10 @@ const router = createBrowserRouter([
       {
         path: "/staff-page/bao-hanh",
         element: <Warranty />,
+      },
+      {
+        path: "/staff-page/chi-tiet-don-hang",
+        element: <DetailProduct />,
       },
     ],
   },
