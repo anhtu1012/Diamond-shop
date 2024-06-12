@@ -234,6 +234,7 @@ function ViewProduct() {
         <div style={{ textAlign: "center" }}>
           <Link
             to={`/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/${record.productID}`}
+            style={{ color: "black", fontWeight: 'bold' }}
           >
             Xem chi tiết
           </Link>
