@@ -1,9 +1,36 @@
 .table {
-  thead.ant-table-thead {
+  .ant-table-thead {
     tr {
       th {
         color: white;
         background-color: #15393f;
+
+        &.ant-table-column-has-sorters {
+          background-color: #15393f;
+          &:hover {
+            background-color: #15393f;
+          }
+
+          .ant-table-column-sorters {
+            background-color: #15393f;
+            &:hover {
+              background-color: #15393f;
+            }
+          }
+        }
+      }
+    }
+  }
+  .ant-table-tbody {
+    background-color: white;
+    tr.ant-table-row:hover {
+      td {
+        background: rgb(128, 128, 128, 0.1); // Example hover color
+      }
+    }
+    tr.ant-table-row-selected {
+      td {
+        background: rgb(213, 210, 210) !important; // Selected row color
       }
     }
   }

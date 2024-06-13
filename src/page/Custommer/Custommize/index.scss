@@ -155,11 +155,11 @@
       background-color: rgb(168, 10, 10) !important;
     }
   }
+  & .ant-btn {
+    display: block;
+  }
 }
 
-:where(.css-dev-only-do-not-override-zg0ahe).ant-btn {
-  display: block;
-}
 //--------------------------------------
 .product-item {
   border-radius: 8px;
