@@ -84,7 +84,6 @@ function ProductDetail() {
     fetchProductByIds(productID);
   }, [productID]);
 
-  
   const handleEdit = () => {
     setIsEditing(true);
   };
@@ -208,17 +207,17 @@ function ProductDetail() {
 
               <Col span={12}>
                 <div className="description-product">
-                  <h1
+                  <h2
                     style={{
                       display: "flex",
                       justifyContent: "start",
                       color: "#15393f",
-                      fontWeight: "bold",
+                      fontWeight: "500",
                       marginBottom: "10px",
                     }}
                   >
                     {product.productName}
-                  </h1>
+                  </h2>
                   <Rate disabled defaultValue={5} />
                   <h4 style={{ marginTop: "10px", fontWeight: "300" }}>
                     {product.productID}

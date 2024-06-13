@@ -1,10 +1,26 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Select, Space, Table } from "antd";
+import { Button, Input, Select, Space, Table, Tag } from "antd";
 import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { Link } from "react-router-dom";
 import "./index.scss";
 import { getProducts } from "../../../../../services/Uservices";
+
+const statusToStep = {
+  "Còn hàng": 1,
+  "Hết hàng": 0,
+};
+
+const getStatusColor = (currentStep) => {
+  switch (currentStep) {
+    case 0:
+      return "#FFCC33"; // Yellow
+    case 1:
+      return "#33CC33"; // Green
+    default:
+      return "#FFCC33"; // Default Yellow
+  }
+};
 
 function ViewProduct() {
   const [searchText, setSearchText] = useState("");
@@ -217,6 +233,18 @@ function ViewProduct() {
       key: "status",
       width: "10%",
       ...getColumnSearchProps("status", ["Còn hàng", "Hết hàng"]),
+      render: (text) => {
+        const currentStep = statusToStep[text];
+        return (
+          <Tag
+            color={getStatusColor(currentStep)}
+            key={text}
+            style={{ fontWeight: "bold" }}
+          >
+            {text.toUpperCase()}
+          </Tag>
+        );
+      },
     },
     {
       title: "Giá",
@@ -234,7 +262,7 @@ function ViewProduct() {
         <div style={{ textAlign: "center" }}>
           <Link
             to={`/admin-page/san-pham/xem-tat-ca-san-pham/product-detail/${record.productID}`}
-            style={{fontWeight: 'bold' }}
+            style={{ fontWeight: "bold" }}
           >
             Xem chi tiết
           </Link>
@@ -244,7 +272,7 @@ function ViewProduct() {
   ];
 
   return (
-    <div>
+    <div className="class-siu-to">
       <div
         style={{
           marginBottom: 16,

@@ -50,11 +50,41 @@
       transition: background-color 0.3s ease;
       background-color: #15393f;
       color: #fff;
+      position: relative; /* Needed for the ::before pseudo-element */
+      overflow: hidden; /* Ensures ::before does not overflow */
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 50%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.5);
+        transform: skewX(-25deg);
+        transition: left 0.75s ease; /* Ensures smooth transition */
+      }
+
+      &:hover::before {
+        left: 125%; /* Moves ::before smoothly on hover */
+      }
 
       &:hover {
-        background-color: #fff;
+        background-color: white;
         color: #15393f;
       }
+    }
+  }
+
+  @keyframes sparkle {
+    0% {
+      left: -75%;
+    }
+    50% {
+      left: 125%;
+    }
+    100% {
+      left: -75%;
     }
   }
 }
