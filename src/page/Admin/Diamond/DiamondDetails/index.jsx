@@ -1,51 +1,70 @@
 import {
-  Col,
-  Row,
-  Form,
-  Input,
-  Image,
   Button,
-  Select,
-  theme,
-  Upload,
+  Col,
   Divider,
-  Rate,
-  message,
-  Modal,
+  Form,
+  Image,
+  Input,
   InputNumber,
+  Modal,
+  Rate,
+  Row,
+  Upload,
+  message,
+  theme,
 } from "antd";
-import { Link, useParams } from "react-router-dom";
-import "./index.scss";
-import { useEffect, useState } from "react";
+import ImgCrop from "antd-img-crop";
 import { Content } from "antd/es/layout/layout";
 import moment from "moment";
+import { useEffect, useState } from "react";
+import { TiArrowBack } from "react-icons/ti";
+import { Link, useParams } from "react-router-dom";
 import {
+  deleteDiamond,
   fetchDiamondById,
   updateDiamond,
-  deleteDiamond,
 } from "../../../../../services/Uservices";
 import LoadingTruck from "../../../../components/loading";
-import { PlusOutlined } from "@ant-design/icons";
-import { TiArrowBack } from "react-icons/ti";
+import "./index.scss";
+
+const getBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
 
 function DiamondDetails() {
   const { diamondID } = useParams();
+  const [fileList, setFileList] = useState([]);
   const [diamond, setDiamond] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [form] = Form.useForm();
-  const [fileList, setFileList] = useState([]);
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+
+  useEffect(() => {
+    fetchDiamondByIds(diamondID);
+  }, [diamondID]);
+
+  const onChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
+
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+  };
 
   const fetchDiamondByIds = async (diamondID) => {
     const response = await fetchDiamondById(diamondID);
     const diamondData = response.data;
     setDiamond(diamondData);
-    const images = diamondData.image.map((img, index) => ({
-      uid: img.image.toString(),
-      name: `image${index + 1}.png`,
-      status: "done",
-      url: img.image,
-    }));
-    setFileList(images);
+
     form.setFieldsValue({
       diamondID: diamondData.diamondID,
       diamondName: diamondData.diamondName,
@@ -80,10 +99,11 @@ function DiamondDetails() {
       const values = await form.validateFields();
       const updatedDetails = {
         diamondName: values.diamondName,
-        originPrice: values.originPrice ? values.originPrice.replace(/,/g, "") : "",
+        originPrice: values.originPrice
+          ? values.originPrice.replace(/,/g, "")
+          : "",
         ratio: values.ratio,
-        status: values.status === "Còn hàng",
-        image: fileList.map(file => file.url),
+        image: values.image,
       };
       await updateDiamond(diamond.diamondID, updatedDetails);
       fetchDiamondByIds(diamond.diamondID);
@@ -94,52 +114,18 @@ function DiamondDetails() {
       message.error("Cập nhật thất bại!");
     }
   };
-  
 
-  const handleUpload = ({ fileList: newFileList }) => {
-    console.log("fileList:", fileList);
-    console.log("newFileList:", newFileList);
-    const updatedFileList = Array.isArray(newFileList) ? newFileList : [];
-    setFileList(updatedFileList);
-  };
-
-  const handleDeleteImage = (file) => {
-    const newFileList = (fileList || []).filter((f) => f.uid !== file.uid);
+  const handleDeleteImage = async (file) => {
+    const newFileList = fileList.filter((item) => item.uid !== file.uid);
     setFileList(newFileList);
     message.success("Xóa ảnh thành công!");
   };
 
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
-
-  const handlePreview = async (file) => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
-    }
-    const imgWindow = window.open(src);
-    imgWindow.document.write(`<img src="${src}" style="width: 100%;" />`);
-  };
-
-  const handleCancel = () => {
-    setIsEditing(false);
-  };
-
-  useEffect(() => {
-    fetchDiamondByIds(diamondID);
-  }, [diamondID]);
-
   const handleDelete = async () => {
     try {
+      console.log(diamond.diamondID);
       await deleteDiamond(diamond.diamondID);
+      console.log(diamond.status);
       message.success("Xóa thành công!");
     } catch (error) {
       console.error("Error deleting diamond:", error);
@@ -239,6 +225,7 @@ function DiamondDetails() {
                   </h2>
                   <Form
                     form={form}
+                    onFinish={handleUpdate}
                     layout="vertical"
                     initialValues={{
                       status: diamond.status ? "Còn hàng" : "Hết hàng",
@@ -335,7 +322,7 @@ function DiamondDetails() {
               <Modal
                 title="Chỉnh sửa sản phẩm"
                 open={isEditing}
-                onCancel={handleCancel}
+                onCancel={() => setIsEditing(false)}
                 onOk={handleUpdate}
                 cancelText="Hủy"
                 okText="Lưu"
@@ -368,7 +355,6 @@ function DiamondDetails() {
                         <Input style={{ width: "100%" }} />
                       </Form.Item>
                     </Col>
-                    {/* Add more form fields here */}
                     <Col span={24}>
                       <Form.Item
                         label="Ratio"
@@ -405,54 +391,39 @@ function DiamondDetails() {
                         />
                       </Form.Item>
                     </Col>
-                    <Col span={24}>
-                      <Form.Item
-                        label="Trạng thái"
-                        name="status"
-                        rules={[
-                          {
-                            required: true,
-                            message: "Vui lòng không để trống",
-                          },
-                        ]}
-                        className="custom-form-item"
-                      >
-                        <Select style={{ width: "100%" }}>
-                          <Select.Option value="Còn hàng">
-                            Còn hàng
-                          </Select.Option>
-                          <Select.Option value="Hết hàng">
-                            Hết hàng
-                          </Select.Option>
-                        </Select>
-                      </Form.Item>
-                    </Col>
-                    <Col span={6}>
-                      <Image
-                        src={diamond.image}
-                        alt="Diamond"
-                        style={{
-                          width: "100px",
-                          display: "flex",
-                          justifyContent: "start",
-                        }}
-                      />
-                    </Col>
-                    <Form.Item name="poster" valuePropName="fileList">
-                      <Upload
-                        listType="picture-card"
-                        fileList={fileList}
-                        beforeUpload={() => false}
-                        onPreview={handlePreview}
-                        onChange={handleUpload}
-                        onRemove={handleDeleteImage}
-                      >
-                        {fileList.length >= 8 ? null : uploadButton}
-                      </Upload>
+
+                    <Form.Item name="image" valuePropName="fileList">
+                      <ImgCrop rotationSlider>
+                        <Upload
+                          action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                          listType="picture-card"
+                          fileList={fileList}
+                          onChange={onChange}
+                          onPreview={handlePreview}
+                          onRemove={handleDeleteImage}
+                          style={{ fontSize: "30px" }}
+                        >
+                          {fileList.length < 1 && "+ Upload"}
+                        </Upload>
+                      </ImgCrop>
                     </Form.Item>
                   </Row>
                 </Form>
               </Modal>
+              {previewImage && (
+                <Image
+                  wrapperStyle={{
+                    display: "none",
+                  }}
+                  preview={{
+                    visible: previewOpen,
+                    onVisibleChange: (visible) => setPreviewOpen(visible),
+                    afterOpenChange: (visible) =>
+                      !visible && setPreviewImage(""),
+                  }}
+                  src={previewImage}
+                />
+              )}
             </div>
           </div>
         </Content>
