@@ -29,12 +29,13 @@ function LienHe() {
           </h1>
           <div className="thong-tin-lien-he" style={{ marginLeft: "100px" }}>
             <Row>
-              <Col span={12}>
+              <Col span={2}></Col>
+              <Col span={10}>
                 <div className="thong-tin-lien-he-1">
                   <p style={{ fontSize: "25px" }}>
                     Công Ty Cổ Phần Diamond King
                   </p>
-                  <p style={{ fontSize: "18px", marginTop: "30px" }}>
+                  <p style={{ fontSize: "16px", marginTop: "30px" }}>
                     Địa chỉ:
                   </p>
                   <div className="dia-chi">
@@ -57,7 +58,7 @@ function LienHe() {
                       </Link>
                     </p>
                   </div>
-                  <p style={{ fontSize: "18px", marginTop: "30px" }}>
+                  <p style={{ fontSize: "16px", marginTop: "30px" }}>
                     Hotline liên hệ:
                   </p>
                   <div className="so-lien-he">
@@ -74,7 +75,7 @@ function LienHe() {
                         (phím 1)
                       </p>
                     </div>
-                    <div style={{ marginTop: "10px", marginLeft: "30px" }}>
+                    <div style={{ marginTop: "16px", marginLeft: "30px" }}>
                       <p style={{ display: "inline-block" }}>
                         <AiOutlineCheck /> Góp ý:
                       </p>
@@ -89,7 +90,7 @@ function LienHe() {
                     </div>
                   </div>
                   <div className="facebook-lien-he">
-                    <p style={{ fontSize: "18px", marginTop: "30px" }}>
+                    <p style={{ fontSize: "16px", marginTop: "30px" }}>
                       Facebook:
                       <span style={{ marginLeft: "10px" }}>
                         <a href="https://www.facebook.com" rel="nofollow">
@@ -99,7 +100,7 @@ function LienHe() {
                     </p>
                   </div>
                   <div className="zalo-lien-he">
-                    <p style={{ fontSize: "18px", marginTop: "30px" }}>
+                    <p style={{ fontSize: "16px", marginTop: "30px" }}>
                       Zalo:
                       <span style={{ marginLeft: "10px" }}>
                         <a
@@ -112,7 +113,7 @@ function LienHe() {
                     </p>
                   </div>
                   <div className="insta-lien-he">
-                    <p style={{ fontSize: "18px", marginTop: "30px" }}>
+                    <p style={{ fontSize: "16px", marginTop: "30px" }}>
                       Instagram:
                       <span style={{ marginLeft: "10px" }}>
                         <a
@@ -124,95 +125,10 @@ function LienHe() {
                       </span>
                     </p>
                   </div>
-                  <div
-                    className="liên-he-ngay"
-                    style={{ marginBottom: "40px" }}
-                  >
-                    <p
-                      style={{
-                        fontSize: "25px",
-                        marginTop: "30px",
-                        fontWeight: "400",
-                        marginBottom: "30px",
-                      }}
-                    >
-                      Hãy Liên Hệ Chúng Tôi Ngay Để Được Tư Vấn
-                    </p>
-                    <div className="contact-form-wrapper">
-                      <form
-                        className="contact-form"
-                        method="post"
-                        id="contact-form"
-                        name="contact-form"
-                      >
-                        <div className="form-fields-wrapper">
-                          <div className="form-field">
-                            <input
-                              size="1"
-                              type="text"
-                              name="form_fields[name]"
-                              id="form-field-name"
-                              className="text-field"
-                              placeholder="Họ và tên (*)"
-                              required="required"
-                              aria-required="true"
-                              pattern="[a-zA-ZÀ-ÿ\s]{1,}"
-                            />
-                          </div>
-                          <div className="form-field">
-                            <input
-                              size="1"
-                              type="text"
-                              name="form_fields[lastname]"
-                              id="form-field-lastname"
-                              className="text-field"
-                              placeholder="Số điện thoại (*)"
-                              required="required"
-                              aria-required="true"
-                            />
-                          </div>
-                          <div className="form-field">
-                            <input
-                              size="1"
-                              type="email"
-                              name="form_fields[email]"
-                              id="form-field-email"
-                              className="text-field"
-                              placeholder="Email (*)"
-                              required="required"
-                              aria-required="true"
-                            />
-                          </div>
-                          <div className="form-field">
-                            <textarea
-                              name="form_fields[message]"
-                              id="form-field-message"
-                              className="text-area"
-                              placeholder="Tin nhắn"
-                            ></textarea>
-                          </div>
-                          <div>
-                            <button
-                              type="submit"
-                              className="elementor-button elementor-size-sm"
-                              id="Button_From_Lien_He"
-                            >
-                              <span>
-                                <span className=" elementor-button-icon"></span>
-                                <span className="elementor-button-text">
-                                  LIÊN HỆ NGAY
-                                </span>
-                              </span>
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
                 </div>
               </Col>
               <Col span={12}>
-                <div className="thong-tin-lien-he-1">
+                <div className="thong-tin-lien-he-2">
                   <p style={{ fontSize: "25px", marginBottom: "30px" }}>
                     Chi Nhánh Hồ Chí Minh
                   </p>
@@ -229,6 +145,94 @@ function LienHe() {
                   </div>
                 </div>
               </Col>
+            </Row>
+            <Row>
+              <Col span={6}></Col>
+              <Col span={12}>
+                <p
+                  style={{
+                    fontSize: "25px",
+                    marginTop: "30px",
+                    fontWeight: "400",
+                    marginBottom: "30px",
+                    marginLeft: "20px",
+                  }}
+                >
+                  Hãy Liên Hệ Ngay Để Được Tư Vấn
+                </p>
+                <div className="liên-he-ngay" style={{ marginBottom: "40px" }}>
+                  <div className="contact-form-wrapper">
+                    <form
+                      className="contact-form"
+                      method="post"
+                      id="contact-form"
+                      name="contact-form"
+                    >
+                      <div className="form-fields-wrapper">
+                        <div className="form-field">
+                          <input
+                            size="1"
+                            type="text"
+                            name="form_fields[name]"
+                            id="form-field-name"
+                            className="text-field"
+                            placeholder="Họ và tên (*)"
+                            required="required"
+                            aria-required="true"
+                            pattern="[a-zA-ZÀ-ÿ\s]{1,}"
+                          />
+                        </div>
+                        <div className="form-field">
+                          <input
+                            size="1"
+                            type="text"
+                            name="form_fields[lastname]"
+                            id="form-field-lastname"
+                            className="text-field"
+                            placeholder="Số điện thoại (*)"
+                            required="required"
+                            aria-required="true"
+                          />
+                        </div>
+                        <div className="form-field">
+                          <input
+                            size="1"
+                            type="email"
+                            name="form_fields[email]"
+                            id="form-field-email"
+                            className="text-field"
+                            placeholder="Email (*)"
+                            required="required"
+                            aria-required="true"
+                          />
+                        </div>
+                        <div className="form-field">
+                          <textarea
+                            name="form_fields[message]"
+                            id="form-field-message"
+                            className="text-area"
+                            placeholder="Tin nhắn"
+                          ></textarea>
+                        </div>
+                        <div>
+                          <button
+                            type="submit"
+                            className="elementor-button elementor-size-sm"
+                            id="Button_From_Lien_He"
+                          >
+                            <span>
+                              <span className="elementor-button-text">
+                                LIÊN HỆ NGAY
+                              </span>
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </Col>
+              <Col span={6}></Col>
             </Row>
           </div>
         </div>

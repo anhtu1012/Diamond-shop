@@ -6,6 +6,7 @@ import Relate from "../../../components/carousel/related";
 import Container from "../../../components/container/Container";
 import VideoEmbed from "../../../components/video";
 import "./index.scss";
+import { Link } from "react-router-dom";
 
 function HomePage() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -61,8 +62,9 @@ function HomePage() {
           </Col>
           <Col span={24}>
             <img
-              src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/banner-ngang-kim-cuong-tu-nhien.jpg?alt=media&token=b7a37af7-b017-4014-9b2f-7dff1c93a736"
+              src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/banner-ngang-kim-cuong-tu-nhien.jpg?alt=media&token=d3ed4705-c28b-4dd5-8710-7f86ed24caed"
               alt=""
+              style={{}}
             />
           </Col>
         </Row>
@@ -72,9 +74,11 @@ function HomePage() {
             <Relate numberOfSlides={4} data="diamonds" />
           </Col>
           <Col span={24} style={{ textAlign: "center", padding: "20px 0px" }}>
-            <button>
-              Xem Thêm <RightOutlined />
-            </button>
+            <Link to={"/kim-cuong-vien"}>
+              <button>
+                Xem Thêm <RightOutlined />
+              </button>
+            </Link>
           </Col>
         </Row>
         <Row
@@ -91,7 +95,9 @@ function HomePage() {
                 src="https://jemmia.vn/wp-content/uploads/2023/05/banner-nhan-kim-cuong-tu-nhien-jemmia.vn_-600x600.jpg"
                 alt=""
               />
-              <button className="view-more-btn">Xem Thêm</button>
+              <Link to={"/nhan-kim-cuong"}>
+                <button className="view-more-btn">Xem Thêm</button>
+              </Link>
             </div>
           </Col>
           <Col span={12} style={{ paddingBottom: "15px" }}>
@@ -130,7 +136,9 @@ function HomePage() {
                 src="https://jemmia.vn/wp-content/uploads/2023/05/banner-bong-tai-kim-cuong-tu-nhien-jemmia.vn_-600x600.jpg"
                 alt=""
               />
-              <button className="view-more-btn">Xem Thêm</button>
+              <Link to={"/bong-tai-kim-cuong"}>
+                <button className="view-more-btn">Xem Thêm</button>
+              </Link>
             </div>
           </Col>
         </Row>
@@ -154,7 +162,9 @@ function HomePage() {
                 src="https://jemmia.vn/wp-content/uploads/2022/11/cs.jpg"
                 alt=""
               />
-              <button className="view-more-btn">Xem Thêm</button>
+              <Link to={"/trang-suc-cuoi"}>
+                <button className="view-more-btn">Xem Thêm</button>
+              </Link>
             </div>
           </Col>
           <Col
@@ -172,10 +182,14 @@ function HomePage() {
                 </p>
               </div>
               <div className="custom">
-                <button className="custom_button">
-                  Nhẫn Cầu Hôn Kim Cương
-                </button>
-                <button className="custom_button">Nhẫn Cưới Kim Cương</button>
+                <Link to={"/nhan-cau-hon"}>
+                  <button className="custom_button">
+                    Nhẫn Cầu Hôn Kim Cương
+                  </button>
+                </Link>
+                <Link to={"/nhan-cuoi"}>
+                  <button className="custom_button">Nhẫn Cưới Kim Cương</button>
+                </Link>
               </div>
             </div>
           </Col>
@@ -195,7 +209,9 @@ function HomePage() {
               src="https://jemmia.vn/wp-content/uploads/2023/05/nhan-kim-cuong-tu-nhien-jemmia.vn_.jpg"
               alt=""
             />
-            <div className="category">Nhẫn Kim Cương</div>
+            <Link to={"/nhan-kim-cuong"}>
+              <div className="category">Nhẫn Kim Cương</div>
+            </Link>
           </div>
         </Col>
         <Col span={6}>
@@ -204,7 +220,10 @@ function HomePage() {
               src="https://jemmia.vn/wp-content/uploads/2023/05/vong-tay-kim-cuong-tu-nhien-jemmia.vn_.jpg"
               alt=""
             />
-            <div className="category">Vòng Tay Kim Cương</div>
+            <Link to={"/lac-vong-tay-kim-cuong"}>
+              {" "}
+              <div className="category">Vòng Tay Kim Cương</div>
+            </Link>
           </div>
         </Col>
         <Col span={6}>
@@ -213,7 +232,9 @@ function HomePage() {
               src="https://jemmia.vn/wp-content/uploads/2023/05/mat-day-chuyen-kim-cuong-tu-nhien-jemmia.vn_.jpg"
               alt=""
             />
-            <div className="category">Mặt Dây Chuyền Kim Cương</div>
+            <Link to={"/mat-day-chuyen-kim-cuong"}>
+              <div className="category">Mặt Dây Chuyền Kim Cương</div>
+            </Link>
           </div>
         </Col>
         <Col span={6}>
@@ -222,7 +243,9 @@ function HomePage() {
               src="https://jemmia.vn/wp-content/uploads/2023/05/bong-tai-kim-cuong-tu-nhien-jemmia.vn_.jpg"
               alt=""
             />
-            <div className="category">Bông Tai Kim Cương</div>
+            <Link to={"/bong-tai-kim-cuong"}>
+              <div className="category">Bông Tai Kim Cương</div>
+            </Link>
           </div>
         </Col>
       </Row>
