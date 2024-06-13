@@ -1,46 +1,10 @@
-.class-siu-to {
-  .css-dev-only-do-not-override-j9bb5n {
-    .ant-table-wrapper {
-      .ant-table-thead {
-        > tr {
-          > th,
-          > td {
-            position: relative;
-            color: #fff;
-            font-weight: 600;
-            text-align: start;
-            background: #15393f;
-            border-bottom: 1px solid #15393f;
-            transition: background 0.2s ease;
-          }
-        }
-
-        th.ant-table-column-has-sorters:hover {
-          background: #15393f;
-          background-color: #15393f;
-        }
-
-        th.ant-table-column-sort {
-          background: #15393f;
-        }
-      }
-
-      .ant-table-tbody {
-        .ant-table-row.ant-table-row-selected {
-          > .ant-table-cell-row-hover {
-            background: #15393f;
-            background-color: #15393f;
-          }
-
-          > .ant-table-cell {
-            background: #ccc;
-          }
-        }
+.table {
+  thead.ant-table-thead {
+    tr {
+      th {
+        color: white;
+        background-color: #15393f;
       }
     }
-  }
-
-  .ant-dropdown-trigger.ant-table-filter-trigger {
-    color: #fff;
   }
 }

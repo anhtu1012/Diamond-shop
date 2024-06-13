@@ -139,7 +139,7 @@ function Custommize() {
                     <Col span={16}>
                       <div>
                         <Link
-                          to={`/product-details/${product}`}
+                          to={`/product-details/${product.productID}`}
                           style={{ color: "white" }}
                         >
                           <p>{truncateProductName(product.productName)}</p>
@@ -199,7 +199,7 @@ function Custommize() {
                     <Col span={16}>
                       <div>
                         <Link
-                          to={`/diamond-details/${diamond}`}
+                          to={`/diamond-details/${diamond.diamondID}`}
                           style={{ color: "white" }}
                         >
                           <p>{truncateProductName(diamond.diamondName)}</p>

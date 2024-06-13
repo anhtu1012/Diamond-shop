@@ -296,6 +296,7 @@ function ViewProduct() {
       </div>
       <div className="all-product">
         <Table
+          className="table"
           rowSelection={rowSelection}
           columns={columns}
           dataSource={dataSource}
