@@ -297,7 +297,7 @@ function ProductDetail() {
                             style={{
                               color: "black",
                               textDecoration: "none",
-                              fontFamily: "helvetica-neue",
+                              fontFamily: "Roboto",
                             }}
                           >
                             {product.brand}

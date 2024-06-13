@@ -16,7 +16,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123456"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -33,7 +33,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123457"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -50,7 +50,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123458"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -67,7 +67,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123459"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -84,7 +84,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123460"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -101,7 +101,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123461"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -118,7 +118,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123462"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -135,7 +135,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123463"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -152,7 +152,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123463"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -169,7 +169,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123463"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -186,7 +186,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123463"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -206,7 +206,7 @@ const statusToStep = {
 const getStatusColor = (currentStep) => {
   switch (currentStep) {
     case 0:
-      return "#FFD700"; // Yellow
+      return "#FFCC33"; // Yellow
     case 1:
       return "#33CC33"; // Green
     case 2:
@@ -214,7 +214,7 @@ const getStatusColor = (currentStep) => {
     case 3:
       return "#FF0000"; // Red
     default:
-      return "#FFD700"; // Default Yellow
+      return "#FFCC33"; // Default Yellow
   }
 };
 
@@ -391,7 +391,11 @@ function AllOrder() {
       render: (text) => {
         const currentStep = statusToStep[text];
         return (
-          <Tag color={getStatusColor(currentStep)} key={text}>
+          <Tag
+            color={getStatusColor(currentStep)}
+            key={text}
+            style={{ fontWeight: "bold" }}
+          >
             {text.toUpperCase()}
           </Tag>
         );
