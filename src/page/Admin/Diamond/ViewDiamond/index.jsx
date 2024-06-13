@@ -315,6 +315,7 @@ function ViewDiamond() {
           <LoadingTruck /> // Show LoadingTruck while loading
         ) : (
           <Table
+            className="table"
             rowSelection={rowSelection}
             columns={columns}
             dataSource={dataSource}

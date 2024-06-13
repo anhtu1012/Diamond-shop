@@ -240,7 +240,7 @@ function ViewCollection() {
 
   return (
     <div className="all-product">
-      <Table
+      <Table className="table"
         columns={columns}
         dataSource={data}
         pagination={{ pageSize: 10 }}
