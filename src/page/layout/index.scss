@@ -24,16 +24,8 @@
     box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
   }
 }
-:where(.css-dev-only-do-not-override-j9bb5n).ant-float-btn-primary
-  .ant-float-btn-body {
-  background-color: #ff1650;
-  transition: background-color 0.2s;
-  transition: background-color 0.3s ease;
-  &:hover {
-    background-color: #a68909 !important; // Màu vàng khi hover
-    cursor: pointer; // Thêm hiệu ứng con trỏ chuột khi hover
-  }
-}
+
+
 
 .shake-icon {
   animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite,

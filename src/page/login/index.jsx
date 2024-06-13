@@ -9,9 +9,9 @@ function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-
-  const handleLoginSuccess = (userData) => {
-    dispatch(login(userData));
+  console.log(user);
+  const handleLoginSuccess = (user) => {
+    dispatch(login(user));
   };
 
   useEffect(() => {
@@ -22,6 +22,7 @@ function LoginPage() {
           break;
         case "ROLE_STAFF":
           navigate("/staff-page");
+          console.log(user.role[0].authority);
           break;
         case "ROLE_DELIVERY":
           navigate("/delivery-page");
@@ -30,7 +31,7 @@ function LoginPage() {
           navigate("/");
           break;
         default:
-          navigate("/");
+          break;
       }
     }
   }, [user, navigate]);
@@ -39,7 +40,6 @@ function LoginPage() {
     <div className="container-fluidd">
       <Row>
         <Col span={24}>
-          {/* Dễ dàng tích hợp xử lý đăng nhập thành công thông qua props */}
           <Login onLoginSuccess={handleLoginSuccess} />
         </Col>
       </Row>
