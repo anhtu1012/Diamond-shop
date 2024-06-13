@@ -410,7 +410,7 @@ function AllOrder() {
 
   return (
     <div className="all-order">
-      <Table columns={columns} dataSource={data} />
+      <Table className="table" columns={columns} dataSource={data} />
     </div>
   );
 }
