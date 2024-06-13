@@ -10,7 +10,14 @@ import FormDiamond from "./FormDiamond";
 import Complete from "./Complete";
 
 import { useDispatch, useSelector } from "react-redux";
-import { clearDiamond, clearProduct, selectDiamond, selectProduct, setDiamond, setProduct } from "../../../redux/features/counterSlice";
+import {
+  clearDiamond,
+  clearProduct,
+  selectDiamond,
+  selectProduct,
+  setDiamond,
+  setProduct,
+} from "../../../redux/features/counterSlice";
 
 function Custommize() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -48,6 +55,8 @@ function Custommize() {
 
   const handleStep3Click = () => {
     if (
+      product &&
+      diamond &&
       product.shapeDiamond === diamond.shape &&
       product.dimensionsDiamond === diamond.dimensions
     ) {
@@ -71,10 +80,11 @@ function Custommize() {
         setTotalPriceCusTom(
           Number(product.totalPrice) + Number(diamond.totalPrice)
         );
-        setCurrentStep(3);
       } else {
         setIdComplete(null);
       }
+    } else {
+      setIdComplete(null);
     }
   }, [product, diamond]);
 
@@ -239,7 +249,7 @@ function Custommize() {
             <Button
               className={`step_main_button_3 ${idComplete ? "selected3" : ""}`}
               onClick={handleStep3Click}
-              disabled={!product || !diamond}
+              disabled={!product || !diamond || !idComplete}
             >
               <Row className="body_step">
                 {idComplete ? (

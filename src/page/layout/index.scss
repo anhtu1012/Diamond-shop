@@ -12,7 +12,10 @@
     transform: translateX(5px);
   }
 }
-
+:where(.css-dev-only-do-not-override-zg0ahe).ant-float-btn-primary .ant-float-btn-body {
+  background-color: #e70953;
+  transition: background-color 0.2s;
+}
 @keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 rgba(109, 4, 4, 0.7);
