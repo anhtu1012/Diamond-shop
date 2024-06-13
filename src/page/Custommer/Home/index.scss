@@ -1,6 +1,15 @@
 .h2 {
   font-weight: bold;
 }
+:where(.css-dev-only-do-not-override-j9bb5n).ant-float-btn-primary
+  .ant-float-btn-body {
+  background-color: red;
+  transition: background-color 0.2s;
+}
+:where(.css-dev-only-do-not-override-j9bb5n).ant-float-btn-primary
+  .ant-float-btn-body:hover {
+  background-color: red;
+}
 .home_diamond_nature {
   h2 {
     margin: 0 auto;

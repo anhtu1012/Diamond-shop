@@ -239,7 +239,7 @@ const ProductDetails = () => {
                       style={{
                         color: "black",
                         textDecoration: "none",
-                        fontFamily: "helvetica-neue",
+                        fontFamily: "Roboto",
                       }}
                     >
                       {productDetail.brand}

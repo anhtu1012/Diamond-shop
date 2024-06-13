@@ -294,21 +294,53 @@ function ViewOrderDetails() {
                     borderRadius: borderRadiusLG,
                   }}
                 >
-                  <p style={{ marginBottom: "8px", fontSize: "16px" }}>
-                    Họ và Tên: {order.nameUs}
-                  </p>
-                  <p style={{ marginBottom: "8px", fontSize: "16px" }}>
-                    Mã khách hàng: {order.idcus}
-                  </p>
-                  <p style={{ marginBottom: "8px", fontSize: "16px" }}>
-                    Email: {order.email}
-                  </p>
-                  <p style={{ marginBottom: "8px", fontSize: "16px" }}>
-                    Số điện thoại: {order.phone}
-                  </p>
-                  <p style={{ marginBottom: "8px", fontSize: "16px" }}>
-                    Địa chỉ: {order.address}
-                  </p>
+                  <div>
+                    <p
+                      style={{
+                        marginBottom: "10px",
+                        fontSize: "16px",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Họ và Tên: <span style={{fontWeight: '300'}}>{order.nameUs}</span>
+                    </p>
+                    <p
+                      style={{
+                        marginBottom: "10px",
+                        fontSize: "16px",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Mã khách hàng: <span style={{fontWeight: '300'}}>{order.idcus}</span>
+                    </p>
+                    <p
+                      style={{
+                        marginBottom: "10px",
+                        fontSize: "16px",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Email: <span style={{fontWeight: '300'}}>{order.email}</span>
+                    </p>
+                    <p
+                      style={{
+                        marginBottom: "10px",
+                        fontSize: "16px",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Số điện thoại: <span style={{fontWeight: '300'}}>{order.phone}</span>
+                    </p>
+                    <p
+                      style={{
+                        marginBottom: "10px",
+                        fontSize: "16px",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Địa chỉ: <span style={{fontWeight: '300'}}>{order.address}</span>
+                    </p>
+                  </div>
                 </div>
               </Content>
             </div>

@@ -14,7 +14,7 @@ const data = [
     date: "29-5-2024",
     phone: "0123456789",
     role: "Người dùng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US123457"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US123457"} style={{ fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "2",
@@ -24,7 +24,7 @@ const data = [
     date: "28-5-2024",
     phone: "0684981532",
     role: "Người dùng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US123457"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US123457"} style={{ fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "3",
@@ -34,7 +34,7 @@ const data = [
     date: "30-5-2024",
     phone: "0984961522",
     role: "Nhân viên bán hàng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/ST123457"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/ST123457"} style={{ fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "4",
@@ -44,7 +44,7 @@ const data = [
     date: "6-5-2024",
     phone: "0215645644",
     role: "Nhân viên bán hàng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/ST123457"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/ST123457"} style={{ fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "5",
@@ -54,7 +54,7 @@ const data = [
     date: "5-5-2024",
     phone: "0245449656",
     role: "Nhân viên giao hàng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/STD123457"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/STD123457"} style={{ fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "6",
@@ -64,7 +64,7 @@ const data = [
     date: "4-5-2024",
     phone: "0684613213",
     role: "Nhân viên giao hàng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/STD123457"} style={{color: 'black', fontWeight: 600}} >Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/STD123457"} style={{ fontWeight: 600}} >Xem chi tiết</Link>,
   },
   {
     key: "7",
@@ -74,7 +74,7 @@ const data = [
     date: "3-5-2024",
     phone: "0549515546",
     role: "Nhân viên bán hàng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/ST123327"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/ST123327"} style={{ fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "8",
@@ -84,7 +84,7 @@ const data = [
     date: "2-5-2024",
     phone: "0246547892",
     role: "Người dùng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US154457"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US154457"} style={{ fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "9",
@@ -94,7 +94,7 @@ const data = [
     date: "3-4-2024",
     phone: "0184566911",
     role: "Nhân viên bán hàng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/ST123787"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/ST123787"} style={{ fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "10",
@@ -104,7 +104,7 @@ const data = [
     date: "3-3-2024",
     phone: "0213254581",
     role: "Người dùng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US129557"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US129557"} style={{ fontWeight: 600}}>Xem chi tiết</Link>,
   },
   {
     key: "11",
@@ -114,7 +114,7 @@ const data = [
     date: "3-2-2024",
     phone: "01321312312",
     role: "Người dùng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US15862"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
+    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US15862"} style={{ fontWeight: 600}}>Xem chi tiết</Link>,
   },
 ];
 
