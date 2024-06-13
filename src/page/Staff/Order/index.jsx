@@ -294,7 +294,7 @@ const columns = [
       "Đã hủy",
     ]),
     
-  },
+  }, 
   {
     dataIndex: "infor",
     key: "infor",
