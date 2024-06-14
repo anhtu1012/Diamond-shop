@@ -42,7 +42,10 @@ function DetailProduct() {
               </Button>
 
               <Button type="primary" className="custom-black-button">
-                <Link to="/">Tạo đơn hàng</Link>
+
+                <Link to="/staff-page/don-hang-moi" >
+                Tạo đơn hàng</Link>
+
               </Button>
             </div>
           </div>
@@ -59,8 +62,10 @@ function DetailProduct() {
                 <Row className="product">
                   <Col span={9} clasName="img">
                     <img
-                      src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7"
-                      width={170}
+
+                      src="https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg"
+                      width={130}
+
                     />
                   </Col>
 
@@ -74,7 +79,7 @@ function DetailProduct() {
                     </div>
                     <div className="product1">
                       <img
-                        src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7"
+                        src="https://igg.vn/images/upload/34201813229polished-diamond.png"
                         width={30}
                       />
                       <div>

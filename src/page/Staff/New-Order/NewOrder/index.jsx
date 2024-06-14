@@ -111,11 +111,12 @@ const products = [
     size: "45",
     link: "/staff-page/chi-tiet-don-hang",
   },
-];
+]; 
 
 const NewOrder = () => {
-  
-  const navigate = useNavigate();
+
+  const navigate = useNavigate(); 
+
 
   return (
     <div>
@@ -134,7 +135,9 @@ const NewOrder = () => {
             product.imageUrl,
             product.size,
             product.link,
-            navigate
+
+            navigate 
+
           )
         )}
       </div>

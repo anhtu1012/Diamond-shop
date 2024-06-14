@@ -183,7 +183,7 @@ function ViewProductS() {
       width: "20%",
       ...getColumnSearchProps("productName"),
     },
-    {
+    { 
       title: "Phân loại",
       dataIndex: "category",
       key: "category",
