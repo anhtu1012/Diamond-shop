@@ -283,6 +283,7 @@ function ViewProduct() {
           onClick={start}
           disabled={!hasSelected}
           loading={loading}
+          style={{ background: "red", color: "white" }}
         >
           Xóa sản phẩm
         </Button>

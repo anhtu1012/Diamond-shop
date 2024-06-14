@@ -105,7 +105,7 @@ function Complete({ diamond, product, setCurrentStep }) {
                 <br />
                 <div className="price_complete">
                   <span>
-                    {product.totalPrice.toLocaleString("en-US", {
+                    {product.totalPrice.toLocaleString("vi-VN", {
                       maximumFractionDigits: 0,
                     })}{" "}
                     đ
@@ -153,7 +153,7 @@ function Complete({ diamond, product, setCurrentStep }) {
                 </h5>
                 <div className="price_complete">
                   <span>
-                    {diamond.totalPrice.toLocaleString("en-US", {
+                    {diamond.totalPrice.toLocaleString("vi-VN", {
                       maximumFractionDigits: 0,
                     })}{" "}
                     đ
@@ -199,7 +199,7 @@ function Complete({ diamond, product, setCurrentStep }) {
               <div className="giao-hang">
                 <h4>
                   {" "}
-                  {product.wagePrice.toLocaleString("en-US", {
+                  {product.wagePrice.toLocaleString("vi-VN", {
                     maximumFractionDigits: 0,
                   })}{" "}
                   đ
@@ -214,7 +214,7 @@ function Complete({ diamond, product, setCurrentStep }) {
               }}
             >
               Tổng Tiền:{" "}
-              {totalPriceCustom.toLocaleString("en-US", {
+              {totalPriceCustom.toLocaleString("vi-VN", {
                 maximumFractionDigits: 0,
               })}{" "}
               đ

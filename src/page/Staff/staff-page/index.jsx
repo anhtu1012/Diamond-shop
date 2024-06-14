@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Breadcrumb, Layout, theme } from "antd";
-import { Link, Outlet } from "react-router-dom";
+import {  Link, Outlet } from "react-router-dom";
 import "./index.scss";
 import { Footer } from "antd/es/layout/layout";
 import SidenavS from "../../../components/layout/SidenavS";

@@ -196,11 +196,11 @@ const data = [
 
 const statusToStep = {
   "Chờ xác nhận": 0,
-  "Chờ thanh toán": 0,
-  "Chờ giao hàng": 1,
-  "Đang giao": 1,
-  "Đã giao": 2,
-  "Đã hủy": 3,
+  "Chờ thanh toán": 1,
+  "Chờ giao hàng": 2,
+  "Đang giao": 3,
+  "Đã giao": 4,
+  "Đã hủy": 5,
 };
 
 const getStatusColor = (currentStep) => {
@@ -208,11 +208,15 @@ const getStatusColor = (currentStep) => {
     case 0:
       return "#FFCC33"; // Yellow
     case 1:
-      return "#33CC33"; // Green
+      return "#FFCC00"; // Green
     case 2:
-      return "#008000"; // Dark Green
+      return "#33CC33"; // Dark Green
     case 3:
-      return "#FF0000"; // Red
+      return "#33CC33";
+    case 4:
+      return "#009900";
+    case 5:
+      return "red";
     default:
       return "#FFCC33"; // Default Yellow
   }
@@ -388,6 +392,8 @@ function AllOrder() {
         "Đã giao",
         "Đã hủy",
       ]),
+      // sorter: (a, b) => statusToStep[a.status] - statusToStep[b.status],
+      // sortOrder: 'ascend',
       render: (text) => {
         const currentStep = statusToStep[text];
         return (

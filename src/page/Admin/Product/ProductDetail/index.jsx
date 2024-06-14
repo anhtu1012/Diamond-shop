@@ -73,15 +73,15 @@ function ProductDetail() {
         productType: productData.productType,
         quantity: productData.quantity,
         quantityStonesOfDiamond: productData.quantityStonesOfDiamond,
-        totalPrice: productData.totalPrice.toLocaleString("en-US", {
+        totalPrice: productData.totalPrice.toLocaleString("vi-VN", {
           maximumFractionDigits: 0,
         }),
         status: productData.status ? "Còn hàng" : "Hết hàng",
         stoneWeight: productData.stoneWeight,
-        wagePrice: productData.wagePrice.toLocaleString("en-US", {
+        wagePrice: productData.wagePrice.toLocaleString("vi-VN", {
           maximumFractionDigits: 0,
         }),
-        originalPrice: productData.originalPrice.toLocaleString("en-US", {
+        originalPrice: productData.originalPrice.toLocaleString("vi-VN", {
           maximumFractionDigits: 0,
         }),
         ratio: productData.ratio,
@@ -206,7 +206,7 @@ function ProductDetail() {
             <Row style={{ marginTop: "20px" }}>
               <Col span={12}>
                 <Row gutter={8}>
-                  <Col span={2}></Col>
+                  <Col span={1}></Col>
                   <Col span={8}>
                     {product.productImages.slice(1).map((thumbnail, index) => (
                       <Col
@@ -232,7 +232,7 @@ function ProductDetail() {
                       src={product.productImages[0]?.imageUrl}
                       alt="Product"
                       style={{
-                        width: "300px",
+                        width: "270px",
                         display: "flex",
                         justifyContent: "center",
                       }}
@@ -267,7 +267,7 @@ function ProductDetail() {
                       marginBottom: "10px",
                     }}
                   >
-                    {product.totalPrice.toLocaleString("en-US", {
+                    {product.totalPrice.toLocaleString("vi-VN", {
                       maximumFractionDigits: 0,
                     })}{" "}
                     vnđ

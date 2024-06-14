@@ -60,6 +60,7 @@ import LoginPage from "./page/login";
 import NotFound from "./page/404";
 
 import DetailProduct from "./page/Staff/Product/DetailProduct";
+import XemSanPham from "./page/Staff/Product/ViewProduct";
 // import PageNewOrder from "./page/Staff/New-Order";
 
 
@@ -286,6 +287,10 @@ const router = createBrowserRouter([
       {
         path: "/staff-page/chi-tiet-don-hang",
         element: <DetailProduct />,
+      },
+      {
+        path: "/staff-page/xem-san-pham",
+        element: <XemSanPham />,
       },
     ],
   },

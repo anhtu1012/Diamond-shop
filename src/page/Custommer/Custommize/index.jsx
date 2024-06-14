@@ -147,7 +147,7 @@ function Custommize() {
                       </div>
                       <div className="title_main">
                         <span>
-                          {product.totalPrice.toLocaleString("en-US", {
+                          {product.totalPrice.toLocaleString("vi-VN", {
                             maximumFractionDigits: 0,
                           })}{" "}
                           đ
@@ -207,7 +207,7 @@ function Custommize() {
                       </div>
                       <div className="title_main">
                         <span>
-                          {diamond.totalPrice.toLocaleString("en-US", {
+                          {diamond.totalPrice.toLocaleString("vi-VN", {
                             maximumFractionDigits: 0,
                           })}{" "}
                           đ
@@ -263,7 +263,7 @@ function Custommize() {
                       </div>
                       <div className="title_main">
                         <span>
-                          {totalPriceCustom.toLocaleString("en-US", {
+                          {totalPriceCustom.toLocaleString("vi-VN", {
                             maximumFractionDigits: 0,
                           })}{" "}
                           đ

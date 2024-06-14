@@ -31,9 +31,9 @@ function AboutDiamond() {
             và khó tự phân biệt được đâu là sản phẩm chất lượng. Mỗi người sẽ có
             những tiêu tiêu chí khác nhau khi lựa chọn kim cương, tuy nhiên điểm
             chung của hầu hết khách hàng đó là sự ưu tiên về nguồn gốc, chất
-            lượng, mẫu mã và giá cả. Jemmia là một chuyên gia kim cương hàng đầu
-            Việt Nam đáp ứng được những tiêu chí ấy và hơn thế nữa. Hãy cùng
-            khám phá bài viết sau để tìm hiểu lý do “Vì sao chọn Jemmia”, bạn
+            lượng, mẫu mã và giá cả. Diamond là một chuyên gia kim cương hàng
+            đầu Việt Nam đáp ứng được những tiêu chí ấy và hơn thế nữa. Hãy cùng
+            khám phá bài viết sau để tìm hiểu lý do “Vì sao chọn Diamond ”, bạn
             nhé!
           </h3>
           <img
@@ -72,28 +72,28 @@ function AboutDiamond() {
             luôn tự đặt ra những câu hỏi quan trọng về chất lượng, giá trị, và
             nguồn gốc của sản phẩm kim cương mà họ đang và sẽ đầu tư.
           </h3>
-          <h2 className="thi-truong1">Vì Sao Chọn Jemmia?</h2>
+          <h2 className="thi-truong1">Vì Sao Chọn Diamond?</h2>
           <h3 className="thi-truong2">
             Trong bối cảnh này, nhu cầu của khách hàng về ngành hàng kim cương
             không chỉ dừng lại ở việc tìm kiếm một viên đá quý đẹp mắt. Họ còn
             quan tâm đến những giá trị ẩn sau từng viên kim cương, sự đáng tin
             cậy của nhà cung cấp, và chắc chắn rằng mỗi đồng tiền họ chi trả
-            xứng đáng với sản phẩm mà họ nhận được. Vậy vì sao Jemmia lại là
+            xứng đáng với sản phẩm mà họ nhận được. Vậy vì sao Diamond lại là
             thương hiệu nổi bật, nhận được nhiều sự tin tưởng trong thị trường
             kim cương Việt Nam hiện nay?
           </h3>
-          <h2 className="thi-truong1">Trang Sức Kim Cương Tại Jemmia</h2>
+          <h2 className="thi-truong1">Trang Sức Kim Cương Tại Diamond</h2>
           <h2 className="thi-truong1">
             Trang Sức Đa Dạng Mẫu Mã, Thiết Kế Theo Cá Nhân Hoá
           </h2>
           <h3 className="thi-truong2">
-            Tại Jemmia, không chỉ đa dạng về mẫu mã và phong cách, chúng tôi còn
-            tự hào về khả năng thiết kế trang sức riêng theo yêu cầu và mong
+            Tại Diamond, không chỉ đa dạng về mẫu mã và phong cách, chúng tôi
+            còn tự hào về khả năng thiết kế trang sức riêng theo yêu cầu và mong
             muốn của khách hàng. Với sự tận tâm và tài năng của đội ngũ thợ lành
             nghề, chúng tôi có thể “biến” những ý tưởng của bạn thành món trang
             sức hoàn hảo. Cho dù bạn đang tìm kiếm một món quà đặc biệt, muốn
             thể hiện phong cách riêng của bạn, hay đơn giản là muốn một món
-            trang sức để nói lên tình cảm của mình, Jemmia luôn sẵn sàng tạo ra
+            trang sức để nói lên tình cảm của mình, Diamond luôn sẵn sàng tạo ra
             những tác phẩm trang sức độc nhất, nêu cao tinh thần sáng tạo và sự
             cá nhân hóa.
           </h3>
@@ -118,10 +118,10 @@ function AboutDiamond() {
           </h2>
           <h3 className="thi-truong2">
             Chúng tôi cam kết đảm bảo chất lượng và giá trị thực sự của từng
-            viên kim cương tại Jemmia bằng cách sử dụng trang thiết bị công nghệ
-            kiểm định hiện đại nhất. Một trong những công cụ quan trọng và đáng
-            tin cậy nhất mà chúng tôi sử dụng là máy GIA ID100. Đây là một công
-            cụ kiểm định tiên tiến, giúp xác định chính xác kim cương thiên
+            viên kim cương tại Diamond bằng cách sử dụng trang thiết bị công
+            nghệ kiểm định hiện đại nhất. Một trong những công cụ quan trọng và
+            đáng tin cậy nhất mà chúng tôi sử dụng là máy GIA ID100. Đây là một
+            công cụ kiểm định tiên tiến, giúp xác định chính xác kim cương thiên
             nhiên trong vòng 2 giây.
           </h3>
           <h3 className="thi-truong2">
@@ -150,7 +150,7 @@ function AboutDiamond() {
             Trải Nghiệm Dịch Vụ Kim Cương Đẳng Cấp
           </h2>
           <h3 className="thi-truong2">
-            Tại Jemmia, chúng tôi không chỉ tập trung vào việc cung cấp những
+            Tại Diamond, chúng tôi không chỉ tập trung vào việc cung cấp những
             sản phẩm kim cương đẳng cấp mà còn đặt sự thoải mái và hài lòng của
             từng vị khách hàng lên hàng đầu. Đó là lý do tại sao chúng tôi mang
             đến khách hàng một trải nghiệm mua sắm kim cương khác biệt.
@@ -178,7 +178,7 @@ function AboutDiamond() {
             vừa thưởng thức trà bánh cùng với sự tư vấn chuyên nghiệp từ đội ngũ
             nhân viên giàu kinh nghiệm của Diamond.
           </h3>
-          <h2 className="thi-truong1">Kim Cương Viên Tại Jemmia</h2>
+          <h2 className="thi-truong1">Kim Cương Viên Tại Diamond</h2>
           <h3 className="thi-truong3">
             <LuDot />
             Giấy Kiểm Định GIA
@@ -196,17 +196,17 @@ function AboutDiamond() {
             <span
               style={{ fontSize: " 13px", fontStyle: "italic", color: "grey" }}
             >
-              Kim cương khi mua tại Jemmia đều có giấy kiểm định GIA
+              Kim cương khi mua tại Diamond đều có giấy kiểm định GIA
             </span>
           </div>
           <h3 className="thi-truong2">
-            Jemmia luôn đặt cam kết trong việc cung cấp những viên kim cương
+            Diamond luôn đặt cam kết trong việc cung cấp những viên kim cương
             nhập khẩu chính ngạch, được đi kèm với Giấy chứng nhận từ tổ chức
             kiểm định GIA – Viện Ngọc học Hoa Kỳ. Giấy chứng nhận GIA cung cấp
             cho quý khách hàng các thông tin chính xác về các thông số quan
-            trọng liên quan đến chất lượng của sản phẩm kim cương. Do đó, Jemmia
-            luôn tự tin mang đến cho khách hàng sự tin tưởng hoàn toàn về chất
-            lượng và giá trị của sản phẩm.
+            trọng liên quan đến chất lượng của sản phẩm kim cương. Do đó,
+            Diamond luôn tự tin mang đến cho khách hàng sự tin tưởng hoàn toàn
+            về chất lượng và giá trị của sản phẩm.
           </h3>
           <h3 className="thi-truong3">
             <LuDot />
@@ -230,9 +230,9 @@ function AboutDiamond() {
           </div>
           <h3 className="thi-truong2">
             Khách hàng sẽ nhận được hóa đơn VAT khi mua sản phẩm kim cương tại
-            Jemmia. Đây là hóa đơn đảm bảo về pháp lý khi giao dịch mua bán, đảm
-            bảo tính minh bạch của sản phẩm. Bên cạnh đó, hóa đơn giá trị gia
-            tăng (VAT) còn giúp khách hàng xác định quyền sở hữu đối với sản
+            Diamond. Đây là hóa đơn đảm bảo về pháp lý khi giao dịch mua bán,
+            đảm bảo tính minh bạch của sản phẩm. Bên cạnh đó, hóa đơn giá trị
+            gia tăng (VAT) còn giúp khách hàng xác định quyền sở hữu đối với sản
             phẩm. Từ đó có thể đảm bảo quyền lợi cho khách hàng về sau khi sản
             phẩm có vấn đề về chất lượng, dịch vụ cũng như các chế độ bảo hành,…
           </h3>
@@ -268,17 +268,17 @@ function AboutDiamond() {
           </h2>
 
           <h3 className="thi-truong2">
-            Jemmia tự hào là một trong những địa chỉ hàng đầu trong lĩnh vực kim
-            cương tại Việt Nam. Chúng tôi luôn cam kết đem đến sự tinh tế và
+            Diamond tự hào là một trong những địa chỉ hàng đầu trong lĩnh vực
+            kim cương tại Việt Nam. Chúng tôi luôn cam kết đem đến sự tinh tế và
             đẳng cấp qua từng viên kim cương, qua từng dịch vụ phục vụ khách
             hàng, và qua từng trải nghiệm mua sắm.
           </h3>
           <h3 className="thi-truong2">
-            Hãy để Jemmia điểm tô cuộc sống của bạn bằng những viên kim cương
+            Hãy để Diamond điểm tô cuộc sống của bạn bằng những viên kim cương
             lấp lánh, và để chúng tôi đồng hành cùng bạn trong những khoảnh khắc
             quý báu của cuộc đời. Vì vậy, khi bạn đặt ra câu hỏi, “Vì sao chọn
-            Jemmia?” – câu trả lời chắc chắn sẽ là sự tinh tế, đẳng cấp, và đáng
-            tin cậy.
+            Diamond?” – câu trả lời chắc chắn sẽ là sự tinh tế, đẳng cấp, và
+            đáng tin cậy.
           </h3>
         </div>
         <h2 style={{ padding: "30px", fontWeight: "400" }}>
