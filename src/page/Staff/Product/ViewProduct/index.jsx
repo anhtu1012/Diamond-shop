@@ -31,6 +31,8 @@ function XemSanPham() {
       const response = await fetchProductById(productID);
       const productData = response.data;
       setProduct(productData);
+
+      // Xử lý hình ảnh sản phẩm
       const images = productData.productImages.map((img, index) => ({
         uid: img.imageId.toString(),
         name: `images${index + 1}.png`,
@@ -38,6 +40,8 @@ function XemSanPham() {
         url: img.imageUrl,
       }));
       setFileList(images);
+
+      // Đặt giá trị cho các trường trong form
       form.setFieldsValue({
         productID: productData.productID,
         productName: productData.productName,
@@ -68,7 +72,6 @@ function XemSanPham() {
         categoryName: productData.category.categoryName,
         sizes: productData.sizes,
       });
-      setProduct(productData);
     } catch (error) {
       console.error("Failed to fetch product data", error);
       message.error("Failed to fetch product data");
