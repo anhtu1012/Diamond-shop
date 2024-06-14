@@ -17,7 +17,7 @@ function DetailProduct() {
             <div className="thong-tin-chi-tiet">
               <div className="thong-tin-item">
                 <p className="label">Tên:</p>
-                <p className="value">Phạm Trung Nguyên</p>
+                <p className="value">Phạm Trung 123 Main Street, City</p>
               </div>
               <div className="thong-tin-item">
                 <p className="label">Số Điện Thoại:</p>
@@ -29,7 +29,7 @@ function DetailProduct() {
               </div>
               <div className="thong-tin-item">
                 <p className="label">Địa Chỉ:</p>
-                <p className="value">123 Main Street, City</p>
+                <p className="value">123 Main Street, City,123 Main Street, City,123 Main Street, City</p>
               </div>
               <div className="thong-tin-item">
                 <p className="label">Ngày Sinh:</p>
@@ -42,8 +42,10 @@ function DetailProduct() {
               </Button>
 
               <Button type="primary" className="custom-black-button">
+
                 <Link to="/staff-page/don-hang-moi" >
                 Tạo đơn hàng</Link>
+
               </Button>
             </div>
           </div>
@@ -54,18 +56,20 @@ function DetailProduct() {
             <div className="thong-tin-don-mua" style={{ padding: "10px " }}>
               <span>Thông tin đơn hàng</span>
             </div>
-            <hr />
-            <div className="pay_product_infor">
-              <div className="pay_product">
+            <hr className="custom-hr"/>
+            <div className="product_infor">
+              <div className="product">
                 <Row className="product">
-                  <Col span={9} clasName="pay_img">
+                  <Col span={9} clasName="img">
                     <img
+
                       src="https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg"
                       width={130}
+
                     />
                   </Col>
 
-                  <Col span={15} className="pay_product_detail">
+                  <Col span={15} className="product_detail">
                     <div className="product1">
                       <GiJewelCrown style={{ fontSize: "20px" }} />
                       <div>
@@ -93,17 +97,17 @@ function DetailProduct() {
                     </Col>
                   </Col>
                 </Row>
-                <hr />
+                <hr className="custom-hr"/>
               </div>
-              <div className="pay_product">
+              <div className="product">
                 <Row className="product">
-                  <Col span={9} clasName="pay_img">
+                  <Col span={9} clasName="img">
                     <img
                       src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7"
-                      width={150}
+                      width={170}
                     />
                   </Col>
-                  <Col span={15} className="pay_product_detail">
+                  <Col span={15} className="product_detail">
                     <div className="product1">
                       <GiJewelCrown style={{ fontSize: "20px" }} />
                       <div>
@@ -127,7 +131,7 @@ function DetailProduct() {
                     </Col>
                   </Col>
                 </Row>
-                <hr />
+                <hr className="custom-hr"/>
               </div>
             </div>
             <div className="repayp">

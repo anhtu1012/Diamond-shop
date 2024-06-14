@@ -1,8 +1,9 @@
 import { Col, Row } from "antd";
-import { useNavigate } from "react-router-dom"; // Import the useNavigate hook
+import { useNavigate } from "react-router-dom";
 import "./index.scss";
 
 const renderProductItem = (
+  
   index,
   codep,
   name,
@@ -16,17 +17,19 @@ const renderProductItem = (
   link,
   navigate
 ) => (
-  <div className="cart_product_frame" key={index}>
+  <div className="product_frame" key={index}>
     <div className="code-boxn">{codep}</div>
-    <Row className="cart_product_item">
-      <div className="cart_detail">
-        <Col span={6} className="img_cart">
-          <img src={imageUrl} width={130} />
+    <Row className="product_item">
+      <div className="detail">
+        <Col span={6} className="img">
+          <img src={imageUrl} width={170} height={170} className="product_image" />
           {imgDM && (
             <img
               src={imgDM}
-              style={{ display: imgDM === null ? "none" : "block" }}
-              className="cart_product_imgdm"
+              style={{
+                display: imgDM === null ? "none" : "block",
+              }}
+              className="product_imgdm"
               alt={nameDM}
             />
           )}
@@ -36,18 +39,19 @@ const renderProductItem = (
             <span>{price}</span>
           </Col>
           <div className="infor_detail">
-            <p>{name}</p>
-            <span>{code}</span>
-            <p>{nameDM}</p>
-            <span>{codeDM}</span>
+            <p style={{ marginBottom: "8px" }}>{name}</p>
+            <span style={{ marginBottom: "8px" }}>{code}</span>
+            <p style={{ marginBottom: "8px" }}>{nameDM}</p>
+            <span style={{ marginBottom: "8px" }}>{codeDM}</span>
             <span>{size}</span>
           </div>
-          <hr />
+
+          <hr className="dong" />
         </Col>
       </div>
       <div className="link-container">
         {link ? (
-          <a href={link} className="detail-link">
+          <a href={link} className="detail-link" style={{ color: "#e4bd7b" }}>
             Xem chi tiết
           </a>
         ) : (
@@ -58,6 +62,7 @@ const renderProductItem = (
         <button
           className="consultation-button custom-color"
           onClick={() => navigate(link)}
+          style={{fontWeight:"bold"}}
         >
           Nhận tư vấn
         </button>
@@ -76,7 +81,7 @@ const products = [
     codeDM: "GD0000Y011997",
     price: "510,000,000",
     imageUrl:
-      "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
+      "https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7",
     size: "45",
     link: "/staff-page/chi-tiet-don-hang",
   },
@@ -89,7 +94,7 @@ const products = [
     codeDM: "",
     price: "500,000,000",
     imageUrl:
-      "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
+      "https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7",
     size: "45",
     link: "/staff-page/chi-tiet-don-hang",
   },
@@ -97,19 +102,21 @@ const products = [
     codep: "OD:123456",
     name: "NHẪN KIM CƯƠNG NỮ 18K VIP",
     code: "NKC12341241",
-    imgDM: "",
+    imgDM: "https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7",
     nameDM: "",
     codeDM: "",
     price: "500,000,000",
     imageUrl:
-      "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
+      "https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7",
     size: "45",
     link: "/staff-page/chi-tiet-don-hang",
   },
 ]; 
 
 const NewOrder = () => {
+
   const navigate = useNavigate(); 
+
 
   return (
     <div>
@@ -128,7 +135,9 @@ const NewOrder = () => {
             product.imageUrl,
             product.size,
             product.link,
+
             navigate 
+
           )
         )}
       </div>

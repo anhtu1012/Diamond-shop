@@ -133,7 +133,7 @@ function ChinhSachBaoMat() {
               </h3>
               <h3 className="nguoi-or-tochuc2">
                 <LuDot />
-                Bên thứ ba có dịch vụ tích hợp với Website jemmia.vn
+                Bên thứ ba có dịch vụ tích hợp với Website Diamond.vn
               </h3>
               <h3 className="nguoi-or-tochuc2">
                 <LuDot />

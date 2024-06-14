@@ -11,7 +11,6 @@
   margin-bottom: 10px;
 }
 .code-boxn {
-  
   color: black;
   font-weight: bold;
   width: 10%;
@@ -23,41 +22,44 @@
   margin-bottom: 10px;
 }
 
-.cart_product_image {
-  width: 170px;
-  height: 170px;
+.product_image {
+  width: 180px;
+  height: 180px;
   position: relative;
-  left: 100px;
+  left: 30px;
 }
-.cart_product_imgdm {
+.product_imgdm {
   width: 70px;
   height: 70px;
   position: absolute;
   top: -10px;
-  right: 200px;
+  right: 180px;
 }
-.cart_product_frame {
+.dong {
+  border: 1px solid black;
+}
+.product_frame {
   position: relative;
   margin: 10px 0px;
   padding: 15px;
-  border: 1px solid rgb(128, 128, 128, 0.1);
+  border: 2px solid black;
   box-shadow: 1px 1px 1px 1px rgb(128, 128, 128, 0.1);
   border-radius: 8px;
   background-color: rgb(255, 255, 255, 0.1);
-  .cart_product_item {
-    .cart_detail {
+  .product_item {
+    .detail {
       display: flex;
       justify-content: center;
       align-items: center;
       width: 100%;
     }
     .infor {
-      padding: 20px 30px;
+      padding: 0px 10px;
 
       .infor_detail {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 8px;
         p {
           font-size: 20px;
           font-weight: bold;
@@ -79,7 +81,8 @@
 }
 .link-container {
   margin-top: 10px;
-  margin-left: 28px;
+  margin-left: 73px;
+  font-size: 18px;
   a.detail-link {
     color: black;
     text-decoration: none;
@@ -92,19 +95,17 @@
   position: absolute;
   bottom: 10px;
   right: 10px;
+  // 
 }
 
 .consultation-button {
-  
-  color: white;
-  border: none;
-  padding: 10px 20px;
+  padding: 3px 20px;
   font-size: 16px;
   cursor: pointer;
   border-radius: 4px;
 }
 .custom-color {
   background-color: #e4bd7b;
-  border-color: black;
-  color: black; 
+
+  color: black;
 }
