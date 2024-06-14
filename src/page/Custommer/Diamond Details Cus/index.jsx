@@ -107,7 +107,7 @@ const DiamondDetailss = () => {
                       color: "#15393f",
                     }}
                   >
-                    {diamondDetail.totalPrice.toLocaleString("en-US", {
+                    {diamondDetail.totalPrice.toLocaleString("vi-VN", {
                       maximumFractionDigits: 0,
                     })}{" "}
                     đ

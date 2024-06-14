@@ -58,7 +58,7 @@ export function CartProduct({ product, diamond }) {
         </Col>
         <Col span={24} style={{ textAlign: "center" }}>
           <h4>
-            {totalPrice.toLocaleString("en-US", {
+            {totalPrice.toLocaleString("vi-VN", {
               maximumFractionDigits: 0,
             })}{" "}
             đ

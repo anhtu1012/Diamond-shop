@@ -68,7 +68,7 @@ function DiamondDetails() {
     form.setFieldsValue({
       diamondID: diamondData.diamondID,
       diamondName: diamondData.diamondName,
-      originPrice: diamondData.originPrice.toLocaleString("en-US", {
+      originPrice: diamondData.originPrice.toLocaleString("vi-VN", {
         maximumFractionDigits: 0,
       }),
       ratio: diamondData.ratio,
@@ -84,7 +84,7 @@ function DiamondDetails() {
       color: diamondData.color,
       certificate: diamondData.certificate,
       status: diamondData.status ? "Còn hàng" : "Hết hàng",
-      totalPrice: diamondData.totalPrice.toLocaleString("en-US", {
+      totalPrice: diamondData.totalPrice.toLocaleString("vi-VN", {
         maximumFractionDigits: 0,
       }),
     });
@@ -218,7 +218,7 @@ function DiamondDetails() {
                       marginBottom: "10px",
                     }}
                   >
-                    {diamond.totalPrice.toLocaleString("en-US", {
+                    {diamond.totalPrice.toLocaleString("vi-VN", {
                       maximumFractionDigits: 0,
                     })}{" "}
                     vnđ
@@ -333,7 +333,7 @@ function DiamondDetails() {
                   initialValues={{
                     diamondName: diamond.diamondName,
                     ratio: diamond.ratio,
-                    originPrice: diamond.originPrice.toLocaleString("en-US", {
+                    originPrice: diamond.originPrice.toLocaleString("vi-VN", {
                       maximumFractionDigits: 0,
                     }),
                     status: diamond.status ? "Còn hàng" : "Hết hàng",

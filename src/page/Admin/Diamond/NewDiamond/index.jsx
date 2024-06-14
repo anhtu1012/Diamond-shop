@@ -33,7 +33,6 @@ function NewDiamond() {
     setCurrent(3); // Move to success step
   };
 
-
   const createAnotherProduct = () => {
     setForm1(null);
     setForm2(null);
@@ -49,27 +48,40 @@ function NewDiamond() {
 
   const items = [
     {
-      title: "Bước 1",
+      title: <span style={{ fontWeight: "bold" }}>Bước 1</span>,
       icon: <BsImage size={30} />,
-      description: "Thông tin cơ bản",
+      description: (
+        <span style={{ color: "gray", fontWeight: "bold" }}>
+          Thông tin cơ bản
+        </span>
+      ),
       disabled: isStepDisabled(0),
     },
     {
-      title: "Bước 2",
+      title: <span style={{ fontWeight: "bold" }}>Bước 2</span>,
       icon: <MdEditCalendar size={30} />,
-      description: "Thông tin chi tiết",
+      description: (
+        <span style={{ color: "gray", fontWeight: "bold" }}>
+          Thông tin chi tiết
+        </span>
+      ),
       disabled: isStepDisabled(1),
     },
     {
-      title: "Bước 3",
+      title: <span style={{ fontWeight: "bold" }}>Bước 3</span>,
       icon: <PiEyesFill size={30} />,
-      description: "Xác Nhận Thông tin",
+      description: (
+        <span style={{ color: "gray", fontWeight: "bold" }}>
+          Xác Nhận Thông tin
+        </span>
+      ),
       disabled: isStepDisabled(2),
     },
     {
-      title: "Thành công",
+      title: <span style={{ fontWeight: "bold" }}>Thành công</span>,
       icon: <FaCheckCircle size={30} />,
-      disabled: true, // Tắt tính năng chọn trực tiếp bằng cách đặt disabled là true
+      description: "", // No description needed here
+      disabled: true,
     },
   ];
 

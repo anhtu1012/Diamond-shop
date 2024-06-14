@@ -47,7 +47,6 @@ const ProductDetails = () => {
       const sizeOptions = productData.sizes.map((size) => (
         <Option key={size.sizeID} value={size.sizeValue}>
           {size.sizeValue} (SL: {size.quantity})
-
         </Option>
       ));
       setSizeOptions(sizeOptions);
@@ -153,7 +152,7 @@ const ProductDetails = () => {
                       color: "#15393f",
                     }}
                   >
-                    {productDetail.totalPrice.toLocaleString("en-US", {
+                    {productDetail.totalPrice.toLocaleString("vi-VN", {
                       maximumFractionDigits: 0,
                     })}{" "}
                     đ
@@ -214,7 +213,12 @@ const ProductDetails = () => {
                     </h4>
                   </div>
                   <div className="custom">
-                    <button className="custom_button1" onClick={handleAddDetailsClick}>Thêm Kim Cương</button>
+                    <button
+                      className="custom_button1"
+                      onClick={handleAddDetailsClick}
+                    >
+                      Thêm Kim Cương
+                    </button>
                     <Link to="/">
                       <button className="custom_button2">
                         Tư Vấn Sản Phẩm
