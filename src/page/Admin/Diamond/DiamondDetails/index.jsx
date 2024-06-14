@@ -25,7 +25,9 @@ import {
   updateDiamond,
 } from "../../../../../services/Uservices";
 import LoadingTruck from "../../../../components/loading";
+
 import "./index.scss";
+import uploadFile from "../../../../utils/upload";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -39,10 +41,12 @@ function DiamondDetails() {
   const { diamondID } = useParams();
   const [fileList, setFileList] = useState([]);
   const [diamond, setDiamond] = useState(null);
+  const [originalValues, setOriginalValues] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [form] = Form.useForm();
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     fetchDiamondByIds(diamondID);
@@ -64,6 +68,12 @@ function DiamondDetails() {
     const response = await fetchDiamondById(diamondID);
     const diamondData = response.data;
     setDiamond(diamondData);
+    setOriginalValues({
+      diamondName: diamondData.diamondName,
+      originPrice: diamondData.originPrice,
+      ratio: diamondData.ratio,
+      image: diamondData.image,
+    });
 
     form.setFieldsValue({
       diamondID: diamondData.diamondID,
@@ -88,6 +98,15 @@ function DiamondDetails() {
         maximumFractionDigits: 0,
       }),
     });
+
+    setFileList([
+      {
+        uid: "-1",
+        name: "image.png",
+        status: "done",
+        url: diamondData.image,
+      },
+    ]);
   };
 
   const handleEdit = () => {
@@ -97,21 +116,39 @@ function DiamondDetails() {
   const handleUpdate = async () => {
     try {
       const values = await form.validateFields();
-      const updatedDetails = {
-        diamondName: values.diamondName,
-        originPrice: values.originPrice
-          ? values.originPrice.replace(/,/g, "")
-          : "",
-        ratio: values.ratio,
-        image: values.image,
-      };
-      await updateDiamond(diamond.diamondID, updatedDetails);
-      fetchDiamondByIds(diamond.diamondID);
-      setIsEditing(false);
-      message.success("Cập nhật thành công!");
+      let updatedDetails = {};
+
+      // Check if the image needs to be updated
+      let imageUrl = originalValues.image;
+      if (fileList.length > 0 && fileList[0].originFileObj) {
+        setUploading(true);
+        imageUrl = await uploadFile(fileList[0].originFileObj);
+        setUploading(false);
+        updatedDetails.image = imageUrl;
+      }
+
+      if (values.diamondName !== originalValues.diamondName) {
+        updatedDetails.diamondName = values.diamondName;
+      }
+      if (values.originPrice !== originalValues.originPrice) {
+        updatedDetails.originPrice = values.originPrice;
+      }
+      if (values.ratio !== originalValues.ratio) {
+        updatedDetails.ratio = values.ratio;
+      }
+
+      if (Object.keys(updatedDetails).length > 0) {
+        await updateDiamond(diamond.diamondID, updatedDetails);
+        fetchDiamondByIds(diamond.diamondID);
+        setIsEditing(false);
+        message.success("Cập nhật thành công!");
+      } else {
+        message.info("Không có thay đổi nào để cập nhật.");
+      }
     } catch (error) {
       console.error("Error when updating diamond:", error);
       message.error("Cập nhật thất bại!");
+      setUploading(false);
     }
   };
 
@@ -123,9 +160,7 @@ function DiamondDetails() {
 
   const handleDelete = async () => {
     try {
-      console.log(diamond.diamondID);
       await deleteDiamond(diamond.diamondID);
-      console.log(diamond.status);
       message.success("Xóa thành công!");
     } catch (error) {
       console.error("Error deleting diamond:", error);
@@ -326,6 +361,7 @@ function DiamondDetails() {
                 onOk={handleUpdate}
                 cancelText="Hủy"
                 okText="Lưu"
+                confirmLoading={uploading}
               >
                 <Form
                   form={form}
@@ -336,7 +372,6 @@ function DiamondDetails() {
                     originPrice: diamond.originPrice.toLocaleString("vi-VN", {
                       maximumFractionDigits: 0,
                     }),
-                    status: diamond.status ? "Còn hàng" : "Hết hàng",
                   }}
                 >
                   <Row gutter={24}>
