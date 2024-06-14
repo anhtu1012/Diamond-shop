@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input, Select, Space, Table, Tag } from "antd";
 import Highlighter from "react-highlight-words";
@@ -16,7 +16,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123456"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -33,7 +33,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123457"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -50,7 +50,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123458"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -67,7 +67,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123459"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -84,7 +84,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123460"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -101,7 +101,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123461"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -118,7 +118,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123462"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -135,7 +135,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123463"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -152,7 +152,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123463"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -169,7 +169,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123463"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -186,7 +186,7 @@ const data = [
     infor: (
       <Link
         to={"/admin-page/don-hang/all/order-detail/OD123463"}
-        style={{ color: "black", fontWeight: 600 }}
+        style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
       </Link>
@@ -222,8 +222,11 @@ function AllOrder() {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
+  const [filterStatus, setFilterStatus] = useState(null);
 
-
+  useEffect(() => {
+    setFilterStatus("Chờ xác nhận");
+  }, []);
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -234,6 +237,14 @@ function AllOrder() {
     clearFilters();
     setSearchText("");
   };
+
+  const handleStatusClick = (status) => {
+    setFilterStatus(status);
+  };
+
+  const filteredData = filterStatus
+    ? data.filter((item) => item.status === filterStatus)
+    : data;
 
   const getColumnSearchProps = (dataIndex, dropdownOptions) => ({
     filterDropdown: ({
@@ -337,7 +348,6 @@ function AllOrder() {
       ),
   });
 
-
   const columns = [
     {
       title: "Mã đơn hàng",
@@ -393,7 +403,11 @@ function AllOrder() {
       render: (text) => {
         const currentStep = statusToStep[text];
         return (
-          <Tag color={getStatusColor(currentStep)} key={text}>
+          <Tag
+            color={getStatusColor(currentStep)}
+            key={text}
+            style={{ fontWeight: "bold" }}
+          >
             {text.toUpperCase()}
           </Tag>
         );
@@ -405,10 +419,50 @@ function AllOrder() {
       width: "15%",
     },
   ];
+  const statusButtons = [
+    "Chờ xác nhận",
+    "Chờ thanh toán",
+    "Chờ giao hàng",
+    "Đã giao",
+    "Đã hủy",
+  ].map((status) => (
+    <Button
+      key={status}
+      type={filterStatus === status ? "primary" : "default"}
+      onClick={() => handleStatusClick(status)}
+      style={{
+        fontWeight: "bold",
+        color: "white",
+        marginRight: 5,
+        textTransform: "uppercase",
+        backgroundColor: getStatusColor(statusToStep[status]),
+      }}
+    >
+      {status}
+    </Button>
+  ));
+
+  statusButtons.push(
+    <Button
+      key="all"
+      type={filterStatus === null ? "primary" : "default"}
+      onClick={() => handleStatusClick(null)}
+      style={{
+        fontWeight: "bold",
+        marginRight: 5,
+        color: "white",
+        textTransform: "uppercase",
+        backgroundColor: "black",
+      }}
+    >
+      Tất cả sản phẩm
+    </Button>
+  );
 
   return (
     <div className="all-order">
-      <Table columns={columns} dataSource={data} />
+      <div style={{ marginBottom: 16 }}>{statusButtons}</div>
+      <Table columns={columns} dataSource={filteredData} />
     </div>
   );
 }

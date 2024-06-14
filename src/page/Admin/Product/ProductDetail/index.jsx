@@ -196,7 +196,7 @@ function ProductDetail() {
                       src={product.productImages[0]?.imageUrl}
                       alt="Product"
                       style={{
-                        width: "300px",
+                        width: "270px",
                         display: "flex",
                         justifyContent: "center",
                       }}

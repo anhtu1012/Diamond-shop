@@ -1,13 +1,10 @@
-
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input, Select, Space, Table } from "antd";
-import {  useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { Link } from "react-router-dom";
 import "./index.scss";
 import { getProducts } from "../../../../services/Uservices";
-
-
 
 function ViewProductS() {
   const [searchText, setSearchText] = useState("");
@@ -144,20 +141,6 @@ function ViewProductS() {
   });
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  // const [loading, setLoading] = useState(false);
-
-  // const start = () => {
-  //   setLoading(true);
-  //   // Delete selected items
-  //   const newData = dataSource.filter(
-  //     (item) => !selectedRowKeys.includes(item.key)
-  //   );
-  //   setDataSource(newData); // Update the data state
-  //   setTimeout(() => {
-  //     setSelectedRowKeys([]);
-  //     setLoading(false);
-  //   }, 1000);
-  // };
 
   const onSelectChange = (newSelectedRowKeys) => {
     console.log("selectedRowKeys changed: ", newSelectedRowKeys);
@@ -252,14 +235,6 @@ function ViewProductS() {
           marginBottom: 16,
         }}
       >
-        {/* <Button
-          type="primary"
-          onClick={start}
-          disabled={!hasSelected}
-          loading={loading}
-        >
-          Xóa sản phẩm
-        </Button> */}
         <span
           style={{
             marginLeft: 8,
