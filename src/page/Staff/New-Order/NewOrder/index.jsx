@@ -62,6 +62,7 @@ const renderProductItem = (
         <button
           className="consultation-button custom-color"
           onClick={() => navigate(link)}
+          style={{fontWeight:"bold"}}
         >
           Nhận tư vấn
         </button>

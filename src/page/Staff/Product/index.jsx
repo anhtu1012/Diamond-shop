@@ -219,7 +219,7 @@ function ViewProductS() {
       render: (text, record) => (
         <div style={{ textAlign: "center" }}>
           <Link
-            to={`/staff-page/xem-san-pham ${record.productID}`}
+            to={`/staff-page/xem-san-pham/${record.productID}`}
           >
             Xem chi tiết
           </Link>
