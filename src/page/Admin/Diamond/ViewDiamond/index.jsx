@@ -278,6 +278,7 @@ function ViewDiamond() {
         <div style={{ textAlign: "center" }}>
           <Link
             to={`/admin-page/san-pham/xem-tat-ca-kim-cuong/daimond-detail/${record.diamondID}`}
+            style={{ fontWeight: "bold" }}
           >
             Xem chi tiết
           </Link>
@@ -314,6 +315,7 @@ function ViewDiamond() {
           <LoadingTruck /> // Show LoadingTruck while loading
         ) : (
           <Table
+            className="table"
             rowSelection={rowSelection}
             columns={columns}
             dataSource={dataSource}

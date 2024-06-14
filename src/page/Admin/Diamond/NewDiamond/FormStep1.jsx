@@ -104,7 +104,7 @@ function FormStep1({ onFinish, initialValues }) {
         </Col>
         <Col span={14} className="info_basic">
           <Form.Item
-            label="Mã Gia"
+            label="Mã Kim Cương"
             name="diamondID"
             rules={[
               {
@@ -117,10 +117,10 @@ function FormStep1({ onFinish, initialValues }) {
               },
               {
                 validator: (_, value) =>
-                  value && /^\d{10}$/.test(value)
+                  value && /^\d{5,10}$/.test(value)
                     ? Promise.resolve()
                     : Promise.reject(
-                        new Error("Mã Gia phải chứa đúng 10 chữ số")
+                        new Error("Mã sản phẩm phải từ 5 đến 10 chữ số")
                       ),
               },
             ]}

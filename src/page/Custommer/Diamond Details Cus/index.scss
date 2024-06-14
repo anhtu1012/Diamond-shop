@@ -124,11 +124,33 @@
       font-size: 16px;
       cursor: pointer;
       transition: background-color 0.3s ease, color 0.3s ease;
+      position: relative; /* Needed for the ::before pseudo-element */
+      overflow: hidden;
     }
     button {
       background: #15393f;
       color: white;
       transition: background-color 0.3s ease, color 0.3s ease;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 50%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.5);
+        transform: skewX(-25deg);
+        transition: left 0.75s ease; /* Ensures smooth transition */
+      }
+
+      &:hover::before {
+        left: 125%; /* Moves ::before smoothly on hover */
+      }
+
+      &:hover {
+        background-color: white;
+        color: #15393f;
+      }
       &:hover {
         background-color: white;
         color: #15393f;
@@ -145,6 +167,17 @@
       flex-direction: column;
       gap: 20px;
       color: #fff;
+    }
+  }
+  @keyframes sparkle {
+    0% {
+      left: -75%;
+    }
+    50% {
+      left: 125%;
+    }
+    100% {
+      left: -75%;
     }
   }
 }
@@ -250,7 +283,7 @@
       padding: 10px;
       text-align: left;
       border-bottom: 1px solid #efefef;
-      font-family: helvetica-neue;
+      font-family: "Roboto", sans-serif;
       padding-left: 20px;
       color: #15393f;
       height: 45px;
@@ -260,31 +293,30 @@
       border: none;
       border-right: 1px solid #efefef;
       color: #222;
-      font-family: helvetica-neue;
-      font-size: 12px;
+      font-family: "Roboto", sans-serif;
+      font-size: 14px;
       font-weight: 400;
       text-transform: uppercase;
       width: 150px;
       border-bottom: 1px solid #efefef;
     }
 
-    tr:nth-child(2n) td  {
+    tr:nth-child(2n) td {
       background-color: #f2f2f2; // Màu xám nhạt cho hàng chẵn
     }
 
-    tr:nth-child(2n+1) td  {
+    tr:nth-child(2n + 1) td {
       background-color: #fff; // Màu trắng cho hàng lẻ
     }
     tr:nth-child(2n) th {
       background-color: #f2f2f2; // Màu xám nhạt cho hàng chẵn
     }
 
-    tr:nth-child(2n+1) th  {
+    tr:nth-child(2n + 1) th {
       background-color: #fff; // Màu trắng cho hàng lẻ
     }
 
     td {
-      
       color: #15393f;
     }
   }

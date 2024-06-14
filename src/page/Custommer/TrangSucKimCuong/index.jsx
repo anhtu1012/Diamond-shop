@@ -78,10 +78,14 @@ function TrangSucKimCuong() {
     if (priceFilter === "default") return true;
     const price = product.totalPrice;
     switch (priceFilter) {
+      case "20":
+        return price >= 0 && price <= 20000000;
+      case "20-50":
+        return price >= 20000000 && price <= 50000000;
       case "50-100":
-        return price >= 50000 && price <= 100000;
-      case "500-700":
-        return price >= 500000 && price <= 700000;
+        return price >= 50000000 && price <= 1000000000;
+      case "100":
+        return price >= 100000000 && price <= 1000000000000;
       default:
         return true;
     }
@@ -195,8 +199,14 @@ function TrangSucKimCuong() {
                 style={{ width: 150, paddingInlineStart: "3px" }}
                 onChange={handlePriceFilterChange}
                 options={[
+                  { value: "default", label: "Tất cả" },
+                  { value: "20", label: "Dưới 20 triệu" },
+                  { value: "20-50", label: "Từ 20-50 triệu" },
                   { value: "50-100", label: "Từ 50-100 triệu" },
-                  { value: "500-700", label: "Từ 500-700 triệu" },
+                  {
+                    value: "100",
+                    label: "Trên 100 triệu",
+                  },
                 ]}
               />
             </Space>

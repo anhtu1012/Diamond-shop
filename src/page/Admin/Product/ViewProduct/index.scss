@@ -1,46 +1,37 @@
-:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
-  .ant-table-thead
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
-  .ant-table-thead
-  > tr
-  > td {
-  position: relative;
-  color: #fff;
-  font-weight: 600;
-  text-align: start;
-  background: #15393f;
-  border-bottom: 1px solid #15393f;
-  transition: background 0.2s ease;
-}
-.ant-dropdown-trigger.ant-table-filter-trigger {
-  color: #fff;
-}
+.table {
+  .ant-table-thead {
+    tr {
+      th {
+        color: white;
+        background-color: #15393f;
 
-:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
-  .ant-table-thead
-  th.ant-table-column-has-sorters:hover {
-  background: #15393f;
-  background-color: #15393f;
-}
+        &.ant-table-column-has-sorters {
+          background-color: #15393f;
+          &:hover {
+            background-color: #15393f;
+          }
 
-:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
-  .ant-table-tbody
-  .ant-table-row.ant-table-row-selected
-  > .ant-table-cell-row-hover {
-  background: #15393f;
-  background-color: #15393f;
-}
-
-:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
-  .ant-table-tbody
-  .ant-table-row.ant-table-row-selected
-  > .ant-table-cell {
-  background: #ccc;
-}
-:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper
-  .ant-table-thead
-  th.ant-table-column-sort {
-  background: #15393f;
+          .ant-table-column-sorters {
+            background-color: #15393f;
+            &:hover {
+              background-color: #15393f;
+            }
+          }
+        }
+      }
+    }
+  }
+  .ant-table-tbody {
+    background-color: white;
+    tr.ant-table-row:hover {
+      td {
+        background: rgb(128, 128, 128, 0.1); // Example hover color
+      }
+    }
+    tr.ant-table-row-selected {
+      td {
+        background: rgb(213, 210, 210) !important; // Selected row color
+      }
+    }
+  }
 }

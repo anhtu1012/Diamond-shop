@@ -9,10 +9,15 @@ import { IoDiamondOutline } from "react-icons/io5";
 import { TbTruckDelivery } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { Option } from "antd/es/mentions";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../redux/features/counterSlice";
+import { addToCartCustomize } from "../../../../services/Uservices";
 
 function Complete({ diamond, product, setCurrentStep }) {
   const [sizeOptions, setSizeOptions] = useState([]);
   const [totalPriceCustom, setTotalPriceCusTom] = useState(0);
+  const user = useSelector(selectUser);
+  console.log();
   useEffect(() => {
     const sizeOptions = product.sizes.map((size) => (
       <Option key={size.sizeID} value={size.sizeValue}>
@@ -29,6 +34,9 @@ function Complete({ diamond, product, setCurrentStep }) {
   };
   const hanldeChangeDiamond = () => {
     setCurrentStep(2);
+  };
+  const hanldeAddToCart = async () => {
+    const res = await addToCartCustomize();
   };
 
   return (
@@ -186,7 +194,18 @@ function Complete({ diamond, product, setCurrentStep }) {
                 <h4>Miễn phí vận chuyển</h4>
               </div>
             </div>
-
+            <div className="delivery-icon" style={{ paddingBottom: "5px" }}>
+              <h4>Tiền Công:</h4>
+              <div className="giao-hang">
+                <h4>
+                  {" "}
+                  {product.wagePrice.toLocaleString("en-US", {
+                    maximumFractionDigits: 0,
+                  })}{" "}
+                  đ
+                </h4>{" "}
+              </div>
+            </div>
             <h2
               style={{
                 display: "flex",
@@ -200,7 +219,9 @@ function Complete({ diamond, product, setCurrentStep }) {
               })}{" "}
               đ
             </h2>
-
+            <div className="delivery-icon">
+              <h4>(Tiền công đã được cộng vào giá trang sức)</h4>
+            </div>
             <div className="custom">
               <button
                 style={{

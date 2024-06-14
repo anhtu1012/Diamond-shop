@@ -19,7 +19,6 @@ import ViewUser from "./page/Staff/View-User";
 import Warranty from "./page/Staff/Warranty";
 import StaffPage from "./page/Staff/staff-page";
 import Layout from "./page/layout";
-import LoginPage from "./page/login";
 
 import NhanCauHon from "./page/Custommer/NhanCauHon";
 import ProductDetails from "./page/Custommer/ProductDetails";
@@ -55,8 +54,14 @@ import ViewOrderDetails from "./page/Admin/Order/ViewOrder";
 import ViewAccountDetail from "./page/Admin/Account/ViewAccountDetail";
 import LienHe from "./page/Custommer/LienHe";
 import DiamondDetailss from "./page/Custommer/Diamond Details Cus";
+
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import LoginPage from "./page/login";
+import NotFound from "./page/404";
+
 import DetailProduct from "./page/Staff/Product/DetailProduct";
 // import PageNewOrder from "./page/Staff/New-Order";
+
 
 const router = createBrowserRouter([
   {
@@ -167,13 +172,19 @@ const router = createBrowserRouter([
     element: <ForgotPassword />,
   },
   {
-    path: "login",
+    path: "/login",
     element: <LoginPage />,
+  },
+  {
+    path: "/404",
+    element: <NotFound />,
   },
 
   {
     path: "/admin-page",
-    element: <AdminPage />,
+    element: (
+      <ProtectedRoute element={<AdminPage />} allowedRoles={["ROLE_ADMIN"]} />
+    ),
     children: [
       {
         path: "/admin-page",
@@ -243,7 +254,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/staff-page",
-    element: <StaffPage />,
+    element: (
+      <ProtectedRoute element={<StaffPage />} allowedRoles={["ROLE_STAFF"]} />
+    ),
     children: [
       {
         path: "/staff-page",

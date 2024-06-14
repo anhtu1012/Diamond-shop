@@ -1,7 +1,8 @@
-import { Col, Image, Row, Steps, Tag, theme } from "antd";
+import { Col, Row, Steps, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./index.scss";
+import { TiArrowBack } from "react-icons/ti";
 
 const data = [
   {
@@ -12,10 +13,14 @@ const data = [
     name: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
     email: "hai263672@gmail.com",
     nameUs: "Nguyen Thanh Hai",
+    imgDM: "https://igg.vn/images/upload/34201813229polished-diamond.png",
+    nameDM: "KIm cuong ne",
+    codeDM: "0000000",
     date: "29-5-2024",
     quantity: "2",
     phone: "0916306945",
     status: "Chờ xác nhận",
+    idproduct: "MS12345",
     price: "488.800.000 ₫",
     totalprice: "488.800.000 ₫",
     address: "24/9b võ văn hát, long trường, thủ đức",
@@ -28,11 +33,15 @@ const data = [
     name: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
     email: "huy263672@gmail.com",
     nameUs: "Nguyen Thanh Hai",
+    imgDM: "",
+    nameDM: "",
+    codeDM: "",
     date: "28-5-2024",
     quantity: "2",
     phone: "0123456789",
     status: "Chờ thanh toán",
     price: "488.800.000 ₫",
+    idproduct: "MS12345",
     totalprice: "488.800.000 ₫",
     address: "24/9b võ văn hát, long trường, thủ đức",
   },
@@ -40,6 +49,7 @@ const data = [
     key: "3",
     idorder: "OD123458",
     idcus: "US123458",
+    idproduct: "MS12345",
     image: "https://jemmia.vn/wp-content/uploads/2024/05/1_cam_03-copy.jpg",
     name: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
     email: "hhung263672@gmail.com",
@@ -47,140 +57,68 @@ const data = [
     date: "30-5-2024",
     quantity: "2",
     phone: "0123456789",
-    status: "Chờ xác nhận",
-    price: "488.800.000 ₫",
-    totalprice: "488.800.000 ₫",
-    address: "24/9b võ văn hát, long trường, thủ đức",
-  },
-  {
-    key: "4",
-    idorder: "OD123459",
-    idcus: "US123459",
-    image: "https://jemmia.vn/wp-content/uploads/2024/05/1_cam_03-copy.jpg",
-    name: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
-    email: "hai263673@gmail.com",
-    nameUs: "Nguyen Thanh Hai",
-    date: "6-5-2024",
-    phone: "0123456789",
-    quantity: "2",
-    status: "Đã giao",
-    price: "488.800.000 ₫",
-    totalprice: "488.800.000 ₫",
-    address: "24/9b võ văn hát, long trường, thủ đức",
-  },
-  {
-    key: "5",
-    idorder: "OD123460",
-    idcus: "US123460",
-    image: "https://jemmia.vn/wp-content/uploads/2024/05/1_cam_03-copy.jpg",
-    name: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
-    email: "hai263674@gmail.com",
-    nameUs: "Nguyen Thanh Hai",
-    date: "5-5-2024",
-    phone: "0123456789",
-    quantity: "2",
-    status: "Đã hủy",
-    price: "488.800.000 ₫",
-    totalprice: "488.800.000 ₫",
-    address: "24/9b võ văn hát, long trường, thủ đức",
-  },
-  {
-    key: "6",
-    idorder: "OD123461",
-    idcus: "US123461",
-    image: "https://jemmia.vn/wp-content/uploads/2024/05/1_cam_03-copy.jpg",
-    name: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
-    email: "hai263675@gmail.com",
-    nameUs: "Nguyen Thanh Hai",
-    date: "4-5-2024",
-    phone: "0123456789",
-    quantity: "2",
-    status: "Đã giao",
-    price: "488.800.000 ₫",
-    totalprice: "488.800.000 ₫",
-    address: "24/9b võ văn hát, long trường, thủ đức",
-  },
-  {
-    key: "7",
-    idorder: "OD123462",
-    idcus: "US123462",
-    image: "https://jemmia.vn/wp-content/uploads/2024/05/1_cam_03-copy.jpg",
-    name: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
-    email: "hai263676@gmail.com",
-    nameUs: "Nguyen Thanh Hai",
-    date: "3-5-2024",
-    quantity: "2",
-    phone: "0123456789",
-    status: "Đã hủy",
-    price: "488.800.000 ₫",
-    totalprice: "488.800.000 ₫",
-    address: "24/9b võ văn hát, long trường, thủ đức",
-  },
-  {
-    key: "8",
-    idorder: "OD123463",
-    idcus: "US123463",
-    image: "https://jemmia.vn/wp-content/uploads/2024/05/1_cam_03-copy.jpg",
-    name: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
-    email: "hai263677@gmail.com",
-    nameUs: "Nguyen Thanh Hai",
-    date: "2-5-2024",
-    quantity: "2",
-    status: "Đã giao",
-    phone: "0123456789",
-    price: "488.800.000 ₫",
-    totalprice: "488.800.000 ₫",
-    address: "24/9b võ văn hát, long trường, thủ đức",
-  },
-  {
-    key: "9",
-    idorder: "OD123463",
-    idcus: "US123463",
-    image: "https://jemmia.vn/wp-content/uploads/2024/05/1_cam_03-copy.jpg",
-    name: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
-    email: "hai263677@gmail.com",
-    date: "3-4-2024",
-    nameUs: "Nguyen Thanh Hai",
-    quantity: "4",
-    phone: "0123456789",
     status: "Chờ giao hàng",
     price: "488.800.000 ₫",
     totalprice: "488.800.000 ₫",
     address: "24/9b võ văn hát, long trường, thủ đức",
   },
-  {
-    key: "10",
-    idorder: "OD123463",
-    idcus: "US123463",
-    image: "https://jemmia.vn/wp-content/uploads/2024/05/1_cam_03-copy.jpg",
-    nameUs: "Nguyen Thanh Hai",
-    name: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
-    email: "263677@gmail.com",
-    phone: "0123456789",
-    date: "3-3-2024",
-    quantity: "3",
-    status: "Chờ thanh toán",
-    price: "488.800.000 ₫",
-    totalprice: "488.800.000 ₫",
-    address: "24/9b võ văn hát, long trường, thủ đức",
-  },
-  {
-    key: "11",
-    idorder: "OD123463",
-    idcus: "US123463",
-    image: "https://jemmia.vn/wp-content/uploads/2024/05/1_cam_03-copy.jpg",
-    name: "NHẪN KIM CƯƠNG NỮ 18K 01141N",
-    email: "hai263677@gmail.com",
-    nameUs: "Nguyen Thanh Hai",
-    date: "3-2-2024",
-    phone: "0123456789",
-    quantity: "1",
-    status: "Chờ xác nhận",
-    price: "488.800.000 ₫",
-    totalprice: "488.800.000 ₫",
-    address: "24/9b võ văn hát, long trường, thủ đức",
-  },
 ];
+
+const renderProductItem = (
+  index,
+  name,
+  idproduct,
+  imgDM,
+  nameDM,
+  codeDM,
+  price,
+  image,
+  status,
+  currentStep
+) => (
+  <div className="cart_product_frame" key={index}>
+    <Row className="cart_product_item">
+      <div className="cart_detail">
+        <Col span={6} className="img_cart">
+          <img src={image} width={180} style={{ marginLeft: "50px" }} />
+          {imgDM && (
+            <img
+              src={imgDM}
+              style={{ display: imgDM === null ? "none" : "block" }}
+              className="cart_product_imgdm"
+              alt={nameDM}
+            />
+          )}
+        </Col>
+        <Col span={18} className="infor">
+          <div className="infor_detail">
+            <p>{name}</p>
+            <span>{idproduct}</span>
+            <p>{nameDM}</p>
+            <span>{codeDM}</span>
+          </div>
+          <Tag
+            className="status"
+            key={status}
+            style={{
+              marginTop: "20px",
+              background: getStatusColor(currentStep),
+              color: "white",
+              padding: "4px 10px",
+              fontWeight: "500",
+              fontSize: "16px",
+            }}
+          >
+            {status.toUpperCase()}
+          </Tag>
+          <Col span={24} className="price">
+            <span>{price}</span>
+          </Col>
+        </Col>
+      </div>
+    </Row>
+  </div>
+);
 
 const statusToStep = {
   "Chờ xác nhận": 0,
@@ -188,6 +126,21 @@ const statusToStep = {
   "Chờ giao hàng": 1,
   "Đang giao": 1,
   "Đã giao": 2,
+};
+
+const getStatusColor = (currentStep) => {
+  switch (currentStep) {
+    case 0:
+      return "#FFD700"; // Yellow
+    case 1:
+      return "#33CC33"; // Green
+    case 2:
+      return "#008000"; // Dark Green
+    case 3:
+      return "#FF0000"; // Red
+    default:
+      return "#FFD700"; // Default Yellow
+  }
 };
 
 function ViewOrderDetails() {
@@ -206,80 +159,100 @@ function ViewOrderDetails() {
   return (
     <div>
       <div className="order-detail-1">
-        <Content
-          style={{
-            margin: "0 10px",
-          }}
-        >
-          <div
-            style={{
-              padding: 16,
-              minHeight: 160,
-              marginBottom: "10px",
-              background: "#EEEEEE",
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            <p style={{ fontWeight: "500", fontSize: "16px" }}>
-              Thông tin chi tiết đơn hàng
-            </p>
-            <p style={{ fontWeight: "400", padding: "10px 10px" }}>
-              Đặt ngày {order.date}
-            </p>
-            <div className="order-product">
-              <Image
-                src={order.image}
-                alt="Order"
+        <Row>
+          <Col span={24}>
+            <Content
+              style={{
+                margin: "0 10px",
+              }}
+            >
+              <div
                 style={{
-                  width: "120px",
-                  padding: "10px 10px",
-                  display: "flex",
-                  justifyContent: "center",
+                  padding: 16,
+                  minHeight: 160,
+                  marginBottom: "10px",
+                  background: "#fff",
+                  borderRadius: borderRadiusLG,
                 }}
-              />
-              <div className="detail-order-product">
-                <p style={{ fontSize: "16px", fontWeight: "500" }}>
-                  {order.name}
-                </p>
-                <p style={{ marginTop: "10px" }}>
-                  Mã đơn hàng: {order.idorder}
-                </p>
-                <Tag
-                  key={order.status}
+              >
+                <div className="infor-detail-order" style={{ display: "flex" }}>
+                  <h2 style={{ fontWeight: "bold", textAlign: "left" }}>
+                    Thông tin chi tiết sản phẩm
+                  </h2>
+
+                  <h2
+                    style={{
+                      fontWeight: "500",
+                      marginLeft: "auto",
+                      textAlign: "right",
+                    }}
+                  >
+                    <Link
+                      to={"/admin-page/don-hang/all"}
+                      style={{ color: "black", fontWeight: 600 }}
+                    >
+                      <TiArrowBack style={{ justifyContent: "center" }} /> Quay
+                      lại
+                    </Link>
+                  </h2>
+                </div>
+                <p
                   style={{
-                    marginTop: "20px",
-                    background: "#33CC33",
-                    color: "white",
-                    padding: "4px 10px",
-                    fontWeight: "500",
+                    fontWeight: "400",
+                    padding: "10px 10px",
+                    fontSize: "16px",
                   }}
                 >
-                  {order.status.toUpperCase()}
-                </Tag>
+                  Đặt ngày {order.date}
+                </p>
+                <p
+                  style={{
+                    fontWeight: "400",
+                    padding: "0px 10px",
+                    fontSize: "16px",
+                  }}
+                >
+                  {order.idorder}
+                </p>
+                <div className="cart_product_list">
+                  {renderProductItem(
+                    0,
+                    order.name,
+                    order.idproduct,
+                    order.imgDM,
+                    order.nameDM,
+                    order.codeDM,
+                    order.price,
+                    order.image,
+                    order.status,
+                    currentStep
+                  )}
+                </div>
               </div>
-            </div>
-          </div>
-        </Content>
+            </Content>
+          </Col>
+        </Row>
       </div>
+
       <div className="order-detail-2">
-        <Content
-          style={{
-            margin: "0 10px",
-          }}
-        >
-          <div
+        <Row style={{ padding: "10px 10px" }}>
+          <Content
             style={{
-              padding: 16,
-              minHeight: 240,
-              background: "#EEEEEE",
-              borderRadius: borderRadiusLG,
+              margin: "30px 10px",
             }}
           >
-            <Row style={{ padding: "10px 10px" }}>
-              <Col span={4}>
+            <div
+              style={{
+                padding: 16,
+                minHeight: 170,
+                background: "#EEEEEE",
+                borderRadius: borderRadiusLG,
+              }}
+            >
+              <Col span={24}>
                 <Steps
                   direction="vertical"
-                  style={{ gap: "20px" }}
+                  style={{ gap: "8px" }}
                   current={currentStep}
                   items={[
                     {
@@ -294,51 +267,106 @@ function ViewOrderDetails() {
                   ]}
                 />
               </Col>
-              <Col span={12}>
-                <div className="information">
-                  <p style={{ fontWeight: "500", fontSize: "16px" }}>
-                    Thông tin chi khách hàng
-                  </p>
-                  <Content
-                    style={{
-                      margin: "5px 15px",
-                    }}
-                  >
-                    <div
+            </div>
+          </Content>
+          <Col span={10}>
+            <div className="information">
+              <p
+                style={{
+                  fontWeight: "500",
+                  fontSize: "16px",
+                  marginLeft: "10px",
+                }}
+              >
+                Thông tin chi khách hàng
+              </p>
+              <Content
+                style={{
+                  margin: "10px 10px",
+                  marginLeft: "20px",
+                }}
+              >
+                <div
+                  style={{
+                    padding: 20,
+                    minHeight: 190,
+                    background: "#DDDDDD",
+                    borderRadius: borderRadiusLG,
+                  }}
+                >
+                  <div>
+                    <p
                       style={{
-                        padding: 20,
-                        minHeight: 120,
-                        background: "#DDDDDD",
-                        borderRadius: borderRadiusLG,
+                        marginBottom: "10px",
+                        fontSize: "16px",
+                        fontWeight: "500",
                       }}
                     >
-                      <p style={{ marginBottom: "8px", fontSize: "16px" }}>
-                        Họ và Tên: {order.nameUs}
-                      </p>
-                      <p style={{ marginBottom: "8px", fontSize: "16px" }}>
-                        Mã khách hàng: {order.idcus}
-                      </p>
-                      <p style={{ marginBottom: "8px", fontSize: "16px" }}>
-                        Email: {order.email}
-                      </p>
-                      <p style={{ marginBottom: "8px", fontSize: "16px" }}>
-                        Số điện thoại: {order.phone}
-                      </p>
-                      <p style={{ marginBottom: "8px", fontSize: "16px" }}>
-                        Địa chỉ: {order.address}
-                      </p>
-                    </div>
-                  </Content>
+                      Họ và Tên: <span style={{fontWeight: '300'}}>{order.nameUs}</span>
+                    </p>
+                    <p
+                      style={{
+                        marginBottom: "10px",
+                        fontSize: "16px",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Mã khách hàng: <span style={{fontWeight: '300'}}>{order.idcus}</span>
+                    </p>
+                    <p
+                      style={{
+                        marginBottom: "10px",
+                        fontSize: "16px",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Email: <span style={{fontWeight: '300'}}>{order.email}</span>
+                    </p>
+                    <p
+                      style={{
+                        marginBottom: "10px",
+                        fontSize: "16px",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Số điện thoại: <span style={{fontWeight: '300'}}>{order.phone}</span>
+                    </p>
+                    <p
+                      style={{
+                        marginBottom: "10px",
+                        fontSize: "16px",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Địa chỉ: <span style={{fontWeight: '300'}}>{order.address}</span>
+                    </p>
+                  </div>
                 </div>
-              </Col>
-              <Col span={8}>
-                <div className="price-all" style={{ marginLeft: "40px" }}>
-                  <p style={{ fontWeight: "500", fontSize: "16px" }}>
-                    Số tiền thanh toán
-                  </p>
+              </Content>
+            </div>
+          </Col>
+
+          <Col span={8}>
+            <div className="price-all" style={{ marginLeft: "10px" }}>
+              <p style={{ fontWeight: "500", fontSize: "16px" }}>
+                Số tiền thanh toán
+              </p>
+              <Content
+                style={{
+                  margin: "10px 10px",
+                }}
+              >
+                <div
+                  style={{
+                    padding: 16,
+                    minHeight: 190,
+                    background: "#EEEEEE",
+                    borderRadius: borderRadiusLG,
+                  }}
+                >
                   <div
                     className="total-price"
-                    style={{ marginTop: "20px", marginLeft: "30px" }}
+                    style={{ marginTop: "20px", textAlign: "end" }}
                   >
                     <p style={{ marginBottom: "16px", fontSize: "16px" }}>
                       Giá sản phẩm: {order.price}
@@ -348,7 +376,7 @@ function ViewOrderDetails() {
                     </p>
                     <p
                       style={{
-                        marginTop: "50px",
+                        marginTop: "40px",
                         fontSize: "20px",
                         color: "red",
                       }}
@@ -357,10 +385,10 @@ function ViewOrderDetails() {
                     </p>
                   </div>
                 </div>
-              </Col>
-            </Row>
-          </div>
-        </Content>
+              </Content>
+            </div>
+          </Col>
+        </Row>
       </div>
     </div>
   );

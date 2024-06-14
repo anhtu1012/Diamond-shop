@@ -78,10 +78,83 @@ function FormProductStep1({ onFinish, initialValues }) {
   const handleCategoryChange = (value) => {
     setCategory(value);
     setSubcategory(cityData[value][0]);
+    form.setFieldsValue({ subcategory: cityData[value][0], productID: "" });
   };
 
   const handleSubcategoryChange = (value) => {
     setSubcategory(value);
+    form.setFieldsValue({ productID: "" });
+  };
+
+  const getProductIDRules = () => {
+    switch (subcategory) {
+      case "Nhẫn Cầu Hôn Kim Cương":
+        return [
+          { required: true, message: "Vui lòng không để trống" },
+          {
+            pattern: /^NCH\d{5,10}$/,
+            message: "Mã sản phẩm phải là NCH và 5-10 số",
+          },
+        ];
+      case "Nhẫn Cưới Kim Cương":
+        return [
+          { required: true, message: "Vui lòng không để trống" },
+          {
+            pattern: /^NC\d{5,10}$/,
+            message: "Mã sản phẩm phải là NC và 5-10 số",
+          },
+        ];
+      case "Nhẫn Kim Cương Nam":
+        return [
+          { required: true, message: "Vui lòng không để trống" },
+          {
+            pattern: /^NNA\d{5,10}$/,
+            message: "Mã sản phẩm phải là NNA và 5-10 số",
+          },
+        ];
+      case "Nhẫn Kim Cương Nữ":
+        return [
+          { required: true, message: "Vui lòng không để trống" },
+          {
+            pattern: /^NNU\d{5,10}$/,
+            message: "Mã sản phẩm phải là NNU và 5-10 số",
+          },
+        ];
+      case "Bông Tai Kim Cương":
+        return [
+          { required: true, message: "Vui lòng không để trống" },
+          {
+            pattern: /^BT\d{5,10}$/,
+            message: "Mã sản phẩm phải là BT và 5-10 số",
+          },
+        ];
+      case "Lắc/ Vòng Tay Kim Cương":
+        return [
+          { required: true, message: "Vui lòng không để trống" },
+          {
+            pattern: /^LV\d{5,10}$/,
+            message: "Mã sản phẩm phải là LV và 5-10 số",
+          },
+        ];
+      case "Mặt Dây Chuyền Kim Cương":
+        return [
+          { required: true, message: "Vui lòng không để trống" },
+          {
+            pattern: /^MD\d{5,10}$/,
+            message: "Mã sản phẩm phải là MD và 5-10 số",
+          },
+        ];
+      case "Dây Chuyền Kim Cương":
+        return [
+          { required: true, message: "Vui lòng không để trống" },
+          {
+            pattern: /^DC\d{5,10}$/,
+            message: "Mã sản phẩm phải là DC và 5-10 số",
+          },
+        ];
+      default:
+        return [{ required: true, message: "Vui lòng không để trống" }];
+    }
   };
 
   const handleFinish = (values) => {
@@ -92,20 +165,20 @@ function FormProductStep1({ onFinish, initialValues }) {
       subcategory,
     });
   };
+
   const [form] = Form.useForm();
 
   useEffect(() => {
     form.setFieldsValue({
       quantity: initialValues?.quantity,
     });
-    // Khi component lần đầu đươc mount, thiết lập giá trị cho 'quantity' trên form
   }, [initialValues, form]);
 
   const handleSizesChange = (changedValues, allValues) => {
     if ("sizes" in changedValues) {
       const sizes = allValues.sizes || [];
       const totalQuantity = sizes.reduce(
-        (sum, size) => sum + (Number(size.quantitySize) || 0),
+        (sum, size) => sum + (Number(size.quantity) || 0),
         0
       );
       form.setFieldsValue({ quantity: totalQuantity });
@@ -124,19 +197,32 @@ function FormProductStep1({ onFinish, initialValues }) {
     >
       <Row className="form_stepp1">
         <Col span={12} className="info_basicc">
+          <Form.Item label="Chuyên mục" name="category">
+            <div className="category-select-container">
+              <Select
+                className="category-select"
+                value={category}
+                onChange={handleCategoryChange}
+                options={provinceData.map((province) => ({
+                  label: province,
+                  value: province,
+                }))}
+              />
+              <Select
+                className="category-select"
+                value={subcategory}
+                onChange={handleSubcategoryChange}
+                options={cityData[category].map((city) => ({
+                  label: city,
+                  value: city,
+                }))}
+              />
+            </div>
+          </Form.Item>
           <Form.Item
             label="Mã sản phẩm"
             name="productID"
-            rules={[
-              {
-                required: true,
-                message: "Vui lòng không để trống",
-              },
-              {
-                pattern: /^[^!@#$%^&*()+=]+$/,
-                message: "Vui lòng không nhập kí tự đặc biệt",
-              },
-            ]}
+            rules={getProductIDRules()}
           >
             <Input
               className="input"
@@ -165,7 +251,7 @@ function FormProductStep1({ onFinish, initialValues }) {
             />
           </Form.Item>
           <Row>
-            <Col span={8}>
+            <Col span={5}>
               <Form.Item
                 label="Tỷ lệ (%)"
                 name="ratio"
@@ -191,7 +277,32 @@ function FormProductStep1({ onFinish, initialValues }) {
                 />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={6}>
+              <Form.Item
+                label="Tiền Công"
+                name="wagePrice"
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng không để trống",
+                  },
+                  {
+                    type: "number",
+                    min: 0,
+                    message: "Tiền phải lớn hơn 0",
+                  },
+                ]}
+              >
+                <InputNumber
+                  className="input"
+                  style={{
+                    width: "92%",
+                  }}
+                  placeholder="100000"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={13}>
               <Form.Item
                 label="Giá Vốn"
                 name="originalPrice"
@@ -210,7 +321,7 @@ function FormProductStep1({ onFinish, initialValues }) {
                 <InputNumber
                   className="input_price"
                   style={{
-                    width: "95%",
+                    width: "63%",
                   }}
                   placeholder="0000000"
                   addonAfter={selectAfter}
@@ -218,28 +329,6 @@ function FormProductStep1({ onFinish, initialValues }) {
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item label="Chuyên mục" name="category">
-            <div className="category-select-container">
-              <Select
-                className="category-select"
-                value={category}
-                onChange={handleCategoryChange}
-                options={provinceData.map((province) => ({
-                  label: province,
-                  value: province,
-                }))}
-              />
-              <Select
-                className="category-select"
-                value={subcategory}
-                onChange={handleSubcategoryChange}
-                options={cityData[category].map((city) => ({
-                  label: city,
-                  value: city,
-                }))}
-              />
-            </div>
-          </Form.Item>
         </Col>
         <Col span={12} className="info_basicc">
           <Form.Item label="Thương hiệu" name="brand">
@@ -273,9 +362,8 @@ function FormProductStep1({ onFinish, initialValues }) {
                   </div>
                   <Row>
                     {fields.map((field) => (
-                      <Col span={11}>
+                      <Col span={11} key={field.key}>
                         <Space
-                          key={field.key}
                           style={{
                             display: "flex",
                             alignContent: "center",
@@ -298,8 +386,8 @@ function FormProductStep1({ onFinish, initialValues }) {
                           </Form.Item>
                           <Form.Item
                             {...field}
-                            name={[field.name, "quantitySize"]}
-                            fieldKey={[field.fieldKey, "quantitySize"]}
+                            name={[field.name, "quantity"]}
+                            fieldKey={[field.fieldKey, "quantity"]}
                             rules={[
                               {
                                 required: true,

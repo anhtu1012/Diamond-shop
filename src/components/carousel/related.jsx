@@ -20,6 +20,10 @@ export default function Relate({
   shape = "Round",
   category = "Nhẫn Kim Cương Nữ",
   data = "products",
+  isNewest = false,
+  showAllProducts = false,
+  numberOfProducts = 10,
+  showAllCategories = false,
 }) {
   const swiperContainerStyle = {
     "--swiper-rows": rows,
@@ -34,12 +38,34 @@ export default function Relate({
     } else {
       res = await getProducts();
     }
-    setItems(res.data);
+    let sortedItems = res.data;
+    if (isNewest) {
+      sortedItems = sortedItems.sort((a, b) => {
+        const dateA = new Date(data === "diamonds" ? a.inputDate : a.createAt);
+        const dateB = new Date(data === "diamonds" ? b.inputDate : b.createAt);
+        return dateB - dateA;
+      });
+    }
+
+    setItems(sortedItems);
   };
 
   useEffect(() => {
     fetchItems();
-  }, [data]);
+  }, [data, isNewest]);
+
+  // Filter items based on shape or category
+  const filteredItems = items.filter((item) => {
+    if (data === "diamonds") {
+      return item.shape === shape;
+    }
+    return showAllCategories || item.category.categoryName === category;
+  });
+
+  // Limit the number of items if showAllProducts is false
+  const displayedItems = showAllProducts
+    ? filteredItems
+    : filteredItems.slice(0, numberOfProducts);
 
   return (
     <div className="swiper-container" style={swiperContainerStyle}>
@@ -60,25 +86,18 @@ export default function Relate({
         modules={autoplay ? [Autoplay, Grid, Navigation] : [Grid, Navigation]}
         className={`relate ${rows === 2 ? "multi-item" : ""}`}
       >
-        {items
-          .filter((item) => {
-            if (data === "diamonds") {
-              return item.shape === shape;
-            }
-            return item.category.categoryName === category;
-          })
-          .map((item) => (
-            <SwiperSlide
-              key={item.productID || item.diamondID}
-              className="multi-slide"
-            >
-              {data === "diamonds" ? (
-                <CartProduct diamond={item} />
-              ) : (
-                <CartProduct product={item} />
-              )}
-            </SwiperSlide>
-          ))}
+        {displayedItems.map((item) => (
+          <SwiperSlide
+            key={item.productID || item.diamondID}
+            className="multi-slide"
+          >
+            {data === "diamonds" ? (
+              <CartProduct diamond={item}  />
+            ) : (
+              <CartProduct product={item} />
+            )}
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

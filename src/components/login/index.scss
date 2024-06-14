@@ -1,0 +1,98 @@
+.item {
+  img {
+    object-fit: cover; //chống vỡ
+  }
+}
+.login_section {
+  padding: 20px 50px;
+  .login {
+    padding-bottom: 30px;
+    &_titel {
+      font-size: 30px;
+      padding-bottom: 30px;
+      font-weight: bold;
+    }
+    &_form {
+      .input {
+        padding-left: 20px;
+        box-shadow: 2px 2px 2px 2px gray;
+        font-size: 20px;
+        border-radius: 10px;
+        height: 46px;
+      }
+    }
+    &_button {
+      width: 100%;
+      height: 50px;
+      border-radius: 50px;
+      font-size: large;
+      font-weight: bold;
+      text-align: center;
+      background-color: #2e5258;
+      transition: background-color 0.3s ease;
+      &:hover {
+        background-color: #a68909 !important; // Màu vàng khi hover
+        cursor: pointer; // Thêm hiệu ứng con trỏ chuột khi hover
+      }
+    }
+
+    &_or {
+      color: #b9b8b8;
+      padding: 15px 0px;
+      font-style: italic;
+      text-align: center;
+      position: relative;
+      &_or h2 {
+        background-color: #fff; /* Phải trùng với màu nền của form hoặc môi trường xung quanh */
+        display: inline-block;
+        padding: 0 20px; /* Găng khoảng cách cho chữ "Hoặc" */
+        position: relative;
+        z-index: 1; /* Đảm bảo chữ "Hoặc" nằm trên các dòng */
+      }
+      &_or:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 1px; /* Độ cao của đường kẻ */
+        background-color: #c1c1c1; /* Màu của đường kẻ */
+        z-index: 0;
+      }
+    }
+    &_social {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 0px 5px;
+      border-radius: 25px;
+      border: 1px solid black;
+      height: 40px;
+      font-size: 20px;
+      padding: 20px;
+      margin-bottom: 10px;
+      transition: background-color 0.3s ease;
+      &:hover {
+        color: #a68909 !important; // Màu vàng khi hover
+        border: 1px solid #a68909 !important;
+        cursor: pointer; // Thêm hiệu ứng con trỏ chuột khi hover
+      }
+    }
+  }
+}
+.link {
+  text-align: center;
+  & .switch_link {
+    color: rgb(14, 134, 215);
+    font-size: 15px;
+    font-style: italic;
+    transition: background-color 0.3s ease;
+    &:hover {
+      color: #a68909 !important; // Màu vàng khi hover
+      cursor: pointer; // Thêm hiệu ứng con trỏ chuột khi hover
+    }
+  }
+}

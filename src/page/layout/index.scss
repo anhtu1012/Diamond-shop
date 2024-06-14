@@ -1,0 +1,39 @@
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-5px);
+  }
+  40%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+:where(.css-dev-only-do-not-override-zg0ahe).ant-float-btn-primary .ant-float-btn-body {
+  background-color: #e70953;
+  transition: background-color 0.2s;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(109, 4, 4, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(212, 3, 17, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+  }
+}
+
+
+
+.shake-icon {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite,
+    pulse 2s infinite;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}

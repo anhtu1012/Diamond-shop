@@ -73,12 +73,12 @@ function FormProuct({ diamond }) {
     }
   };
   const filterByShape = (product) => {
-    if (diamond === null) return true;
+    if (!diamond || !diamond.shape) return true;
     return diamond.shape === product.shapeDiamond;
   };
 
   const filterByDimensions = (product) => {
-    if (diamond === null) return true;
+    if (!diamond || !diamond.dimensions) return true;
     return diamond.dimensions === product.dimensionsDiamond;
   };
   const sortByPrice = (a, b) => {

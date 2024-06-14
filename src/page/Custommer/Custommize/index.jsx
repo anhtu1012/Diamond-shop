@@ -9,95 +9,43 @@ import FormProduct from "./FormProduct";
 import FormDiamond from "./FormDiamond";
 import Complete from "./Complete";
 
+import { useDispatch, useSelector } from "react-redux";
+import {
+  clearDiamond,
+  clearProduct,
+  selectDiamond,
+  selectProduct,
+  setDiamond,
+  setProduct,
+} from "../../../redux/features/counterSlice";
+
 function Custommize() {
   const [currentStep, setCurrentStep] = useState(1);
-
-  const [product, setProduct] = useState(null);
-  const [idProduct, setIdProduct] = useState(null);
-  const [diamond, setDiamond] = useState(null);
-  const [idDiamond, setIdDiamond] = useState(null);
+  const product = useSelector(selectProduct);
+  const diamond = useSelector(selectDiamond);
   const [idComplete, setIdComplete] = useState(null);
   const [totalPriceCustom, setTotalPriceCusTom] = useState(0);
-
+  const dispatch = useDispatch();
   const location = useLocation(); // Lấy state từ location
-  const userToken = localStorage.getItem("token");
 
   useEffect(() => {
     if (location.state && location.state.product) {
-      const productDetail = location.state.product;
-      setProduct(productDetail);
-      setIdProduct(productDetail.productID);
-      localStorage.setItem(
-        "product",
-        JSON.stringify({ product: productDetail, token: userToken })
-      );
-      localStorage.setItem(
-        "idProduct",
-        JSON.stringify({ id: productDetail.productID, token: userToken })
-      );
-    } else {
-      try {
-        const storedProduct = JSON.parse(localStorage.getItem("product"));
-        const storedIdProduct = JSON.parse(localStorage.getItem("idProduct"));
-        if (
-          storedProduct &&
-          storedIdProduct &&
-          storedProduct.token === userToken
-        ) {
-          setProduct(storedProduct.product);
-          setIdProduct(storedIdProduct.id);
-        }
-      } catch (error) {
-        console.error("Failed to parse product from localStorage", error);
-      }
+      dispatch(setProduct(location.state.product));
     }
-  }, [location.state, userToken]);
+  }, [location.state, dispatch]);
 
   useEffect(() => {
     if (location.state && location.state.diamond) {
-      const diamondDetail = location.state.diamond;
-      setDiamond(diamondDetail);
-      setIdDiamond(diamondDetail.diamondID);
-      localStorage.setItem(
-        "diamond",
-        JSON.stringify({ diamond: diamondDetail, token: userToken })
-      );
-      localStorage.setItem(
-        "idDiamond",
-        JSON.stringify({ id: diamondDetail.diamondID, token: userToken })
-      );
-    } else {
-      try {
-        const storedDiamond = JSON.parse(localStorage.getItem("diamond"));
-        const storedIdDiamond = JSON.parse(localStorage.getItem("idDiamond"));
-        if (
-          storedDiamond &&
-          storedIdDiamond &&
-          storedDiamond.token === userToken
-        ) {
-          setDiamond(storedDiamond.diamond);
-          setIdDiamond(storedIdDiamond.id);
-        }
-      } catch (error) {
-        console.error("Failed to parse diamond from localStorage", error);
-      }
+      dispatch(setDiamond(location.state.diamond));
     }
-  }, [location.state, userToken]);
+  }, [location.state, dispatch]);
 
   const handleDeleteProduct = () => {
-    setProduct(null);
-    setIdProduct(null);
-    localStorage.removeItem("product");
-    localStorage.removeItem("idProduct");
-    setIdComplete(null);
+    dispatch(clearProduct());
   };
 
   const handleDeleteDiamond = () => {
-    setDiamond(null);
-    setIdDiamond(null);
-    localStorage.removeItem("diamond");
-    localStorage.removeItem("idDiamond");
-    setIdComplete(null);
+    dispatch(clearDiamond());
   };
 
   const truncateProductName = (name) => {
@@ -107,6 +55,8 @@ function Custommize() {
 
   const handleStep3Click = () => {
     if (
+      product &&
+      diamond &&
       product.shapeDiamond === diamond.shape &&
       product.dimensionsDiamond === diamond.dimensions
     ) {
@@ -130,10 +80,11 @@ function Custommize() {
         setTotalPriceCusTom(
           Number(product.totalPrice) + Number(diamond.totalPrice)
         );
-        setCurrentStep(3);
       } else {
         setIdComplete(null);
       }
+    } else {
+      setIdComplete(null);
     }
   }, [product, diamond]);
 
@@ -176,11 +127,11 @@ function Custommize() {
           </Col>
           <Col span={8}>
             <Button
-              className={`step_main_button_1 ${idProduct ? "selected" : ""}`}
+              className={`step_main_button_1 ${product ? "selected" : ""}`}
               onClick={() => setCurrentStep(1)}
             >
               <Row className="body_step">
-                {idProduct ? (
+                {product ? (
                   <>
                     <Col span={4}>
                       <span className="title_1">✔</span>
@@ -188,7 +139,7 @@ function Custommize() {
                     <Col span={16}>
                       <div>
                         <Link
-                          to={`/product-details/${idProduct}`}
+                          to={`/product-details/${product.productID}`}
                           style={{ color: "white" }}
                         >
                           <p>{truncateProductName(product.productName)}</p>
@@ -236,11 +187,11 @@ function Custommize() {
           </Col>
           <Col span={8}>
             <Button
-              className={`step_main_button_2 ${idDiamond ? "selected2" : ""}`}
+              className={`step_main_button_2 ${diamond ? "selected2" : ""}`}
               onClick={() => setCurrentStep(2)}
             >
               <Row className="body_step">
-                {idDiamond ? (
+                {diamond ? (
                   <>
                     <Col span={4}>
                       <span className="title_1">✔</span>
@@ -248,7 +199,7 @@ function Custommize() {
                     <Col span={16}>
                       <div>
                         <Link
-                          to={`/diamond-details/${idDiamond}`}
+                          to={`/diamond-details/${diamond.diamondID}`}
                           style={{ color: "white" }}
                         >
                           <p>{truncateProductName(diamond.diamondName)}</p>
@@ -298,7 +249,7 @@ function Custommize() {
             <Button
               className={`step_main_button_3 ${idComplete ? "selected3" : ""}`}
               onClick={handleStep3Click}
-              disabled={!idProduct || !idDiamond}
+              disabled={!product || !diamond || !idComplete}
             >
               <Row className="body_step">
                 {idComplete ? (
@@ -308,7 +259,7 @@ function Custommize() {
                     </Col>
                     <Col span={16}>
                       <div>
-                        <p>Hoàn Thành</p>
+                        <p>HOÀN THÀNH</p>
                       </div>
                       <div className="title_main">
                         <span>

@@ -66,7 +66,7 @@ function NhanKimCuong() {
         return price >= 50000000 && price <= 100000000;
       case "500-700":
         return price >= 50000000 && price <= 700000000;
-      default:
+      default: 
         return true;
     }
   };

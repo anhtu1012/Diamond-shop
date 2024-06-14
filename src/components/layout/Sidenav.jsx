@@ -8,7 +8,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./layout.scss";
 import { useState } from "react";
 const items = [
@@ -47,7 +47,7 @@ const items = [
   {
     key: "sub5",
     label: "Tài Khoản",
-    icon: <UserOutlined  className="side-icon" />,
+    icon: <UserOutlined className="side-icon" />,
     children: [
       { key: "tai-khoan/xem-tat-ca-tai-khoan", label: "Xem tất cả" },
       { key: "tai-khoan/tao-tai-khoan", label: "Tạo Tài Khoản" },
@@ -86,11 +86,13 @@ function Sidenav({ collapsed }) {
     <>
       <div className="side_logo">
         {!collapsed ? (
-          <img
-            src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/Logo.png?alt=media&token=13f983ed-b3e1-4bbe-83b2-a47edf62c6a6"
-            width={250}
-            alt=""
-          />
+          <Link to={"/"}>
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/Logo.png?alt=media&token=13f983ed-b3e1-4bbe-83b2-a47edf62c6a6"
+              width={250}
+              alt=""
+            />
+          </Link>
         ) : (
           <SketchCircleFilled className={logoClass} />
         )}
