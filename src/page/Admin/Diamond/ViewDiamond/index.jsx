@@ -14,6 +14,7 @@ function ViewDiamond() {
   const [dataSource, setDataSource] = useState([]);
 
   const [loading, setLoading] = useState(true); // Add loading state
+  
   async function fetchDiamonds() {
     setLoading(true); // Set loading to true when starting the fetch
     const response = await getDiamonds();
@@ -299,6 +300,7 @@ function ViewDiamond() {
           onClick={start}
           disabled={!hasSelected}
           loading={deleteLoading}
+          style={{ background: "red", color: "white" }}
         >
           Xóa sản phẩm
         </Button>
