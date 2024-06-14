@@ -19,17 +19,32 @@ import { Link, useParams } from "react-router-dom";
 import "./index.scss";
 import { useEffect, useState } from "react";
 import moment from "moment";
-import { fetchProductById } from "../../../../../services/Uservices";
+import {
+  fetchProductById,
+  updateProduct,
+} from "../../../../../services/Uservices";
 import LoadingTruck from "../../../../components/loading";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { TiArrowBack } from "react-icons/ti";
+import ImgCrop from "antd-img-crop";
+import uploadFile from "../../../../utils/upload";
 
+const getBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
 function ProductDetail() {
   const { productID } = useParams();
   const [product, setProduct] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [form] = Form.useForm();
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const fetchProductByIds = async (productID) => {
     try {
@@ -83,16 +98,52 @@ function ProductDetail() {
   useEffect(() => {
     fetchProductByIds(productID);
   }, [productID]);
-
+  const handleDeleteImage = async (file) => {
+    const newFileList = fileList.filter((item) => item.uid !== file.uid);
+    setFileList(newFileList);
+    message.success("Xóa ảnh thành công!");
+  };
   const handleEdit = () => {
     setIsEditing(true);
   };
 
-  const handleSave = () => {
-    setIsEditing(false);
-    message.success("Lưu thành công!");
-  };
+  const handleSave = async () => {
+    setUploading(true); // Bắt đầu hiển thị trạng thái uploading
+    try {
+      const formData = await form.validateFields(); // Lấy dữ liệu từ form
 
+      // Xử lý upload ảnh mới. Chú ý rằng file.originFileObj mới là file cần được tải lên
+      const uploadPromises = fileList
+        .filter((file) => file.originFileObj)
+        .map((file) => uploadFile(file.originFileObj));
+      const uploadResults = await Promise.all(uploadPromises);
+
+      // Các file đã được tải lên chưa? Nếu chưa, ảnh cũ sẽ được sử dụng
+      const updatedFileList = fileList.map((file) => {
+        if (file.url) return { imageId: file.uid, imageUrl: file.url }; // Sử dụng ảnh cũ
+        const uploadedFile = uploadResults.find(
+          (upload) => upload.filename === file.name
+        );
+        return { imageId: file.uid, imageUrl: uploadedFile.url }; // Hoặc file mới được tải lên
+      });
+
+      const updatedData = {
+        ...formData,
+        productImages: updatedFileList,
+        // Tiếp tục xử lý các trường khác của formData như đã mô tả trước đó
+      };
+      console.log(updatedData);
+      await updateProduct(productID, updatedData); // Gửi yêu cầu cập nhật
+      message.success("Cập nhật sản phẩm thành công!");
+      setIsEditing(false);
+      setUploading(false);
+      fetchProductByIds(productID); // Làm mới thông tin sản phẩm
+    } catch (error) {
+      console.error("Failed to update product:", error);
+      message.error("Cập nhật sản phẩm thất bại.");
+      setUploading(false);
+    }
+  };
   const handleCancel = () => {
     setIsEditing(false);
   };
@@ -101,33 +152,18 @@ function ProductDetail() {
     message.success("Xóa thành công");
   };
 
+  const onChange = ({ fileList: newFileList }) => {
+    console.log("Files after change:", newFileList);
+    setFileList(newFileList);
+  };
+
   const handlePreview = async (file) => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
     }
-    const imgWindow = window.open(src);
-    imgWindow.document.write(`<img src="${src}" style="width: 100%;" />`);
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
   };
-
-  const handleChange = ({ fileList: newFileList }) => {
-    if (Array.isArray(newFileList)) {
-      setFileList(newFileList);
-    } else {
-      console.error("newFileList is not an array:", newFileList);
-    }
-  };
-
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
 
   const {
     token: { borderRadiusLG },
@@ -745,24 +781,6 @@ function ProductDetail() {
                           />
                         </Form.Item>
                       </Col>
-                      <Col span={8}>
-                        <Form.Item
-                          label="Giá bán"
-                          name="totalPrice"
-                          rules={[
-                            {
-                              required: true,
-                              message: "Vui lòng không để trống",
-                            },
-                          ]}
-                          className="custom-form-item"
-                        >
-                          <Input
-                            readOnly={!isEditing}
-                            style={{ width: "100%" }}
-                          />
-                        </Form.Item>
-                      </Col>
                       <Col span={24}>
                         <Form.Item
                           label="Trạng thái"
@@ -801,37 +819,44 @@ function ProductDetail() {
                           )}
                         </Form.Item>
                       </Col>
-                      {product.productImages
-                        .slice(0)
-                        .map((thumbnail, index) => (
-                          <Col span={6} key={index}>
-                            <Image
-                              src={thumbnail.imageUrl}
-                              alt={`Thumbnail ${index + 1}`}
-                              style={{
-                                width: "100%",
-                                display: "flex",
-                                justifyContent: "center",
-                              }}
-                            />
-                          </Col>
-                        ))}
+
                       <Col span={6}>
-                        <Form.Item name="poster" valuePropName="fileList">
-                          <Upload
-                            listType="picture-card"
-                            fileList={Array.isArray(fileList) ? fileList : []}
-                            beforeUpload={() => false}
-                            onPreview={handlePreview}
-                            onChange={handleChange}
-                          >
-                            {fileList.length >= 8 ? null : uploadButton}
-                          </Upload>
+                        <Form.Item
+                          name="productImages"
+                          valuePropName="fileList"
+                        >
+                          <ImgCrop rotationSlider>
+                            <Upload
+                              action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload" // Đường dẫn này chỉ là ví dụ, cần thay thế bằng địa chỉ đúng
+                              listType="picture-card"
+                              fileList={fileList}
+                              onChange={onChange}
+                              onPreview={handlePreview}
+                              onRemove={handleDeleteImage}
+                              beforeUpload={() => false}
+                            >
+                              {fileList.length < 4 && "+ Upload"}
+                            </Upload>
+                          </ImgCrop>
                         </Form.Item>
                       </Col>
                     </Row>
                   </Form>
                 </Modal>
+                {previewImage && (
+                  <Image
+                    wrapperStyle={{
+                      display: "none",
+                    }}
+                    preview={{
+                      visible: previewOpen,
+                      onVisibleChange: (visible) => setPreviewOpen(visible),
+                      afterOpenChange: (visible) =>
+                        !visible && setPreviewImage(""),
+                    }}
+                    src={previewImage}
+                  />
+                )}
               </div>
             </Form>
           </div>

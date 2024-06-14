@@ -80,7 +80,12 @@ export const updateDiamond = (id, diamond) => {
     diamond
   );
 };
-
+export const updateProduct = (product_id, product) => {
+  return api.put(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/products/update/${product_id}`,
+    product
+  );
+};
 export const fetchDiamondById = (diamond_id) => {
   return api.get(
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/diamonds/diamond_id/${diamond_id}`
@@ -99,5 +104,10 @@ export const addToCart = (id) => {
 export const addToCartCustomize = (userID) => {
   return api.post(
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/productcustomes/create_customizeProduct/${userID}`
+  );
+};
+export const getAllUser = () => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/admin/all_users`
   );
 };
