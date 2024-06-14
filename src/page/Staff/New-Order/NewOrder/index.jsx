@@ -106,10 +106,10 @@ const products = [
     size: "45",
     link: "/staff-page/chi-tiet-don-hang",
   },
-];
+]; 
 
 const NewOrder = () => {
-  const navigate = useNavigate(); // Get the navigate function from useNavigate hook
+  const navigate = useNavigate(); 
 
   return (
     <div>
@@ -128,7 +128,7 @@ const NewOrder = () => {
             product.imageUrl,
             product.size,
             product.link,
-            navigate // Pass navigate function as a prop
+            navigate 
           )
         )}
       </div>

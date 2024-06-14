@@ -338,6 +338,74 @@ function AllOrder() {
   });
 
 
+const columns = [
+  {
+    title: "Mã đơn hàng",
+    dataIndex: "idorder",
+    key: "idorder",
+    width: "15%",
+    ...getColumnSearchProps("idorder"),
+    
+  },
+  {
+    title: "ID Khách Hàng",
+    dataIndex: "idcus",
+    key: "idcus",
+    width: "10%",
+    ...getColumnSearchProps("idcus"),
+    
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
+    key: "email",
+    width: "20%",
+    ...getColumnSearchProps("email"),
+    
+  },
+  {
+    title: "Ngày đặt hàng",
+    dataIndex: "date",
+    key: "date",
+    width: "15%",
+    ...getColumnSearchProps("date"),
+    sorter: (a, b) =>
+      new Date(a.date.split("-").reverse().join("-")) -
+      new Date(b.date.split("-").reverse().join("-")),
+    sortDirections: ["descend", "ascend"],
+    
+  },
+  {
+    title: "Số lượng ",
+    dataIndex: "quantity",
+    key: "quantity",
+    width: "10%",
+    ...getColumnSearchProps("quantity"),
+    
+  },
+  {
+    title: "Trạng thái",
+    dataIndex: "status",
+    key: "status",
+    width: "15%",
+    ...getColumnSearchProps("status", [
+      "Chờ xác nhận",
+      "Chờ thanh toán",
+      "Chờ giao hàng",
+      "Đã giao",
+      "Đã hủy",
+    ]),
+    
+  }, 
+  {
+    dataIndex: "infor",
+    key: "infor",
+    width: "15%",
+    
+  },
+];
+
+
   const columns = [
     {
       title: "Mã đơn hàng",

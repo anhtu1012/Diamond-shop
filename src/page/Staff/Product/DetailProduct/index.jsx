@@ -1,6 +1,7 @@
 import { Button, Col, Row } from "antd";
 import "./index.scss";
 import { GiJewelCrown } from "react-icons/gi";
+import { Link } from "react-router-dom";
 
 function DetailProduct() {
   return (
@@ -41,7 +42,8 @@ function DetailProduct() {
               </Button>
 
               <Button type="primary" className="custom-black-button">
-                Tạo đơn hàng
+                <Link to="/staff-page/don-hang-moi" >
+                Tạo đơn hàng</Link>
               </Button>
             </div>
           </div>
@@ -58,7 +60,7 @@ function DetailProduct() {
                 <Row className="product">
                   <Col span={9} clasName="pay_img">
                     <img
-                      src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7"
+                      src="https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg"
                       width={130}
                     />
                   </Col>
@@ -73,7 +75,7 @@ function DetailProduct() {
                     </div>
                     <div className="product1">
                       <img
-                        src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7"
+                        src="https://igg.vn/images/upload/34201813229polished-diamond.png"
                         width={30}
                       />
                       <div>
