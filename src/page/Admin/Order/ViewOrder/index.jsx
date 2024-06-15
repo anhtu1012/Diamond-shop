@@ -1,4 +1,4 @@
-import { Col, Row, Steps, Tag, theme } from "antd";
+import { Col, Rate, Row, Steps, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { Link, useParams } from "react-router-dom";
 import "./index.scss";
@@ -14,7 +14,7 @@ const data = [
     email: "hai263672@gmail.com",
     nameUs: "Nguyen Thanh Hai",
     imgDM: "https://igg.vn/images/upload/34201813229polished-diamond.png",
-    nameDM: "KIm cuong ne",
+    nameDM: "NHẪN KIM CƯƠNG NỮ 18K ",
     codeDM: "0000000",
     date: "29-5-2024",
     quantity: "2",
@@ -93,6 +93,9 @@ const renderProductItem = (
         <Col span={18} className="infor">
           <div className="infor_detail">
             <p>{name}</p>
+            <div>
+              <Rate disabled defaultValue={5} />
+            </div>
             <span>{idproduct}</span>
             <p>{nameDM}</p>
             <span>{codeDM}</span>
@@ -199,17 +202,27 @@ function ViewOrderDetails() {
                 <p
                   style={{
                     fontWeight: "400",
-                    padding: "10px 10px",
+                    background: "#15393f",
+                    color: "white",
+                    border: "2px solid black",
+                    gap: "5px",
                     fontSize: "16px",
+                    padding: "4px",
+                    width: "14%",
+                    marginBottom: "10px",
                   }}
                 >
                   Đặt ngày {order.date}
                 </p>
                 <p
                   style={{
-                    fontWeight: "400",
-                    padding: "0px 10px",
                     fontSize: "16px",
+                    background: "#e4bd7b",
+                    border: "2px solid black",
+                    padding: "4px",
+
+                    fontWeight: "bold",
+                    width: "8%",
                   }}
                 >
                   {order.idorder}
@@ -217,6 +230,20 @@ function ViewOrderDetails() {
                 <div className="cart_product_list">
                   {renderProductItem(
                     0,
+                    order.name,
+                    order.idproduct,
+                    order.imgDM,
+                    order.nameDM,
+                    order.codeDM,
+                    order.price,
+                    order.image,
+                    order.status,
+                    currentStep
+                  )}
+                </div>
+                <div className="cart_product_list">
+                  {renderProductItem(
+                    2,
                     order.name,
                     order.idproduct,
                     order.imgDM,
@@ -236,11 +263,13 @@ function ViewOrderDetails() {
 
       <div className="order-detail-2">
         <Row style={{ padding: "10px 10px" }}>
+          
           <Content
             style={{
               margin: "30px 10px",
             }}
           >
+            
             <div
               style={{
                 padding: 16,
@@ -249,7 +278,9 @@ function ViewOrderDetails() {
                 borderRadius: borderRadiusLG,
               }}
             >
+              
               <Col span={24}>
+              
                 <Steps
                   direction="vertical"
                   style={{ gap: "8px" }}
@@ -302,7 +333,8 @@ function ViewOrderDetails() {
                         fontWeight: "500",
                       }}
                     >
-                      Họ và Tên: <span style={{fontWeight: '300'}}>{order.nameUs}</span>
+                      Họ và Tên:{" "}
+                      <span style={{ fontWeight: "300" }}>{order.nameUs}</span>
                     </p>
                     <p
                       style={{
@@ -311,7 +343,8 @@ function ViewOrderDetails() {
                         fontWeight: "500",
                       }}
                     >
-                      Mã khách hàng: <span style={{fontWeight: '300'}}>{order.idcus}</span>
+                      Mã khách hàng:{" "}
+                      <span style={{ fontWeight: "300" }}>{order.idcus}</span>
                     </p>
                     <p
                       style={{
@@ -320,7 +353,8 @@ function ViewOrderDetails() {
                         fontWeight: "500",
                       }}
                     >
-                      Email: <span style={{fontWeight: '300'}}>{order.email}</span>
+                      Email:{" "}
+                      <span style={{ fontWeight: "300" }}>{order.email}</span>
                     </p>
                     <p
                       style={{
@@ -329,7 +363,8 @@ function ViewOrderDetails() {
                         fontWeight: "500",
                       }}
                     >
-                      Số điện thoại: <span style={{fontWeight: '300'}}>{order.phone}</span>
+                      Số điện thoại:{" "}
+                      <span style={{ fontWeight: "300" }}>{order.phone}</span>
                     </p>
                     <p
                       style={{
@@ -338,7 +373,8 @@ function ViewOrderDetails() {
                         fontWeight: "500",
                       }}
                     >
-                      Địa chỉ: <span style={{fontWeight: '300'}}>{order.address}</span>
+                      Địa chỉ:
+                      <span style={{ fontWeight: "300" }}>{order.address}</span>
                     </p>
                   </div>
                 </div>
@@ -366,22 +402,42 @@ function ViewOrderDetails() {
                 >
                   <div
                     className="total-price"
-                    style={{ marginTop: "20px", textAlign: "end" }}
+                    style={{ marginTop: "20px", textAlign: "left" }}
                   >
-                    <p style={{ marginBottom: "16px", fontSize: "16px" }}>
-                      Giá sản phẩm: {order.price}
+                    <p
+                      style={{
+                        marginBottom: "16px",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Giá sản phẩm:
+                      <span style={{ fontWeight: "normal" }}>
+                        {order.price}
+                      </span>
                     </p>
-                    <p style={{ marginBottom: "16px", fontSize: "16px" }}>
-                      Giao hàng: Free
+                    <p
+                      style={{
+                        marginBottom: "16px",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Giao hàng:
+                      <span style={{ fontWeight: "normal" }}>Miễn phí</span>
                     </p>
                     <p
                       style={{
                         marginTop: "40px",
                         fontSize: "20px",
                         color: "red",
+                        fontWeight: "bold",
                       }}
                     >
-                      Tổng giá: {order.totalprice}
+                      Tổng giá:
+                      <span style={{ fontWeight: "normal" }}>
+                        {order.totalprice}
+                      </span>
                     </p>
                   </div>
                 </div>

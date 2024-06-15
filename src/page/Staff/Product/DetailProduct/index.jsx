@@ -1,4 +1,4 @@
-import { Button, Col, Row } from "antd";
+import { Button, Col, Rate, Row } from "antd";
 import "./index.scss";
 import { GiJewelCrown } from "react-icons/gi";
 import { Link } from "react-router-dom";
@@ -29,7 +29,10 @@ function DetailProduct() {
               </div>
               <div className="thong-tin-item">
                 <p className="label">Địa Chỉ:</p>
-                <p className="value">123 Main Street, City,123 Main Street, City,123 Main Street, City</p>
+                <p className="value">
+                  123 Main Street, City,123 Main Street, City,123 Main Street,
+                  City
+                </p>
               </div>
               <div className="thong-tin-item">
                 <p className="label">Ngày Sinh:</p>
@@ -37,15 +40,21 @@ function DetailProduct() {
               </div>
             </div>
             <div style={{ marginTop: "10px", marginLeft: "auto" }}>
-              <Button type="primary" danger style={{ marginRight: "10px" }}>
+              <Button
+                type="primary"
+                danger
+                style={{ marginRight: "10px", fontWeight: "bold" }}
+              >
                 Xóa
               </Button>
 
               <Button type="primary" className="custom-black-button">
-
-                <Link to="/staff-page/don-hang-moi" >
-                Tạo đơn hàng</Link>
-
+                <Link
+                  to="/staff-page/don-hang-moi"
+                  style={{ fontWeight: "bold" }}
+                >
+                  Tạo đơn hàng
+                </Link>
               </Button>
             </div>
           </div>
@@ -56,16 +65,14 @@ function DetailProduct() {
             <div className="thong-tin-don-mua" style={{ padding: "10px " }}>
               <span>Thông tin đơn hàng</span>
             </div>
-            <hr className="custom-hr"/>
+            <hr className="custom-hr" />
             <div className="product_infor">
               <div className="product">
                 <Row className="product">
                   <Col span={9} clasName="img">
                     <img
-
                       src="https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg"
-                      width={130}
-
+                      width={170}
                     />
                   </Col>
 
@@ -74,6 +81,9 @@ function DetailProduct() {
                       <GiJewelCrown style={{ fontSize: "20px" }} />
                       <div>
                         <p>NHẪN KIM CƯƠNG NỮ 18K</p>
+                        <div>
+                          <Rate disabled defaultValue={5} />
+                        </div>
                         <span>GD0000Y011997</span>
                       </div>
                     </div>
@@ -84,6 +94,9 @@ function DetailProduct() {
                       />
                       <div>
                         <p>KIM CƯƠNG VIÊN GIA 5LY4</p>
+                        <div>
+                          <Rate disabled defaultValue={5} />
+                        </div>
                         <span>1453851108</span>
                       </div>
                     </div>
@@ -97,7 +110,7 @@ function DetailProduct() {
                     </Col>
                   </Col>
                 </Row>
-                <hr className="custom-hr"/>
+                <hr className="custom-hr" />
               </div>
               <div className="product">
                 <Row className="product">
@@ -112,6 +125,9 @@ function DetailProduct() {
                       <GiJewelCrown style={{ fontSize: "20px" }} />
                       <div>
                         <p>NHẪN KIM CƯƠNG NỮ 18K</p>
+                        <div>
+                          <Rate disabled defaultValue={5} />
+                        </div>
                         <span>GD0000Y011997</span>
                       </div>
                     </div>
@@ -131,24 +147,24 @@ function DetailProduct() {
                     </Col>
                   </Col>
                 </Row>
-                <hr className="custom-hr"/>
+                <hr className="custom-hr" />
               </div>
             </div>
             <div className="repayp">
               <div className="total_pricep">
                 <p>Tạm tính</p>
-                <span>23.506.000đ</span>
+                <span style={{color:"#15393f"}}>23.506.000đ</span>
               </div>
               <div className="total_pricep">
                 <p>Chí phí vận chuyển</p>
-                <span>Miễn Phí</span>
+                <span style={{color:"#15393f"}}>Miễn Phí</span>
               </div>
             </div>
 
             <div className="repay2p">
               <div className="totalp">
                 <p>Thành tiền </p>
-                <span>23.506.000đ</span>
+                <span style={{color:"#15393f"}}> 23.506.000đ</span>
               </div>
               <div
                 style={{
