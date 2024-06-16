@@ -28,7 +28,6 @@ function Login({ onLoginSuccess }) {
   const [form] = useForm();
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState("");
-
   const dispatch = useDispatch();
 
   const switchToSignUp = () => {
