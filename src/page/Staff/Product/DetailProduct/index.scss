@@ -34,18 +34,27 @@
   margin-top: 20px;
   margin-bottom: 10px;
 }
+.thong-tin-chi-tiet {
+  .thong-tin-item {
+    display: flex;
+    margin: 10px 0;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 400;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    .label {
+      font-weight: bold;
+      margin-right: 30px;
+      width: 200px;
+    }
 
-.thong-tin-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 400;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 8px;
-  margin-bottom: 8px;
-}
-.label {
-  font-weight: bold;
+    .value {
+      flex: 1;
+      text-align: right;
+    }
+  }
 }
 
 .repayp {
@@ -86,20 +95,7 @@
     }
   }
 }
-.size_productdp {
-  text-align: left;
-  font-size: 16px;
-  font-weight: 400;
-}
 
-.price_productdp {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  color: #e4bd7b;
-  font-weight: bold;
-  font-size: 20px;
-}
 .code-user {
   background-color: #e4bd7b;
   color: black;
@@ -127,28 +123,63 @@
 .custom-black-button {
   background-color: #e4bd7b !important;
   border-color: black !important;
-  color: black  !important;
+  color: black !important;
 }
-.thong-tin-chi-tiet {
-  .thong-tin-item {
-    display: flex;
-    margin: 10px 0;
-    align-items: center;
-    .label {
-      font-weight: bold;
-      margin-right: 30px;
-      width: 200px;
-    }
 
-    .value {
-      flex: 1;
-      text-align: right;
+// ------------------------------------
+.staff_order_frame {
+  position: relative;
+  margin: 10px 0px;
+  padding: 15px;
+  border: 1px solid rgb(128, 128, 128, 0.1);
+  box-shadow: 1px 1px 1px 1px rgb(128, 128, 128, 0.1);
+  border-radius: 8px;
+  background-color: rgb(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  .staff_order_left {
+    position: relative;
+    .staff_order_kimg_kid {
+      width: 70px;
+      height: 70px;
+      position: absolute;
+      top: -20px;
+      left: 0;
     }
   }
-}
-.custom-hr {
-  border: none;
-  border-top: 1px solid #000;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  .staff_order_right {
+    .icon_order {
+      padding-right: 10px;
+    }
+    .info_product {
+      display: flex;
+      padding-bottom: 15px;
+      color: #15393f;
+      .info_sub {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        font-size: large;
+        font-weight: bold;
+      }
+      &.info_sub_diamond {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        font-size: 100px;
+      }
+    }
+    .info_diamond {
+      display: flex;
+      padding-bottom: 15px;
+      color: #15393f;
+      .info_sub {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        font-size: large;
+        font-weight: bold;
+      }
+    }
+  }
 }
