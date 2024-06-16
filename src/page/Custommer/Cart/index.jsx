@@ -423,7 +423,7 @@ function Cart() {
                   renderProductItem(
                     index,
                     product.name,
-                    product.code,
+                    product.code, 
                     product.imgDM,
                     product.nameDM,
                     product.codeDM,
