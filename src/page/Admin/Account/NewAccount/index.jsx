@@ -236,16 +236,6 @@ const NewAccount = () => {
             >
               <Input placeholder="Địa chỉ cụ thể*" />
             </Form.Item>
-            <Form.Item
-              label="Số điện thoại"
-              name="phone"
-              width={"50%"}
-              rules={[
-                { required: true, message: "Vui lòng nhập số điện thoại!" },
-              ]}
-            >
-              <Input placeholder="Số điện thoại" width={"50%"} />
-            </Form.Item>
           </Form>
         </Col>
         <Col span={10} style={{ marginLeft: "20px" }}>
@@ -258,43 +248,27 @@ const NewAccount = () => {
             >
               <Input placeholder="Mật khẩu*" />
             </Form.Item>
-            <Row gutter={24}>
-              <Col span={12}>
-                <Form.Item
-                  style={{ marginTop: "35.5px" }}
-                  label="Phân quyền"
-                  name="role"
-                  rules={[
-                    { required: true, message: "Vui lòng chọn phân quyền!" },
-                  ]}
-                >
-                  <Select placeholder="Chọn phân quyền">
-                    <Option value="ROLE_ADMIN">Admin</Option>
-                    <Option value="ROLE_STAFF">Staff</Option>
-                    <Option value="ROLE_DELIVERY">Delivery</Option>
-                    <Option value="ROLE_USER">User</Option>
-                  </Select>
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  style={{ marginTop: "35.5px" }}
-                  label="ID tài khoản"
-                  name="id"
-                  rules={[{ required: true }]}
-                >
-                  <Input placeholder="ID tài khoản*" />
-                </Form.Item>
-              </Col>
-            </Row>
-
             <Form.Item
-              style={{ marginTop: "35.5px" }}
-              label="Trạng thái"
-              name="enabled"
-              rules={[{ required: true }]}
+              label="Số điện thoại"
+              name="phone"
+              width={"50%"}
+              rules={[
+                { required: true, message: "Vui lòng nhập số điện thoại!" },
+              ]}
             >
-              <Input defaultValue={"Hoạt động"} />
+              <Input placeholder="Số điện thoại" width={"50%"} />
+            </Form.Item>
+            <Form.Item
+              label="Phân quyền"
+              name="role"
+              rules={[{ required: true, message: "Vui lòng chọn phân quyền!" }]}
+            >
+              <Select placeholder="Chọn phân quyền">
+                <Option value="ROLE_ADMIN">Admin</Option>
+                <Option value="ROLE_STAFF">Staff</Option>
+                <Option value="ROLE_DELIVERY">Delivery</Option>
+                <Option value="ROLE_USER">User</Option>
+              </Select>
             </Form.Item>
             <h3
               style={{

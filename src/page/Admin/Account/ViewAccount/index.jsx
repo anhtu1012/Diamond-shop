@@ -1,143 +1,30 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import { Avatar, Button, Input, Space, Table } from "antd";
 import Highlighter from "react-highlight-words";
-import { Link } from "react-router-dom";
 import { Select } from "antd";
-
-const data = [
-  {
-    key: "1",
-    id: "US123457",
-    image:
-      "https://blog.maika.ai/wp-content/uploads/2024/02/anh-meo-meme-11.jpg",
-    name: "Nguyễn Văn A",
-    email: "a@gmail.com",
-    date: "29-5-2024",
-    phone: "0123456789",
-    role: "Người dùng",
-    infor: (
-      <Link
-        to={
-          "/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US123457"
-        }
-        style={{ fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "2",
-    id: "US1233457",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpPU1Ncrizcs1ZayuGEFFB8lrMnyUC7ZnJdg&shttps://blog.maika.ai/wp-content/uploads/2024/02/anh-meo-meme-5.jpg",
-    name: "Nguyễn Văn B",
-    email: "b@gmail.com",
-    date: "28-5-2024",
-    phone: "0684981532",
-    role: "Người dùng",
-    infor: (
-      <Link
-        to={
-          "/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US1233457"
-        }
-        style={{ fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "3",
-    id: "ST1234337",
-    image:
-      "https://blog.maika.ai/wp-content/uploads/2024/02/anh-meo-meme-5.jpg",
-    name: "Nguyễn Văn C",
-    email: "c2@gmail.com",
-    date: "30-5-2024",
-    phone: "0984961522",
-    role: "Nhân viên bán hàng",
-    infor: (
-      <Link
-        to={
-          "/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/ST1234337"
-        }
-        style={{ fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "4",
-    id: "ST123457",
-    name: "Nguyễn Văn D",
-    email: "d@gmail.com",
-    image:
-      "https://blog.maika.ai/wp-content/uploads/2024/02/anh-meo-meme-8.jpg",
-    date: "6-5-2024",
-    phone: "0215645644",
-    role: "Nhân viên bán hàng",
-    infor: (
-      <Link
-        to={
-          "/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/ST123457"
-        }
-        style={{ fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "5",
-    id: "STD123657",
-    name: "Nguyễn Văn E",
-    image:
-      "https://blog.maika.ai/wp-content/uploads/2024/02/anh-meo-meme-10.jpg",
-    email: "e@gmail.com",
-    date: "5-5-2024",
-    phone: "0245449656",
-    role: "Nhân viên giao hàng",
-    infor: (
-      <Link
-        to={
-          "/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/STD123657"
-        }
-        style={{ fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "6",
-    id: "US12347",
-    image:
-      "https://blog.maika.ai/wp-content/uploads/2024/02/anh-meo-meme-11.jpg",
-    name: "Nguyễn Văn A",
-    email: "a@gmail.com",
-    date: "29-5-2024",
-    phone: "0123456789",
-    role: "Người dùng",
-    infor: (
-      <Link
-        to={
-          "/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US12347"
-        }
-        style={{ fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-];
+import { getAllUser } from "../../../../../services/Uservices";
+import { Link } from "react-router-dom";
 
 function ViewAccount() {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
+  const [dataSource, setDataSource] = useState([]);
+  const [filterRole, setFilterRole] = useState(null);
+
+  async function handledGetAllUser() {
+    try {
+      const response = await getAllUser();
+      setDataSource(response.data.data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  }
+
+  useEffect(() => {
+    handledGetAllUser();
+  }, []);
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -150,7 +37,11 @@ function ViewAccount() {
     setSearchText("");
   };
 
-  const getColumnSearchProps = (dataIndex, dropdownOptions) => ({
+  const handleStatusClick = (role) => {
+    setFilterRole(role);
+  };
+
+  const getColumnSearchProps = (dataIndex = []) => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -171,7 +62,12 @@ function ViewAccount() {
               setSearchedColumn(dataIndex);
             }}
           >
-            {dropdownOptions.map((option) => (
+            {[
+              "Người dùng",
+              "Nhân viên giao hàng",
+              "Nhân viên bán hàng",
+              "Quản lý",
+            ].map((option) => (
               <Select.Option key={option} value={option}>
                 {option}
               </Select.Option>
@@ -252,14 +148,46 @@ function ViewAccount() {
       ),
   });
 
+  const roleUser = {
+    "Người dùng": 0,
+    "Quản lý": 1,
+    "Nhân viên giao hàng": 2,
+    "Nhân viên bán hàng": 3,
+  };
+
+  const getRoleColor = (roleUser) => {
+    switch (roleUser) {
+      case 0:
+        return "#33CCFF"; // Light Blue
+      case 1:
+        return "#FF0000"; // Red
+      case 2:
+        return "#33CC33"; // Green
+      case 3:
+        return "#FFD700"; // Yellow
+      default:
+        return "#FFD700"; // Default Yellow
+    }
+  };
+
+  const renderRoleName = (roleID) => {
+    const roleNames = {
+      1: "Quản lý",
+      2: "Nhân viên giao hàng",
+      3: "Nhân viên bán hàng",
+      4: "Người dùng",
+    };
+    return roleNames[roleID] || "Unknown";
+  };
+
   const columns = [
     {
-      dataIndex: "image",
-      key: "image",
+      dataIndex: "avata",
+      key: "avata",
       width: "10%",
-      render: (url) => (
+      render: (avata) => (
         <Avatar
-          src={url}
+          src={avata}
           alt="avatar"
           style={{ marginLeft: "20px", width: "50px", height: "50px" }}
         />
@@ -267,17 +195,17 @@ function ViewAccount() {
     },
     {
       title: "ID Tài khoản",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "userID",
+      key: "userID",
       width: "10%",
-      ...getColumnSearchProps("id"),
+      ...getColumnSearchProps("userID"),
     },
     {
-      title: "Họ và Tên",
-      dataIndex: "name",
-      key: "name",
+      title: "Tên",
+      dataIndex: "firstName",
+      key: "firstName",
       width: "15%",
-      ...getColumnSearchProps("name"),
+      ...getColumnSearchProps("firstName"),
     },
     {
       title: "Email",
@@ -287,37 +215,84 @@ function ViewAccount() {
       ...getColumnSearchProps("email"),
     },
     {
-      title: "Ngày tạo",
-      dataIndex: "date",
-      key: "date",
-      width: "15%",
-      ...getColumnSearchProps("date"),
-      sorter: (a, b) =>
-        new Date(a.date.split("-").reverse().join("-")) -
-        new Date(b.date.split("-").reverse().join("-")),
-      sortDirections: ["descend", "ascend"],
-    },
-    {
       title: "Quyền hạn",
       dataIndex: "role",
       key: "role",
       width: "15%",
-      ...getColumnSearchProps("role", [
-        "Người dùng",
-        "Nhân viên bán hàng",
-        "Nhân viên giao hàng",
-      ]),
+      render: (role) => renderRoleName(role?.roleID),
     },
     {
-      dataIndex: "infor",
-      key: "infor",
-      width: "15%",
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      width: "10%",
+      render: (text, record) => (
+        <div style={{ textAlign: "center" }}>
+          <Link
+            to={`/admin-page/tai-khoan/xem-tat-ca-tai-khoan/${record.userID}`}
+            style={{ fontWeight: "bold" }}
+          >
+            Xem chi tiết
+          </Link>
+        </div>
+      ),
     },
   ];
 
+  const roleButtons = [
+    "Người dùng",
+    "Quản lý",
+    "Nhân viên bán hàng",
+    "Nhân viên giao hàng",
+  ].map((role) => (
+    <Button
+      key={role}
+      type={filterRole === role ? "primary" : "default"}
+      onClick={() => handleStatusClick(role)}
+      style={{
+        fontWeight: "bold",
+        color: "white",
+        marginRight: 5,
+        textTransform: "uppercase",
+        backgroundColor: getRoleColor(roleUser[role]),
+      }}
+    >
+      {role}
+    </Button>
+  ));
+
+  roleButtons.push(
+    <Button
+      key="all"
+      type={filterRole === null ? "primary" : "default"}
+      onClick={() => handleStatusClick(null)}
+      style={{
+        fontWeight: "bold",
+        marginRight: 5,
+        color: "white",
+        textTransform: "uppercase",
+        backgroundColor: "black",
+      }}
+    >
+      Tất cả tài khoản
+    </Button>
+  );
+
+  const filteredDataSource = filterRole
+    ? dataSource.filter(
+        (user) => renderRoleName(user.role.roleID) === filterRole
+      )
+    : dataSource;
+
   return (
     <div className="all-account">
-      <Table className="table" columns={columns} dataSource={data} />
+      <div style={{ marginBottom: 16 }}>{roleButtons}</div>
+      <Table
+        className="table"
+        columns={columns}
+        dataSource={filteredDataSource}
+        pagination={{ pageSize: 10 }}
+      />
     </div>
   );
 }

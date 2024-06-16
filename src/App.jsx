@@ -61,8 +61,8 @@ import NotFound from "./page/404";
 
 import DetailProduct from "./page/Staff/Product/DetailProduct";
 import XemSanPham from "./page/Staff/Product/ViewProduct";
+import ProfileAccount from "./page/Admin/Account/ViewAccountDetail/index2";
 // import PageNewOrder from "./page/Staff/New-Order";
-
 
 const router = createBrowserRouter([
   {
@@ -240,6 +240,10 @@ const router = createBrowserRouter([
         element: <ViewAccountDetail />,
       },
       {
+        path: "tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan2/:id",
+        element: <ProfileAccount />,
+      },
+      {
         path: "tai-khoan/tao-tai-khoan",
         element: <NewAccount />,
       },
@@ -267,7 +271,7 @@ const router = createBrowserRouter([
         path: "/staff-page/don-hang-moi",
         element: <NewOrder />,
       },
-      
+
       {
         path: "/staff-page/don-hang",
         element: <ViewOrder />,
