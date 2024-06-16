@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import { Avatar, Button, Input, Space, Table } from "antd";
+import { Button, Input, Space, Table } from "antd";
 import Highlighter from "react-highlight-words";
 import { Select } from "antd";
+
 import { getAllUser } from "../../../../../services/Uservices";
 import { Link } from "react-router-dom";
+
 
 function ViewAccount() {
   const [searchText, setSearchText] = useState("");
@@ -182,6 +184,7 @@ function ViewAccount() {
 
   const columns = [
     {
+
       dataIndex: "avata",
       key: "avata",
       width: "10%",
@@ -194,6 +197,7 @@ function ViewAccount() {
       ),
     },
     {
+
       title: "ID Tài khoản",
       dataIndex: "userID",
       key: "userID",
@@ -215,6 +219,26 @@ function ViewAccount() {
       ...getColumnSearchProps("email"),
     },
     {
+
+      title: "Ngày tạo",
+      dataIndex: "date",
+      key: "date",
+      width: "15%",
+      ...getColumnSearchProps("date"),
+      sorter: (a, b) =>
+        new Date(a.date.split("-").reverse().join("-")) -
+        new Date(b.date.split("-").reverse().join("-")),
+      sortDirections: ["descend", "ascend"],
+    },
+    {
+      title: "Số điện thoại",
+      dataIndex: "phone",
+      key: "phone",
+      width: "10%",
+      ...getColumnSearchProps("phone"),
+    },
+    {
+
       title: "Quyền hạn",
       dataIndex: "role",
       key: "role",
@@ -286,6 +310,7 @@ function ViewAccount() {
 
   return (
     <div className="all-account">
+
       <div style={{ marginBottom: 16 }}>{roleButtons}</div>
       <Table
         className="table"
@@ -293,6 +318,7 @@ function ViewAccount() {
         dataSource={filteredDataSource}
         pagination={{ pageSize: 10 }}
       />
+
     </div>
   );
 }

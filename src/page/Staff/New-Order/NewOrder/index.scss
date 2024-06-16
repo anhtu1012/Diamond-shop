@@ -59,7 +59,7 @@
       .infor_detail {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+
         p {
           font-size: 20px;
           font-weight: bold;
@@ -95,7 +95,7 @@
   position: absolute;
   bottom: 10px;
   right: 10px;
-  // 
+  //
 }
 
 .consultation-button {
@@ -108,4 +108,13 @@
   background-color: #e4bd7b;
 
   color: black;
+}
+.size-box {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin-bottom: 10px;
+  width: 5%;
 }

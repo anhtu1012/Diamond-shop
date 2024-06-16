@@ -1,9 +1,8 @@
-import { Col, Row } from "antd";
+import { Col, Rate, Row } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./index.scss";
 
 const renderProductItem = (
-  
   index,
   codep,
   name,
@@ -22,7 +21,12 @@ const renderProductItem = (
     <Row className="product_item">
       <div className="detail">
         <Col span={6} className="img">
-          <img src={imageUrl} width={170} height={170} className="product_image" />
+          <img
+            src={imageUrl}
+            width={170}
+            height={170}
+            className="product_image"
+          />
           {imgDM && (
             <img
               src={imgDM}
@@ -39,11 +43,17 @@ const renderProductItem = (
             <span>{price}</span>
           </Col>
           <div className="infor_detail">
-            <p style={{ marginBottom: "8px" }}>{name}</p>
-            <span style={{ marginBottom: "8px" }}>{code}</span>
-            <p style={{ marginBottom: "8px" }}>{nameDM}</p>
-            <span style={{ marginBottom: "8px" }}>{codeDM}</span>
-            <span>{size}</span>
+            <p>{name}</p>
+            <div>
+              <Rate disabled defaultValue={5} />
+            </div>
+            <span style={{ marginBottom: "10px" }}>{code}</span>
+
+            <p>{nameDM}</p>
+            <span>{codeDM}</span>
+            <div className="size-box">
+              <span>{size}</span>
+            </div>
           </div>
 
           <hr className="dong" />
@@ -62,7 +72,7 @@ const renderProductItem = (
         <button
           className="consultation-button custom-color"
           onClick={() => navigate(link)}
-          style={{fontWeight:"bold"}}
+          style={{ fontWeight: "bold" }}
         >
           Nhận tư vấn
         </button>
@@ -102,7 +112,8 @@ const products = [
     codep: "OD:123456",
     name: "NHẪN KIM CƯƠNG NỮ 18K VIP",
     code: "NKC12341241",
-    imgDM: "https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7",
+    imgDM:
+      "https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/1_cam_03-1-1.jpg?alt=media&token=76e8593f-cd39-43b6-8fb4-3de486f76ee7",
     nameDM: "",
     codeDM: "",
     price: "500,000,000",
@@ -111,12 +122,10 @@ const products = [
     size: "45",
     link: "/staff-page/chi-tiet-don-hang",
   },
-]; 
+];
 
 const NewOrder = () => {
-
-  const navigate = useNavigate(); 
-
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -136,8 +145,7 @@ const NewOrder = () => {
             product.size,
             product.link,
 
-            navigate 
-
+            navigate
           )
         )}
       </div>
