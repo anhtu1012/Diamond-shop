@@ -106,19 +106,19 @@ const renderProductItem = (
         <div>
           <GiBigDiamondRing size={25} className="icon_order" />
         </div>
-        <div className={`info_sub ${name === "" ? "info_sub_diamond" : ""}`}>
-          <span>
-            {name}- {shape}
-          </span>
-          <Rate
-            disabled
-            defaultValue={rate}
-            style={{
-              display: rate === null ? "none" : "block",
-              fontSize: "15px",
-            }}
-          />
-        </div>
+        <div className={name ? "info_sub" : "info_sub_diamond"}>
+      <span>
+        {name ? `${name}- ${shape}` : shape}
+      </span>
+      <Rate
+        disabled
+        defaultValue={rate}
+        style={{
+          display: rate === null ? "none" : "block",
+          fontSize: "15px",
+        }}
+      />
+    </div>
       </div>
 
       <div className="info_diamond">

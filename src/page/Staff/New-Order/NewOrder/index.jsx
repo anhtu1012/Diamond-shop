@@ -18,14 +18,14 @@ const renderProductItem = (
 ) => (
   <div className="product_frame" key={index}>
     <div className="code-boxn">{codep}</div>
-    <Row className="product_item">
+    <Row className="product_itemm">
       <div className="detail">
         <Col span={6} className="img">
           <img
             src={imageUrl}
             width={170}
             height={170}
-            className="product_image"
+            className="product_imageo"
           />
           {imgDM && (
             <img
@@ -33,7 +33,7 @@ const renderProductItem = (
               style={{
                 display: imgDM === null ? "none" : "block",
               }}
-              className="product_imgdm"
+              className="product_imgdmo"
               alt={nameDM}
             />
           )}
