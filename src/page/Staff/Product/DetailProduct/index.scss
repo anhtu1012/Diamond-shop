@@ -140,12 +140,33 @@
   .staff_order_left {
     position: relative;
     .staff_order_kimg_kid {
-      width: 70px;
-      height: 70px;
+      width: 50px;
+      height: 50px;
       position: absolute;
-      top: -20px;
+      top: -10px;
       left: 0;
     }
+    .staff_order_kimg_main {
+      width: 130px;
+      margin-left: 10px;
+    }
+    .button_custom {
+      width: 100px;
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid gray;
+      transform: 0.5s;
+      &:hover {
+        color: black;
+        border-bottom: 1px solid black;
+      }
+    }
+  }
+  .price {
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+    color: #e4bd7b;
   }
   .staff_order_right {
     .icon_order {
@@ -153,7 +174,7 @@
     }
     .info_product {
       display: flex;
-      padding-bottom: 15px;
+      padding-bottom: 20px;
       color: #15393f;
       .info_sub {
         display: flex;
@@ -162,16 +183,9 @@
         font-size: large;
         font-weight: bold;
       }
-      &.info_sub_diamond {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        font-size: 100px;
-      }
     }
     .info_diamond {
       display: flex;
-      padding-bottom: 15px;
       color: #15393f;
       .info_sub {
         display: flex;
