@@ -98,7 +98,6 @@ const renderProductItem = (order, index) => (
       )}
     </Col>
 
-
     <Col span={17} className="staff_order_right">
       {order.custom && order.custom.product && (
         <div className="info_product">
@@ -180,7 +179,7 @@ const renderProductItem = (order, index) => (
   </Row>
 );
 
-function DetailProduct() {
+function DetailNewOrder() {
   return (
     <div>
       <Row gutter={10}>
@@ -279,4 +278,4 @@ function DetailProduct() {
   );
 }
 
-export default DetailProduct;
+export default DetailNewOrder;

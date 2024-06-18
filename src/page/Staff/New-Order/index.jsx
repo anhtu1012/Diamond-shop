@@ -1,382 +1,221 @@
-import { useRef, useState } from "react";
-import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Select, Space, Table } from "antd";
-import Highlighter from "react-highlight-words";
+import { Button, Col, Rate, Row } from "antd";
+import { GiBigDiamondRing } from "react-icons/gi";
+import { IoDiamondOutline } from "react-icons/io5";
+import "./index.scss";
 import { Link } from "react-router-dom";
 
 const data = [
   {
-    key: "1",
-    idorder: "OD123456",
-    idcus: "US123456",
-    email: "trungnguyen@example.com",
-    date: "29-5-2024",
-    quantity: "2",
-    status: "Chờ xác nhận",
-    infor: (
-      <Link
-        to={"/staff-page/new-order-page"}
-        style={{ color: "black", fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
+    userID: "US1234",
+    order: [
+      {
+        odID: "OD12345",
+        userID: "US1234",
+        custom: {
+          product: {
+            productID: "01117BT",
+            productName: "BÔNG TAI KIM CƯƠNG 18K",
+            shapeDiamond: "Round",
+            dimensionsDiamond: 5,
+            productType: "Bông Tai",
+            totalPrice: 53053440,
+            rating: 4.5,
+            status: true,
+            productImages:
+              "https://jemmia.vn/wp-content/uploads/2024/04/1-copy-5.jpg",
+            feedbacks: [],
+          },
+          diamond: {
+            diamondID: "1453851108",
+            diamondName: "KIM CƯƠNG VIÊN GIA 3LY6 – 6471017231",
+            carat: 0.61,
+            certificate: "GIA",
+            clarify: "VS2",
+            color: "Trắng",
+            colorLevel: "F",
+            cut: "Excellent",
+            shape: "Round",
+            dimensions: 5.4,
+            flourescence: "FAINT",
+            image:
+              "https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/kim-cuong-vien.png?alt=media&token=4fdf38b3-e37c-4e59-9906-3bae83608fe2",
+            status: true,
+            totalPrice: 748000000,
+            feedbacks: [],
+          },
+          sizes: 45,
+        },
+      },
+      {
+        odID: "OD12347",
+        userID: "US1234",
+        custom: null,
+        diamond: {
+          diamondID: "1453851107",
+          diamondName: "KIM CƯƠNG VIÊN GIA 3LY6 – 6471017231",
+          carat: 0.61,
+          certificate: "GIA",
+          clarify: "VS2",
+          color: "Trắng",
+          colorLevel: "F",
+          cut: "Excellent",
+          shape: "Round",
+          dimensions: 5.4,
+          flourescence: "FAINT",
+          image:
+            "https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/kim-cuong-vien.png?alt=media&token=4fdf38b3-e37c-4e59-9906-3bae83608fe2",
+          status: true,
+          totalPrice: 748000000,
+          feedbacks: [],
+        },
+      },
+    ],
   },
-  {
-    key: "2",
-    idorder: "OD123457",
-    idcus: "US123457",
-    email: "huy263672@gmail.com",
-    date: "28-5-2024",
-    quantity: "2",
-    status: "Chờ xác nhận",
-    infor: (
-      <Link
-        to={"/staff-page/new-order-page"}
-        style={{ color: "black", fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "3",
-    idorder: "OD123458",
-    idcus: "US123458",
-    email: "hhung263672@gmail.com",
-    date: "30-5-2024",
-    quantity: "2",
-    status: "Chờ xác nhận",
-    infor: (
-      <Link
-        to={"/staff-page/new-order-page"}
-        style={{ color: "black", fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  // {
-  //   key: "4",
-  //   idorder: "OD123459",
-  //   idcus: "US123459",
-  //   email: "hai263673@gmail.com",
-  //   date: "6-5-2024",
-  //   quantity: "2",
-  //   status: "Đã giao",
-  //   infor: (
-  //     <Link
-  //       to={"/admin-page/don-hang/all/order-detail/OD123459"}
-  //       style={{ color: "black", fontWeight: 600 }}
-  //     >
-  //       Xem chi tiết
-  //     </Link>
-  //   ),
-  // },
-  // {
-  //   key: "5",
-  //   idorder: "OD123460",
-  //   idcus: "US123460",
-  //   email: "hai263674@gmail.com",
-  //   date: "5-5-2024",
-  //   quantity: "2",
-  //   status: "Đã hủy",
-  //   infor: (
-  //     <Link
-  //       to={"/admin-page/don-hang/all/order-detail/OD123460"}
-  //       style={{ color: "black", fontWeight: 600 }}
-  //     >
-  //       Xem chi tiết
-  //     </Link>
-  //   ),
-  // },
-  // {
-  //   key: "6",
-  //   idorder: "OD123461",
-  //   idcus: "US123461",
-  //   email: "hai263675@gmail.com",
-  //   date: "4-5-2024",
-  //   quantity: "2",
-  //   status: "Đã giao",
-  //   infor: (
-  //     <Link
-  //       to={"/admin-page/don-hang/all/order-detail/OD123461"}
-  //       style={{ color: "black", fontWeight: 600 }}
-  //     >
-  //       Xem chi tiết
-  //     </Link>
-  //   ),
-  // },
-  // {
-  //   key: "7",
-  //   idorder: "OD123462",
-  //   idcus: "US123462",
-  //   email: "hai263676@gmail.com",
-  //   date: "3-5-2024",
-  //   quantity: "2",
-  //   status: "Đã hủy",
-  //   infor: (
-  //     <Link
-  //       to={"/admin-page/don-hang/all/order-detail/OD123462"}
-  //       style={{ color: "black", fontWeight: 600 }}
-  //     >
-  //       Xem chi tiết
-  //     </Link>
-  //   ),
-  // },
-  // {
-  //   key: "8",
-  //   idorder: "OD123463",
-  //   idcus: "US123463",
-  //   email: "hai263677@gmail.com",
-  //   date: "2-5-2024",
-  //   quantity: "2",
-  //   status: "Đã giao",
-  //   infor: (
-  //     <Link
-  //       to={"/admin-page/don-hang/all/order-detail/OD123463"}
-  //       style={{ color: "black", fontWeight: 600 }}
-  //     >
-  //       Xem chi tiết
-  //     </Link>
-  //   ),
-  // },
-  // {
-  //   key: "9",
-  //   idorder: "OD123463",
-  //   idcus: "US123463",
-  //   email: "hai263677@gmail.com",
-  //   date: "3-4-2024",
-  //   quantity: "4",
-  //   status: "Chờ giao hàng",
-  //   infor: (
-  //     <Link
-  //       to={"/admin-page/don-hang/all/order-detail/OD123463"}
-  //       style={{ color: "black", fontWeight: 600 }}
-  //     >
-  //       Xem chi tiết
-  //     </Link>
-  //   ),
-  // },
-  // {
-  //   key: "10",
-  //   idorder: "OD123463",
-  //   idcus: "US123463",
-  //   email: "263677@gmail.com",
-  //   date: "3-3-2024",
-  //   quantity: "3",
-  //   status: "Chờ thanh toán",
-  //   infor: (
-  //     <Link
-  //       to={"/admin-page/don-hang/all/order-detail/OD123463"}
-  //       style={{ color: "black", fontWeight: 600 }}
-  //     >
-  //       Xem chi tiết
-  //     </Link>
-  //   ),
-  // },
-  // {
-  //   key: "11",
-  //   idorder: "OD123463",
-  //   idcus: "US123463",
-  //   email: "hai263677@gmail.com",
-  //   date: "3-2-2024",
-  //   quantity: "1",
-  //   status: "Chờ xác nhận",
-  //   infor: (
-  //     <Link
-  //       to={"/admin-page/don-hang/all/order-detail/OD123463"}
-  //       style={{ color: "black", fontWeight: 600 }}
-  //     >
-  //       Xem chi tiết
-  //     </Link>
-  //   ),
-  // },
 ];
 
-function PageNewOrder() {
-  const [searchText, setSearchText] = useState("");
-  const [searchedColumn, setSearchedColumn] = useState("");
-  const searchInput = useRef(null);
-
-  const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    confirm();
-    setSearchText(selectedKeys[0]);
-    setSearchedColumn(dataIndex);
-  };
-
-  const handleReset = (clearFilters) => {
-    clearFilters();
-    setSearchText("");
-  };
-
-  const getColumnSearchProps = (dataIndex, dropdownOptions) => ({
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-      close,
-    }) => (
-      <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
-        {dataIndex === "status" ? (
-          <Select
-            style={{ width: 188, marginBottom: 8, display: "block" }}
-            placeholder={`Search ${dataIndex}`}
-            value={selectedKeys[0]}
-            onChange={(value) => {
-              setSelectedKeys(value ? [value] : []);
-              confirm();
-              setSearchText(value);
-              setSearchedColumn(dataIndex);
-            }}
-          >
-            {dropdownOptions.map((option) => (
-              <Select.Option key={option} value={option}>
-                {option}
-              </Select.Option>
-            ))}
-          </Select>
-        ) : (
-          <Input
-            ref={searchInput}
-            placeholder={`Search ${dataIndex}`}
-            value={selectedKeys[0]}
-            onChange={(e) =>
-              setSelectedKeys(e.target.value ? [e.target.value] : [])
-            }
-            onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            style={{ marginBottom: 8, display: "block" }}
-          />
-        )}
-        <Space>
-          <Button
-            type="primary"
-            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            icon={<SearchOutlined />}
-            size="small"
-            style={{ width: 90 }}
-          >
-            Search
-          </Button>
-          <Button
-            onClick={() => clearFilters && handleReset(clearFilters)}
-            size="small"
-            style={{ width: 90 }}
-          >
-            Reset
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              confirm({ closeDropdown: false });
-              setSearchText(selectedKeys[0]);
-              setSearchedColumn(dataIndex);
-            }}
-          >
-            Filter
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              close();
-            }}
-          >
-            Close
-          </Button>
-        </Space>
-      </div>
-    ),
-    filterIcon: (filtered) => (
-      <SearchOutlined style={{ color: filtered ? "#1677ff" : undefined }} />
-    ),
-    onFilter: (value, record) =>
-      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-    onFilterDropdownOpenChange: (visible) => {
-      if (visible) {
-        setTimeout(() => searchInput.current?.select(), 100);
-      }
-    },
-    render: (text) =>
-      searchedColumn === dataIndex ? (
-        <Highlighter
-          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
-          searchWords={[searchText]}
-          autoEscape
-          textToHighlight={text ? text.toString() : ""}
+const renderAllOrder = (order, index) => (
+  <Row className="new_order_frame" key={index}>
+    <Col span={7} className="new_order_left">
+      {order.custom && order.custom.product && (
+        <img
+          className="new_order_mg_main"
+          src={order.custom.product.productImages}
+          width={130}
+          style={{ marginLeft: "75px" }}
         />
-      ) : (
-        text
-      ),
-  });
+      )}
 
-  const columns = [
-    {
-      title: "Mã đơn hàng",
-      dataIndex: "idorder",
-      key: "idorder",
-      width: "15%",
-      ...getColumnSearchProps("idorder"),
-    },
-    {
-      title: "ID Khách Hàng",
-      dataIndex: "idcus",
-      key: "idcus",
-      width: "10%",
-      ...getColumnSearchProps("idcus"),
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-      width: "20%",
-      ...getColumnSearchProps("email"),
-    },
-    {
-      title: "Ngày đặt hàng",
-      dataIndex: "date",
-      key: "date",
-      width: "15%",
-      ...getColumnSearchProps("date"),
-      sorter: (a, b) =>
-        new Date(a.date.split("-").reverse().join("-")) -
-        new Date(b.date.split("-").reverse().join("-")),
-      sortDirections: ["descend", "ascend"],
-    },
-    {
-      title: "Số lượng sản phẩm",
-      dataIndex: "quantity",
-      key: "quantity",
-      width: "10%",
-      ...getColumnSearchProps("quantity"),
-    },
-    {
-      title: "Trạng thái",
-      dataIndex: "status",
-      key: "status",
-      width: "15%",
-      ...getColumnSearchProps("status", [
-        "Chờ xác nhận",
-        "Chờ thanh toán",
-        "Chờ giao hàng",
-        "Đã giao",
-        "Đã hủy",
-      ]),
-    },
-    {
-      dataIndex: "infor",
-      key: "infor",
-      width: "15%",
-    },
-  ];
+      {order.custom && order.custom.product && (
+        <div style={{ marginLeft: "85px" }}>
+          <Button className="new_order_button_custom">
+            Size: {order.custom.sizes}
+          </Button>
+        </div>
+      )}
+      {(order.custom?.diamond || order.diamond) && (
+        <img
+          src={order.custom?.diamond?.image || order.diamond?.image}
+          className={`new_order_kimg ${
+            order.custom?.product ? "new_order_kimg_kid" : "new_order_kimg_main"
+          }`}
+          alt={order.custom?.diamond?.diamondName || order.diamond?.diamondName}
+        />
+      )}
+      <div className="link_new_order">
+        <Link to="/" style={{ color: "#e4bd7b" }}>
+          Xem chi tiết
+        </Link>
+      </div>
+    </Col>
 
-  return (
-    <div className="all-order">
-      <Table columns={columns} dataSource={data} />
+    <Col span={17} className="new_order_right">
+      {order.custom && order.custom.product && (
+        <div className="new_order_info_product">
+          <div>
+            <GiBigDiamondRing size={25} className="new_order_icon_order" />
+          </div>
+          <div className="new_order_info_sub">
+            <span>
+              {order.custom.product.productName}
+              {" - "}
+              {order.custom.product.shapeDiamond}{" "}
+              {order.custom.product.dimensionsDiamond} ly
+            </span>
+            <p style={{ fontWeight: 400, fontSize: "13px" }}>
+              {" "}
+              {order.custom.product.productID}
+            </p>
+            <Rate
+              disabled
+              defaultValue={order.custom.product.rating}
+              style={{
+                fontSize: "13px",
+              }}
+            />
+          </div>
+        </div>
+      )}
+      <div className="new_order_info_diamond">
+        <div>
+          <IoDiamondOutline size={25} className="new_order_icon_order" />
+        </div>
+        <div className="new_order_info_sub">
+          <p>
+            {order.custom?.diamond?.diamondName || order.diamond.diamondName}
+          </p>
+          <div style={{ fontWeight: 400, fontSize: "13px" }}>
+            <span>
+              Carat: {order.custom?.diamond?.carat || order.diamond.carat}
+            </span>
+            {" - "}
+            <span>
+              Tinh Khiết :
+              {order.custom?.diamond?.clarify || order.diamond.clarify}
+            </span>
+            {" - "}
+            <span>
+              Cấp Màu :
+              {order.custom?.diamond?.colorLevel || order.diamond.colorLevel}
+            </span>
+            {" - "}
+            Cắt: <span>{order.custom?.diamond?.cut || order.diamond.cut}</span>
+          </div>
+          {order.diamond && (
+            <div
+              style={{ fontWeight: 400, fontSize: "13px", paddingTop: "3px" }}
+            >
+              Kiểm định:{" "}
+              <span style={{ color: "red" }}>
+                {" "}
+                {order.diamond.certificate}{" "}
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+    </Col>
+    <Col span={24} className="new_order_price">
+      <span style={{ textAlign: "right" }}>
+        {(
+          order.custom?.product?.totalPrice ||
+          order.custom?.diamond?.totalPrice ||
+          order.diamond.totalPrice
+        ).toLocaleString("de-DE", {
+          maximumFractionDigits: 2,
+        })}{" "}
+        đ
+      </span>
+    </Col>
+    <div className="container">
+      <Button className="button_new_order">
+        <Link to="/staff-page/chi-tiet-don-hang">Nhận tư vấn</Link>
+      </Button>
     </div>
+  </Row>
+);
+
+function NewOrder() {
+  return (
+    <Col span={24}>
+      <div className="khung">
+        {data.map((userData, userIndex) => (
+          <div key={userIndex} className="new_order_userID">
+            {userData.userID}
+          </div>
+        ))}
+        <div className="thong-tin-don-mua" style={{ padding: "10px " }}>
+          <span>Thông tin đơn hàng</span>
+        </div>
+        <div>
+          {data.map((userData, userIndex) =>
+            userData.order.map((order, orderIndex) =>
+              renderAllOrder(order, `${userIndex}-${orderIndex}`)
+            )
+          )}
+        </div>
+      </div>
+    </Col>
   );
 }
 
-export default PageNewOrder;
+export default NewOrder;

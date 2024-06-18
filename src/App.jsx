@@ -12,7 +12,7 @@ import AllOrder from "./page/Admin/Order/All order";
 import Invoice from "./page/Admin/Order/Invoice";
 import NewProduct from "./page/Admin/Product/NewProduct";
 import ViewProduct from "./page/Admin/Product/ViewProduct";
-import NewOrder from "./page/Staff/New-Order/NewOrder";
+import NewOrder from "./page/Staff/New-Order";
 import ViewOrder from "./page/Staff/Order";
 import ViewProductS from "./page/Staff/Product";
 import ViewUser from "./page/Staff/View-User";
@@ -58,10 +58,9 @@ import DiamondDetailss from "./page/Custommer/Diamond Details Cus";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import LoginPage from "./page/login";
 import NotFound from "./page/404";
-
-import DetailProduct from "./page/Staff/Product/DetailProduct";
-import XemSanPham from "./page/Staff/Product/ViewProduct";
 import ProfileAccount from "./page/Admin/Account/ViewAccountDetail/index2";
+import ViewOrderDetailsStaff from "./page/Staff/Order/ViewOrderDetail";
+import DetailNewOrder from "./page/Staff/New-Order/DetailNewOrder";
 // import PageNewOrder from "./page/Staff/New-Order";
 
 const router = createBrowserRouter([
@@ -277,6 +276,10 @@ const router = createBrowserRouter([
         element: <ViewOrder />,
       },
       {
+        path: "/staff-page/don-hang/all/order-detail/:idorder",
+        element: <ViewOrderDetailsStaff />,
+      },
+      {
         path: "/staff-page/tai-khoan",
         element: <ViewUser />,
       },
@@ -290,11 +293,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/staff-page/chi-tiet-don-hang",
-        element: <DetailProduct />,
-      },
-      {
-        path: "/staff-page/xem-san-pham",
-        element: <XemSanPham />,
+        element: <DetailNewOrder />,
       },
     ],
   },
