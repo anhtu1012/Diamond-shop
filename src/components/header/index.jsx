@@ -146,8 +146,8 @@ function Header() {
   };
   const settings = [
     {
-      key: "1",
-      label: <Link to="/">Thông tin</Link>,
+      key: "/thong-tin-chi-tiet/US123457",
+      label: "Thông tin",
     },
     {
       key: "/don-hang",

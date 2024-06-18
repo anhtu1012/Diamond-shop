@@ -12,6 +12,7 @@ import {
   Row,
   Col,
   Modal,
+  Collapse,
 } from "antd";
 import { Link, useParams } from "react-router-dom";
 import "./index.scss";
@@ -33,25 +34,12 @@ const data = [
     lastName: "Nguyễn ",
     enabled: "",
     createAt: "12-12-2024",
+    birthDay: "13-01-2003",
+    gender: "Nam",
     email: "a@gmail.com",
     address: "Phước Long A, Tp Thủ Đức, Hồ chí Minh",
     date: "29-5-2024",
     phone: "0123456789",
-    role: "Người dùng",
-  },
-  {
-    key: "2",
-    id: "US1233457",
-    avata:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpPU1Ncrizcs1ZayuGEFFB8lrMnyUC7ZnJdg&shttps://blog.maika.ai/wp-content/uploads/2024/02/anh-meo-meme-5.jpg",
-    firstName: "Văn B ",
-    lastName: "Nguyễn",
-    enabled: "",
-    email: "b@gmail.com",
-    createAt: "12-12-2024",
-    address: "Hồ chí Minh",
-    date: "28-5-2024",
-    phone: "0684981532",
     role: "Người dùng",
   },
 ];
@@ -88,6 +76,8 @@ function ProfileAccount() {
         phone: account.phone,
         avata: account.avata,
         role: account.role.roleID,
+        birthDay: account.birthDay,
+        gender: account.gender,
       });
       form.setFieldsValue({
         id: account.id,
@@ -99,6 +89,8 @@ function ProfileAccount() {
         phone: account.phone,
         role: account.role,
         address: account.address,
+        birthDay: account.birthDay,
+        gender: account.gender,
       });
       if (account.avata) {
         const newFileList = [
@@ -164,6 +156,12 @@ function ProfileAccount() {
       }
       if (values.lastName !== originalValues.lastName) {
         updatedDetails.lastName = values.lastName;
+      }
+      if (values.birthDay !== originalValues.birthDay) {
+        updatedDetails.birthDay = values.birthDay;
+      }
+      if (values.gender !== originalValues.gender) {
+        updatedDetails.gender = values.gender;
       }
       if (values.address !== originalValues.address) {
         updatedDetails.address = values.address;
@@ -235,71 +233,71 @@ function ProfileAccount() {
     token: { borderRadiusLG },
   } = theme.useToken();
 
-  //   const renderProductItem = (
-  //     index,
-  //     name,
-  //     code,
-  //     imgDM,
-  //     nameDM,
-  //     codeDM,
-  //     price,
-  //     imageUrl
-  //   ) => (
-  //     <div className="cart_product_frame" key={index}>
-  //       <Row className="cart_product_item">
-  //         <div className="cart_detail">
-  //           <Col span={2}></Col>
-  //           <Col span={6} className="img_cart">
-  //             <img src={imageUrl} width={95} />
-  //             {imgDM && (
-  //               <img
-  //                 src={imgDM}
-  //                 style={{ display: imgDM === null ? "none" : "block" }}
-  //                 className="cart_product_imgdm"
-  //                 alt={nameDM}
-  //               />
-  //             )}
-  //           </Col>
-  //           <Col span={16} className="infor">
-  //             <div className="infor_detail">
-  //               <div style={{ paddingBottom: "20px" }}>
-  //                 <p>{name}</p>
-  //                 <span>{code}</span>
-  //               </div>
-  //               <p>{nameDM}</p>
-  //               <span>{codeDM}</span>
-  //             </div>
-  //             <p className="price" style={{ textAlign: "end" }}>
-  //               {price}
-  //             </p>
-  //           </Col>
-  //         </div>
-  //       </Row>
-  //     </div>
-  //   );
+  const renderProductItem = (
+    index,
+    name,
+    code,
+    imgDM,
+    nameDM,
+    codeDM,
+    price,
+    imageUrl
+  ) => (
+    <div className="cart_product_frame" key={index}>
+      <Row className="cart_product_item">
+        <div className="cart_detail">
+          <Col span={2}></Col>
+          <Col span={6} className="img_cart">
+            <img src={imageUrl} width={95} />
+            {imgDM && (
+              <img
+                src={imgDM}
+                style={{ display: imgDM === null ? "none" : "block" }}
+                className="cart_product_imgdm"
+                alt={nameDM}
+              />
+            )}
+          </Col>
+          <Col span={16} className="infor">
+            <div className="infor_detail">
+              <div style={{ paddingBottom: "20px" }}>
+                <p>{name}</p>
+                <span>{code}</span>
+              </div>
+              <p>{nameDM}</p>
+              <span>{codeDM}</span>
+            </div>
+            <p className="price" style={{ textAlign: "end" }}>
+              {price}
+            </p>
+          </Col>
+        </div>
+      </Row>
+    </div>
+  );
 
-  //   const products = [
-  //     {
-  //       name: "NHẪN KIM CƯƠNG 18K SUPER VIP",
-  //       code: "NKC1241",
-  //       imgDM: "https://igg.vn/images/upload/34201813229polished-diamond.png",
-  //       nameDM: "KIm cuong ne",
-  //       codeDM: "0000000",
-  //       price: "510,000,000",
-  //       imageUrl:
-  //         "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
-  //     },
-  //     {
-  //       name: "NHẪN KIM CƯƠNG NỮ 18K VIP",
-  //       code: "NKC12341241",
-  //       imgDM: "",
-  //       nameDM: "",
-  //       codeDM: "",
-  //       price: "500,000,000",
-  //       imageUrl:
-  //         "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
-  //     },
-  //   ];
+  const products = [
+    {
+      name: "NHẪN KIM CƯƠNG 18K SUPER VIP",
+      code: "NKC1241",
+      imgDM: "https://igg.vn/images/upload/34201813229polished-diamond.png",
+      nameDM: "KIm cuong ne",
+      codeDM: "0000000",
+      price: "510,000,000",
+      imageUrl:
+        "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
+    },
+    {
+      name: "NHẪN KIM CƯƠNG NỮ 18K VIP",
+      code: "NKC12341241",
+      imgDM: "",
+      nameDM: "",
+      codeDM: "",
+      price: "500,000,000",
+      imageUrl:
+        "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
+    },
+  ];
 
   const handleLinkClick = () => {
     setShowPasswordFields(!showPasswordFields);
@@ -354,9 +352,7 @@ function ProfileAccount() {
                           </Upload>
                           {previewImage && (
                             <Image
-                              wrapperStyle={{
-                                display: "none",
-                              }}
+                              wrapperStyle={{ display: "none" }}
                               preview={{
                                 visible: previewOpen,
                                 onVisibleChange: (visible) =>
@@ -370,7 +366,10 @@ function ProfileAccount() {
                         </Space>
                       </Form.Item>
                     </div>
-                    <div className="name" style={{ marginTop: "-40px" }}>
+                    <div
+                      className="name"
+                      style={{ marginTop: "-40px", textAlign: "center" }}
+                    >
                       <p
                         style={{
                           fontSize: "25px",
@@ -381,6 +380,10 @@ function ProfileAccount() {
                       >
                         {account.lastName} {account.firstName}
                       </p>
+                      <div className="status-button">
+                        <input type="checkbox" id="status" />
+                        <label htmlFor="status" className="button"></label>
+                      </div>
 
                       <Link
                         to="#"
@@ -391,32 +394,54 @@ function ProfileAccount() {
                         {showPasswordFields ? "Đổi mật khẩu" : "Đổi mật khẩu"}
                       </Link>
                       {showPasswordFields && (
-                        <Row gutter={24}>
+                        <Row gutter={24} style={{ justifyContent: "center" }}>
                           <Col span={24}>
                             <div
                               className="nhap-mat-khau-moi"
-                              style={{ justifyContent: "center" }}
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                              }}
                             >
                               <Input
                                 placeholder="Mật khẩu cũ"
-                                style={{ marginTop: "10px" }}
+                                style={{ marginTop: "10px", width: "200px" }}
                               />
                               <Input
                                 placeholder="Mật khẩu mới"
-                                style={{ marginTop: "10px" }}
+                                style={{ marginTop: "10px", width: "200px" }}
                               />
                               <Input
                                 placeholder="Nhập lại mật khẩu mới"
-                                style={{ marginTop: "10px" }}
+                                style={{ marginTop: "10px", width: "200px" }}
                               />
                             </div>
+                            <Col
+                              span={24}
+                              className="button-doi-matkhau"
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Button
+                                type="primary"
+                                onClick={handleSave}
+                                style={{
+                                  background: "#15393f",
+                                  marginTop: "10px",
+                                }}
+                              >
+                                Đổi mật khẩu
+                              </Button>
+                            </Col>
                           </Col>
                         </Row>
                       )}
                     </div>
-
                     <div
-                      className="change-pasword"
+                      className="change-password"
                       style={{ marginTop: "10px" }}
                     ></div>
                   </Col>
@@ -448,6 +473,14 @@ function ProfileAccount() {
                                     <span>{account.email}</span>
                                   </div>
                                   <div className="row">
+                                    <p>Giới tính:</p>
+                                    <span>{account.gender}</span>
+                                  </div>
+                                  <div className="row">
+                                    <p>Sinh nhật:</p>
+                                    <span>{account.birthDay}</span>
+                                  </div>
+                                  <div className="row">
                                     <p>Địa chỉ:</p>
                                     <span>{account.address}</span>
                                   </div>
@@ -477,24 +510,14 @@ function ProfileAccount() {
                             >
                               <Row gutter={24}>
                                 <Col span={24} style={{ marginTop: "-20px" }}>
-                                  {isEditing ? (
-                                    <Button
-                                      type="primary"
-                                      className="button-xac-nhan"
-                                      onClick={handleSave}
-                                    >
-                                      Lưu
-                                    </Button>
-                                  ) : (
-                                    <Button
-                                      type="primary"
-                                      className="button-xac-nhan"
-                                      onClick={handleEdit}
-                                      style={{ background: "#15393f" }}
-                                    >
-                                      Chỉnh sửa
-                                    </Button>
-                                  )}
+                                  <Button
+                                    type="primary"
+                                    className="button-xac-nhan"
+                                    onClick={handleEdit}
+                                    style={{ background: "#15393f" }}
+                                  >
+                                    Chỉnh sửa
+                                  </Button>
                                   <Button
                                     type="primary"
                                     className="button-xac-nhan"
@@ -513,21 +536,44 @@ function ProfileAccount() {
                         </Form>
                       </div>
                     </Content>
-                    {/* <h3> Lịch sử đơn hàng</h3>
-                    <div className="cart_product_list">
-                      {products.map((product, index) =>
-                        renderProductItem(
-                          index,
-                          product.name,
-                          product.code,
-                          product.imgDM,
-                          product.nameDM,
-                          product.codeDM,
-                          product.price,
-                          product.imageUrl
-                        )
-                      )}
-                    </div> */}
+                  </Col>
+                  <Col span={1}></Col>
+                </Row>
+                <Row gutter={24}>
+                  <Col span={1}></Col>
+                  <Col span={22} className="dropdown">
+                    <Collapse
+                      size="small"
+                      style={{ width: "100%", border: "none" }}
+                      items={[
+                        {
+                          key: "1",
+                          label: (
+                            <strong style={{ fontSize: "16px" }}>
+                              Lịch sử đơn hàng
+                            </strong>
+                          ),
+                          children: (
+                            <pre style={{ whiteSpace: "pre-wrap" }}>
+                              <div className="cart_product_list">
+                                {products.map((product, index) =>
+                                  renderProductItem(
+                                    index,
+                                    product.name,
+                                    product.code,
+                                    product.imgDM,
+                                    product.nameDM,
+                                    product.codeDM,
+                                    product.price,
+                                    product.imageUrl
+                                  )
+                                )}
+                              </div>
+                            </pre>
+                          ),
+                        },
+                      ]}
+                    />
                   </Col>
                   <Col span={1}></Col>
                 </Row>
@@ -553,6 +599,8 @@ function ProfileAccount() {
                       address: account.address,
                       phone: account.phone,
                       role: account.role.roleID,
+                      birthDay: account.birthDay,
+                      gender: account.gender,
                     }}
                   >
                     <Form.Item
@@ -615,7 +663,36 @@ function ProfileAccount() {
                         </Form.Item>
                       </Col>
                     </Row>
-
+                    <Row gutter={24}>
+                      <Col span={12}>
+                        <Form.Item
+                          label="Ngày sinh"
+                          name="firstName"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Vui lòng nhập tên nick!",
+                            },
+                          ]}
+                        >
+                          <Input placeholder="Tên*" />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item
+                          label="Tên"
+                          name="firstName"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Vui lòng nhập tên nick!",
+                            },
+                          ]}
+                        >
+                          <Input placeholder="Tên*" />
+                        </Form.Item>
+                      </Col>
+                    </Row>
                     <Form.Item
                       label="Tỉnh/TP"
                       name="city"

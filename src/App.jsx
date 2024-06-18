@@ -62,6 +62,7 @@ import NotFound from "./page/404";
 import DetailProduct from "./page/Staff/Product/DetailProduct";
 import XemSanPham from "./page/Staff/Product/ViewProduct";
 import ProfileAccount from "./page/Admin/Account/ViewAccountDetail/index2";
+import AccountDetail from "./page/Custommer/ThongTinTaiKhoan";
 // import PageNewOrder from "./page/Staff/New-Order";
 
 const router = createBrowserRouter([
@@ -164,6 +165,10 @@ const router = createBrowserRouter([
       {
         path: "/lien-he",
         element: <LienHe />,
+      },
+      {
+        path: "/thong-tin-chi-tiet/:id",
+        element: <AccountDetail />,
       },
     ],
   },

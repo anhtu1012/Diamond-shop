@@ -1,0 +1,33 @@
+.baner-detail {
+  position: relative;
+  .user-name-on-banner {
+    position: absolute;
+    margin-left: 40px;
+    top: 140px;
+    font-style: italic;
+  }
+}
+.user-phan-chia {
+  .css-dev-only-do-not-override-zg0ahe.ant-tabs
+    .ant-tabs-tab.ant-tabs-tab-active
+    .ant-tabs-tab-btn {
+    color: black;
+    text-shadow: 0 0 0.25px currentcolor;
+  }
+
+  .css-dev-only-do-not-override-zg0ahe.ant-tabs .ant-tabs-ink-bar {
+    position: absolute;
+    background: black;
+    pointer-events: none;
+  }
+}
+
+.thong-tin-chi-tiet-tai-khoan-tong {
+  margin-top: 30px;
+}
+.dropdown {
+  margin-top: 20px;
+}
+.lich-su-mua-hang {
+  margin-top: 30px;
+}
