@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Space, Table } from "antd";
+import { Avatar, Button, Input, Space, Table } from "antd";
 import Highlighter from "react-highlight-words";
 import { Select } from "antd";
 

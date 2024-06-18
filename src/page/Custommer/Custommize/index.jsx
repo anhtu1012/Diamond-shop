@@ -39,6 +39,13 @@ function Custommize() {
       dispatch(setDiamond(location.state.diamond));
     }
   }, [location.state, dispatch]);
+  useEffect(() => {
+    if (product && diamond) {
+      setCurrentStep(3);
+    } else if (product) {
+      setCurrentStep(2);
+    }
+  }, [product, diamond]);
 
   const handleDeleteProduct = () => {
     dispatch(clearProduct());

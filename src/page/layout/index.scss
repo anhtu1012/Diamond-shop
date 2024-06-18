@@ -12,7 +12,8 @@
     transform: translateX(5px);
   }
 }
-:where(.css-dev-only-do-not-override-zg0ahe).ant-float-btn-primary .ant-float-btn-body {
+:where(.css-dev-only-do-not-override-zg0ahe).ant-float-btn-primary
+  .ant-float-btn-body {
   background-color: #e70953;
   transition: background-color 0.2s;
 }
@@ -28,12 +29,43 @@
   }
 }
 
-
-
 .shake-icon {
   animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite,
     pulse 2s infinite;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
+}
+
+.chatbox {
+  position: fixed; /* Đặt chatbox cố định so với viewport */
+  right: 80px; /* Khoảng cách từ cạnh phải của viewport */
+  bottom: 20px; /* Khoảng cách từ cạnh dưới của viewport */
+  width: 350px; /* Chiều rộng của chatbox */
+  height: 430px; /* Chiều cao của chatbox */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tạo bóng đổ cho chatbox */
+  border-radius: 10px; /* Bo tròn các góc */
+  display: none; /* Mặc định ẩn chatbox */
+  z-index: 3;
+}
+
+.chatbox.show {
+  display: block;
+}
+
+.close-btn {
+  position: absolute;
+  color: white;
+  top: 20px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 24px; /* Kích thước của nút tắt */
+}
+
+.chatbox-frame {
+  width: 350px;
+  height: 430px;
+  border: none;
 }

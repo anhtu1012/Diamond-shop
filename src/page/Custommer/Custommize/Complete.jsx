@@ -3,19 +3,21 @@
 
 import { useEffect, useState } from "react";
 import "./index.scss";
-import { Col, Image, Rate, Row, Select, Space } from "antd";
+import { Col, Image, Rate, Row, Select, Space, message } from "antd";
 import { GiBigDiamondRing } from "react-icons/gi";
 import { IoDiamondOutline } from "react-icons/io5";
 import { TbTruckDelivery } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { Option } from "antd/es/mentions";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../../redux/features/counterSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { clearDiamond, clearProduct, selectUser } from "../../../redux/features/counterSlice";
 import { addToCartCustomize } from "../../../../services/Uservices";
 
 function Complete({ diamond, product, setCurrentStep }) {
   const [sizeOptions, setSizeOptions] = useState([]);
   const [totalPriceCustom, setTotalPriceCusTom] = useState(0);
+  const [selectedSize, setSelectedSize] = useState(null);
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
   console.log();
   useEffect(() => {
@@ -35,8 +37,26 @@ function Complete({ diamond, product, setCurrentStep }) {
   const hanldeChangeDiamond = () => {
     setCurrentStep(2);
   };
+  const handleSizeChange = (value) => {
+    setSelectedSize(value);
+  };
   const hanldeAddToCart = async () => {
-    const res = await addToCartCustomize();
+    try {
+      const customizeRequest = {
+        productId: product.productID,
+        diamondId: diamond.diamondID,
+        size: selectedSize,
+        totalPrice: totalPriceCustom,
+      };
+      await addToCartCustomize(user.userID, customizeRequest);
+      message.success("Thêm vào giỏ hàng thành công!");
+      dispatch(clearProduct());
+      dispatch(clearDiamond());
+      setCurrentStep(1); 
+    } catch (error) {
+      message.error("Có lỗi xảy ra. Vui lòng thử lại!");
+      console.error("Error adding to cart:", error);
+    }
   };
 
   return (
@@ -172,6 +192,7 @@ function Complete({ diamond, product, setCurrentStep }) {
                     height: "30px",
                     marginTop: "10px",
                   }}
+                  onChange={handleSizeChange}
                 >
                   {sizeOptions}
                 </Select>
@@ -231,6 +252,7 @@ function Complete({ diamond, product, setCurrentStep }) {
                   fontSize: "25px",
                   borderRadius: "8px",
                 }}
+                onClick={hanldeAddToCart}
               >
                 Thêm Vào Giỏ Hàng
               </button>
