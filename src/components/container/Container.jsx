@@ -5,7 +5,7 @@ function Container({ children }) {
       style={{
         padding: "20px 150px",
 
-        minHeight: "760px",
+        minHeight: "800px",
       }}
     >
       {children}

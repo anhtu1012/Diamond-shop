@@ -59,8 +59,12 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import LoginPage from "./page/login";
 import NotFound from "./page/404";
 import ProfileAccount from "./page/Admin/Account/ViewAccountDetail/index2";
+
+import AccountDetail from "./page/Custommer/ThongTinTaiKhoan";
+
 import ViewOrderDetailsStaff from "./page/Staff/Order/ViewOrderDetail";
 import DetailNewOrder from "./page/Staff/New-Order/DetailNewOrder";
+
 // import PageNewOrder from "./page/Staff/New-Order";
 
 const router = createBrowserRouter([
@@ -163,6 +167,10 @@ const router = createBrowserRouter([
       {
         path: "/lien-he",
         element: <LienHe />,
+      },
+      {
+        path: "/thong-tin-chi-tiet/:id",
+        element: <AccountDetail />,
       },
     ],
   },

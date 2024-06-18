@@ -69,6 +69,52 @@
     }
   }
 }
+.status-button {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  align-items: center;
+}
+
+.status-button input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.button {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.button:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .button {
+  background-color: rgb(41, 221, 41);
+}
+
+input:checked + .button:before {
+  transform: translateX(26px);
+}
+
 .avata-user {
   display: flex;
   justify-content: center;
@@ -81,6 +127,11 @@
 .doi-mat-khau {
   font-size: 16px;
   margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+.button-doi-matkhau {
+  margin-top: 20px;
   display: flex;
   justify-content: center;
 }
