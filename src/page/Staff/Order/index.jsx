@@ -15,7 +15,7 @@ const data = [
     status: "Chờ xác nhận",
     infor: (
       <Link
-        to={"/admin-page/don-hang/all/order-detail/OD123456"}
+        to={"/staff-page/don-hang/all/order-detail/OD123456"}
         style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
@@ -32,7 +32,7 @@ const data = [
     status: "Chờ thanh toán",
     infor: (
       <Link
-        to={"/admin-page/don-hang/all/order-detail/OD123457"}
+        to={"/staff-page/don-hang/all/order-detail/OD123457"}
         style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
@@ -49,7 +49,7 @@ const data = [
     status: "Chờ xác nhận",
     infor: (
       <Link
-        to={"/admin-page/don-hang/all/order-detail/OD123458"}
+        to={"/staff-page/don-hang/all/order-detail/OD123458"}
         style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
@@ -66,7 +66,7 @@ const data = [
     status: "Đã giao",
     infor: (
       <Link
-        to={"/admin-page/don-hang/all/order-detail/OD123459"}
+        to={"/staff-page/don-hang/all/order-detail/OD123459"}
         style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
@@ -83,7 +83,7 @@ const data = [
     status: "Đã hủy",
     infor: (
       <Link
-        to={"/admin-page/don-hang/all/order-detail/OD123460"}
+        to={"/staff-page/don-hang/all/order-detail/OD123460"}
         style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
@@ -100,7 +100,7 @@ const data = [
     status: "Đã giao",
     infor: (
       <Link
-        to={"/admin-page/don-hang/all/order-detail/OD123461"}
+        to={"/staff-page/don-hang/all/order-detail/OD123461"}
         style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
@@ -117,7 +117,7 @@ const data = [
     status: "Đã hủy",
     infor: (
       <Link
-        to={"/admin-page/don-hang/all/order-detail/OD123462"}
+        to={"/staff-page/don-hang/all/order-detail/OD123462"}
         style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
@@ -134,7 +134,7 @@ const data = [
     status: "Đã giao",
     infor: (
       <Link
-        to={"/admin-page/don-hang/all/order-detail/OD123463"}
+        to={"/staff-page/don-hang/all/order-detail/OD123463"}
         style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
@@ -151,7 +151,7 @@ const data = [
     status: "Chờ giao hàng",
     infor: (
       <Link
-        to={"/admin-page/don-hang/all/order-detail/OD123463"}
+        to={"/staff-page/don-hang/all/order-detail/OD123463"}
         style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết

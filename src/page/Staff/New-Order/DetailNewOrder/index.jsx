@@ -79,6 +79,7 @@ const renderProductItem = (order, index) => (
           style={{ marginLeft: "10px" }}
         />
       )}
+
       {order.custom && order.custom.product && (
         <div style={{ textAlign: "center" }}>
           <Button className="button_custom">Size: {order.custom.sizes}</Button>
@@ -178,7 +179,7 @@ const renderProductItem = (order, index) => (
   </Row>
 );
 
-function DetailProduct() {
+function DetailNewOrder() {
   return (
     <div>
       <Row gutter={10}>
@@ -277,4 +278,4 @@ function DetailProduct() {
   );
 }
 
-export default DetailProduct;
+export default DetailNewOrder;
