@@ -332,7 +332,7 @@ function AllOrder() {
   return (
     <div className="all-order">
       <div style={{ marginBottom: 16 }}>{statusButtons}</div>
-      <Table columns={columns} dataSource={filteredData} />
+      <Table className="table" columns={columns} dataSource={filteredData} />
     </div>
   );
 }

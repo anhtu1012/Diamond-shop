@@ -14,7 +14,6 @@ import NewProduct from "./page/Admin/Product/NewProduct";
 import ViewProduct from "./page/Admin/Product/ViewProduct";
 import NewOrder from "./page/Staff/New-Order";
 import ViewOrder from "./page/Staff/Order";
-import ViewProductS from "./page/Staff/Product";
 import ViewUser from "./page/Staff/View-User";
 import Warranty from "./page/Staff/Warranty";
 import StaffPage from "./page/Staff/staff-page";
@@ -64,6 +63,8 @@ import AccountDetail from "./page/Custommer/ThongTinTaiKhoan";
 
 import ViewOrderDetailsStaff from "./page/Staff/Order/ViewOrderDetail";
 import DetailNewOrder from "./page/Staff/New-Order/DetailNewOrder";
+import ProductDetailStaff from "./page/Staff/ProductStaff/ProductDetail";
+import ViewProductS from "./page/Staff/ProductStaff/allProduct";
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -207,7 +208,7 @@ const router = createBrowserRouter([
         element: <AllOrder />,
       },
       {
-        path: "don-hang/all/order-detail/:idorder",
+        path: "don-hang/all/order-detail/:odID",
         element: <ViewOrderDetails />,
       },
       {
@@ -294,6 +295,10 @@ const router = createBrowserRouter([
       {
         path: "/staff-page/san-pham",
         element: <ViewProductS />,
+      },
+      {
+        path: "/staff-page/xem-san-pham/chi-tiet-san-pham/:productID",
+        element: <ProductDetailStaff />,
       },
       {
         path: "/staff-page/bao-hanh",

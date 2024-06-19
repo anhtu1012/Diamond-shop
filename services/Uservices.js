@@ -122,3 +122,8 @@ export const fetchUserById = () => {
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/admin/all_users`
   );
 };
+export const getAllUserStaff = () => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/staff/all_users`
+  );
+};

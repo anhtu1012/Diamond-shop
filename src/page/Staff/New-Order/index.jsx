@@ -45,6 +45,7 @@ const data = [
           },
           sizes: 45,
         },
+        diamond: null,
       },
       {
         odID: "OD12347",
