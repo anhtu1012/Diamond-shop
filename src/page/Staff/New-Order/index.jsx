@@ -76,12 +76,15 @@ const data = [
 const renderAllOrder = (order, index) => (
   <Row className="new_order_frame" key={index}>
     <Col span={7} className="new_order_left">
+      <div className="new_order_odID">
+        <span>{order.odID}</span>
+      </div>
       {order.custom && order.custom.product && (
         <img
           className="new_order_mg_main"
           src={order.custom.product.productImages}
           width={130}
-          style={{ marginLeft: "75px" }}
+          style={{ marginLeft: "75px" ,top:"-10px"}}
         />
       )}
 
@@ -102,7 +105,7 @@ const renderAllOrder = (order, index) => (
         />
       )}
       <div className="link_new_order">
-        <Link to="/" style={{ color: "#e4bd7b" }}>
+        <Link to="chi-tiet-don-hang" style={{ color: "#e4bd7b" }}>
           Xem chi tiết
         </Link>
       </div>
@@ -193,6 +196,7 @@ const renderAllOrder = (order, index) => (
     </div>
   </Row>
 );
+
 
 function NewOrder() {
   return (
