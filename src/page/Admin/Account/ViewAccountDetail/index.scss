@@ -1,106 +1,159 @@
-.upload_image {
-  display: flex;
-  justify-content: center;
-  img {
-    object-fit: cover;
-  }
-  .ant-upload.ant-upload-select {
-    width: 150px !important;
-    height: 150px !important;
-    span.ant-upload {
-      font-size: 30px;
+.profile-account {
+  .upload_image {
+    display: flex;
+    justify-content: center;
+    img {
+      object-fit: cover;
+    }
+    .ant-upload.ant-upload-select {
+      width: 150px !important;
+      height: 150px !important;
+      span.ant-upload {
+        font-size: 30px;
+      }
+    }
+    .ant-upload-list-item.ant-upload-list-item-error {
+      width: 150px !important;
+      height: 150px !important;
+    }
+    .ant-upload-list-item-container {
+      width: 150px !important;
+      height: 150px !important;
     }
   }
-  .ant-upload-list-item.ant-upload-list-item-error {
-    width: 150px !important;
-    height: 150px !important;
-  }
-  .ant-upload-list-item-container {
-    width: 150px !important;
-    height: 150px !important;
-  }
-}
-.cart_product_frame {
-  position: relative;
-  margin: 10px 10px 10px 10px;
-  padding: 15px;
-  border: 1px solid rgb(128, 128, 128, 0.1);
-  box-shadow: 1px 1px 1px 1px rgb(128, 128, 128, 0.1);
-  border-radius: 8px;
-  background-color: rgb(255, 255, 255, 0.1);
-  .cart_product_item {
-    .cart_product_imgdm {
-      width: 50px;
-      height: 50px;
-      position: absolute;
-      top: -20px;
-      left: 0;
-    }
-    .cart_detail {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-    }
-    .infor {
-      padding: 0px 10px;
-
-      .infor_detail {
+  .cart_product_frame {
+    position: relative;
+    margin: 10px 10px 10px 10px;
+    padding: 15px;
+    border: 1px solid rgb(128, 128, 128, 0.1);
+    box-shadow: 1px 1px 1px 1px rgb(128, 128, 128, 0.1);
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255, 0.1);
+    .cart_product_item {
+      .cart_product_imgdm {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: -20px;
+        left: 0;
+      }
+      .cart_detail {
         display: flex;
-        flex-direction: column;
-        gap: 0px;
-        p {
-          font-size: 12px;
-          font-weight: bold;
-          text-transform: uppercase;
-          color: #15393f;
-        }
-        span {
-          font-style: italic;
-          font-weight: 300;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+      .infor {
+        padding: 0px 10px;
+
+        .infor_detail {
+          display: flex;
+          flex-direction: column;
+          gap: 0px;
+          p {
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #15393f;
+          }
+          span {
+            font-style: italic;
+            font-weight: 300;
+          }
         }
       }
-    }
-    .price {
-      text-align: right;
-      font-size: 16px;
-      font-weight: 500;
-      color: #e4bd7b;
+      .price {
+        text-align: right;
+        font-size: 16px;
+        font-weight: 500;
+        color: #e4bd7b;
+      }
     }
   }
-}
-.avata-user {
-  display: flex;
-  justify-content: center;
-}
-.button-user {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-}
-.doi-mat-khau {
-  font-size: 16px;
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-}
-.thong-tin-account {
-  .thong-tin-quan-trong {
-    .row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
+  .status-button {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    align-items: center;
+  }
 
-      p {
-        font-size: 18px;
-        font-weight: 500;
-        margin-right: 10px; // Khoảng cách giữa p và span
-        min-width: 150px; // Đảm bảo các thẻ span cùng hàng dọc
-      }
+  .status-button input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
 
-      span {
-        font-weight: 300;
-        font-size: 16px;
+  .button {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+  }
+
+  .button:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+
+  input:checked + .button {
+    background-color: rgb(41, 221, 41);
+  }
+
+  input:checked + .button:before {
+    transform: translateX(26px);
+  }
+
+  .avata-user {
+    display: flex;
+    justify-content: center;
+  }
+  .button-user {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .doi-mat-khau {
+    font-size: 16px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  .button-doi-matkhau {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .thong-tin-account {
+    .thong-tin-quan-trong {
+      .row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        p {
+          font-size: 18px;
+          font-weight: 500;
+          margin-right: 10px; // Khoảng cách giữa p và span
+          min-width: 150px; // Đảm bảo các thẻ span cùng hàng dọc
+        }
+
+        span {
+          font-weight: 300;
+          font-size: 16px;
+        }
       }
     }
   }

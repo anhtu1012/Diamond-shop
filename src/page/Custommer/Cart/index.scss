@@ -79,59 +79,79 @@
     top: -20px;
     left: 0;
   }
-  .cart_product_frame {
+  // ------------------------------------
+  .staff_order_frame {
+    width: 680px;
     position: relative;
-    margin: 10px 10px 30px 10px;
+    margin: 10px 0px;
     padding: 15px;
     border: 1px solid rgb(128, 128, 128, 0.1);
     box-shadow: 1px 1px 1px 1px rgb(128, 128, 128, 0.1);
     border-radius: 8px;
     background-color: rgb(255, 255, 255, 0.1);
-    .cart_product_item {
-      .detele {
+    display: flex;
+    align-items: center;
+    .staff_order_left {
+      position: relative;
+      .staff_order_kimg_kid {
+        width: 50px;
+        height: 50px;
         position: absolute;
-        top: 10px;
-        right: 10px;
-        background: transparent;
+        top: -10px;
+        left: 0;
+      }
+      .staff_order_kimg_main {
+        width: 130px;
+        margin-left: 10px;
+      }
+      .button_custom {
+        width: 100px;
         border: none;
+        border-radius: 0;
+        border-bottom: 1px solid gray;
         transform: 0.5s;
         &:hover {
-          color: red;
+          color: black;
+          border-bottom: 1px solid black;
         }
       }
-      .cart_detail {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
+    }
+    .price {
+      text-align: right;
+      font-size: 20px;
+      font-weight: bold;
+      color: #e4bd7b;
+    }
+    .staff_order_right {
+      .icon_order {
+        padding-right: 10px;
       }
-      .infor {
-        padding: 20px 30px;
-
-        .infor_detail {
+      .info_product {
+        display: flex;
+        padding-bottom: 20px;
+        color: #15393f;
+        .info_sub {
           display: flex;
           flex-direction: column;
-          gap: 4px;
-          p {
-            font-size: 20px;
-            font-weight: bold;
-            text-transform: uppercase;
-            color: #15393f;
-          }
-          span {
-            font-style: italic;
-            font-weight: 300;
-          }
+          gap: 5px;
+          font-size: large;
+          font-weight: bold;
         }
       }
-      .price {
-        text-align: right;
-        font-size: 20px;
-        font-weight: 500;
-        color: #e4bd7b;
+      .info_diamond {
+        display: flex;
+        color: #15393f;
+        .info_sub {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          font-size: large;
+          font-weight: bold;
+        }
       }
     }
   }
+
   /* Đảm bảo ô input khi hiển thị lỗi được căn đều */
   .ant-form-item-has-error .ant-input,
   .ant-form-item-has-error .ant-select-selector {

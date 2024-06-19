@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CaretLeftFilled, DeleteOutlined } from "@ant-design/icons";
+import { CaretLeftFilled } from "@ant-design/icons";
 import {
   AutoComplete,
   Button,
@@ -8,35 +8,22 @@ import {
   Form,
   Input,
   Radio,
+  Rate,
   Row,
   Select,
 } from "antd";
-import { IoTicket } from "react-icons/io5";
+import { IoDiamondOutline, IoTicket } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import Relate from "../../../components/carousel/related";
 import Container from "../../../components/container/Container";
 import "./index.scss";
 import { getProvinces, getDistricts, getWards } from "vietnam-provinces";
+import { getCart } from "../../../../services/Uservices";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../redux/features/counterSlice";
+import { GiBigDiamondRing } from "react-icons/gi";
 
 const { Option } = Select;
-const items = [
-  {
-    value: "1",
-    label: "1",
-  },
-  {
-    value: "2",
-    label: "2",
-  },
-  {
-    value: "3",
-    label: "3",
-  },
-  {
-    value: "4",
-    disabled: true,
-  },
-];
 
 function Cart() {
   const [form] = Form.useForm();
@@ -45,7 +32,15 @@ function Cart() {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
-
+  const user = useSelector(selectUser);
+  const fetchCart = async () => {
+    console.log(user.userID);
+    const res = await getCart(user.userID);
+    console.log(res.data);
+  };
+  useEffect(() => {
+    fetchCart();
+  }, []);
   useEffect(() => {
     const provincesList = getProvinces();
     setProvinces(provincesList);
@@ -85,99 +80,274 @@ function Cart() {
     console.log("Received values: ", values);
   };
 
-  const renderProductItem = (
-    index,
-    name,
-    code,
-    imgDM,
-    nameDM,
-    codeDM,
-    price,
-    imageUrl
-  ) => (
-    <div className="cart_product_frame" key={index}>
-      <Row className="cart_product_item">
-        <button className="detele">
-          <DeleteOutlined /> Xóa
-        </button>
-        <div className="cart_detail">
-          <Col span={6} className="img_cart">
-            <img src={imageUrl} width={180} />
-            {imgDM && (
+  const renderProductItem = (order) => (
+    <div key={order.cartId}>
+      {order.items.map((item) => (
+        <Row className="staff_order_frame" key={item.cartItemId}>
+          <Col span={7} className="staff_order_left">
+            {item.productCustomize && item.productCustomize.product && (
               <img
-                src={imgDM}
-                style={{ display: imgDM === null ? "none" : "block" }}
-                className="cart_product_imgdm"
-                alt={nameDM}
+                className="img_main"
+                src={item.productCustomize.product.productImages[0]?.imageUrl}
+                width={130}
+                style={{ marginLeft: "10px" }}
+              />
+            )}
+            {item.productCustomize && item.productCustomize.product && (
+              <div style={{ textAlign: "center" }}>
+                <Button className="button_custom">
+                  Size: {item.productCustomize.size}
+                </Button>
+              </div>
+            )}
+            {(item.productCustomize?.diamond || item.diamondAdd) && (
+              <img
+                src={
+                  item.productCustomize?.diamond?.image ||
+                  item.diamondAdd?.image
+                }
+                className={`staff_order_kimg ${
+                  item.productCustomize?.product
+                    ? "staff_order_kimg_kid"
+                    : "staff_order_kimg_main"
+                }`}
+                alt={
+                  item.productCustomize?.diamond?.diamondName ||
+                  item.diamondAdd?.diamondName
+                }
               />
             )}
           </Col>
-          <Col span={18} className="infor">
-            <div className="infor_detail">
-              <div style={{paddingBottom:"20px"}}>
-                <p>{name}</p>
-                <span>{code}</span>
+  
+          <Col span={17} className="staff_order_right">
+            {item.productCustomize && item.productCustomize.product && (
+              <div className="info_product">
+                <div>
+                  <GiBigDiamondRing size={25} className="icon_order" />
+                </div>
+                <div className="info_sub">
+                  <span>
+                    {item.productCustomize.product.productName}
+                    {" - "}
+                    {item.productCustomize.product.shapeDiamond}{" "}
+                    {item.productCustomize.product.dimensionsDiamond} ly
+                  </span>
+                  <p style={{ fontWeight: 400, fontSize: "13px" }}>
+                    {item.productCustomize.product.productID}
+                  </p>
+                  <Rate
+                    disabled
+                    defaultValue={item.productCustomize.product.rating}
+                    style={{
+                      fontSize: "13px",
+                    }}
+                  />
+                </div>
               </div>
-              <p>{nameDM}</p>
-              <span>{codeDM}</span>
-              <Select
-                defaultValue="Size"
-                style={{
-                  width: 70,
-                }}
-                options={items}
-              />
-            </div>
+            )}
+            {(item.productCustomize?.diamond || item.diamondAdd) && (
+              <div className="info_diamond">
+                <div>
+                  <IoDiamondOutline size={25} className="icon_order" />
+                </div>
+                <div className="info_sub">
+                  <p>
+                    {item.productCustomize?.diamond?.diamondName ||
+                      item.diamondAdd?.diamondName}
+                  </p>
+                  <div style={{ fontWeight: 400, fontSize: "13px" }}>
+                    <span>
+                      Carat:{" "}
+                      {item.productCustomize?.diamond?.carat ||
+                        item.diamondAdd?.carat}
+                    </span>
+                    {" - "}
+                    <span>
+                      Tinh Khiết :
+                      {item.productCustomize?.diamond?.clarify ||
+                        item.diamondAdd?.clarify}
+                    </span>
+                    {" - "}
+                    <span>
+                      Cấp Màu :
+                      {item.productCustomize?.diamond?.colorLevel ||
+                        item.diamondAdd?.colorLevel}
+                    </span>
+                    {" - "}
+                    Cắt:{" "}
+                    <span>
+                      {item.productCustomize?.diamond?.cut ||
+                        item.diamondAdd?.cut}
+                    </span>
+                  </div>
+                  {(item.productCustomize?.diamond || item.diamondAdd) && (
+                    <div
+                      style={{
+                        fontWeight: 400,
+                        fontSize: "13px",
+                        paddingTop: "3px",
+                      }}
+                    >
+                      Kiểm định:{" "}
+                      <span style={{ color: "red" }}>
+                        {item.productCustomize?.diamond?.certificate ||
+                          item.diamondAdd?.certificate}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </Col>
-        </div>
-        <Col span={24} className="price">
-          {" "}
-          <span>{price}</span>
-        </Col>
-      </Row>
+          <Col span={24} className="price">
+            <span style={{ textAlign: "right" }}>
+              {(
+                item.productCustomize?.totalPrice ||
+                item.diamondAdd?.totalPrice ||
+                item.totalPrice
+              ).toLocaleString("de-DE", {
+                maximumFractionDigits: 2,
+              })}{" "}
+              đ
+            </span>
+          </Col>
+        </Row>
+      ))}
     </div>
   );
+  
 
-  const products = [
+  const data = [
     {
-      name: "NHẪN KIM CƯƠNG 18K SUPER VIP",
-      code: "NKC1241",
-      imgDM: "https://igg.vn/images/upload/34201813229polished-diamond.png",
-      nameDM: "KIm cuong ne",
-      codeDM: "0000000",
-      price: "510,000,000",
-      imageUrl:
-        "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
-    },
-    {
-      name: "NHẪN KIM CƯƠNG NỮ 18K VIP",
-      code: "NKC12341241",
-      imgDM: "",
-      nameDM: "",
-      codeDM: "",
-      price: "500,000,000",
-      imageUrl:
-        "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
-    },
-    {
-      name: "NHẪN KIM CƯƠNG NỮ 18K VIP",
-      code: "NKC12341241",
-      imgDM: "",
-      nameDM: "",
-      codeDM: "",
-      price: "500,000,000",
-      imageUrl:
-        "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
-    },
-    {
-      name: "NHẪN KIM CƯƠNG NỮ 18K VIP",
-      code: "NKC12341241",
-      imgDM: "",
-      nameDM: "",
-      codeDM: "",
-      price: "500,000,000",
-      imageUrl:
-        "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
+      cartId: 1,
+      userId: 24,
+      items: [
+        {
+          cartItemId: 1,
+          diamondAdd: null,
+          productCustomize: {
+            prodcutCustomId: "P01117BT-1453851108",
+            product: {
+              createAt: "2024-06-08T21:55:04.290387",
+              updateAt: "2024-06-15T19:49:42.353674",
+              productID: "01117BT",
+              productName: "BÔNG TAI KIM CƯƠNG 18K ",
+              bathStone: "kim cương",
+              brand: "diamond",
+              goldType: "Vàng Trắng",
+              goldWeight: 1.04,
+              shapeDiamond: "Round",
+              dimensionsDiamond: 5.0,
+              message: "",
+              oldGold: "18K",
+              productType: "Bông Tai",
+              quantity: 20,
+              quantityStonesOfDiamond: 60,
+              totalPrice: 10000000,
+              rating: 4.5,
+              status: true,
+              stoneWeight: 0.04,
+              originalPrice: 3.11584e7,
+              wagePrice: 2000000.0,
+              ratio: 0.6,
+              category: {
+                createAt: "2024-06-03T23:27:23.264671",
+                updateAt: "2024-06-03T23:27:23.264671",
+                categoryID: 3,
+                categoryName: "Bông Tai Kim Cương",
+              },
+              productImages: [
+                {
+                  imageId: 70,
+                  imageUrl:
+                    "https://jemmia.vn/wp-content/uploads/2024/04/1-copy-5.jpg",
+                },
+                {
+                  imageId: 71,
+                  imageUrl:
+                    "https://jemmia.vn/wp-content/uploads/2024/04/3-copy-7.jpg",
+                },
+                {
+                  imageId: 72,
+                  imageUrl:
+                    "https://jemmia.vn/wp-content/uploads/2024/04/2-copy-5.jpg",
+                },
+              ],
+              sizes: [
+                {
+                  sizeID: 107,
+                  sizeValue: 10,
+                  quantity: 8,
+                },
+                {
+                  sizeID: 108,
+                  sizeValue: 12,
+                  quantity: 5,
+                },
+                {
+                  sizeID: 109,
+                  sizeValue: 14,
+                  quantity: 7,
+                },
+              ],
+              feedbacks: [],
+            },
+            diamond: {
+              diamondID: "1453851108",
+              diamondName: "KIM CƯƠNG VIÊN GIA 3LY6 – 6471017231",
+              carat: 0.61,
+              certificate: "GIA",
+              clarify: "VS2",
+              color: "Trắng",
+              colorLevel: "F",
+              cut: "Excellent",
+              shape: "Round",
+              dimensions: 5.4,
+              flourescence: "FAINT",
+              image:
+                "https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/kim-cuong-vien.png?alt=media&token=4fdf38b3-e37c-4e59-9906-3bae83608fe2",
+              inputDate: "2024-06-03T00:00:00.000+00:00",
+              originPrice: 4.4e8,
+              status: false,
+              totalPrice: 300000000,
+              ratio: 0.7,
+              feedbacks: [],
+            },
+            totalPrice: 310000000,
+            size: 10,
+          },
+          quantity: 1,
+          totalPrice: 310000000,
+        },
+        {
+          cartItemId: 12,
+          productCustomize: null,
+          diamondAdd: {
+            diamondID: "6391377543",
+            diamondName: "KIM CƯƠNG VIÊN GIA 5LY3 – 6391377543",
+            carat: 0.59,
+            certificate: "GIA",
+            clarify: "VVS1",
+            color: "Trắng",
+            colorLevel: "E",
+            cut: "Excellent",
+            shape: "Round",
+            dimensions: 5.3,
+            flourescence: "NONE",
+            image:
+              "https://jemmia.vn/wp-content/uploads/2024/05/kim-cuong-vien.png",
+            inputDate: "2024-06-03T00:00:00.000+00:00",
+            originPrice: 7.5975e7,
+            status: true,
+            totalPrice: 1.139625e8,
+            ratio: 0.5,
+            feedbacks: [],
+          },
+          quantity: 1,
+          totalPrice: 1.139625e8,
+        },
+      ],
+      fullName: "Truong Le Minh Nghia [K17 HCM]",
     },
   ];
 
@@ -419,18 +589,7 @@ function Cart() {
                 </h2>
               </div>
               <div className="cart_product_list">
-                {products.map((product, index) =>
-                  renderProductItem(
-                    index,
-                    product.name,
-                    product.code, 
-                    product.imgDM,
-                    product.nameDM,
-                    product.codeDM,
-                    product.price,
-                    product.imageUrl
-                  )
-                )}
+                {data.map((order, index) => renderProductItem(order, index))}
               </div>
             </div>
 
