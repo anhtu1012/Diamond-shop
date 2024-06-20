@@ -6,6 +6,7 @@ import {
   Layout,
   Rate,
   Row,
+  message,
   theme,
 } from "antd";
 import { useEffect, useState } from "react";
@@ -20,11 +21,14 @@ import Relate from "../../../components/carousel/related";
 import { addToCart, fetchDiamondById } from "../../../../services/Uservices";
 import LoadingTruck from "../../../components/loading";
 import ToggleTab from "../../../components/caccauhoivisao";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../redux/features/counterSlice";
 
 const { Content } = Layout;
 
 const DiamondDetailss = () => {
   const [diamondDetail, setDiamondDetail] = useState(null);
+  const user = useSelector(selectUser);
   const navigate = useNavigate();
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -44,9 +48,18 @@ const DiamondDetailss = () => {
   useEffect(() => {
     fetchProductByIds(diamondID);
   }, [diamondID]);
-  const hanldeAddtoCart = async (diamondDetail) => {
-    const res = await addToCart(diamondDetail);
-    console.log(res.data);
+  const hanldeAddtoCart = async () => {
+    try {
+      const data = {
+        userId: user.userID,
+        productId: diamondDetail.diamondID,
+      };
+      await addToCart(data);
+      message.success("Thêm vào giỏ hàng thành công!");
+    } catch (error) {
+      message.error("Có lỗi xảy ra. Vui lòng thử lại!");
+      console.error("Error adding to cart:", error);
+    }
   };
 
   if (!diamondDetail) {

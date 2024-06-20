@@ -14,6 +14,7 @@
     }
   }
   .cart_product_list {
+    padding-top: 25px;
     width: 100%;
   }
   .cart_button_comback {
@@ -91,6 +92,16 @@
     background-color: rgb(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
+    .delete {
+      position: absolute;
+      z-index: 4;
+      top: 10px;
+      right: 20px;
+      transform: 0.5s;
+      &:hover {
+        color: red;
+      }
+    }
     .staff_order_left {
       position: relative;
       .staff_order_kimg_kid {
@@ -171,7 +182,11 @@
     flex-direction: column;
     align-items: flex-end;
     margin-top: 20px;
-    padding: 0px 25px;
+    padding: 10px 25px;
+    border: 1px solid rgb(128, 128, 128, 0.1);
+    box-shadow: 1px 1px 1px 1px rgb(128, 128, 128, 0.1);
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255, 0.1);
   }
 
   .cart_summary_item {
@@ -226,7 +241,7 @@
       background-color: #fff;
       padding-left: 20px; // Tăng padding để làm phần tổng tiền rộng hơn
       box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
+      z-index: 10;
       border-radius: 10px;
       transition: all 0.3s ease-in-out;
 
