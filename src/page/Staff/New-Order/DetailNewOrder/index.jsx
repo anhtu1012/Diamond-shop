@@ -8,6 +8,7 @@ const data = [
   {
     odID: "OD12345",
     userID: "US1234",
+    
     custom: {
       product: {
         productID: "01117BT",
@@ -42,6 +43,7 @@ const data = [
       },
       sizes: 45,
     },
+    diamond: null,
   },
   {
     odID: "OD12345",
