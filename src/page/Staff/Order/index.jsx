@@ -168,7 +168,7 @@ const data = [
     status: "Chờ thanh toán",
     infor: (
       <Link
-        to={"/admin-page/don-hang/all/order-detail/OD123463"}
+        to={"/staff-page/don-hang/all/order-detail/OD123463"}
         style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
@@ -185,7 +185,7 @@ const data = [
     status: "Chờ xác nhận",
     infor: (
       <Link
-        to={"/admin-page/don-hang/all/order-detail/OD123463"}
+        to={"/staff-page/don-hang/all/order-detail/OD123463"}
         style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
