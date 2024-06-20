@@ -106,7 +106,7 @@ const renderProductItem = (order, index) => (
           className="img_main"
           src={order.custom.product.productImages}
           width={130}
-          style={{ marginLeft: "80px" }}
+          style={{ marginLeft: "90px" }}
         />
       )}
 
@@ -319,7 +319,7 @@ function ViewOrderDetails() {
             <div
               style={{
                 padding: 16,
-                minHeight: 170,
+                minHeight: 190,
                 background: "#fff",
                 borderRadius: borderRadiusLG,
                 boxShadow: "0px 0px 4px",
@@ -436,7 +436,7 @@ function ViewOrderDetails() {
                           {
                             maximumFractionDigits: 0,
                           }
-                        )}
+                        )} vnđ
                       </span>
                     </div>
                     <div className="row">
@@ -447,14 +447,14 @@ function ViewOrderDetails() {
                           {
                             maximumFractionDigits: 0,
                           }
-                        )}
+                        )} vnđ
                       </span>
                     </div>
                     <div className="row">
                       <p>Giao hàng:</p>
                       <span>Miễn phí</span>
                     </div>
-                    <div className="row" style={{ marginTop: "40px" }}>
+                    <div className="row" style={{ marginTop: "65px" }}>
                       <p style={{ fontSize: "20px" }}>Tổng giá:</p>
                       <span
                         style={{
@@ -465,7 +465,7 @@ function ViewOrderDetails() {
                       >
                         {totalPrice.toLocaleString("vi-VN", {
                           maximumFractionDigits: 0,
-                        })}
+                        })} vnđ
                       </span>
                     </div>
                   </div>

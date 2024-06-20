@@ -15,7 +15,7 @@ const data = [
     status: "Chờ xác nhận",
     infor: (
       <Link
-        to={"/staff-page/don-hang/all/order-detail/OD123456"}
+        to={"/staff-page/don-hang/order-detail/OD123456"}
         style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết

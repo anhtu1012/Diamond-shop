@@ -18,6 +18,7 @@ function ViewUser() {
       const response = await getAllUserStaff();
       if (response && response.data && Array.isArray(response.data.data)) {
         setDataSource(response.data.data);
+        console.log(response.data.data);
       } else {
         console.error("Unexpected API response structure:", response);
       }
@@ -192,6 +193,13 @@ function ViewUser() {
       key: "email",
       width: "20%",
       ...getColumnSearchProps("email"),
+    },
+    {
+      title: "Số điện thoại",
+      dataIndex: "phone",
+      key: "phone",
+      width: "15%",
+      ...getColumnSearchProps("phone"),
     },
     {
       title: "Quyền hạn",

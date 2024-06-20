@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const data = [
   {
     key: "1",
-    idorder: "OD123456",
+    odID: "OD123456",
     idcus: "US123456",
     email: "hai263672@gmail.com",
     date: "29-5-2024",
@@ -15,7 +15,7 @@ const data = [
     status: "Chờ xác nhận",
     infor: (
       <Link
-        to={"/staff-page/don-hang/all/order-detail/OD123456"}
+        to={"/admin-page/don-hang/all/order-detail/OD123456"}
         style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
@@ -24,7 +24,7 @@ const data = [
   },
   {
     key: "2",
-    idorder: "OD123457",
+    odID: "OD123457",
     idcus: "US123457",
     email: "huy263672@gmail.com",
     date: "28-5-2024",
@@ -41,7 +41,7 @@ const data = [
   },
   {
     key: "3",
-    idorder: "OD123458",
+    odID: "OD123458",
     idcus: "US123458",
     email: "hhung263672@gmail.com",
     date: "30-5-2024",
@@ -58,7 +58,7 @@ const data = [
   },
   {
     key: "4",
-    idorder: "OD123459",
+    odID: "OD123459",
     idcus: "US123459",
     email: "hai263673@gmail.com",
     date: "6-5-2024",
@@ -75,7 +75,7 @@ const data = [
   },
   {
     key: "5",
-    idorder: "OD123460",
+    odID: "OD123460",
     idcus: "US123460",
     email: "hai263674@gmail.com",
     date: "5-5-2024",
@@ -92,7 +92,7 @@ const data = [
   },
   {
     key: "6",
-    idorder: "OD123461",
+    odID: "OD123461",
     idcus: "US123461",
     email: "hai263675@gmail.com",
     date: "4-5-2024",
@@ -109,7 +109,7 @@ const data = [
   },
   {
     key: "7",
-    idorder: "OD123462",
+    odID: "OD123462",
     idcus: "US123462",
     email: "hai263676@gmail.com",
     date: "3-5-2024",
@@ -126,7 +126,7 @@ const data = [
   },
   {
     key: "8",
-    idorder: "OD123463",
+    odID: "OD123463",
     idcus: "US123463",
     email: "hai263677@gmail.com",
     date: "2-5-2024",
@@ -143,7 +143,7 @@ const data = [
   },
   {
     key: "9",
-    idorder: "OD123463",
+    odID: "OD123463",
     idcus: "US123463",
     email: "hai263677@gmail.com",
     date: "3-4-2024",
@@ -160,7 +160,7 @@ const data = [
   },
   {
     key: "10",
-    idorder: "OD123463",
+    odID: "OD123463",
     idcus: "US123463",
     email: "263677@gmail.com",
     date: "3-3-2024",
@@ -177,7 +177,7 @@ const data = [
   },
   {
     key: "11",
-    idorder: "OD123463",
+    odID: "OD123463",
     idcus: "US123463",
     email: "hai263677@gmail.com",
     date: "3-2-2024",
@@ -232,8 +232,8 @@ function AllOrder() {
   const columns = [
     {
       title: "Mã đơn hàng",
-      dataIndex: "idorder",
-      key: "idorder",
+      dataIndex: "odID",
+      key: "odID",
       width: "15%",
     },
     {

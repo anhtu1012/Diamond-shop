@@ -170,7 +170,7 @@ const router = createBrowserRouter([
         element: <LienHe />,
       },
       {
-        path: "/thong-tin-chi-tiet/:id",
+        path: "/thong-tin-chi-tiet/:userID",
         element: <AccountDetail />,
       },
     ],
@@ -285,7 +285,7 @@ const router = createBrowserRouter([
         element: <ViewOrder />,
       },
       {
-        path: "/staff-page/don-hang/all/order-detail/:idorder",
+        path: "/staff-page/don-hang/order-detail/:odID",
         element: <ViewOrderDetailsStaff />,
       },
       {
