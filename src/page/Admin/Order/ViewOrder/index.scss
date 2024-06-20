@@ -1,67 +1,130 @@
-.order-product {
-  display: flex;
-  .detail-order-product {
-    margin-top: 10px;
-  }
-}
-.cart_product_frame {
-  position: relative;
-  margin: 10px 0px;
-  padding: 15px;
-  border: 1px solid rgb(128, 128, 128, 0.1);
-  box-shadow: 1px 1px 1px 1px rgb(128, 128, 128, 0.1);
-  border-radius: 8px;
-  background-color: rgb(255, 255, 255, 0.1);
-  
-  .cart_product_imgdm {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    top: -20px;
-    left: 0;
-  }
- 
-  .cart_product_item {
-    .detele {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: transparent;
-      border: none;
-      transform: 0.5s;
-      &:hover {
-        color: red;
+.tong-order-detail {
+  .staff_order_frame {
+    position: relative;
+    margin: 10px 0px;
+    padding: 15px;
+    border: 1px solid rgb(128, 128, 128, 0.1);
+    box-shadow: 1px 1px 1px 1px rgb(128, 128, 128, 0.1);
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    .staff_order_left {
+      position: relative;
+      .staff_order_kimg_kid {
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        top: -10px;
+        left: -50px;
       }
-    }
-    .cart_detail {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-    }
-    .infor {
-      padding: 20px 30px;
-
-      .infor_detail {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        p {
-          font-size: 20px;
-          font-weight: bold;
-          text-transform: uppercase;
-        }
-        span {
-          font-style: italic;
-          font-weight: 400;
+      .staff_order_kimg_main {
+        width: 130px;
+        margin-left: 10px;
+      }
+      .button_custom {
+        width: 100px;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid gray;
+        transform: 0.5s;
+        &:hover {
+          color: black;
+          border-bottom: 1px solid black;
         }
       }
     }
     .price {
       text-align: right;
       font-size: 20px;
-      font-weight: 500;
+      font-weight: bold;
       color: #e4bd7b;
+    }
+    .staff_order_right {
+      .icon_order {
+        padding-right: 10px;
+      }
+      .info_product {
+        display: flex;
+        padding-bottom: 20px;
+        color: #15393f;
+        .info_sub {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          font-size: large;
+          font-weight: bold;
+        }
+      }
+      .info_diamond {
+        display: flex;
+        color: #15393f;
+        .info_sub {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          font-size: large;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .step-giao-hang {
+    .css-dev-only-do-not-override-zg0ahe.ant-steps.ant-steps-vertical
+      > .ant-steps-item
+      > .ant-steps-item-container
+      > .ant-steps-item-tail {
+      position: absolute;
+      top: 0;
+      inset-inline-start: 15px;
+      width: 3px;
+      height: 140%;
+      padding: 38px 0 6px;
+    }
+    .css-dev-only-do-not-override-zg0ahe.ant-steps
+      .ant-steps-item-process
+      .ant-steps-item-icon {
+      background-color: #008000;
+      border-color: #008000;
+    }
+  }
+  .thong-tin-nguoi-mua {
+    .row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+
+      p {
+        font-size: 16px;
+        font-weight: 500;
+        margin-right: 10px; // Khoảng cách giữa p và span
+        min-width: 150px; // Đảm bảo các thẻ span cùng hàng dọc
+      }
+
+      span {
+        font-weight: 300;
+        font-size: 16px;
+      }
+    }
+  }
+  .total-price {
+    .row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+
+      p {
+        font-size: 16px;
+        font-weight: 500;
+        margin-right: 10px; // Khoảng cách giữa p và span
+        min-width: 120px; // Đảm bảo các thẻ span cùng hàng dọc
+      }
+
+      span {
+        font-weight: 300;
+        font-size: 16px;
+      }
     }
   }
 }

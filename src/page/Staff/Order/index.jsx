@@ -15,7 +15,7 @@ const data = [
     status: "Chờ xác nhận",
     infor: (
       <Link
-        to={"/staff-page/don-hang/all/order-detail/OD123456"}
+        to={"/staff-page/don-hang/order-detail/OD123456"}
         style={{ color: "#e4bd7b", fontWeight: 600 }}
       >
         Xem chi tiết
@@ -332,7 +332,7 @@ function AllOrder() {
   return (
     <div className="all-order">
       <div style={{ marginBottom: 16 }}>{statusButtons}</div>
-      <Table columns={columns} dataSource={filteredData} />
+      <Table className="table" columns={columns} dataSource={filteredData} />
     </div>
   );
 }

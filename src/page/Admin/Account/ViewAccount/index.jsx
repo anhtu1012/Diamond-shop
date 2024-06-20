@@ -216,24 +216,6 @@ function ViewAccount() {
       ...getColumnSearchProps("email"),
     },
     {
-      title: "Ngày tạo",
-      dataIndex: "date",
-      key: "date",
-      width: "15%",
-      ...getColumnSearchProps("date"),
-      sorter: (a, b) =>
-        new Date(a.date.split("-").reverse().join("-")) -
-        new Date(b.date.split("-").reverse().join("-")),
-      sortDirections: ["descend", "ascend"],
-    },
-    {
-      title: "Số điện thoại",
-      dataIndex: "phone",
-      key: "phone",
-      width: "10%",
-      ...getColumnSearchProps("phone"),
-    },
-    {
       title: "Quyền hạn",
       dataIndex: "role",
       key: "role",
