@@ -1,33 +1,127 @@
-.baner-detail {
-  position: relative;
-  .user-name-on-banner {
-    position: absolute;
-    margin-left: 40px;
-    top: 140px;
-    font-style: italic;
+.tong-trang-detail {
+  .upload_image {
+    display: flex;
+    justify-content: center;
+    img {
+      object-fit: cover;
+    }
+    .ant-upload.ant-upload-select {
+      width: 150px !important;
+      height: 150px !important;
+      span.ant-upload {
+        font-size: 30px;
+      }
+    }
+    .ant-upload-list-item.ant-upload-list-item-error {
+      width: 150px !important;
+      height: 150px !important;
+    }
+    .ant-upload-list-item-container {
+      width: 150px !important;
+      height: 150px !important;
+    }
   }
-}
-.user-phan-chia {
-  .css-dev-only-do-not-override-zg0ahe.ant-tabs
-    .ant-tabs-tab.ant-tabs-tab-active
-    .ant-tabs-tab-btn {
-    color: black;
-    text-shadow: 0 0 0.25px currentcolor;
+  .baner-detail {
+    position: relative;
+    .user-name-on-banner {
+      position: absolute;
+      margin-left: 40px;
+      top: 140px;
+      font-style: italic;
+    }
+  }
+  .user-phan-chia {
+    .css-dev-only-do-not-override-zg0ahe.ant-tabs
+      .ant-tabs-tab.ant-tabs-tab-active
+      .ant-tabs-tab-btn {
+      color: black;
+      text-shadow: 0 0 0.25px currentcolor;
+    }
+
+    .css-dev-only-do-not-override-zg0ahe.ant-tabs .ant-tabs-ink-bar {
+      position: absolute;
+      background: black;
+      pointer-events: none;
+    }
   }
 
-  .css-dev-only-do-not-override-zg0ahe.ant-tabs .ant-tabs-ink-bar {
-    position: absolute;
-    background: black;
-    pointer-events: none;
+  .thong-tin-chi-tiet-tai-khoan-tong {
+    margin-top: 30px;
   }
-}
-
-.thong-tin-chi-tiet-tai-khoan-tong {
-  margin-top: 30px;
-}
-.dropdown {
-  margin-top: 20px;
-}
-.lich-su-mua-hang {
-  margin-top: 30px;
+  .dropdown {
+    margin-top: 20px;
+  }
+  .lich-su-mua-hang {
+    margin-top: 30px;
+  }
+  .staff_order_frame {
+    position: relative;
+    margin: 10px 0px;
+    padding: 15px;
+    border: 1px solid rgb(128, 128, 128, 0.1);
+    box-shadow: 1px 1px 1px 1px rgb(128, 128, 128, 0.1);
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    .staff_order_left {
+      position: relative;
+      .staff_order_kimg_kid {
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        top: -10px;
+        left: -50px;
+      }
+      .staff_order_kimg_main {
+        width: 130px;
+        margin-left: 30px;
+      }
+      .button_custom {
+        width: 100px;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid gray;
+        transform: 0.5s;
+        &:hover {
+          color: black;
+          border-bottom: 1px solid black;
+        }
+      }
+    }
+    .price {
+      text-align: right;
+      font-size: 20px;
+      font-weight: bold;
+      color: #e4bd7b;
+    }
+    .staff_order_right {
+      .icon_order {
+        padding-right: 10px;
+      }
+      .info_product {
+        display: flex;
+        padding-bottom: 20px;
+        color: #15393f;
+        .info_sub {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          font-size: large;
+          font-weight: bold;
+        }
+      }
+      .info_diamond {
+        display: flex;
+        color: #15393f;
+        .info_sub {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          font-size: large;
+          font-weight: bold;
+        }
+      }
+    }
+  }
 }

@@ -123,6 +123,7 @@ export const fetchUserById = () => {
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/admin/all_users`
   );
 };
+
 export const deleteCart = (cart_item_id) => {
   return api.delete(
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/carts/delete/${cart_item_id}`
@@ -132,5 +133,10 @@ export const submitOrder = (info) => {
   return api.post(
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/orders/submit_order`,
     info
+
+export const getAllUserStaff = () => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/staff/all_users`
+
   );
 };

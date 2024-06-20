@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
 import {
   Button,
   Col,
   Form,
   Image,
   Input,
+  Radio,
+  Rate,
   Row,
   Select,
   Space,
@@ -18,21 +21,26 @@ import { Link, useParams } from "react-router-dom";
 import "./index.scss";
 import { Option } from "antd/es/mentions";
 import { getDistricts, getWards, provinces } from "vietnam-provinces";
+import moment from "moment";
+import { IoDiamondOutline } from "react-icons/io5";
+import { GiBigDiamondRing } from "react-icons/gi";
 
 const data = [
   {
     key: "1",
-    id: "US123457",
+    userID: "US123457",
     avata:
       "https://blog.maika.ai/wp-content/uploads/2024/02/anh-meo-meme-11.jpg",
     firstName: "Nguyễn",
     lastName: " Thanh Hải ",
+    gender: "MALE",
+    yearOfBirth: "13-01-2003",
     enabled: "",
     createAt: "12-12-2024",
     email: "a@gmail.com",
     address: "Phước Long A, Tp Thủ Đức, Hồ chí Minh",
     date: "29-5-2024",
-    phone: "0123456789",
+    phoneNumber: "0123456789",
     role: "Người dùng",
   },
 ];
@@ -49,9 +57,188 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
+const products = [
+  {
+    odID: "OD123456",
+    dateOD: "19-06-2003",
+    status: "Đã giao",
+    userID: "US123457",
+    custom: {
+      product: {
+        productID: "01117BT",
+        productName: "BÔNG TAI KIM CƯƠNG 18K",
+        shapeDiamond: "Round",
+        dimensionsDiamond: 5,
+        productType: "Bông Tai",
+        totalPrice: 53053440,
+        rating: 4.5,
+        status: true,
+        productImages:
+          "https://jemmia.vn/wp-content/uploads/2024/04/1-copy-5.jpg",
+        feedbacks: [],
+      },
+      diamond: {
+        diamondID: "1453851108",
+        diamondName: "KIM CƯƠNG VIÊN GIA 3LY6 – 6471017231",
+        carat: 0.61,
+        certificate: "GIA",
+        clarify: "VS2",
+        color: "Trắng",
+        colorLevel: "F",
+        cut: "Excellent",
+        shape: "Round",
+        dimensions: 5.4,
+        flourescence: "FAINT",
+        image:
+          "https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/kim-cuong-vien.png?alt=media&token=4fdf38b3-e37c-4e59-9906-3bae83608fe2",
+        status: true,
+        totalPrice: 748000000,
+        feedbacks: [],
+      },
+      sizes: 45,
+    },
+  },
+  {
+    odID: "OD123456",
+    dateOD: "19-06-2003",
+    status: "Đã giao",
+    userID: "US123457",
+    custom: null,
+    diamond: {
+      diamondID: "1453851107",
+      diamondName: "KIM CƯƠNG VIÊN GIA 3LY6 – 6471017231",
+      carat: 0.61,
+      certificate: "GIA",
+      clarify: "VS2",
+      color: "Trắng",
+      colorLevel: "F",
+      cut: "Excellent",
+      shape: "Round",
+      dimensions: 5.4,
+      flourescence: "FAINT",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/kim-cuong-vien.png?alt=media&token=4fdf38b3-e37c-4e59-9906-3bae83608fe2",
+      status: true,
+      totalPrice: 748000000,
+      feedbacks: [],
+    },
+  },
+];
+
+const renderProductItem = (order, index) => (
+  <Row className="staff_order_frame" key={index}>
+    <Col span={7} className="staff_order_left">
+      {order.custom && order.custom.product && (
+        <img
+          className="img_main"
+          src={order.custom.product.productImages}
+          width={130}
+          style={{ marginLeft: "80px" }}
+        />
+      )}
+
+      {order.custom && order.custom.product && (
+        <div style={{ textAlign: "center" }}>
+          <Button className="button_custom">Size: {order.custom.sizes}</Button>
+        </div>
+      )}
+      {(order.custom?.diamond || order.diamond) && (
+        <img
+          src={order.custom?.diamond?.image || order.diamond?.image}
+          className={`staff_order_kimg ${
+            order.custom?.product
+              ? "staff_order_kimg_kid"
+              : "staff_order_kimg_main"
+          }`}
+          alt={order.custom?.diamond?.diamondName || order.diamond?.diamondName}
+          style={{ marginLeft: "80px" }}
+        />
+      )}
+    </Col>
+
+    <Col span={17} className="staff_order_right">
+      {order.custom && order.custom.product && (
+        <div className="info_product">
+          <div>
+            <GiBigDiamondRing size={25} className="icon_order" />
+          </div>
+          <div className="info_sub">
+            <span>
+              {order.custom.product.productName}
+              {" - "}
+              {order.custom.product.shapeDiamond}{" "}
+              {order.custom.product.dimensionsDiamond} ly
+            </span>
+            <p style={{ fontWeight: 400, fontSize: "13px" }}>
+              {" "}
+              {order.custom.product.productID}
+            </p>
+            <Rate
+              disabled
+              defaultValue={order.custom.product.rating}
+              style={{
+                fontSize: "13px",
+              }}
+            />
+          </div>
+        </div>
+      )}
+      <div className="info_diamond">
+        <div>
+          <IoDiamondOutline size={25} className="icon_order" />
+        </div>
+        <div className="info_sub">
+          <p>
+            {order.custom?.diamond?.diamondName || order.diamond.diamondName}
+          </p>
+          <div style={{ fontWeight: 400, fontSize: "13px" }}>
+            <span>
+              Carat: {order.custom?.diamond?.carat || order.diamond.carat}
+            </span>
+            {" - "}
+            <span>
+              Tinh Khiết :
+              {order.custom?.diamond?.clarify || order.diamond.clarify}
+            </span>
+            {" - "}
+            <span>
+              Cấp Màu :
+              {order.custom?.diamond?.colorLevel || order.diamond.colorLevel}
+            </span>
+            {" - "}
+            Cắt: <span>{order.custom?.diamond?.cut || order.diamond.cut}</span>
+          </div>
+          {order.diamond && (
+            <div
+              style={{ fontWeight: 400, fontSize: "13px", paddingTop: "3px" }}
+            >
+              Kiểm định:{" "}
+              <span style={{ color: "red" }}>
+                {" "}
+                {order.diamond.certificate}{" "}
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+    </Col>
+    <Col span={24} className="price">
+      <span style={{ textAlign: "right" }}>
+        {(
+          order.custom?.product?.totalPrice ||
+          order.custom?.diamond?.totalPrice ||
+          order.diamond.totalPrice
+        ).toLocaleString("de-DE", {
+          maximumFractionDigits: 2,
+        })}{" "}
+        đ
+      </span>
+    </Col>
+  </Row>
+);
 function AccountDetail() {
-  const { id } = useParams();
-  const account = data.find((d) => d.id === id);
+  const { userID } = useParams();
+  const account = data.find((d) => d.userID === userID);
 
   const [form] = Form.useForm();
   const [isEditing, setIsEditing] = useState(false);
@@ -64,6 +251,8 @@ function AccountDetail() {
   const [wards, setWards] = useState([]);
   const [showPasswordFields, setShowPasswordFields] = useState(false);
 
+  const genderText = account.gender === "MALE" ? "Nam" : "Nữ";
+
   useEffect(() => {
     if (account) {
       setOriginalValues({
@@ -71,9 +260,11 @@ function AccountDetail() {
         firstName: account.firstName,
         lastName: account.lastName,
         address: account.address,
-        phone: account.phone,
+        phoneNumber: account.phoneNumber,
         avata: account.avata,
         role: account.role.roleID,
+        gender: account.gender,
+        yearOfBirth: account.yearOfBirth,
       });
       form.setFieldsValue({
         id: account.id,
@@ -82,9 +273,11 @@ function AccountDetail() {
         lastName: account.lastName,
         email: account.email,
         date: account.date,
-        phone: account.phone,
+        phoneNumber: account.phoneNumber,
         role: account.role,
         address: account.address,
+        gender: account.gender,
+        yearOfBirth: account.yearOfBirth,
       });
       if (account.avata) {
         const newFileList = [
@@ -154,8 +347,14 @@ function AccountDetail() {
       if (values.address !== originalValues.address) {
         updatedDetails.address = values.address;
       }
-      if (values.phone !== originalValues.phone) {
-        updatedDetails.phone = values.phone;
+      if (values.phoneNumber !== originalValues.phoneNumber) {
+        updatedDetails.phoneNumber = values.phoneNumber;
+      }
+      if (values.gender !== originalValues.gender) {
+        updatedDetails.gender = values.gender;
+      }
+      if (values.yearOfBirth !== originalValues.yearOfBirth) {
+        updatedDetails.yearOfBirth = values.yearOfBirth;
       }
 
       if (Object.keys(updatedDetails).length > 0) {
@@ -208,71 +407,11 @@ function AccountDetail() {
     console.log("Received values: ", values);
   };
 
-  const renderProductItem = (
-    index,
-    name,
-    code,
-    imgDM,
-    nameDM,
-    codeDM,
-    price,
-    imageUrl
-  ) => (
-    <div className="cart_product_frame" key={index}>
-      <Row className="cart_product_item">
-        <div className="cart_detail">
-          <Col span={2}></Col>
-          <Col span={6} className="img_cart">
-            <img src={imageUrl} width={95} />
-            {imgDM && (
-              <img
-                src={imgDM}
-                style={{ display: imgDM === null ? "none" : "block" }}
-                className="cart_product_imgdm"
-                alt={nameDM}
-              />
-            )}
-          </Col>
-          <Col span={16} className="infor">
-            <div className="infor_detail">
-              <div style={{ paddingBottom: "20px" }}>
-                <p>{name}</p>
-                <span>{code}</span>
-              </div>
-              <p>{nameDM}</p>
-              <span>{codeDM}</span>
-            </div>
-            <p className="price" style={{ textAlign: "end" }}>
-              {price}
-            </p>
-          </Col>
-        </div>
-      </Row>
-    </div>
-  );
-
-  const products = [
-    {
-      name: "NHẪN KIM CƯƠNG 18K SUPER VIP",
-      code: "NKC1241",
-      imgDM: "https://igg.vn/images/upload/34201813229polished-diamond.png",
-      nameDM: "KIm cuong ne",
-      codeDM: "0000000",
-      price: "510,000,000",
-      imageUrl:
-        "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
-    },
-    {
-      name: "NHẪN KIM CƯƠNG NỮ 18K VIP",
-      code: "NKC12341241",
-      imgDM: "",
-      nameDM: "",
-      codeDM: "",
-      price: "500,000,000",
-      imageUrl:
-        "https://glosbejewelry.net/upload/image/Nhan-kim-cuong%20(10).jpg",
-    },
-  ];
+  const [value, setValue] = useState(1);
+  const onChangeGender = (e) => {
+    console.log("radio checked", e.target.value);
+    setValue(e.target.value);
+  };
 
   if (!account) {
     return <div>Account not found</div>;
@@ -343,7 +482,7 @@ function AccountDetail() {
                     </div>
                     <div
                       className="name"
-                      style={{ marginTop: "-40px", textAlign: "center" }}
+                      style={{ marginTop: "-30px", textAlign: "center" }}
                     >
                       <p
                         style={{
@@ -466,8 +605,10 @@ function AccountDetail() {
                           initialValues={{
                             firstName: account.firstName,
                             lastName: account.lastName,
-                            phone: account.phone,
+                            phoneNumber: account.phoneNumber,
                             address: account.address,
+                            gender: account.gender,
+                            birthDay: account.yearOfBirth,
                           }}
                         >
                           <Row gutter={24}>
@@ -488,7 +629,7 @@ function AccountDetail() {
                             <Col span={12}>
                               <Form.Item
                                 label="Họ"
-                                name="lastName"
+                                name="firstName"
                                 rules={[
                                   {
                                     required: true,
@@ -502,7 +643,41 @@ function AccountDetail() {
                             <Col span={12}>
                               <Form.Item
                                 label="Tên"
-                                name="firstName"
+                                name="lastName"
+                                rules={[
+                                  {
+                                    required: true,
+                                    message: "Vui lòng nhập tên nick!",
+                                  },
+                                ]}
+                              >
+                                <Input placeholder="Tên*" />
+                              </Form.Item>
+                            </Col>
+                            <Col span={12}>
+                              <Form.Item
+                                label="Giới tính"
+                                name="gender"
+                                rules={[
+                                  {
+                                    required: true,
+                                    message: "Vui lòng nhập tên nick!",
+                                  },
+                                ]}
+                              >
+                                <Radio.Group
+                                  onChange={onChangeGender}
+                                  value={account.gender}
+                                >
+                                  <Radio value="MALE">Nam</Radio>
+                                  <Radio value="FEMALE">Nữ</Radio>
+                                </Radio.Group>
+                              </Form.Item>
+                            </Col>
+                            <Col span={12}>
+                              <Form.Item
+                                label="Ngày sinh"
+                                name="yearOfBirth"
                                 rules={[
                                   {
                                     required: true,
@@ -608,7 +783,7 @@ function AccountDetail() {
                                 </Select>
                               </Form.Item>
                             </Col>
-                            <Col span={24}>
+                            <Col span={12}>
                               <Form.Item
                                 label="Địa chỉ cụ thể"
                                 name="address"
@@ -620,6 +795,20 @@ function AccountDetail() {
                                 ]}
                               >
                                 <Input placeholder="Địa chỉ cụ thể*" />
+                              </Form.Item>
+                            </Col>
+                            <Col span={12}>
+                              <Form.Item
+                                label="Số điện thoại"
+                                name="phoneNumber"
+                                rules={[
+                                  {
+                                    required: true,
+                                    message: "Xin hãy nhập vào Địa chỉ cụ thể!",
+                                  },
+                                ]}
+                              >
+                                <Input placeholder="Số điện thoại*" />
                               </Form.Item>
                             </Col>
                             <Col
@@ -713,10 +902,20 @@ function AccountDetail() {
                                   marginTop: "10px",
                                 }}
                               >
-                                Số điện thoại
+                                Giới tính
+                              </p>
+                              <p style={{ fontSize: "16px" }}>{genderText}</p>
+                              <p
+                                style={{
+                                  fontSize: "14px",
+                                  fontWeight: "300",
+                                  marginTop: "10px",
+                                }}
+                              >
+                                Ngày sinh
                               </p>
                               <p style={{ fontSize: "16px" }}>
-                                {account.phone}
+                                {account.yearOfBirth}
                               </p>
                             </Col>
 
@@ -754,6 +953,18 @@ function AccountDetail() {
                                   marginTop: "10px",
                                 }}
                               >
+                                Số điện thoại
+                              </p>
+                              <p style={{ fontSize: "16px" }}>
+                                {account.phoneNumber}
+                              </p>
+                              <p
+                                style={{
+                                  fontSize: "14px",
+                                  fontWeight: "300",
+                                  marginTop: "10px",
+                                }}
+                              >
                                 Địa chỉ
                               </p>
                               <p style={{ fontSize: "16px" }}>
@@ -775,18 +986,9 @@ function AccountDetail() {
                     <p style={{ fontWeight: "500", fontSize: "20px" }}>
                       Đơn hàng từng mua
                     </p>
-                    <div className="cart_product_list">
-                      {products.map((product, index) =>
-                        renderProductItem(
-                          index,
-                          product.name,
-                          product.code,
-                          product.imgDM,
-                          product.nameDM,
-                          product.codeDM,
-                          product.price,
-                          product.imageUrl
-                        )
+                    <div>
+                      {products.map((order, index) =>
+                        renderProductItem(order, index)
                       )}
                     </div>
                   </Col>

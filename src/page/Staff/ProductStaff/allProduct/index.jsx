@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { Link } from "react-router-dom";
 import "./index.scss";
-import { getProducts } from "../../../../services/Uservices";
+import { getProducts } from "../../../../../services/Uservices";
 
 function ViewProductS() {
   const [searchText, setSearchText] = useState("");
@@ -183,7 +183,7 @@ function ViewProductS() {
       width: "20%",
       ...getColumnSearchProps("productName"),
     },
-    { 
+    {
       title: "Phân loại",
       dataIndex: "category",
       key: "category",
@@ -219,7 +219,7 @@ function ViewProductS() {
       render: (text, record) => (
         <div style={{ textAlign: "center" }}>
           <Link
-            to={`/staff-page/xem-san-pham/${record.productID}`}
+            to={`/staff-page/xem-san-pham/chi-tiet-san-pham/${record.productID}`}
           >
             Xem chi tiết
           </Link>
@@ -245,6 +245,7 @@ function ViewProductS() {
       </div>
       <div className="all-product">
         <Table
+          className="table"
           rowSelection={rowSelection}
           columns={columns}
           dataSource={dataSource}

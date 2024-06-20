@@ -1,127 +1,35 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Space, Table } from "antd";
+import { Avatar, Button, Input, Space, Table } from "antd";
 import Highlighter from "react-highlight-words";
-import { Link } from "react-router-dom";
 import { Select } from "antd";
 
-const data = [
-  {
-    key: "1",
-    id: "US123457",
-    name: "Nguyễn Văn A",
-    email: "a@gmail.com",
-    date: "29-5-2024",
-    phone: "0123456789",
-    role: "Người dùng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US123457"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
-  },
-  {
-    key: "2",
-    id: "US123457",
-    name: "Nguyễn Văn B",
-    email: "b@gmail.com",
-    date: "28-5-2024",
-    phone: "0684981532",
-    role: "Người dùng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US123457"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
-  },
-  {
-    key: "3",
-    id: "ST123457",
-    name: "Nguyễn Văn C",
-    email: "c2@gmail.com",
-    date: "30-5-2024",
-    phone: "0984961522",
-    role: "Nhân viên bán hàng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/ST123457"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
-  },
-  {
-    key: "4",
-    id: "ST123457",
-    name: "Nguyễn Văn D",
-    email: "d@gmail.com",
-    date: "6-5-2024",
-    phone: "0215645644",
-    role: "Nhân viên bán hàng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/ST123457"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
-  },
-  {
-    key: "5",
-    id: "STD123457",
-    name: "Nguyễn Văn E",
-    email: "e@gmail.com",
-    date: "5-5-2024",
-    phone: "0245449656",
-    role: "Nhân viên giao hàng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/STD123457"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
-  },
-  {
-    key: "6",
-    id: "STD123457",
-    name: "Nguyễn Văn F",
-    email: "f@gmail.com",
-    date: "4-5-2024",
-    phone: "0684613213",
-    role: "Nhân viên giao hàng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/STD123457"} style={{color: 'black', fontWeight: 600}} >Xem chi tiết</Link>,
-  },
-  {
-    key: "7",
-    id: "ST123327",
-    name: "Nguyễn Văn G",
-    email: "g263676@gmail.com",
-    date: "3-5-2024",
-    phone: "0549515546",
-    role: "Nhân viên bán hàng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/ST123327"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
-  },
-  {
-    key: "8",
-    id: "US154457",
-    name: "Nguyễn Văn H",
-    email: "h@gmail.com",
-    date: "2-5-2024",
-    phone: "0246547892",
-    role: "Người dùng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US154457"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
-  },
-  {
-    key: "9",
-    id: "ST123787",
-    name: "Nguyễn Văn J",
-    email: "j@gmail.com",
-    date: "3-4-2024",
-    phone: "0184566911",
-    role: "Nhân viên bán hàng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/ST123787"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
-  },
-  {
-    key: "10",
-    id: "US129557",
-    name: "Nguyễn Văn Q",
-    email: "q@gmail.com",
-    date: "3-3-2024",
-    phone: "0213254581",
-    role: "Người dùng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US129557"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
-  },
-  {
-    key: "11",
-    id: "US15862",
-    name: "Nguyễn Văn T",
-    email: "tai263677@gmail.com",
-    date: "3-2-2024",
-    phone: "01321312312",
-    role: "Người dùng",
-    infor: <Link to={"/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/US15862"} style={{color: 'black', fontWeight: 600}}>Xem chi tiết</Link>,
-  },
-];
+import { Link } from "react-router-dom";
+import { getAllUserStaff } from "../../../../services/Uservices";
 
 function ViewUser() {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
+  const [dataSource, setDataSource] = useState([]);
+
+  async function handledGetAllUser() {
+    try {
+      const response = await getAllUserStaff();
+      if (response && response.data && Array.isArray(response.data.data)) {
+        setDataSource(response.data.data);
+        console.log(response.data.data);
+      } else {
+        console.error("Unexpected API response structure:", response);
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  }
+
+  useEffect(() => {
+    handledGetAllUser();
+  }, []);
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -134,7 +42,7 @@ function ViewUser() {
     setSearchText("");
   };
 
-  const getColumnSearchProps = (dataIndex, dropdownOptions) => ({
+  const getColumnSearchProps = (dataIndex = []) => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -155,7 +63,12 @@ function ViewUser() {
               setSearchedColumn(dataIndex);
             }}
           >
-            {dropdownOptions.map((option) => (
+            {[
+              "Người dùng",
+              "Nhân viên giao hàng",
+              "Nhân viên bán hàng",
+              "Quản lý",
+            ].map((option) => (
               <Select.Option key={option} value={option}>
                 {option}
               </Select.Option>
@@ -236,20 +149,43 @@ function ViewUser() {
       ),
   });
 
+  const filteredDataSource = dataSource.filter(
+    (user) => user.role && user.role.roleID === 4
+  );
+
+  const renderRoleName = (roleID) => {
+    const roleNames = {
+      4: "Người dùng",
+    };
+    return roleNames[roleID] || "Unknown";
+  };
+
   const columns = [
     {
-      title: "ID Tài khoản",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "avata",
+      key: "avata",
       width: "10%",
-      ...getColumnSearchProps("id"),
+      render: (avata) => (
+        <Avatar
+          src={avata}
+          alt="avatar"
+          style={{ marginLeft: "20px", width: "50px", height: "50px" }}
+        />
+      ),
     },
     {
-      title: "Họ và Tên",
-      dataIndex: "name",
-      key: "name",
+      title: "ID Tài khoản",
+      dataIndex: "userID",
+      key: "userID",
+      width: "10%",
+      ...getColumnSearchProps("userID"),
+    },
+    {
+      title: "Tên",
+      dataIndex: "firstName",
+      key: "firstName",
       width: "15%",
-      ...getColumnSearchProps("name"),
+      ...getColumnSearchProps("firstName"),
     },
     {
       title: "Email",
@@ -259,21 +195,10 @@ function ViewUser() {
       ...getColumnSearchProps("email"),
     },
     {
-      title: "Ngày tạo",
-      dataIndex: "date",
-      key: "date",
-      width: "15%",
-      ...getColumnSearchProps("date"),
-      sorter: (a, b) =>
-        new Date(a.date.split("-").reverse().join("-")) -
-        new Date(b.date.split("-").reverse().join("-")),
-      sortDirections: ["descend", "ascend"],
-    },
-    {
       title: "Số điện thoại",
       dataIndex: "phone",
       key: "phone",
-      width: "10%",
+      width: "15%",
       ...getColumnSearchProps("phone"),
     },
     {
@@ -281,22 +206,34 @@ function ViewUser() {
       dataIndex: "role",
       key: "role",
       width: "15%",
-      ...getColumnSearchProps("role", [
-        "Người dùng",
-        "Nhân viên bán hàng",
-        "Nhân viên giao hàng",
-      ]),
+      render: (role) => renderRoleName(role?.roleID),
     },
     {
-      dataIndex: "infor",
-      key: "infor",
-      width: "15%",
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      width: "10%",
+      render: (text, record) => (
+        <div style={{ textAlign: "center" }}>
+          <Link
+            to={`/staff-page/tai-khoan/xem-tat-ca-tai-khoan/${record.userID}`}
+            style={{ fontWeight: "bold" }}
+          >
+            Xem chi tiết
+          </Link>
+        </div>
+      ),
     },
   ];
 
   return (
     <div className="all-account">
-      <Table columns={columns} dataSource={data} />
+      <Table
+        className="table"
+        columns={columns}
+        dataSource={filteredDataSource}
+        pagination={{ pageSize: 10 }}
+      />
     </div>
   );
 }
