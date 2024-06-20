@@ -38,7 +38,7 @@
       height: 50px;
       position: absolute;
       top: 20px;
-      left: 0;
+      left: -5px;
     }
 
     .new_order_kimg_main {
@@ -118,8 +118,18 @@
 .button_new_order {
   position: absolute;
   right: 0;
+  top:-15px;
   margin-top: -10px;
   background-color: #15393f !important;
   border-color: black !important;
   color: white !important;
 }
+
+.UserID-code {
+  background-color: #e4bd7b;
+  border: 2px solid black; 
+  color: black;
+  font-weight: bold;
+  width: 12%;
+}
+
