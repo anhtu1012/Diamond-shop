@@ -117,9 +117,9 @@ export const getAllUser = () => {
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/admin/all_users`
   );
 };
-export const fetchUserById = () => {
+export const fetchUserById = (id) => {
   return api.get(
-    `https://diamondshopgroup6.azurewebsites.net/swp391/api/admin/all_users`
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/user/get/${id}`
   );
 };
 export const getAllUserStaff = () => {

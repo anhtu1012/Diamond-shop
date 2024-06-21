@@ -18,6 +18,7 @@ function ViewAccount() {
     try {
       const response = await getAllUser();
       setDataSource(response.data.data);
+      console.log(response.data.data);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
@@ -230,7 +231,7 @@ function ViewAccount() {
       render: (text, record) => (
         <div style={{ textAlign: "center" }}>
           <Link
-            to={`/admin-page/tai-khoan/xem-tat-ca-tai-khoan/${record.userID}`}
+            to={`/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/${record.userID}`}
             style={{ fontWeight: "bold" }}
           >
             Xem chi tiết

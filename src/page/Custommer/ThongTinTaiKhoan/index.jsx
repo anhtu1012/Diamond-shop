@@ -17,33 +17,14 @@ import {
 import Container from "../../../components/container/Container";
 import uploadFile from "../../../utils/upload";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./index.scss";
 import { Option } from "antd/es/mentions";
 import { getDistricts, getWards, provinces } from "vietnam-provinces";
-import moment from "moment";
 import { IoDiamondOutline } from "react-icons/io5";
 import { GiBigDiamondRing } from "react-icons/gi";
-
-const data = [
-  {
-    key: "1",
-    userID: "US123457",
-    avata:
-      "https://blog.maika.ai/wp-content/uploads/2024/02/anh-meo-meme-11.jpg",
-    firstName: "Nguyễn",
-    lastName: " Thanh Hải ",
-    gender: "MALE",
-    yearOfBirth: "13-01-2003",
-    enabled: "",
-    createAt: "12-12-2024",
-    email: "a@gmail.com",
-    address: "Phước Long A, Tp Thủ Đức, Hồ chí Minh",
-    date: "29-5-2024",
-    phoneNumber: "0123456789",
-    role: "Người dùng",
-  },
-];
+import { useSelector } from "react-redux";
+import { fetchUserById } from "../../../../services/Uservices";
 
 function callback(key) {
   console.log(key);
@@ -237,10 +218,11 @@ const renderProductItem = (order, index) => (
   </Row>
 );
 function AccountDetail() {
-  const { userID } = useParams();
-  const account = data.find((d) => d.userID === userID);
+  const selectUser = (state) => state.user;
+  const user = useSelector(selectUser);
 
   const [form] = Form.useForm();
+  const [userState, setUserState] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [originalValues, setOriginalValues] = useState({});
   const [fileList, setFileList] = useState([]);
@@ -251,49 +233,63 @@ function AccountDetail() {
   const [wards, setWards] = useState([]);
   const [showPasswordFields, setShowPasswordFields] = useState(false);
 
-  const genderText = account.gender === "MALE" ? "Nam" : "Nữ";
+  const genderText = user.gender === "MALE" ? "Nam" : "Nữ";
 
   useEffect(() => {
-    if (account) {
-      setOriginalValues({
-        email: account.email,
-        firstName: account.firstName,
-        lastName: account.lastName,
-        address: account.address,
-        phoneNumber: account.phoneNumber,
-        avata: account.avata,
-        role: account.role.roleID,
-        gender: account.gender,
-        yearOfBirth: account.yearOfBirth,
-      });
-      form.setFieldsValue({
-        id: account.id,
-        avata: account.avata,
-        firstName: account.firstName,
-        lastName: account.lastName,
-        email: account.email,
-        date: account.date,
-        phoneNumber: account.phoneNumber,
-        role: account.role,
-        address: account.address,
-        gender: account.gender,
-        yearOfBirth: account.yearOfBirth,
-      });
-      if (account.avata) {
-        const newFileList = [
-          {
-            uid: "id",
-            name: "avata",
-            status: "done",
-            url: account.avata,
-          },
-        ];
-        setFileList(newFileList);
-        setPreviewImage(account.avata);
-      }
+    if (user.userID) {
+      // Assuming user object has userID
+      fetchUserByIds(user.userID); // Fetch user data when user changes
     }
-  }, [account, form]);
+  }, [user.userID]);
 
+  const fetchUserByIds = async (userID) => {
+    try {
+      const response = await fetchUserById(userID); // Implement fetchUserById function
+      const userData = response.data.data;
+
+      setUserState(userData);
+      console.log(userData);
+      setOriginalValues({
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email,
+        avata: userData.avata,
+        gender: userData.gender,
+        address: userData.address,
+        phoneNumber: userData.phoneNumber,
+        enable: userData.enable,
+        password: userData.password,
+        yearOfBirth: userData.yearOfBirth,
+        role: userData.role.roleID,
+      });
+
+      form.setFieldsValue({
+        userID: userData.userID,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email,
+        avata: userData.avata,
+        gender: userData.gender,
+        address: userData.address,
+        phoneNumber: userData.phoneNumber,
+        enable: userData.enable,
+        password: userData.password,
+        yearOfBirth: userData.yearOfBirth,
+        role: userData.role.roleID,
+      });
+
+      setFileList([
+        {
+          uid: "-1",
+          name: "image.png",
+          status: "done",
+          url: userData.avata,
+        },
+      ]);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
   const handleEdit = () => {
     setIsEditing(true);
   };
@@ -413,7 +409,7 @@ function AccountDetail() {
     setValue(e.target.value);
   };
 
-  if (!account) {
+  if (!userState) {
     return <div>Account not found</div>;
   }
 
@@ -436,7 +432,7 @@ function AccountDetail() {
                   Xin chào!
                 </h2>
                 <h1 style={{ fontWeight: "400" }}>
-                  {account.firstName} {account.lastName}
+                  {userState.firstName} {userState.lastName}
                 </h1>
               </div>
             </div>
@@ -492,7 +488,7 @@ function AccountDetail() {
                           justifyContent: "center",
                         }}
                       >
-                        {account.firstName} {account.lastName}
+                        {userState.firstName} {userState.lastName}
                       </p>
 
                       <Link
@@ -603,12 +599,12 @@ function AccountDetail() {
                           confirmLoading={uploading}
                           onFinish={onFinish}
                           initialValues={{
-                            firstName: account.firstName,
-                            lastName: account.lastName,
-                            phoneNumber: account.phoneNumber,
-                            address: account.address,
-                            gender: account.gender,
-                            birthDay: account.yearOfBirth,
+                            firstName: userState.firstName,
+                            lastName: userState.lastName,
+                            phoneNumber: userState.phoneNumber,
+                            address: userState.address,
+                            gender: userState.gender,
+                            birthDay: userState.yearOfBirth,
                           }}
                         >
                           <Row gutter={24}>
@@ -667,7 +663,7 @@ function AccountDetail() {
                               >
                                 <Radio.Group
                                   onChange={onChangeGender}
-                                  value={account.gender}
+                                  value={userState.gender}
                                 >
                                   <Radio value="MALE">Nam</Radio>
                                   <Radio value="FEMALE">Nữ</Radio>
@@ -881,7 +877,7 @@ function AccountDetail() {
                                 Họ
                               </p>
                               <p style={{ fontSize: "16px" }}>
-                                {account.firstName}
+                                {userState.firstName}
                               </p>
                               <p
                                 style={{
@@ -893,7 +889,7 @@ function AccountDetail() {
                                 Tên
                               </p>
                               <p style={{ fontSize: "16px" }}>
-                                {account.lastName}
+                                {userState.lastName}
                               </p>
                               <p
                                 style={{
@@ -915,7 +911,7 @@ function AccountDetail() {
                                 Ngày sinh
                               </p>
                               <p style={{ fontSize: "16px" }}>
-                                {account.yearOfBirth}
+                                {userState.yearOfBirth}
                               </p>
                             </Col>
 
@@ -934,7 +930,7 @@ function AccountDetail() {
                                 Email
                               </p>
                               <p style={{ fontSize: "16px" }}>
-                                {account.email}
+                                {userState.email}
                               </p>
                               <p
                                 style={{
@@ -956,7 +952,7 @@ function AccountDetail() {
                                 Số điện thoại
                               </p>
                               <p style={{ fontSize: "16px" }}>
-                                {account.phoneNumber}
+                                {userState.phoneNumber}
                               </p>
                               <p
                                 style={{
@@ -968,7 +964,7 @@ function AccountDetail() {
                                 Địa chỉ
                               </p>
                               <p style={{ fontSize: "16px" }}>
-                                {account.address}
+                                {userState.address}
                               </p>
                             </Col>
                           </Row>
