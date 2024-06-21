@@ -65,6 +65,7 @@ import ViewOrderDetailsStaff from "./page/Staff/Order/ViewOrderDetail";
 import DetailNewOrder from "./page/Staff/New-Order/DetailNewOrder";
 import ProductDetailStaff from "./page/Staff/ProductStaff/ProductDetail";
 import ViewProductS from "./page/Staff/ProductStaff/allProduct";
+import KimCuongVienTest from "./page/Custommer/KimCuongVien copy";
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -164,6 +165,10 @@ const router = createBrowserRouter([
       {
         path: "/kim-cuong-vien",
         element: <KimCuongVien />,
+      },
+      {
+        path: "/kim-cuong-vien-test",
+        element: <KimCuongVienTest />,
       },
       {
         path: "/lien-he",

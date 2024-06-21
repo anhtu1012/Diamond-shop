@@ -57,7 +57,7 @@ const DiamondDetailss = () => {
       await addToCart(data);
       message.success("Thêm vào giỏ hàng thành công!");
     } catch (error) {
-      message.error("Có lỗi xảy ra. Vui lòng thử lại!");
+      message.error("Kim cương đã tồn tài trong giỏ hàng");
       console.error("Error adding to cart:", error);
     }
   };
