@@ -50,15 +50,13 @@ import DiamondDetails from "./page/Admin/Diamond/DiamondDetails";
 import ProductDetail from "./page/Admin/Product/ProductDetail";
 import ForgotPassword from "./page/forgotpassword";
 import ViewOrderDetails from "./page/Admin/Order/ViewOrder";
-import ViewAccountDetail from "./page/Admin/Account/ViewAccountDetail";
 import LienHe from "./page/Custommer/LienHe";
 import DiamondDetailss from "./page/Custommer/Diamond Details Cus";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import LoginPage from "./page/login";
 import NotFound from "./page/404";
-import ProfileAccount from "./page/Admin/Account/ViewAccountDetail/index2";
-
+import ProfileAccount from "./page/Admin/Account/ViewAccountDetail/index";
 import AccountDetail from "./page/Custommer/ThongTinTaiKhoan";
 
 import ViewOrderDetailsStaff from "./page/Staff/Order/ViewOrderDetail";
@@ -249,11 +247,7 @@ const router = createBrowserRouter([
         element: <ViewAccount />,
       },
       {
-        path: "tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/:id",
-        element: <ViewAccountDetail />,
-      },
-      {
-        path: "tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan2/:id",
+        path: "/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/:userID",
         element: <ProfileAccount />,
       },
       {
