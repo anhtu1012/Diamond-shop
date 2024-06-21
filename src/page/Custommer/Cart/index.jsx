@@ -70,10 +70,10 @@ function Cart() {
         fullName: `${res.data.user.firstName} ${res.data.user.lastName}`,
         phone: res.data.user.phone,
         email: res.data.user.email,
-        province: res.data.user.address.split(",")[0],
-        district: res.data.user.address.split(",")[1],
-        ward: res.data.user.address.split(",")[2],
-        detailAddress: res.data.user.address.split(",")[3],
+        detailAddress: res.data.user.address.split(",")[0],
+        ward: res.data.user.address.split(",")[1],
+        district: res.data.user.address.split(",")[2],
+        province: res.data.user.address.split(",")[3],
       });
     } catch (error) {
       console.error("Failed to fetch cart data:", error);
@@ -128,7 +128,7 @@ function Cart() {
       const formValues = await form.validateFields();
 
       // Tạo thông tin địa chỉ
-      const { province, district, ward, address, note } = formValues;
+      const { province, district, ward, address } = formValues;
 
       const selectedProvince = provinces.find((p) => p.code === province);
       const selectedDistrict = districts.find((d) => d.code === district);
@@ -141,34 +141,46 @@ function Cart() {
 
       // Tạo thông tin đơn hàng
       const orderInfo = {
-        userId: userr.userID,
+        userID: userr.userID,
         fullName: formValues.fullName,
-        phone: formValues.phone,
-        email: formValues.email,
-        address: fullAddress,
-        note: note || "",
-        items: dataCart.items.map((item) => ({
-          productId:
-            item.productCustomize?.product.productID ||
-            item.diamondAdd?.diamondID,
-          quantity: item.quantity,
-          // Bạn thêm các thông tin khác của sản phẩm nếu cần thiết
-        })),
-        totalCost: totalCartValue,
-        pointsUsed: points,
+        phoneShipping: formValues.phone,
+        addressShipping: fullAddress,
+        price: totalCartValue,
+        usedPoint: points,
+        orderDetail: dataCart.items
+          .map((item) => {
+            // Chuyển đổi để phù hợp với cấu trúc `orderDetail`
+            if (item.diamondAdd) {
+              return {
+                diamondID: item.diamondAdd.diamondID,
+                quantity: item.quantity,
+              };
+            } else if (item.productCustomize) {
+              return {
+                productCustomizeID: item.productCustomize.product.productID,
+                quantity: item.quantity,
+              };
+            }
+            return null;
+          })
+          .filter((detail) => detail !== null),
       };
       console.log("Order information:", orderInfo);
-      // Gọi API đặt hàng với thông tin đơn hàng
       const response = await submitOrder(orderInfo);
       if (response.success) {
-        // Xử lý khi đặt hàng thành công, ví dụ: thông báo cho người dùng, làm trống giỏ hàng
         message.success("Đặt hàng thành công!");
         console.log("Order submitted successfully:", response.data);
+      } else {
+        notification.error({
+          message: "Đặt Hàng không thành công",
+          description: response.data.message,
+        });
+        console.log(response);
       }
     } catch (error) {
       // Xử lý khi có lỗi xảy ra, ví dụ: hiển thị thông báo lỗi
-      console.error("Failed to submit order:", error);
-      message.error("Đặt hàng không thành công!");
+      console.error("Failed to submit order:", error.message);
+      message.error("Kim cương đã tồn tài trong giỏ hàng!");
     }
   };
 
@@ -629,6 +641,7 @@ function Cart() {
               <div className="cart_summary_item">
                 <span className="cart_summary_label">Điểm:</span>
                 <span className="cart_summary_value">
+                  -{" "}
                   {discount.toLocaleString("de-DE", {
                     maximumFractionDigits: 2,
                   })}{" "}
