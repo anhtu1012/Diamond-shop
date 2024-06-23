@@ -63,7 +63,15 @@ import DetailNewOrder from "./page/Staff/New-Order/DetailNewOrder";
 import ProductDetailStaff from "./page/Staff/ProductStaff/ProductDetail";
 import ViewProductS from "./page/Staff/ProductStaff/allProduct";
 import KimCuongVienTest from "./page/Custommer/KimCuongVien copy";
+
 import ViewOrderDetailsStaff from "./page/Staff/Order/ViewOrderDetail";
+
+import DeliveryPage from "./page/Delivery/delivery-page";
+import NewOrderDelivery from "./page/Delivery/New-Order-Delivery";
+import DetailNewOrderDelivery from "./page/Delivery/Order-detail";
+import CapNhatDon from "./page/Delivery/cap-nhat-don";
+import LichSuGiao from "./page/Delivery/lich-su-giao";
+
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -191,7 +199,41 @@ const router = createBrowserRouter([
     path: "/404",
     element: <NotFound />,
   },
-
+  {
+    path: "/delivery-page",
+    element: (
+      <ProtectedRoute
+        element={<DeliveryPage />}
+        allowedRoles={["ROLE_DELIVERY"]}
+      />
+    ),
+    children: [
+      {
+        path: "/delivery-page",
+        element: <NewOrderDelivery />,
+      },
+      {
+        path: "/delivery-page/don-hang-moi",
+        element: <NewOrderDelivery />,
+      },
+      {
+        path: "/delivery-page/chi-tiet-don-hang",
+        element: <DetailNewOrderDelivery />,
+      },
+      {
+        path: "/delivery-page/cap-nhat-don-hang",
+        element: <CapNhatDon />,
+      },
+      {
+        path: "/delivery-page/lich-su-giao-hang",
+        element: <LichSuGiao />,
+      },
+      {
+        path: "/delivery-page/lich-su-giao-hang/da-giao",
+        element: <LichSuGiao />,
+      },
+    ],
+  },
   {
     path: "/admin-page",
     element: (
