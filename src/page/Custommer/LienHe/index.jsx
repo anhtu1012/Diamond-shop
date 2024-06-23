@@ -1,9 +1,10 @@
 import { Col, Row } from "antd";
 import Container from "../../../components/container/Container";
 import { Link } from "react-router-dom";
-import { AiOutlineCheck } from "react-icons/ai";
+
 import "./index.scss";
 import { useEffect } from "react";
+
 function LienHe() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,7 +36,7 @@ function LienHe() {
                   <p style={{ fontSize: "25px" }}>
                     Công Ty Cổ Phần Diamond King
                   </p>
-                  <p style={{ fontSize: "16px", marginTop: "30px" }}>
+                  <p style={{ fontSize: "16px", marginTop: "30px" , fontWeight: "bold"}}>
                     Địa chỉ:
                   </p>
                   <div className="dia-chi">
@@ -46,7 +47,7 @@ function LienHe() {
                         display: "inline-block",
                       }}
                     >
-                      <AiOutlineCheck /> Chi nhánh Hồ Chí Minh:
+                      Chi nhánh Hồ Chí Minh:
                     </p>
                     <p style={{ marginLeft: "10px", display: "inline-block" }}>
                       <Link
@@ -58,13 +59,13 @@ function LienHe() {
                       </Link>
                     </p>
                   </div>
-                  <p style={{ fontSize: "16px", marginTop: "30px" }}>
+                  <p style={{ fontSize: "16px", marginTop: "30px",  fontWeight: "bold"}}>
                     Hotline liên hệ:
                   </p>
                   <div className="so-lien-he">
                     <div style={{ marginTop: "30px", marginLeft: "30px" }}>
                       <p style={{ display: "inline-block" }}>
-                        <AiOutlineCheck /> Chi nhánh Hồ Chí Minh:
+                         Chi nhánh Hồ Chí Minh:
                       </p>
                       <p
                         style={{ marginLeft: "10px", display: "inline-block" }}
@@ -77,7 +78,7 @@ function LienHe() {
                     </div>
                     <div style={{ marginTop: "16px", marginLeft: "30px" }}>
                       <p style={{ display: "inline-block" }}>
-                        <AiOutlineCheck /> Góp ý:
+                        Góp ý:
                       </p>
                       <p
                         style={{ marginLeft: "10px", display: "inline-block" }}
@@ -90,37 +91,52 @@ function LienHe() {
                     </div>
                   </div>
                   <div className="facebook-lien-he">
-                    <p style={{ fontSize: "16px", marginTop: "30px" }}>
+                 
+
+                    <p style={{ fontSize: "16px", marginTop: "30px" ,  fontWeight: "bold"}}>
                       Facebook:
                       <span style={{ marginLeft: "10px" }}>
                         <a href="https://www.facebook.com" rel="nofollow">
-                          Trang chủ Facebook của Diamond King{" "}
+                        https://www.facebook.com/DIAMOND.KING
                         </a>
                       </span>
                     </p>
                   </div>
                   <div className="zalo-lien-he">
-                    <p style={{ fontSize: "16px", marginTop: "30px" }}>
+                    <p style={{ fontSize: "16px", marginTop: "30px",  fontWeight: "bold" }}>
                       Zalo:
                       <span style={{ marginLeft: "10px" }}>
                         <a
                           href="https://id.zalo.me/account?continue=https%3A%2F%2Fchat.zalo.me%2F"
                           rel="nofollow"
                         >
-                          Zalo Tư Vấn Của Diamond King{" "}
+                          https://www.zalo.com/king_diamond
                         </a>
                       </span>
                     </p>
                   </div>
                   <div className="insta-lien-he">
-                    <p style={{ fontSize: "16px", marginTop: "30px" }}>
+                    <p style={{ fontSize: "16px", marginTop: "30px",  fontWeight: "bold" }}>
                       Instagram:
                       <span style={{ marginLeft: "10px" }}>
                         <a
                           href="https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fterms%2Faccept%2F%3F__coig_login%3D1"
                           rel="nofollow"
                         >
-                          Trang chủ Instagram của Diamond King{" "}
+                        https://www.instagram.com/king_diamond
+                        </a>
+                      </span>
+                    </p>
+                  </div>
+                  <div className="tiktok-lien-he">
+                    <p style={{ fontSize: "16px", marginTop: "30px" ,  fontWeight: "bold"}}>
+                      Tiktok:
+                      <span style={{ marginLeft: "10px" }}>
+                        <a
+                          href="https://www.tiktok.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fterms%2Faccept%2F%3F__coig_login%3D1"
+                          rel="nofollow"
+                        >
+                        https://www.tiktok.com/king_diamond
                         </a>
                       </span>
                     </p>

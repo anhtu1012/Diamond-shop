@@ -8,7 +8,7 @@ const data = [
   {
     userID: "US1234",
     orders: [
-      {
+      { 
         odID: "OD12345",
         custom: {
           product: {
@@ -41,7 +41,7 @@ const data = [
         diamond: null,
       },
       {
-        odID: "OD12347",
+        odID: "OD12345",
         diamond: {
           diamondID: "1453851107",
           diamondName: "KIM CƯƠNG VIÊN GIA 3LY6 – 6471017231",
@@ -63,7 +63,7 @@ const data = [
     userID: "US1238",
     orders: [
       {
-        odID: "OD12345",
+        odID: "OD12347",
         custom: {
           product: {
             productID: "01117BT",
@@ -96,7 +96,7 @@ const data = [
       {
         odID: "OD12347",
         diamond: {
-          diamondID: "1453851107",
+          diamondID: "1453851108",
           diamondName: "KIM CƯƠNG VIÊN GIA 3LY6 – 6471017231",
           carat: 0.61,
           certificate: "GIA",
@@ -245,13 +245,17 @@ const NewOrder = () => (
                       </span>
                     </div>
                   )}
+                  
                 </div>
                 
               </div>
             </Col>
             <Col span={24} className="new_order_consult_button">
-              
-             
+              {order.custom && order.custom.product && (
+                <div className="new_order_total_price">
+                  {order.custom.product.totalPrice.toLocaleString()} đ
+                </div>
+              )}
               <Button className="button_new_order">
                 <Link to="/staff-page/chi-tiet-don-hang">Nhận tư vấn</Link>
               </Button>
