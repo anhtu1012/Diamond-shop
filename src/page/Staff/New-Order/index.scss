@@ -1,135 +1,226 @@
-.new_order_userID {
-  background-color: #e4bd7b;
-  font-weight: bold;
-  width: 7%;
-  border: 2px solid black;
-  padding: 5px;
-  margin: 10px;
-  text-align: center;
-}
-
-.new_order_frame {
-  position: relative;
-  margin: 5px 0px;
-  padding: 15px;
-  border: 1px solid rgb(128, 128, 128, 0.1);
-  box-shadow: 1px 1px 1px 1px rgb(128, 128, 128, 0.1);
-  border-radius: 5px;
-  background-color: rgb(255, 255, 255, 0.1);
-  display: flex;
-  border: 2px solid black;
-  align-items: center;
-
-  .new_order_left {
-    position: relative;
-
-    .new_order_odID {
-      position: absolute;
-      top: -10px;
-      left: 10px;
-      font-weight: bold;
-      background-color: white;
-      padding: 5px;
-
-      border: 2px solid black;
-    }
-    .new_order_kimg_kid {
-      width: 50px;
-      height: 50px;
-      position: absolute;
-      top: 20px;
-      left: -5px;
-    }
-
-    .new_order_kimg_main {
-      width: 130px;
-
-      margin-left: 75px;
-    }
-
-    .new_order_button_custom {
-      width: 100px;
-      border: none;
-      border-radius: 0;
-      border-bottom: 1px solid gray;
-      transform: 0.5s;
-
-      &:hover {
-        color: black;
-        border-bottom: 1px solid black;
-      }
-    }
-  }
-
-  .new_order_price {
-    text-align: right;
-    font-size: 20px;
+.oder_main {
+  .new_order_userID {
+    background-color: #e4bd7b;
     font-weight: bold;
-    color: #e4bd7b;
+    width: 7%;
+    border: 2px solid black;
+
     padding: 5px;
+    margin: 10px;
+    text-align: center;
   }
 
-  .new_order_right {
-    .new_order_icon_order {
-      padding-right: 10px;
-    }
+  .new_order_frame {
+    position: relative;
+    margin: 5px 0px;
+    padding: 15px;
+    border: 1px solid rgb(128, 128, 128, 0.1);
+    box-shadow: 1px 1px 1px 1px rgb(128, 128, 128, 0.1);
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255, 0.1);
+    display: flex;
+    border: 2px solid black;
+    align-items: center;
 
-    .new_order_info_product {
-      display: flex;
-      padding-bottom: 20px;
-      color: #15393f;
+    .new_order_left {
+      position: relative;
 
-      .new_order_info_sub {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        font-size: large;
+      .new_order_odID {
+        position: absolute;
+        top: -10px;
+        left: 0;
         font-weight: bold;
+        background-color: white;
+        padding: 5px;
+
+        border: 2px solid black;
+      }
+      .new_order_kimg_kid {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 20px;
+        left: -5px;
+      }
+
+      .new_order_kimg_main {
+        width: 130px;
+
+        margin-left: 75px;
+      }
+
+      .new_order_button_custom {
+        width: 100px;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid gray;
+        transform: 0.5s;
+
+        &:hover {
+          color: black;
+          border-bottom: 1px solid black;
+        }
       }
     }
 
-    .new_order_info_diamond {
-      display: flex;
-      color: #15393f;
+    .new_order_price {
+      text-align: right;
+      font-size: 20px;
+      font-weight: bold;
+      color: #e4bd7b;
+      padding: 5px;
+    }
 
-      .new_order_info_sub {
+    .new_order_right {
+      .new_order_icon_order {
+        padding-right: 10px;
+      }
+
+      .new_order_info_product {
         display: flex;
-        flex-direction: column;
-        gap: 5px;
-        font-size: large;
-        font-weight: bold;
+        padding-bottom: 20px;
+        color: #15393f;
+
+        .new_order_info_sub {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          font-size: large;
+          font-weight: bold;
+        }
+      }
+
+      .new_order_info_diamond {
+        display: flex;
+        color: #15393f;
+
+        .new_order_info_sub {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          font-size: large;
+          font-weight: bold;
+        }
       }
     }
   }
-}
 
-.link_new_order {
-  margin-left: 98px;
-  margin-top: 10px;
-}
+  .link_new_order {
+    margin-left: 98px;
+    margin-top: 10px;
+  }
 
-.container {
-  position: relative;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-}
+  .container {
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
 
-.button_new_order {
-  position: absolute;
-  right: 0;
-  top:-15px;
-  margin-top: -10px;
-  background-color: #15393f !important;
-  border-color: black !important;
-  color: white !important;
-}
+  .button_new_order {
+    position: absolute;
+    right: 0;
+    top: -15px;
+    margin-top: -10px;
+    background-color: #15393f !important;
+    border-color: black !important;
+    color: white !important;
+  }
 
-.UserID-code {
-  background-color: #e4bd7b;
-  border: 2px solid black; 
-  color: black;
+  .UserID-code {
+    background-color: #e4bd7b;
+    border: 2px solid black;
+    border-radius: 5px;
+    color: black;
+    font-weight: bold;
+    width: 12%;
+  }
+}
+// .text-rightt {
+//   h3 {
+//     text-align: right;
+//     padding-right: 10px;
+//     color: #e4bd7b;
+//     font-size: 25px;
+//     font-weight: bold;
+//   }
+.text-left {
+  display: flex;
+  padding: 10px 20px 0px 20px;
+  flex-direction: column;
+  gap: 70px;
+  font-size: 15px;
+  color: #15393f;
   font-weight: bold;
-  width: 12%;
-}
+  a {
+    color: #888282;
 
+    transition: 0.3s ease;
+    &:hover {
+      color: #a68909 !important; // Màu vàng khi hover
+      cursor: pointer; // Thêm hiệu ứng con trỏ chuột khi hover
+    }
+  }
+}
+.text-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 15px;
+  h2 {
+    text-align: right;
+    padding-right: 30px;
+    color: #605c5c;
+    font-weight: bold;
+  }
+  h3 {
+    text-align: right;
+    padding-right: 30px;
+    color: #e4bd7b;
+    font-size: 25px;
+    font-weight: bold;
+  }
+  button {
+    height: 50px;
+    font-size: 20px;
+    border-radius: 8px;
+    color: white !important;
+    border: none;
+    font-weight: bold;
+    background-color: #15393f;
+    position: relative;
+    overflow: hidden;
+    a {
+      color: white !important;
+    }
+  }
+  button {
+    background: #15393f;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.5);
+      transform: skewX(-25deg);
+      transition: left 0.75s ease; /* Ensures smooth transition */
+    }
+
+    &:hover::before {
+      left: 125%; /* Moves ::before smoothly on hover */
+    }
+
+    &:hover {
+      background-color: white;
+      color: #15393f;
+    }
+    &:hover {
+      background-color: #15393f;
+      color: #15393f;
+    }
+  }
+}

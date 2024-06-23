@@ -141,9 +141,24 @@ export const getAllUserStaff = () => {
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/staff/all_users`
   );
 };
+export const getAllOrder = () => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/orders/all_orders`
+  );
+};
+export const getOrderDetail = (order_id) => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/orders/${order_id}`
+  );
+};
 export const searchDiamond = (key) => {
   return api.get(
     `https://diamondshopgroup6.azurewebsites.net/public/search_advanced`,
     key
+  );
+};
+export const getNewOrder = () => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/orders/newest_order`
   );
 };

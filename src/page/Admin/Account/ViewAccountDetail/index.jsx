@@ -34,10 +34,10 @@ const getBase64 = (file) =>
   });
 function ProfileAccount() {
   const { userID } = useParams();
-  const [user, setUser] = useState(null);
+  const [userr, setUserr] = useState();
   const [form] = Form.useForm();
   const [isEditing, setIsEditing] = useState(false);
-  const [originalValues, setOriginalValues] = useState({});
+  const [originalValues] = useState({});
   const [fileList, setFileList] = useState([]);
   const [previewImage, setPreviewImage] = useState("");
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -45,10 +45,6 @@ function ProfileAccount() {
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
   const [showPasswordFields, setShowPasswordFields] = useState(false);
-
-  useEffect(() => {
-    fetchUserByIds(userID);
-  }, [userID]);
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -61,50 +57,15 @@ function ProfileAccount() {
     setPreviewImage(file.url || file.preview);
     setPreviewOpen(true);
   };
-
-  const fetchUserByIds = async (userID) => {
-    const response = await fetchUserById(userID);
-    const userData = response.data.data;
-    setUser(userData);
-    console.log(response.data.data);
-    setOriginalValues({
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      email: userData.email,
-      avata: userData.avata,
-      gender: userData.gender,
-      address: userData.address,
-      phoneNumber: userData.phoneNumber,
-      enable: userData.enable,
-      password: userData.password,
-      yearOfBirth: userData.yearOfBirth,
-      role: userData.role.roleID,
-    });
-
-    form.setFieldsValue({
-      userID: userData.userID,
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      email: userData.email,
-      avata: userData.avata,
-      gender: userData.gender,
-      address: userData.address,
-      phoneNumber: userData.phoneNumber,
-      enable: userData.enable,
-      password: userData.password,
-      yearOfBirth: userData.yearOfBirth,
-      role: userData.role.roleID,
-    });
-
-    setFileList([
-      {
-        uid: "-1",
-        name: "image.png",
-        status: "done",
-        url: userData.avata,
-      },
-    ]);
+  const fetchUserByIdd = async () => {
+    console.log(userID);
+    const res = await fetchUserById(userID);
+    setUserr(res.data);
+    console.log(res.data);
   };
+  useEffect(() => {
+    fetchUserByIdd(userID);
+  }, []);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -218,7 +179,7 @@ function ProfileAccount() {
     console.log("Received values: ", values);
   };
 
-  if (!user) {
+  if (!userr) {
     return <div>Account not found</div>;
   }
 
@@ -303,7 +264,7 @@ function ProfileAccount() {
         style={{ marginBottom: "20px", display: "flex" }}
       >
         <h2 style={{ fontWeight: "500" }}>
-          Thông tin chi tiết tài khoản {user.userID}
+          Thông tin chi tiết tài khoản {userr.userID}
         </h2>
         <h2 style={{ fontWeight: "500", marginLeft: "auto" }}>
           <Link
@@ -371,7 +332,7 @@ function ProfileAccount() {
                           justifyContent: "center",
                         }}
                       >
-                        {user.lastName} {user.firstName}
+                        {userr.lastName} {userr.firstName}
                       </p>
                       <div className="status-button">
                         <input type="checkbox" id="status" />
@@ -458,36 +419,36 @@ function ProfileAccount() {
                                   <div className="row">
                                     <p>Họ và Tên:</p>
                                     <span>
-                                      {user.lastName} {user.firstName}
+                                      {userr.lastName} {userr.firstName}
                                     </span>
                                   </div>
                                   <div className="row">
                                     <p>Email:</p>
-                                    <span>{user.email}</span>
+                                    <span>{userr.email}</span>
                                   </div>
                                   <div className="row">
                                     <p>Giới tính:</p>
-                                    <span>{user.gender}</span>
+                                    <span>{userr.gender}</span>
                                   </div>
                                   <div className="row">
                                     <p>Sinh nhật:</p>
-                                    <span>{user.birthDay}</span>
+                                    <span>{userr.birthDay}</span>
                                   </div>
                                   <div className="row">
                                     <p>Địa chỉ:</p>
-                                    <span>{user.address}</span>
+                                    <span>{userr.address}</span>
                                   </div>
                                   <div className="row">
                                     <p>Số điện thoại:</p>
-                                    <span>{user.phone}</span>
+                                    <span>{userr.phone}</span>
                                   </div>
                                   <div className="row">
                                     <p>Phân quyền:</p>
-                                    <span>{user.role.roleID}</span>
+                                    <span>{userr.role.roleID}</span>
                                   </div>
                                   <div className="row">
                                     <p>Ngày tạo:</p>
-                                    <span>{user.createAt}</span>
+                                    <span>{userr.createAt}</span>
                                   </div>
                                 </div>
                               </div>
@@ -586,14 +547,14 @@ function ProfileAccount() {
                     layout="vertical"
                     onFinish={onFinish}
                     initialValues={{
-                      email: user.email,
-                      firstName: user.firstName,
-                      lastName: user.lastName,
-                      address: user.address,
-                      phone: user.phone,
-                      role: user.role.roleID,
-                      birthDay: user.birthDay,
-                      gender: user.gender,
+                      email: userr.email,
+                      firstName: userr.firstName,
+                      lastName: userr.lastName,
+                      address: userr.address,
+                      phone: userr.phone,
+                      role: userr.role.roleID,
+                      birthDay: userr.birthDay,
+                      gender: userr.gender,
                     }}
                   >
                     <Form.Item

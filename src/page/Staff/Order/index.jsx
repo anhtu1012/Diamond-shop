@@ -1,198 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button, Table, Tag } from "antd";
 
 import { Link } from "react-router-dom";
-
-const data = [
-  {
-    key: "1",
-    idorder: "OD123456",
-    idcus: "US123456",
-    email: "hai263672@gmail.com",
-    date: "29-5-2024",
-    quantity: "2",
-    status: "Chờ xác nhận",
-    infor: (
-      <Link
-        to={"/staff-page/don-hang/order-detail/OD123456"}
-        style={{ color: "#e4bd7b", fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "2",
-    idorder: "OD123457",
-    idcus: "US123457",
-    email: "huy263672@gmail.com",
-    date: "28-5-2024",
-    quantity: "2",
-    status: "Chờ thanh toán",
-    infor: (
-      <Link
-        to={"/staff-page/don-hang/all/order-detail/OD123457"}
-        style={{ color: "#e4bd7b", fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "3",
-    idorder: "OD123458",
-    idcus: "US123458",
-    email: "hhung263672@gmail.com",
-    date: "30-5-2024",
-    quantity: "2",
-    status: "Chờ xác nhận",
-    infor: (
-      <Link
-        to={"/staff-page/don-hang/all/order-detail/OD123458"}
-        style={{ color: "#e4bd7b", fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "4",
-    idorder: "OD123459",
-    idcus: "US123459",
-    email: "hai263673@gmail.com",
-    date: "6-5-2024",
-    quantity: "2",
-    status: "Đã giao",
-    infor: (
-      <Link
-        to={"/staff-page/don-hang/all/order-detail/OD123459"}
-        style={{ color: "#e4bd7b", fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "5",
-    idorder: "OD123460",
-    idcus: "US123460",
-    email: "hai263674@gmail.com",
-    date: "5-5-2024",
-    quantity: "2",
-    status: "Đã hủy",
-    infor: (
-      <Link
-        to={"/staff-page/don-hang/all/order-detail/OD123460"}
-        style={{ color: "#e4bd7b", fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "6",
-    idorder: "OD123461",
-    idcus: "US123461",
-    email: "hai263675@gmail.com",
-    date: "4-5-2024",
-    quantity: "2",
-    status: "Đã giao",
-    infor: (
-      <Link
-        to={"/staff-page/don-hang/all/order-detail/OD123461"}
-        style={{ color: "#e4bd7b", fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "7",
-    idorder: "OD123462",
-    idcus: "US123462",
-    email: "hai263676@gmail.com",
-    date: "3-5-2024",
-    quantity: "2",
-    status: "Đã hủy",
-    infor: (
-      <Link
-        to={"/staff-page/don-hang/all/order-detail/OD123462"}
-        style={{ color: "#e4bd7b", fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "8",
-    idorder: "OD123463",
-    idcus: "US123463",
-    email: "hai263677@gmail.com",
-    date: "2-5-2024",
-    quantity: "2",
-    status: "Đã giao",
-    infor: (
-      <Link
-        to={"/staff-page/don-hang/all/order-detail/OD123463"}
-        style={{ color: "#e4bd7b", fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "9",
-    idorder: "OD123463",
-    idcus: "US123463",
-    email: "hai263677@gmail.com",
-    date: "3-4-2024",
-    quantity: "4",
-    status: "Chờ giao hàng",
-    infor: (
-      <Link
-        to={"/staff-page/don-hang/all/order-detail/OD123463"}
-        style={{ color: "#e4bd7b", fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "10",
-    idorder: "OD123463",
-    idcus: "US123463",
-    email: "263677@gmail.com",
-    date: "3-3-2024",
-    quantity: "3",
-    status: "Chờ thanh toán",
-    infor: (
-      <Link
-        to={"/staff-page/don-hang/all/order-detail/OD123463"}
-        style={{ color: "#e4bd7b", fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-  {
-    key: "11",
-    idorder: "OD123463",
-    idcus: "US123463",
-    email: "hai263677@gmail.com",
-    date: "3-2-2024",
-    quantity: "1",
-    status: "Chờ xác nhận",
-    infor: (
-      <Link
-        to={"/staff-page/don-hang/all/order-detail/OD123463"}
-        style={{ color: "#e4bd7b", fontWeight: 600 }}
-      >
-        Xem chi tiết
-      </Link>
-    ),
-  },
-];
+import { getAllOrder } from "../../../../services/Uservices";
+import LoadingTruck from "../../../components/loading";
 
 const statusToStep = {
   "Chờ xác nhận": 0,
@@ -220,26 +32,38 @@ const getStatusColor = (currentStep) => {
 
 function AllOrder() {
   const [filterStatus, setFilterStatus] = useState("Chờ xác nhận");
+  const [dataSource, seDataSource] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
+  const fetchAllOrder = async () => {
+    setLoading(true);
+    const res = await getAllOrder();
+    seDataSource(res.data);
+    console.log(dataSource);
+    setLoading(false);
+  };
 
+  useEffect(() => {
+    fetchAllOrder();
+  }, []);
   const handleStatusClick = (status) => {
     setFilterStatus(status);
   };
 
   const filteredData = filterStatus
-    ? data.filter((item) => item.status === filterStatus)
-    : data;
+    ? dataSource.filter((item) => item.status === filterStatus)
+    : dataSource;
 
   const columns = [
     {
       title: "Mã đơn hàng",
-      dataIndex: "idorder",
-      key: "idorder",
+      dataIndex: "orderID",
+      key: "orderID",
       width: "15%",
     },
     {
       title: "ID Khách Hàng",
-      dataIndex: "idcus",
-      key: "idcus",
+      dataIndex: "fullName",
+      key: "fullName",
       width: "10%",
     },
     {
@@ -250,13 +74,20 @@ function AllOrder() {
     },
     {
       title: "Ngày đặt hàng",
-      dataIndex: "date",
-      key: "date",
+      dataIndex: "orderDate",
+      key: "orderDate",
       width: "15%",
-      sorter: (a, b) =>
-        new Date(a.date.split("-").reverse().join("-")) -
-        new Date(b.date.split("-").reverse().join("-")),
+      sorter: (a, b) => new Date(a.orderDate) - new Date(b.orderDate),
       sortDirections: ["descend", "ascend"],
+      render: (text) =>
+        new Date(text).toLocaleString("vi-VN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        }),
     },
     {
       title: "Số lượng sản phẩm",
@@ -283,9 +114,29 @@ function AllOrder() {
       },
     },
     {
-      dataIndex: "infor",
-      key: "infor",
-      width: "15%",
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      width: "10%",
+      render: (text, record) => (
+        <div style={{ textAlign: "center" }}>
+          {record.status === "Chờ xác nhận" ? (
+            <Link
+              to={`/staff-page/chi-tiet-don-hang/${record.orderID}`}
+              style={{ fontWeight: "bold" }}
+            >
+              Xem chi tiết
+            </Link>
+          ) : (
+            <Link
+              to={`/staff-page/don-hang/order-detail/${record.orderID}`}
+              style={{ fontWeight: "bold" }}
+            >
+              Xem chi tiết
+            </Link>
+          )}
+        </div>
+      ),
     },
   ];
 
@@ -332,7 +183,11 @@ function AllOrder() {
   return (
     <div className="all-order">
       <div style={{ marginBottom: 16 }}>{statusButtons}</div>
-      <Table className="table" columns={columns} dataSource={filteredData} />
+      {loading ? (
+        <LoadingTruck /> // Show LoadingTruck while loading
+      ) : (
+        <Table className="table" columns={columns} dataSource={filteredData} />
+      )}
     </div>
   );
 }

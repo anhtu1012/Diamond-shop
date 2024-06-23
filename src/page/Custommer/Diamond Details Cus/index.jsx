@@ -162,12 +162,14 @@ const DiamondDetailss = () => {
                     <button
                       className="custom_button1"
                       onClick={handleAddDetailsClick}
+                      disabled={diamondDetail.status === false}
                     >
                       Thêm Vào Tùy Chỉnh
                     </button>
                     <button
                       className="custom_button2"
                       onClick={hanldeAddtoCart}
+                      disabled={diamondDetail.status === false}
                     >
                       Thêm Vào Giỏ Hàng
                     </button>

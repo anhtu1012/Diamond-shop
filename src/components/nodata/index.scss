@@ -1,0 +1,13 @@
+.nodata_main {
+  max-width: 1000xp;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 30px;
+  .text {
+    font-size: 40px;
+    color: gray;
+  }
+}

@@ -22,63 +22,96 @@
       transition: color 0.3s;
     }
   }
-  .ant-card-body {
-    padding: 0px !important;
-  }
-  .card {
-    border-radius: 4px !important;
-    padding: 16px;
-    border: 1px solid #f0f0f0;
-    margin-bottom: 16px;
-    background-color: rgb(222, 217, 217, 0.2);
-
-    box-shadow: 2px 2px 2px 2px rgb(136, 130, 130, 0.2);
+  // ------------------------------------
+  .staff_order_frame {
     position: relative;
-    .card_row {
-      padding-top: 10px;
+    margin: 10px 0px;
+    padding: 15px;
+    border: 1px solid rgb(128, 128, 128, 0.1);
+    box-shadow: 1px 1px 1px 1px rgb(128, 128, 128, 0.1);
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    .staff_order_left {
+      text-align: center;
+      position: relative;
+      .new_order_odID {
+        position: absolute;
+        top: -10px;
+        left: 0;
+        font-weight: bold;
+        background-color: white;
+        padding: 2px;
+        z-index: 3;
+        border: 2px solid black;
+      }
+      .staff_order_kimg_kid {
+        width: 70px;
+        height: 70px;
+        position: absolute;
+        top: -10px;
+        left: 50px;
+      }
+      .staff_order_kimg_main {
+        width: 130px;
+        margin-left: 10px;
+      }
+      .button_custom {
+        width: 100px;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid gray;
+        transform: 0.5s;
+        &:hover {
+          color: black;
+          border-bottom: 1px solid black;
+        }
+      }
     }
-    .logoo {
-      position: absolute;
-      top: 50px;
-      background: red;
+    .price {
+      text-align: right;
+      font-size: 20px;
+      font-weight: bold;
+      color: #e4bd7b;
     }
-    &_row {
-      display: flex;
-      align-items: center;
-      padding-bottom: 10px;
-      border-bottom: 1px dashed black;
-      .infoo {
+    .staff_order_right {
+      .icon_order {
+        padding-right: 10px;
+      }
+      .info_product {
         display: flex;
-        flex-direction: column;
-        gap: 10px;
-        h2 {
-          font-style: italic;
-          text-align: left;
+        padding-bottom: 20px;
+        color: #15393f;
+        .info_sub {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          font-size: large;
           font-weight: bold;
         }
-        p {
-          font-style: italic;
-          color: #888282;
-          font-size: 15px;
+      }
+      .info_diamond {
+        display: flex;
+        color: #15393f;
+        .info_sub {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          font-size: large;
+          font-weight: bold;
         }
-      }
-      span {
-        font-size: 25px;
-      }
-      h3 {
-        font-size: 25px;
-        color: #e4bd7b;
       }
     }
   }
-
   .text-left {
     display: flex;
-    padding-top: 10px;
+    padding: 10px 20px 0px 20px;
     flex-direction: column;
     gap: 70px;
-    font-size: 20px;
-    color: #888282;
+    font-size: 15px;
+    color: #15393f;
+    font-weight: bold;
     a {
       color: #888282;
 
@@ -90,10 +123,9 @@
     }
   }
   .text-right {
-    padding-top: 10px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 20px;
     font-size: 15px;
     h2 {
       text-align: right;
@@ -104,7 +136,7 @@
     h3 {
       text-align: right;
       padding-right: 30px;
-      color: red;
+      color: #e4bd7b;
       font-size: 25px;
       font-weight: bold;
     }

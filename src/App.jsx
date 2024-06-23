@@ -59,11 +59,11 @@ import NotFound from "./page/404";
 import ProfileAccount from "./page/Admin/Account/ViewAccountDetail/index";
 import AccountDetail from "./page/Custommer/ThongTinTaiKhoan";
 
-import ViewOrderDetailsStaff from "./page/Staff/Order/ViewOrderDetail";
 import DetailNewOrder from "./page/Staff/New-Order/DetailNewOrder";
 import ProductDetailStaff from "./page/Staff/ProductStaff/ProductDetail";
 import ViewProductS from "./page/Staff/ProductStaff/allProduct";
 import KimCuongVienTest from "./page/Custommer/KimCuongVien copy";
+import ViewOrderDetailsStaff from "./page/Staff/Order/ViewOrderDetail";
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -284,7 +284,7 @@ const router = createBrowserRouter([
         element: <ViewOrder />,
       },
       {
-        path: "/staff-page/don-hang/order-detail/:odID",
+        path: "/staff-page/don-hang/order-detail/:orderID",
         element: <ViewOrderDetailsStaff />,
       },
       {
@@ -304,7 +304,7 @@ const router = createBrowserRouter([
         element: <Warranty />,
       },
       {
-        path: "/staff-page/chi-tiet-don-hang",
+        path: "/staff-page/chi-tiet-don-hang/:orderID",
         element: <DetailNewOrder />,
       },
     ],
