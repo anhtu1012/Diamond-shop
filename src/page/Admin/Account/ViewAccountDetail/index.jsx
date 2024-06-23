@@ -41,10 +41,10 @@ const getBase64 = (file) =>
   });
 function ProfileAccount() {
   const { userID } = useParams();
-  const [user, setUser] = useState(null);
+  const [userr, setUserr] = useState();
   const [form] = Form.useForm();
   const [isEditing, setIsEditing] = useState(false);
-  const [originalValues, setOriginalValues] = useState({});
+  const [originalValues] = useState({});
   const [fileList, setFileList] = useState([]);
   const [previewImage, setPreviewImage] = useState("");
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -52,6 +52,7 @@ function ProfileAccount() {
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
   const [showPasswordFields, setShowPasswordFields] = useState(false);
+
 
   const renderProductItem = (
     index,
@@ -123,6 +124,7 @@ function ProfileAccount() {
     setShowPasswordFields(!showPasswordFields);
   };
 
+
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
@@ -134,6 +136,7 @@ function ProfileAccount() {
     setPreviewImage(file.url || file.preview);
     setPreviewOpen(true);
   };
+
 
   const fetchUserByIds = async (userID) => {
     const response = await fetchUserById(userID);
@@ -175,6 +178,7 @@ function ProfileAccount() {
   useEffect(() => {
     fetchUserByIds(userID);
   }, [userID]);
+
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -288,6 +292,7 @@ function ProfileAccount() {
     console.log("Received values: ", values);
   };
 
+
   const {
     token: { borderRadiusLG },
   } = theme.useToken();
@@ -318,7 +323,7 @@ function ProfileAccount() {
         style={{ marginBottom: "20px", display: "flex" }}
       >
         <h2 style={{ fontWeight: "500" }}>
-          Thông tin chi tiết tài khoản {user.userID}
+          Thông tin chi tiết tài khoản {userr.userID}
         </h2>
         <h2 style={{ fontWeight: "500", marginLeft: "auto" }}>
           <Link
@@ -395,6 +400,7 @@ function ProfileAccount() {
                       />
                       <label htmlFor="status" className="button"></label>
                     </div> */}
+
 
                     <Link
                       to="#"
@@ -540,6 +546,7 @@ function ProfileAccount() {
                                 Xóa
                               </Button>
                             </Col>
+
                           </Row>
                         </Col>
                       </Row>
@@ -601,6 +608,7 @@ function ProfileAccount() {
                     layout="vertical"
                     onFinish={onFinish}
                     initialValues={{
+
                       email: user.email,
                       firstName: user.firstName,
                       lastName: user.lastName,
@@ -609,6 +617,7 @@ function ProfileAccount() {
                       userRole,
                       formattedDate,
                       gender: user.gender,
+
                     }}
                   >
                     <Form.Item

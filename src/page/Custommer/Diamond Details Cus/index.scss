@@ -162,6 +162,12 @@
       gap: 20px;
       color: #fff;
     }
+    .custom_button1:disabled {
+      display: none;
+    }
+    .custom_button2:disabled {
+      display: none;
+    }
     .custom_button2 {
       margin-left: 20px;
       flex-direction: column;

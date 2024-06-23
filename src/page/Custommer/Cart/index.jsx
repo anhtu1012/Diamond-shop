@@ -63,6 +63,7 @@ function Cart() {
         ward: res.data.user.address.split(",")[2],
         detailAddress: res.data.user.address.split(",")[3],
         points: 0, // default value for points input
+        gender: res.data.user.gender,
       });
 
       // Set form values with fetched data
@@ -74,6 +75,7 @@ function Cart() {
         ward: res.data.user.address.split(",")[1],
         district: res.data.user.address.split(",")[2],
         province: res.data.user.address.split(",")[3],
+        gender: res.data.user.gender,
       });
     } catch (error) {
       console.error("Failed to fetch cart data:", error);
@@ -126,18 +128,27 @@ function Cart() {
     try {
       // Lấy giá trị từ form
       const formValues = await form.validateFields();
+      const isAddressChanged =
+        formValues.province !== initialValues.province ||
+        formValues.district !== initialValues.district ||
+        formValues.ward !== initialValues.ward ||
+        formValues.detailAddress !== initialValues.detailAddress;
 
-      // Tạo thông tin địa chỉ
-      const { province, district, ward, address } = formValues;
+      let fullAddress = initialValues.addressShipping;
 
-      const selectedProvince = provinces.find((p) => p.code === province);
-      const selectedDistrict = districts.find((d) => d.code === district);
-      const selectedWard = wards.find((w) => w.code === ward);
-      const fullAddress = `${address}, ${
-        selectedWard ? selectedWard.name + ", " : ""
-      }${selectedDistrict ? selectedDistrict.name + ", " : ""}${
-        selectedProvince ? selectedProvince.name : ""
-      }`;
+      if (isAddressChanged) {
+        // Tạo thông tin địa chỉ
+        const { province, district, ward, detailAddress } = formValues;
+
+        const selectedProvince = provinces.find((p) => p.code === province);
+        const selectedDistrict = districts.find((d) => d.code === district);
+        const selectedWard = wards.find((w) => w.code === ward);
+        fullAddress = `${detailAddress}, ${
+          selectedWard ? selectedWard.name + ", " : ""
+        }${selectedDistrict ? selectedDistrict.name + ", " : ""}${
+          selectedProvince ? selectedProvince.name : ""
+        }`;
+      }
 
       // Tạo thông tin đơn hàng
       const orderInfo = {
@@ -146,36 +157,18 @@ function Cart() {
         phoneShipping: formValues.phone,
         addressShipping: fullAddress,
         price: totalCartValue,
+        discount: discount,
         usedPoint: points,
-        orderDetail: dataCart.items
-          .map((item) => {
-            // Chuyển đổi để phù hợp với cấu trúc `orderDetail`
-            if (item.diamondAdd) {
-              return {
-                diamondID: item.diamondAdd.diamondID,
-                quantity: item.quantity,
-              };
-            } else if (item.productCustomize) {
-              return {
-                productCustomizeID: item.productCustomize.product.productID,
-                quantity: item.quantity,
-              };
-            }
-            return null;
-          })
-          .filter((detail) => detail !== null),
+        email: formValues.email,
+        gender: formValues.gender,
+        note: formValues.note,
       };
       console.log("Order information:", orderInfo);
       const response = await submitOrder(orderInfo);
-      if (response.success) {
+      console.log(response);
+      if (response) {
         message.success("Đặt hàng thành công!");
-        console.log("Order submitted successfully:", response.data);
-      } else {
-        notification.error({
-          message: "Đặt Hàng không thành công",
-          description: response.data.message,
-        });
-        console.log(response);
+        console.log("Order submitted successfully:", response);
       }
     } catch (error) {
       // Xử lý khi có lỗi xảy ra, ví dụ: hiển thị thông báo lỗi
@@ -436,10 +429,15 @@ function Cart() {
                 initialValues={initialValues}
                 style={{ padding: "25px 30px" }}
               >
-                <Form.Item>
+                <Form.Item
+                  name="gender"
+                  rules={[
+                    { required: true, message: "Xin hãy nhập giới tính!" },
+                  ]}
+                >
                   <Radio.Group>
-                    <Radio value="male"> Nam </Radio>
-                    <Radio value="female"> Nữ </Radio>
+                    <Radio value="MALE"> Nam </Radio>
+                    <Radio value="FEMALE"> Nữ </Radio>
                   </Radio.Group>
                 </Form.Item>
 
@@ -588,7 +586,7 @@ function Cart() {
                 </Form.Item>
 
                 <Form.Item
-                  name="address"
+                  name="detailAddress"
                   rules={[
                     {
                       required: true,
