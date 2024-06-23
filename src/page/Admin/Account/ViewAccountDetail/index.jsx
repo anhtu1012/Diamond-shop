@@ -41,10 +41,10 @@ const getBase64 = (file) =>
   });
 function ProfileAccount() {
   const { userID } = useParams();
-  const [userr, setUserr] = useState();
+  const [user, setUser] = useState();
   const [form] = Form.useForm();
   const [isEditing, setIsEditing] = useState(false);
-  const [originalValues] = useState({});
+  const [originalValues, setOriginalValues] = useState({});
   const [fileList, setFileList] = useState([]);
   const [previewImage, setPreviewImage] = useState("");
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -52,7 +52,6 @@ function ProfileAccount() {
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
   const [showPasswordFields, setShowPasswordFields] = useState(false);
-
 
   const renderProductItem = (
     index,
@@ -124,7 +123,6 @@ function ProfileAccount() {
     setShowPasswordFields(!showPasswordFields);
   };
 
-
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
@@ -136,7 +134,6 @@ function ProfileAccount() {
     setPreviewImage(file.url || file.preview);
     setPreviewOpen(true);
   };
-
 
   const fetchUserByIds = async (userID) => {
     const response = await fetchUserById(userID);
@@ -174,11 +171,18 @@ function ProfileAccount() {
       createAt: moment(user.createAt, "YYYY-MM-DD"),
       enabled: userData.enable,
     });
+    setFileList([
+      {
+        uid: "-1",
+        name: "avata.png",
+        status: "done",
+        url: user.avata,
+      },
+    ]);
   };
   useEffect(() => {
     fetchUserByIds(userID);
   }, [userID]);
-
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -292,7 +296,6 @@ function ProfileAccount() {
     console.log("Received values: ", values);
   };
 
-
   const {
     token: { borderRadiusLG },
   } = theme.useToken();
@@ -323,7 +326,7 @@ function ProfileAccount() {
         style={{ marginBottom: "20px", display: "flex" }}
       >
         <h2 style={{ fontWeight: "500" }}>
-          Thông tin chi tiết tài khoản {userr.userID}
+          Thông tin chi tiết tài khoản {user.userID}
         </h2>
         <h2 style={{ fontWeight: "500", marginLeft: "auto" }}>
           <Link
@@ -372,7 +375,7 @@ function ProfileAccount() {
                             afterOpenChange: (visible) =>
                               !visible && setPreviewImage(""),
                           }}
-                          src={previewImage}
+                          src={user.avata}
                         />
                       </Space>
                     </Form.Item>
@@ -400,7 +403,6 @@ function ProfileAccount() {
                       />
                       <label htmlFor="status" className="button"></label>
                     </div> */}
-
 
                     <Link
                       to="#"
@@ -546,7 +548,6 @@ function ProfileAccount() {
                                 Xóa
                               </Button>
                             </Col>
-
                           </Row>
                         </Col>
                       </Row>
@@ -608,7 +609,6 @@ function ProfileAccount() {
                     layout="vertical"
                     onFinish={onFinish}
                     initialValues={{
-
                       email: user.email,
                       firstName: user.firstName,
                       lastName: user.lastName,
@@ -617,7 +617,6 @@ function ProfileAccount() {
                       userRole,
                       formattedDate,
                       gender: user.gender,
-
                     }}
                   >
                     <Form.Item
