@@ -146,7 +146,7 @@ function Header() {
   };
   const settings = [
     {
-      key: "/thong-tin-chi-tiet/US123457",
+      key: "/thong-tin-chi-tiet",
       label: "Thông tin",
     },
     {

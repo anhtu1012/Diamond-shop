@@ -50,21 +50,25 @@ import DiamondDetails from "./page/Admin/Diamond/DiamondDetails";
 import ProductDetail from "./page/Admin/Product/ProductDetail";
 import ForgotPassword from "./page/forgotpassword";
 import ViewOrderDetails from "./page/Admin/Order/ViewOrder";
-import ViewAccountDetail from "./page/Admin/Account/ViewAccountDetail";
 import LienHe from "./page/Custommer/LienHe";
 import DiamondDetailss from "./page/Custommer/Diamond Details Cus";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import LoginPage from "./page/login";
 import NotFound from "./page/404";
-import ProfileAccount from "./page/Admin/Account/ViewAccountDetail/index2";
-
+import ProfileAccount from "./page/Admin/Account/ViewAccountDetail/index";
 import AccountDetail from "./page/Custommer/ThongTinTaiKhoan";
 
 import ViewOrderDetailsStaff from "./page/Staff/Order/ViewOrderDetail";
 import DetailNewOrder from "./page/Staff/New-Order/DetailNewOrder";
 import ProductDetailStaff from "./page/Staff/ProductStaff/ProductDetail";
 import ViewProductS from "./page/Staff/ProductStaff/allProduct";
+import KimCuongVienTest from "./page/Custommer/KimCuongVien copy";
+import DeliveryPage from "./page/Delivery/delivery-page";
+import NewOrderDelivery from "./page/Delivery/New-Order-Delivery";
+import DetailNewOrderDelivery from "./page/Delivery/Order-detail";
+import CapNhatDon from "./page/Delivery/cap-nhat-don";
+import LichSuGiao from "./page/Delivery/lich-su-giao";
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -166,6 +170,10 @@ const router = createBrowserRouter([
         element: <KimCuongVien />,
       },
       {
+        path: "/kim-cuong-vien-test",
+        element: <KimCuongVienTest />,
+      },
+      {
         path: "/lien-he",
         element: <LienHe />,
       },
@@ -188,7 +196,41 @@ const router = createBrowserRouter([
     path: "/404",
     element: <NotFound />,
   },
-
+  {
+    path: "/delivery-page",
+    element: (
+      <ProtectedRoute
+        element={<DeliveryPage />}
+        allowedRoles={["ROLE_DELIVERY"]}
+      />
+    ),
+    children: [
+      {
+        path: "/delivery-page",
+        element: <NewOrderDelivery />,
+      },
+      {
+        path: "/delivery-page/don-hang-moi",
+        element: <NewOrderDelivery />,
+      },
+      {
+        path: "/delivery-page/chi-tiet-don-hang",
+        element: <DetailNewOrderDelivery />,
+      },
+      {
+        path: "/delivery-page/cap-nhat-don-hang",
+        element: <CapNhatDon />,
+      },
+      {
+        path: "/delivery-page/lich-su-giao-hang",
+        element: <LichSuGiao />,
+      },
+      {
+        path: "/delivery-page/lich-su-giao-hang/da-giao",
+        element: <LichSuGiao />,
+      },
+    ],
+  },
   {
     path: "/admin-page",
     element: (
@@ -244,11 +286,7 @@ const router = createBrowserRouter([
         element: <ViewAccount />,
       },
       {
-        path: "tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/:id",
-        element: <ViewAccountDetail />,
-      },
-      {
-        path: "tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan2/:id",
+        path: "/admin-page/tai-khoan/xem-tat-ca-tai-khoan/chi-tiet-tai-khoan/:userID",
         element: <ProfileAccount />,
       },
       {

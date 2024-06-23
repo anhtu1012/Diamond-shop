@@ -118,9 +118,14 @@ export const getAllUser = () => {
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/admin/all_users`
   );
 };
-export const fetchUserById = () => {
+export const fetchUserById = (id) => {
   return api.get(
-    `https://diamondshopgroup6.azurewebsites.net/swp391/api/admin/all_users`
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/user/get/${id}`
+  );
+};
+export const updateAccount = (id) => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/user/update/${id}`
   );
 };
 
@@ -139,5 +144,13 @@ export const submitOrder = (info) => {
 export const getAllUserStaff = () => {
   return api.get(
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/staff/all_users`
+
+  );
+};
+export const searchDiamond = (key) => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/public/search_advanced`,
+    key
+
   );
 };

@@ -128,7 +128,9 @@ const renderProductItem = (order, index) => (
 
       {order.productCustomize && order.productCustomize.product && (
         <div style={{ textAlign: "center" }}>
-          <Button className="button_custom">Size: {order.productCustomize.size}</Button>
+          <Button className="button_custom">
+            Size: {order.productCustomize.size}
+          </Button>
         </div>
       )}
       {(order.productCustomize?.diamond || order.diamond) && (
@@ -139,7 +141,10 @@ const renderProductItem = (order, index) => (
               ? "staff_order_kimg_kid"
               : "staff_order_kimg_main"
           }`}
-          alt={order.productCustomize?.diamond?.diamondName || order.diamond?.diamondName}
+          alt={
+            order.productCustomize?.diamond?.diamondName ||
+            order.diamond?.diamondName
+          }
         />
       )}
     </Col>
@@ -177,24 +182,31 @@ const renderProductItem = (order, index) => (
         </div>
         <div className="info_sub">
           <p>
-            {order.productCustomize?.diamond?.diamondName || order.diamond.diamondName}
+            {order.productCustomize?.diamond?.diamondName ||
+              order.diamond.diamondName}
           </p>
           <div style={{ fontWeight: 400, fontSize: "13px" }}>
             <span>
-              Carat: {order.productCustomize?.diamond?.carat || order.diamond.carat}
+              Carat:{" "}
+              {order.productCustomize?.diamond?.carat || order.diamond.carat}
             </span>
             {" - "}
             <span>
               Tinh Khiết :
-              {order.productCustomize?.diamond?.clarify || order.diamond.clarify}
+              {order.productCustomize?.diamond?.clarify ||
+                order.diamond.clarify}
             </span>
             {" - "}
             <span>
               Cấp Màu :
-              {order.productCustomize?.diamond?.colorLevel || order.diamond.colorLevel}
+              {order.productCustomize?.diamond?.colorLevel ||
+                order.diamond.colorLevel}
             </span>
             {" - "}
-            Cắt: <span>{order.productCustomize?.diamond?.cut || order.diamond.cut}</span>
+            Cắt:{" "}
+            <span>
+              {order.productCustomize?.diamond?.cut || order.diamond.cut}
+            </span>
           </div>
           {order.diamond && (
             <div
@@ -213,8 +225,7 @@ const renderProductItem = (order, index) => (
     <Col span={24} className="price">
       <span style={{ textAlign: "right" }}>
         {(
-          order.productCustomize?.totalPrice ||
-          order.diamond.totalPrice
+          order.productCustomize?.totalPrice || order.diamond.totalPrice
         ).toLocaleString("de-DE", {
           maximumFractionDigits: 2,
         })}{" "}
@@ -224,7 +235,7 @@ const renderProductItem = (order, index) => (
   </Row>
 );
 
-function DetailNewOrder() {
+function DetailNewOrderDelivery() {
   return (
     <div>
       <Row gutter={10}>
@@ -261,20 +272,12 @@ function DetailNewOrder() {
               </div>
             </div>
             <div style={{ marginTop: "10px", marginLeft: "auto" }}>
-              <Button
-                type="primary"
-                danger
-                style={{ marginRight: "10px", fontWeight: "bold" }}
-              >
-                Xóa
-              </Button>
-
               <Button type="primary" className="custom-black-button">
                 <Link
-                  to="/staff-page/don-hang-moi"
+                  to="/delivery-page/cap-nhat-don-hang"
                   style={{ fontWeight: "bold" }}
                 >
-                  Tạo đơn hàng
+                  Cập nhật đơn hàng
                 </Link>
               </Button>
             </div>
@@ -319,4 +322,4 @@ function DetailNewOrder() {
   );
 }
 
-export default DetailNewOrder;
+export default DetailNewOrderDelivery;
