@@ -17,14 +17,17 @@ import {
 import Container from "../../../components/container/Container";
 import uploadFile from "../../../utils/upload";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./index.scss";
 import { Option } from "antd/es/mentions";
 import { getDistricts, getWards, provinces } from "vietnam-provinces";
 import { IoDiamondOutline } from "react-icons/io5";
 import { GiBigDiamondRing } from "react-icons/gi";
+import { UpdateUser, fetchUserById } from "../../../../services/Uservices";
+import LoadingTruck from "../../../components/loading";
 import { useSelector } from "react-redux";
-import { fetchUserById } from "../../../../services/Uservices";
+import { selectUser } from "../../../redux/features/counterSlice";
+import moment from "moment/moment";
 
 function callback(key) {
   console.log(key);
@@ -218,11 +221,9 @@ const renderProductItem = (order, index) => (
   </Row>
 );
 function AccountDetail() {
-  const selectUser = (state) => state.user;
   const user = useSelector(selectUser);
-
   const [form] = Form.useForm();
-  const [userState, setUserState] = useState("");
+  const [userr, setUserr] = useState();
   const [isEditing, setIsEditing] = useState(false);
   const [originalValues, setOriginalValues] = useState({});
   const [fileList, setFileList] = useState([]);
@@ -233,63 +234,54 @@ function AccountDetail() {
   const [wards, setWards] = useState([]);
   const [showPasswordFields, setShowPasswordFields] = useState(false);
 
-  const genderText = user.gender === "MALE" ? "Nam" : "Nữ";
+  console.log(user.userID);
+  const fetchUserByIds = async () => {
+    const response = await fetchUserById(user.userID);
+    const userData = response.data.data;
+    setUserr(userData);
+    console.log(userr);
+    setOriginalValues({
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      email: userData.email,
+      avata: userData.avata,
+      gender: userData.gender,
+      address: userData.address,
+      phoneNumber: userData.phoneNumber,
+      enable: userData.enable, 
+      password: userData.password,
+      yearOfBirth: moment(userData.yearOfBirth, "YYYY-MM-DD"),
+      role: userData.role.roleID,
+    });
+
+    form.setFieldsValue({
+      userID: userData.userID,
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      email: userData.email,
+      avata: userData.avata,
+      gender: userData.gender,
+      address: userData.address,
+      phoneNumber: userData.phoneNumber,
+      enable: userData.enable,
+      password: userData.password,
+      yearOfBirth: moment(userData.yearOfBirth, "YYYY-MM-DD"),
+      role: userData.role.roleID,
+    });
+
+    setFileList([
+      {
+        uid: "1",
+        name: "avata",
+        status: "done",
+        url: userr.avata,
+      },
+    ]);
+  };
 
   useEffect(() => {
-    if (user.userID) {
-      // Assuming user object has userID
-      fetchUserByIds(user.userID); // Fetch user data when user changes
-    }
-  }, [user.userID]);
-
-  const fetchUserByIds = async (userID) => {
-    try {
-      const response = await fetchUserById(userID); // Implement fetchUserById function
-      const userData = response.data.data;
-
-      setUserState(userData);
-      console.log(userData);
-      setOriginalValues({
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        email: userData.email,
-        avata: userData.avata,
-        gender: userData.gender,
-        address: userData.address,
-        phoneNumber: userData.phoneNumber,
-        enable: userData.enable,
-        password: userData.password,
-        yearOfBirth: userData.yearOfBirth,
-        role: userData.role.roleID,
-      });
-
-      form.setFieldsValue({
-        userID: userData.userID,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        email: userData.email,
-        avata: userData.avata,
-        gender: userData.gender,
-        address: userData.address,
-        phoneNumber: userData.phoneNumber,
-        enable: userData.enable,
-        password: userData.password,
-        yearOfBirth: userData.yearOfBirth,
-        role: userData.role.roleID,
-      });
-
-      setFileList([
-        {
-          uid: "-1",
-          name: "image.png",
-          status: "done",
-          url: userData.avata,
-        },
-      ]);
-    } catch (error) {
-      console.error("Error fetching user:", error);
-    }
-  };
+    fetchUserByIds();
+  }, []);
   const handleEdit = () => {
     setIsEditing(true);
   };
@@ -326,16 +318,15 @@ function AccountDetail() {
       const values = await form.validateFields();
       let updatedDetails = {};
 
-      // Check if the image needs to be updated
-      let avata = originalValues.avata;
+      // Handle avatar upload if a new file is selected
       if (fileList.length > 0 && fileList[0].originFileObj) {
         setUploading(true);
-        avata = await uploadFile(fileList[0].originFileObj);
+        const avata = await uploadFile(fileList[0].originFileObj);
         setUploading(false);
         updatedDetails.avata = avata;
       }
       if (values.firstName !== originalValues.firstName) {
-        updatedDetails.originPrice = values.originPrice;
+        updatedDetails.firstName = values.firstName;
       }
       if (values.lastName !== originalValues.lastName) {
         updatedDetails.lastName = values.lastName;
@@ -353,16 +344,18 @@ function AccountDetail() {
         updatedDetails.yearOfBirth = values.yearOfBirth;
       }
 
+      // If there are updates, proceed with updating the user
       if (Object.keys(updatedDetails).length > 0) {
-        // await updateAccount(account.userID, updatedDetails);
-        // fetchAccountByIds(account.userID);
-        // setIsEditing(false);
+        console.log(updatedDetails);
+        await UpdateUser(values.userID, updatedDetails);
+        fetchUserByIds(values.userID);
+        setIsEditing(false);
         message.success("Cập nhật thành công!");
       } else {
         message.info("Không có thay đổi nào để cập nhật.");
       }
     } catch (error) {
-      console.error("Error when updating diamond:", error);
+      console.error("Error when updating user:", error);
       message.error("Cập nhật thất bại!");
       setUploading(false);
     }
@@ -409,9 +402,13 @@ function AccountDetail() {
     setValue(e.target.value);
   };
 
-  if (!userState) {
-    return <div>Account not found</div>;
+  if (!userr) {
+    return <LoadingTruck />;
   }
+  const genderText = userr.gender === "MALE" ? "Nam" : "Nữ";
+  const formattedDate = moment(userr.yearOfBirth, "YYYY-MM-DD").format(
+    "YYYY-MM-DD"
+  );
 
   return (
     <Container>
@@ -432,7 +429,7 @@ function AccountDetail() {
                   Xin chào!
                 </h2>
                 <h1 style={{ fontWeight: "400" }}>
-                  {userState.firstName} {userState.lastName}
+                  {userr.firstName} {userr.lastName}
                 </h1>
               </div>
             </div>
@@ -478,7 +475,7 @@ function AccountDetail() {
                     </div>
                     <div
                       className="name"
-                      style={{ marginTop: "-30px", textAlign: "center" }}
+                      style={{ marginTop: "-10px", textAlign: "center" }}
                     >
                       <p
                         style={{
@@ -488,7 +485,7 @@ function AccountDetail() {
                           justifyContent: "center",
                         }}
                       >
-                        {userState.firstName} {userState.lastName}
+                        {userr.firstName} {userr.lastName}
                       </p>
 
                       <Link
@@ -599,12 +596,12 @@ function AccountDetail() {
                           confirmLoading={uploading}
                           onFinish={onFinish}
                           initialValues={{
-                            firstName: userState.firstName,
-                            lastName: userState.lastName,
-                            phoneNumber: userState.phoneNumber,
-                            address: userState.address,
-                            gender: userState.gender,
-                            birthDay: userState.yearOfBirth,
+                            firstName: userr.firstName,
+                            lastName: userr.lastName,
+                            phoneNumber: userr.phoneNumber,
+                            address: userr.address,
+                            gender: userr.gender,
+                            formattedDate,
                           }}
                         >
                           <Row gutter={24}>
@@ -663,7 +660,7 @@ function AccountDetail() {
                               >
                                 <Radio.Group
                                   onChange={onChangeGender}
-                                  value={userState.gender}
+                                  value={userr.gender}
                                 >
                                   <Radio value="MALE">Nam</Radio>
                                   <Radio value="FEMALE">Nữ</Radio>
@@ -673,7 +670,7 @@ function AccountDetail() {
                             <Col span={12}>
                               <Form.Item
                                 label="Ngày sinh"
-                                name="yearOfBirth"
+                                name="formattedDate"
                                 rules={[
                                   {
                                     required: true,
@@ -681,7 +678,7 @@ function AccountDetail() {
                                   },
                                 ]}
                               >
-                                <Input placeholder="Tên*" />
+                                <Input />
                               </Form.Item>
                             </Col>
                           </Row>
@@ -877,7 +874,7 @@ function AccountDetail() {
                                 Họ
                               </p>
                               <p style={{ fontSize: "16px" }}>
-                                {userState.firstName}
+                                {userr.firstName}
                               </p>
                               <p
                                 style={{
@@ -889,7 +886,7 @@ function AccountDetail() {
                                 Tên
                               </p>
                               <p style={{ fontSize: "16px" }}>
-                                {userState.lastName}
+                                {userr.lastName}
                               </p>
                               <p
                                 style={{
@@ -911,7 +908,7 @@ function AccountDetail() {
                                 Ngày sinh
                               </p>
                               <p style={{ fontSize: "16px" }}>
-                                {userState.yearOfBirth}
+                                {formattedDate}
                               </p>
                             </Col>
 
@@ -929,9 +926,7 @@ function AccountDetail() {
                               >
                                 Email
                               </p>
-                              <p style={{ fontSize: "16px" }}>
-                                {userState.email}
-                              </p>
+                              <p style={{ fontSize: "16px" }}>{userr.email}</p>
                               <p
                                 style={{
                                   fontSize: "14px",
@@ -952,7 +947,7 @@ function AccountDetail() {
                                 Số điện thoại
                               </p>
                               <p style={{ fontSize: "16px" }}>
-                                {userState.phoneNumber}
+                                {userr.phoneNumber}
                               </p>
                               <p
                                 style={{
@@ -964,7 +959,7 @@ function AccountDetail() {
                                 Địa chỉ
                               </p>
                               <p style={{ fontSize: "16px" }}>
-                                {userState.address}
+                                {userr.address}
                               </p>
                             </Col>
                           </Row>

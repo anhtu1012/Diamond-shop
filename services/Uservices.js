@@ -73,6 +73,11 @@ export const deleteDiamond = (id) => {
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/diamonds/delete_diamond/${id}`
   );
 };
+export const deleteProduct = (product_id) => {
+  return api.delete(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/products/delete/${product_id}`
+  );
+};
 
 export const updateDiamond = (id, diamond) => {
   return api.put(
@@ -121,6 +126,11 @@ export const getAllUser = () => {
 export const fetchUserById = (id) => {
   return api.get(
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/user/get/${id}`
+  );
+};
+export const UpdateUser = (id) => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/user/update/${id}`
   );
 };
 export const updateAccount = (id) => {

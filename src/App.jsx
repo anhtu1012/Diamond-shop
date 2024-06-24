@@ -71,7 +71,9 @@ import NewOrderDelivery from "./page/Delivery/New-Order-Delivery";
 import DetailNewOrderDelivery from "./page/Delivery/Order-detail";
 import CapNhatDon from "./page/Delivery/cap-nhat-don";
 import LichSuGiao from "./page/Delivery/lich-su-giao";
+
 import ViewOrderDetailsCusTom from "./page/Custommer/Order/ViewOrderDetail";
+
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -185,7 +187,7 @@ const router = createBrowserRouter([
         element: <LienHe />,
       },
       {
-        path: "/thong-tin-chi-tiet/:userID",
+        path: "/thong-tin-chi-tiet",
         element: <AccountDetail />,
       },
     ],
