@@ -47,19 +47,13 @@ const DeliveryPage = () => {
             }}
           >
             <Breadcrumb.Item>
-              <Link to="/staff-page">Đơn hàng mới</Link>
+              <Link to="/delivery-page">Đơn hàng mới</Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
-              <Link to="/staff-page/don-hang">Đơn hàng</Link>
+              <Link to="/delivery-page/cap-nhat-don-hang">Cập nhật đơn hàng</Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
-              <Link to="/staff-page/tai-khoan">Tài khoản</Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <Link to="/staff-page/san-pham">Sản phẩm</Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <Link to="/staff-page/bao-hanh">Phiếu bảo hành</Link>
+              <Link to="/delivery-page/lich-su-giao-hang">Lịch sử giao hàng</Link>
             </Breadcrumb.Item>
           </Breadcrumb>
           <div

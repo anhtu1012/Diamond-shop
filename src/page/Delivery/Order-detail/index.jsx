@@ -249,7 +249,7 @@ function DetailNewOrderDelivery() {
             <div className="thong-tin-chi-tiet">
               <div className="thong-tin-item">
                 <p className="label">Tên:</p>
-                <p className="value">Phạm Trung 123 Main Street, City</p>
+                <p className="value">Phạm Trung Main Street</p>
               </div>
               <div className="thong-tin-item">
                 <p className="label">Số Điện Thoại:</p>
@@ -262,8 +262,7 @@ function DetailNewOrderDelivery() {
               <div className="thong-tin-item">
                 <p className="label">Địa Chỉ:</p>
                 <p className="value">
-                  123 Main Street, City,123 Main Street, City,123 Main Street,
-                  City
+                  Lưu Hữu Phước, Đông Hoà, Dĩ An, Bình Dương, Việt Nam
                 </p>
               </div>
               <div className="thong-tin-item">
@@ -277,7 +276,7 @@ function DetailNewOrderDelivery() {
                   to="/delivery-page/cap-nhat-don-hang"
                   style={{ fontWeight: "bold" }}
                 >
-                  Cập nhật đơn hàng
+                  {/* Cập nhật đơn hàng */}Nhận đơn hàng
                 </Link>
               </Button>
             </div>
