@@ -1,7 +1,7 @@
-import { Button, Col, Form, Radio, Row, Select } from "antd";
+import { Button, Col, Form, Radio, Rate, Row } from "antd";
 import "./index.scss";
 import { CaretLeftFilled } from "@ant-design/icons";
-import { GiJewelCrown } from "react-icons/gi";
+import { GiBigDiamondRing } from "react-icons/gi";
 import {
   FaCcMastercard,
   FaCreditCard,
@@ -10,33 +10,147 @@ import {
 } from "react-icons/fa";
 import Container from "../../../components/container/Container";
 import { IoDiamondOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
-const items = [
-  {
-    value: "1",
-    label: "1",
-  },
-  {
-    value: "2",
-    label: "2",
-  },
-  {
-    value: "3",
-    label: "3",
-  },
-  {
-    value: "4",
-    label: "4",
-    disabled: true,
-  },
-];
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getOrderDetail } from "../../../../services/Uservices";
+
+const renderProductItem = (order, index) => (
+  <Row className="staff_order_frame" key={index}>
+    <Col span={7} className="staff_order_left">
+      {order.productCustomize && order.productCustomize.product && (
+        <img
+          className="img_main"
+          src={order.productCustomize.product.productImages[0].imageUrl}
+          width={130}
+          style={{ marginLeft: "10px" }}
+        />
+      )}
+
+      {order.productCustomize && order.productCustomize.product && (
+        <div style={{ textAlign: "center" }}>
+          <Button className="button_custom">
+            Size: {order.productCustomize.size}
+          </Button>
+        </div>
+      )}
+      {(order.productCustomize?.diamond || order.diamond) && (
+        <img
+          src={order.productCustomize?.diamond?.image || order.diamond?.image}
+          className={`staff_order_kimg ${
+            order.productCustomize?.product
+              ? "staff_order_kimg_kid"
+              : "staff_order_kimg_main"
+          }`}
+          alt={
+            order.productCustomize?.diamond?.diamondName ||
+            order.diamond?.diamondName
+          }
+        />
+      )}
+    </Col>
+
+    <Col span={17} className="staff_order_right">
+      {order.productCustomize && order.productCustomize.product && (
+        <div className="info_product">
+          <div>
+            <GiBigDiamondRing size={25} className="icon_order" />
+          </div>
+          <div className="info_sub">
+            <span>
+              {order.productCustomize.product.productName}
+              {" - "}
+              {order.productCustomize.product.shapeDiamond}{" "}
+              {order.productCustomize.product.dimensionsDiamond} ly
+            </span>
+            <p style={{ fontWeight: 400, fontSize: "13px" }}>
+              {" "}
+              {order.productCustomize.product.productID}
+            </p>
+            <Rate
+              disabled
+              defaultValue={order.productCustomize.product.rating}
+              style={{
+                fontSize: "13px",
+              }}
+            />
+          </div>
+        </div>
+      )}
+      <div className="info_diamond">
+        <div>
+          <IoDiamondOutline size={25} className="icon_order" />
+        </div>
+        <div className="info_sub">
+          <p>
+            {order.productCustomize?.diamond?.diamondName ||
+              order.diamond.diamondName}
+          </p>
+          <div style={{ fontWeight: 400, fontSize: "13px" }}>
+            <span>
+              Carat:{" "}
+              {order.productCustomize?.diamond?.carat || order.diamond.carat}
+            </span>
+            {" - "}
+            <span>
+              Tinh Khiết :
+              {order.productCustomize?.diamond?.clarify ||
+                order.diamond.clarify}
+            </span>
+            {" - "}
+            <span>
+              Cấp Màu :
+              {order.productCustomize?.diamond?.colorLevel ||
+                order.diamond.colorLevel}
+            </span>
+            {" - "}
+            Cắt:{" "}
+            <span>
+              {order.productCustomize?.diamond?.cut || order.diamond.cut}
+            </span>
+          </div>
+          {order.diamond && (
+            <div
+              style={{ fontWeight: 400, fontSize: "13px", paddingTop: "3px" }}
+            >
+              Kiểm định:{" "}
+              <span style={{ color: "red" }}>
+                {" "}
+                {order.diamond.certificate}{" "}
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+    </Col>
+    <Col span={24} className="price">
+      <span style={{ textAlign: "right" }}>
+        {(
+          order.productCustomize?.totalPrice || order.diamond.totalPrice
+        ).toLocaleString("de-DE", {
+          maximumFractionDigits: 2,
+        })}{" "}
+        đ
+      </span>
+    </Col>
+  </Row>
+);
 
 function Payment() {
   const [form] = Form.useForm();
+  const { orderID } = useParams();
+  // const navigate = useNavigate();
+  const [data, setData] = useState();
+  useEffect(() => {
+    const fetchGetOrderDetail = async () => {
+      const res = await getOrderDetail(orderID);
+      setData(res.data);
+    };
 
-  const onFinish = (values) => {
-    console.log("Received values: ", values);
-  };
+    fetchGetOrderDetail();
+  }, [orderID]);
+  if (!data) {
+    return <div>No order details found.</div>;
+  }
 
   return (
     <Container>
@@ -50,127 +164,62 @@ function Payment() {
         </div>
 
         <Row className="pay-main">
-          <Col span={14} className="payment_order">
-            <div className="title">
-              <h2>ĐƠN HÀNG</h2>
-            </div>
-            <div className="pay_product_infor">
-              <div className="pay_product">
-                <Row className="product">
-                  <Col span={9} clasName="pay_img">
-                    <img
-                      src="https://igg.vn/images/upload/34201813229polished-diamond.png"
-                      width={200}
-                    />
-                  </Col>
-                  <Col span={15} className="pay_product_detail">
-                    <div className="product1">
-                      <GiJewelCrown style={{ fontSize: "20px" }} />
-                      <div>
-                        <p>NHẪN KIM CƯƠNG NỮ 18K</p>
-                        <span>123452352</span>
-                      </div>
-                    </div>
-                    <div className="product1">
-                      <IoDiamondOutline style={{ fontSize: "20px" }} />
-                      <div>
-                        <p>KIM CƯƠNG VIÊN GIA 3LY6 – 7443338670</p>
-                        <span>7443338670</span>
-                      </div>
-                    </div>
-                  </Col>
-                  <Col span={24} className="pay_size_product">
-                    <Select
-                      defaultValue="Kích Thước"
-                      style={{
-                        width: 160,
-                        paddingLeft: "60px",
-                        border: "none !important",
-                      }}
-                      options={items}
-                    />
-                  </Col>
-                  <Col span={24} className="pay_price_product">
-                    <div>
-                      <p>11.314.423đ</p>
-                    </div>
-                  </Col>
-                </Row>
-              </div>
-              <div className="pay_product">
-                <Row className="product">
-                  <Col span={9} clasName="pay_img">
-                    <img
-                      src="https://igg.vn/images/upload/34201813229polished-diamond.png"
-                      width={200}
-                    />
-                  </Col>
-                  <Col span={15} className="pay_product_detail">
-                    <div className="product1">
-                      <GiJewelCrown style={{ fontSize: "20px" }} />
-                      <div>
-                        <p>NHẪN KIM CƯƠNG NỮ 18K</p>
-                        <span>123452352</span>
-                      </div>
-                    </div>
-                    <div className="product1">
-                      <div>
-                        <p></p>
-                        <span></span>
-                      </div>
-                    </div>
-                  </Col>
-                  <Col span={24} className="pay_size_product">
-                    <Select
-                      defaultValue="Kích Thước"
-                      style={{
-                        width: 160,
-                        paddingLeft: "60px",
-                        border: "none !important",
-                      }}
-                      options={items}
-                    />
-                  </Col>
-                  <Col span={24} className="pay_price_product">
-                    <div>
-                      <p>474.314.423đ</p>
-                    </div>
-                  </Col>
-                </Row>
-              </div>
-            </div>
-            <div className="repay">
-              <div className="total_price">
-                <p>Tạm tính</p>
-                <span>484.864.468đ</span>
-              </div>
-              <div className="total_price">
-                <p>Chí phí vận chuyển</p>
-                <span>Miễn Phí</span>
-              </div>
-            </div>
-            <div className="repay2">
-              <div className="total">
-                <p>Thành tiền </p>
-                <span>484.864.468đ</span>
-              </div>
+          <Col span={14}>
+            <div className="khung">
               <div
-                style={{
-                  fontSize: "15px",
-                  textAlign: "right",
-                  fontStyle: "italic",
-                }}
+                className="thong-tin-don-mua"
+                style={{ textAlign: "center" ,}}
               >
-                Giá tham khảo đã bao gồm VAT
+                <span>ĐƠN HÀNG</span>
+              </div>
+              <div className="code-box">OD: OD{data.orderID}</div>
+              <div>
+                {data.orderDetails.map((order, index) =>
+                  renderProductItem(order, index)
+                )}
+              </div>
+              <div className="repayp">
+                <div className="total_pricep">
+                  <p>Giảm giá</p>
+                  <span style={{ color: "#15393f" }}>
+                    {" "}
+                    {data.discount.toLocaleString("vi-VN", {
+                      maximumFractionDigits: 0,
+                    })}{" "}
+                    vnđ
+                  </span>
+                </div>
+                <div className="total_pricep">
+                  <p>Chí phí vận chuyển</p>
+                  <span style={{ color: "#15393f" }}>Miễn Phí</span>
+                </div>
+              </div>
+
+              <div className="repay2p">
+                <div className="totalp">
+                  <p>Thành tiền </p>
+                  <span style={{ color: "#15393f" }}>
+                    {" "}
+                    {data.price.toLocaleString("vi-VN", {
+                      maximumFractionDigits: 0,
+                    })}{" "}
+                    đ
+                  </span>
+                </div>
+                <div
+                  style={{
+                    fontSize: "15px",
+                    textAlign: "right",
+                    fontStyle: "italic",
+                  }}
+                >
+                  Giá tham khảo đã bao gồm VAT
+                </div>
               </div>
             </div>
           </Col>
           <Col span={10} className="pay_main_col">
-            <Form
-              form={form}
-              onFinish={onFinish}
-              style={{ padding: "10px 30px" }}
-            >
+            <Form form={form} style={{ padding: "10px 30px" }}>
               <div className="pay_form_title">
                 <Button shape="circle" style={{ border: "2px solid black" }}>
                   <p>1</p>
