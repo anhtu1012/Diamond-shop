@@ -71,7 +71,7 @@ import NewOrderDelivery from "./page/Delivery/New-Order-Delivery";
 import DetailNewOrderDelivery from "./page/Delivery/Order-detail";
 import CapNhatDon from "./page/Delivery/cap-nhat-don";
 import LichSuGiao from "./page/Delivery/lich-su-giao";
-
+import ViewOrderDetailsCusTom from "./page/Custommer/Order/ViewOrderDetail";
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -109,7 +109,7 @@ const router = createBrowserRouter([
         element: <DiamondDetailss />,
       },
       {
-        path: "/product-payment",
+        path: "/thanh-toan/:orderID",
         element: <Payment />,
       },
       {
@@ -119,6 +119,10 @@ const router = createBrowserRouter([
       {
         path: "/chi-tiet-don-hang",
         element: <DetailOrder />,
+      },
+      {
+        path: "don-hang/chi-tiet-don-hang/:orderID",
+        element: <ViewOrderDetailsCusTom />,
       },
       {
         path: "/tuy-chinh",

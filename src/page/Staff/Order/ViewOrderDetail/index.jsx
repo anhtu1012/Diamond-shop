@@ -8,11 +8,12 @@ import { GiBigDiamondRing } from "react-icons/gi";
 import { getOrderDetail } from "../../../../../services/Uservices";
 import { useEffect, useState } from "react";
 import LoadingTruck from "../../../../components/loading";
-
+import { VscError } from "react-icons/vsc";
 const statusToStepIndex = {
-  pendding: 0,
-  "Đang giao": 1,
+  "Chờ thanh toán": 0,
+  "Chờ giao hàng": 1,
   "Đã giao": 2,
+  "Đã hủy": 3,
 };
 
 const renderProductItem = (order, index) => (
@@ -127,9 +128,7 @@ const renderProductItem = (order, index) => (
     <Col span={24} className="price">
       <span style={{ textAlign: "right" }}>
         {(
-          order.productCustomize?.product?.totalPrice ||
-          order.productCustomize?.diamond?.totalPrice ||
-          order.diamond.totalPrice
+          order.productCustomize?.totalPrice || order.diamond.totalPrice
         ).toLocaleString("de-DE", {
           maximumFractionDigits: 2,
         })}{" "}
@@ -141,11 +140,12 @@ const renderProductItem = (order, index) => (
 
 function ViewOrderDetailsStaff() {
   const { orderID } = useParams();
-  console.log(orderID);
+
   const [data, setData] = useState();
   const {
     token: { borderRadiusLG },
   } = theme.useToken();
+
   useEffect(() => {
     const fetchGetOrderDetail = async () => {
       const res = await getOrderDetail(orderID);
@@ -156,7 +156,6 @@ function ViewOrderDetailsStaff() {
   }, [orderID]);
 
   const currentStepIndex = statusToStepIndex[data?.status];
-
   const formattedDate = new Date(data?.orderDate).toLocaleString("vi-VN", {
     day: "2-digit",
     month: "2-digit",
@@ -207,7 +206,7 @@ function ViewOrderDetailsStaff() {
                     }}
                   >
                     <Link
-                      to={"/staff-page/don-hang"}
+                      to={"/don-hang"}
                       style={{ color: "black", fontWeight: 600 }}
                     >
                       <TiArrowBack style={{ justifyContent: "center" }} /> Quay
@@ -271,20 +270,37 @@ function ViewOrderDetailsStaff() {
               }}
             >
               <Col span={24}>
-                <div className="step-giao-hang">
+                <div
+                  className={`step-giao-hang ${
+                    data.status === "Đã hủy" ? "step-cancelled" : ""
+                  }`}
+                >
                   <Steps
                     direction="vertical"
                     current={currentStepIndex}
-                    style={{ gap: "18px" }}
+                    style={{ gap: "2px" }}
                     items={[
+                      {
+                        title: "Chờ Thanh Toán",
+                      },
                       {
                         title: "Chờ giao hàng",
                       },
                       {
-                        title: "Đang giao",
+                        title: "Đã giao",
                       },
                       {
-                        title: "Đã giao",
+                        title: "Đã hủy",
+                        icon: data.status === "Đã hủy" && (
+                          <VscError
+                            size={35}
+                            style={{
+                              color: "white",
+                              background: "red",
+                              borderRadius: "50%",
+                            }}
+                          />
+                        ),
                       },
                     ]}
                   />
@@ -340,6 +356,14 @@ function ViewOrderDetailsStaff() {
                     <p>Số điện thoại:</p>
                     <span>{data.phoneShipping}</span>
                   </div>
+                  <div className="row">
+                    <p>Ghi Chú:</p>
+                    <span>{data.note}</span>
+                  </div>
+                  <div className="row">
+                    <p>Lí do:</p>
+                    <span>{data.reason}</span>
+                  </div>
                 </div>
               </Content>
             </div>
@@ -368,21 +392,50 @@ function ViewOrderDetailsStaff() {
                     className="total-price"
                     style={{ marginTop: "5px", textAlign: "left" }}
                   >
+                    <div>
+                      {data.orderDetails.length === 1 ? (
+                        <div className="row">
+                          <p>Giá Sản Phẩm 1 :</p>
+                          <span>
+                            {data.orderDetails[0].price.toLocaleString(
+                              "vi-VN",
+                              {
+                                maximumFractionDigits: 0,
+                              }
+                            )}{" "}
+                            vnđ
+                          </span>
+                        </div>
+                      ) : (
+                        data.orderDetails.map((order, index) => (
+                          <div className="row" key={index === 1}>
+                            <p>Giá Sản Phẩm {index + 1}:</p>
+                            <span>
+                              {order.price.toLocaleString("vi-VN", {
+                                maximumFractionDigits: 0,
+                              })}{" "}
+                              vnđ
+                            </span>
+                          </div>
+                        ))
+                      )}
+                    </div>
+
                     <div className="row">
-                      <p>Giá nhẫn:</p>
+                      <p>Giảm giá :</p>
                       <span>
-                        {data.price.toLocaleString("vi-VN", {
+                        -{" "}
+                        {data.discount.toLocaleString("vi-VN", {
                           maximumFractionDigits: 0,
                         })}{" "}
                         vnđ
                       </span>
                     </div>
-
                     <div className="row">
                       <p>Giao hàng:</p>
                       <span>Miễn phí</span>
                     </div>
-                    <div className="row" style={{ marginTop: "65px" }}>
+                    <div className="row" style={{ marginTop: "25px" }}>
                       <p style={{ fontSize: "20px" }}>Tổng giá:</p>
                       <span
                         style={{

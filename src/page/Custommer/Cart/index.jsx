@@ -15,7 +15,7 @@ import {
   notification,
 } from "antd";
 import { IoDiamondOutline, IoTicket } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Relate from "../../../components/carousel/related";
 import Container from "../../../components/container/Container";
 import "./index.scss";
@@ -49,34 +49,23 @@ function Cart() {
     try {
       console.log(userr.userID);
       const res = await getCart(userr.userID);
+      const user = res.data.user;
+      const addressParts = user.address.split(",");
+      const initialValues = {
+        fullName: `${user.firstName} ${user.lastName}`,
+        phone: user.phone,
+        email: user.email,
+        province: addressParts[3] || "",
+        district: addressParts[2] || "",
+        ward: addressParts[1] || "",
+        detailAddress: addressParts[0] || "",
+        points: 0,
+        gender: user.gender,
+      };
 
-      // Update state with fetched data
       setDataCart(res.data);
-      console.log(dataCart);
-      // Set initial form values
-      setInitialValues({
-        fullName: `${res.data.user.firstName} ${res.data.user.lastName}`,
-        phone: res.data.user.phone,
-        email: res.data.user.email,
-        province: res.data.user.address.split(",")[0],
-        district: res.data.user.address.split(",")[1],
-        ward: res.data.user.address.split(",")[2],
-        detailAddress: res.data.user.address.split(",")[3],
-        points: 0, // default value for points input
-        gender: res.data.user.gender,
-      });
-
-      // Set form values with fetched data
-      form.setFieldsValue({
-        fullName: `${res.data.user.firstName} ${res.data.user.lastName}`,
-        phone: res.data.user.phone,
-        email: res.data.user.email,
-        detailAddress: res.data.user.address.split(",")[0],
-        ward: res.data.user.address.split(",")[1],
-        district: res.data.user.address.split(",")[2],
-        province: res.data.user.address.split(",")[3],
-        gender: res.data.user.gender,
-      });
+      setInitialValues(initialValues);
+      form.setFieldsValue(initialValues);
     } catch (error) {
       console.error("Failed to fetch cart data:", error);
     }
@@ -124,6 +113,7 @@ function Cart() {
   const onFinish = (values) => {
     console.log("Received values: ", values);
   };
+  const navigate = useNavigate();
   const handleSubmit = async () => {
     try {
       // Lấy giá trị từ form
@@ -134,7 +124,7 @@ function Cart() {
         formValues.ward !== initialValues.ward ||
         formValues.detailAddress !== initialValues.detailAddress;
 
-      let fullAddress = initialValues.addressShipping;
+      let fullAddress = `${formValues.detailAddress}, ${formValues.ward}, ${formValues.district}, ${formValues.province}`;
 
       if (isAddressChanged) {
         // Tạo thông tin địa chỉ
@@ -166,6 +156,7 @@ function Cart() {
       console.log("Order information:", orderInfo);
       const response = await submitOrder(orderInfo);
       console.log(response);
+      navigate("/don-hang");
       if (response) {
         message.success("Đặt hàng thành công!");
         console.log("Order submitted successfully:", response);
@@ -424,8 +415,9 @@ function Cart() {
 
               <Form
                 form={form}
-                name="userForm"
+                name="order_form"
                 onFinish={onFinish}
+                layout="vertical"
                 initialValues={initialValues}
                 style={{ padding: "25px 30px" }}
               >

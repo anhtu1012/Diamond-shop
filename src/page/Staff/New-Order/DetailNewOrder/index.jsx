@@ -1,10 +1,10 @@
-import { Button, Col, Rate, Row } from "antd";
+import { Button, Col, Popconfirm, Rate, Row, message } from "antd";
 import "./index.scss";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GiBigDiamondRing } from "react-icons/gi";
 import { IoDiamondOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import { getOrderDetail } from "../../../../../services/Uservices";
+import { createOrder, getOrderDetail } from "../../../../../services/Uservices";
 
 const renderProductItem = (order, index) => (
   <Row className="staff_order_frame" key={index}>
@@ -129,6 +129,7 @@ const renderProductItem = (order, index) => (
 
 function DetailNewOrder() {
   const { orderID } = useParams();
+  const navigate = useNavigate(); 
   const [data, setData] = useState();
   useEffect(() => {
     const fetchGetOrderDetail = async () => {
@@ -138,6 +139,33 @@ function DetailNewOrder() {
 
     fetchGetOrderDetail();
   }, [orderID]);
+
+  const handleCreateOrder = async () => {
+    try {
+      const status = {
+        status: "Chờ thanh toán",
+        reason: "",
+      };
+      await createOrder(orderID, status);
+      message.success("Tạo đơn hàng thành công");
+      navigate("/staff-page/don-hang-moi");
+    } catch (error) {
+      message.error("Đã có lỗi xảy ra khi tạo đơn hàng");
+    }
+  };
+  const handleRemobeOrder = async () => {
+    try {
+      const status = {
+        status: "Đã hủy",
+        reason: "",
+      };
+      await createOrder(orderID, status);
+      message.success("Hủy đơn hàng thành công");
+      navigate("/staff-page/don-hang-moi");
+    } catch (error) {
+      message.error("Đã có lỗi xảy ra khi hủy đơn hàng");
+    }
+  };
   if (!data) {
     return <div>No order details found.</div>;
   }
@@ -178,21 +206,28 @@ function DetailNewOrder() {
               </div>
             </div>
             <div style={{ marginTop: "10px", marginLeft: "auto" }}>
+              <Popconfirm
+                title="Hủy đơn"
+                description="Bạn có chắc muốn hủy không!?"
+                onConfirm={handleRemobeOrder}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button
+                  type="primary"
+                  danger
+                  style={{ marginRight: "10px", fontWeight: "bold" }}
+                >
+                  Hủy đơn
+                </Button>
+              </Popconfirm>
               <Button
                 type="primary"
-                danger
-                style={{ marginRight: "10px", fontWeight: "bold" }}
+                style={{ fontWeight: "bold" }}
+                className="custom-black-button"
+                onClick={handleCreateOrder}
               >
-                Xóa
-              </Button>
-
-              <Button type="primary" className="custom-black-button">
-                <Link
-                  to="/staff-page/don-hang-moi"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Tạo đơn hàng
-                </Link>
+                Tạo đơn hàng
               </Button>
             </div>
           </div>
@@ -210,6 +245,16 @@ function DetailNewOrder() {
               )}
             </div>
             <div className="repayp">
+              <div className="total_pricep">
+                <p>Giảm giá</p>
+                <span style={{ color: "#15393f" }}>
+                  {" "}
+                  {data.discount.toLocaleString("vi-VN", {
+                    maximumFractionDigits: 0,
+                  })}{" "}
+                  vnđ
+                </span>
+              </div>
               <div className="total_pricep">
                 <p>Chí phí vận chuyển</p>
                 <span style={{ color: "#15393f" }}>Miễn Phí</span>

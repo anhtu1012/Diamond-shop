@@ -144,7 +144,6 @@ export const submitOrder = (info) => {
 export const getAllUserStaff = () => {
   return api.get(
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/staff/all_users`
-
   );
 };
 export const getAllOrder = () => {
@@ -152,16 +151,26 @@ export const getAllOrder = () => {
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/orders/all_orders`
   );
 };
+export const getOrderById = (id) => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/orders/orders_by_user/${id}`
+  );
+};
 export const getOrderDetail = (order_id) => {
   return api.get(
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/orders/${order_id}`
+  );
+};
+export const createOrder = (order_id, status) => {
+  return api.put(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/orders/update_status/${order_id}`,
+    status
   );
 };
 export const searchDiamond = (key) => {
   return api.get(
     `https://diamondshopgroup6.azurewebsites.net/public/search_advanced`,
     key
-
   );
 };
 export const getNewOrder = () => {
