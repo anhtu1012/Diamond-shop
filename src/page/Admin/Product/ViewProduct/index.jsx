@@ -1,10 +1,10 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Select, Space, Table, Tag } from "antd";
+import { Button, Input, Select, Space, Table, Tag, message } from "antd";
 import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { Link } from "react-router-dom";
 import "./index.scss";
-import { getProducts } from "../../../../../services/Uservices";
+import { deleteProduct, getProducts } from "../../../../../services/Uservices";
 
 const statusToStep = {
   "Còn hàng": 1,
@@ -159,17 +159,33 @@ function ViewProduct() {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const start = () => {
+  const start = async () => {
     setLoading(true);
-    // Delete selected items
-    const newData = dataSource.filter(
-      (item) => !selectedRowKeys.includes(item.key)
-    );
-    setDataSource(newData); // Update the data state
-    setTimeout(() => {
+
+    try {
+      const deletePromises = selectedRowKeys.map(async (key) => {
+        const productDelete = dataSource.find((item) => item.key === key);
+        if (productDelete) {
+          await deleteProduct(productDelete.productID);
+        }
+      });
+
+      // Chờ cho tất cả các promise xóa được thực thi
+      await Promise.all(deletePromises);
+
+      // Sau khi xóa thành công, cập nhật lại dataSource
+      const newData = dataSource.filter(
+        (item) => !selectedRowKeys.includes(item.key)
+      );
+      setDataSource(newData);
       setSelectedRowKeys([]);
       setLoading(false);
-    }, 1000);
+      message.success("Xóa thành công!");
+    } catch (error) {
+      console.error("Error deleting products:", error);
+      message.error("Xóa thất bại!");
+      setLoading(false);
+    }
   };
 
   const onSelectChange = (newSelectedRowKeys) => {
@@ -297,7 +313,7 @@ function ViewProduct() {
       </div>
       <div className="all-product">
         <Table
-        className="table"
+          className="table"
           rowSelection={rowSelection}
           columns={columns}
           dataSource={dataSource}

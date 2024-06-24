@@ -21,6 +21,7 @@ import "./index.scss";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import {
+  deleteProduct,
   fetchProductById,
   updateProduct,
 } from "../../../../../services/Uservices";
@@ -69,6 +70,7 @@ function ProductDetail() {
         createAt: moment(productData.createAt, "YYYY-MM-DDTHH:mm:ss"),
         updateAt: moment(productData.updateAt, "YYYY-MM-DDTHH:mm:ss"),
         goldWeight: productData.goldWeight,
+        goldType: productData.goldType,
         shapeDiamond: productData.shapeDiamond,
         dimensionsDiamond: productData.dimensionsDiamond,
         message: productData.message,
@@ -101,6 +103,7 @@ function ProductDetail() {
   useEffect(() => {
     fetchProductByIds(productID);
   }, [productID]);
+
   const handleDeleteImage = async (file) => {
     const newFileList = fileList.filter((item) => item.uid !== file.uid);
     setFileList(newFileList);
@@ -118,8 +121,61 @@ function ProductDetail() {
       if (product.productName !== currentValues.productName) {
         updatedDetails.productName = currentValues.productName;
       }
+      if (product.brand !== currentValues.brand) {
+        updatedDetails.brand = currentValues.brand;
+      }
+      if (product.bathStone !== currentValues.bathStone) {
+        updatedDetails.bathStone = currentValues.bathStone;
+      }
+      if (product.goldWeight !== currentValues.goldWeight) {
+        updatedDetails.goldWeight = currentValues.goldWeight;
+      }
+      if (product.goldType !== currentValues.goldType) {
+        updatedDetails.goldType = currentValues.goldType;
+      }
+      if (product.shapeDiamond !== currentValues.shapeDiamond) {
+        updatedDetails.shapeDiamond = currentValues.shapeDiamond;
+      }
+      if (product.dimensionsDiamond !== currentValues.dimensionsDiamond) {
+        updatedDetails.dimensionsDiamond = currentValues.dimensionsDiamond;
+      }
+      if (product.oldGold !== currentValues.oldGold) {
+        updatedDetails.oldGold = currentValues.oldGold;
+      }
+      if (product.productType !== currentValues.productType) {
+        updatedDetails.productType = currentValues.productType;
+      }
+
+      if (product.quantity !== currentValues.quantity) {
+        updatedDetails.quantity = currentValues.quantity;
+      }
+      if (
+        product.quantityStonesOfDiamond !==
+        currentValues.quantityStonesOfDiamond
+      ) {
+        updatedDetails.quantityStonesOfDiamond =
+          currentValues.quantityStonesOfDiamond;
+      }
+
+      if (
+        product.wagePrice.toLocaleString("vi-VN", {
+          maximumFractionDigits: 0,
+        }) !== currentValues.wagePrice
+      ) {
+        updatedDetails.wagePrice = currentValues.wagePrice;
+      }
+      if (
+        product.originalPrice.toLocaleString("vi-VN", {
+          maximumFractionDigits: 0,
+        }) !== currentValues.originalPrice
+      ) {
+        updatedDetails.originalPrice = currentValues.originalPrice;
+      }
       if (product.ratio !== currentValues.ratio) {
         updatedDetails.ratio = currentValues.ratio;
+      }
+      if (product.sizes !== currentValues.sizes) {
+        updatedDetails.sizes = currentValues.sizes;
       }
 
       const newImages = fileList.filter(
@@ -167,8 +223,15 @@ function ProductDetail() {
       setUploading(false);
     }
   };
-  const handleDelete = () => {
-    message.success("Xóa thành công");
+  const handleDelete = async () => {
+    try {
+      await deleteProduct(product.productID);
+      console.log(product.productID);
+      message.success("Xóa thành công!");
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      message.error("Xóa thất bại!");
+    }
   };
 
   const onChange = ({ fileList: newFileList }) => {
@@ -322,7 +385,6 @@ function ProductDetail() {
                   >
                     Xóa
                   </Button>
-
                   <Button
                     className="button2"
                     type="primary"
@@ -403,6 +465,7 @@ function ProductDetail() {
             <div className="button">
               <Modal
                 title="Chỉnh sửa sản phẩm"
+                width={600}
                 open={isEditing}
                 onCancel={() => setIsEditing(false)}
                 onOk={handleUpdate}
@@ -439,7 +502,10 @@ function ProductDetail() {
                         ]}
                       >
                         <InputNumber
-                          defaultValue={product.ratio}
+                          min="0"
+                          max="5"
+                          step="0.1"
+                          stringMode
                           className="input"
                           style={{
                             width: "100%",
@@ -461,6 +527,10 @@ function ProductDetail() {
                         ]}
                       >
                         <InputNumber
+                          min="0"
+                          max="MAX"
+                          step="1"
+                          stringMode
                           style={{
                             width: "100%",
                           }}
@@ -480,6 +550,10 @@ function ProductDetail() {
                         ]}
                       >
                         <InputNumber
+                          min="0"
+                          max="MAX"
+                          step="1"
+                          stringMode
                           className="input_price"
                           style={{
                             width: "100%",
@@ -535,10 +609,18 @@ function ProductDetail() {
                         ]}
                         className="custom-form-item"
                       >
-                        <Input className="input" style={{ width: "100%" }} />
+                        <InputNumber
+                          min="0"
+                          max="5"
+                          step="0.1"
+                          stringMode
+                          className="input"
+                          style={{ width: "100%" }}
+                          placeholder="0"
+                        />
                       </Form.Item>
                     </Col>
-                    <Col span={8}>
+                    {/* <Col span={8}>
                       <Form.Item
                         label="Loại sản phẩm"
                         name="categoryName"
@@ -568,8 +650,8 @@ function ProductDetail() {
                           ))}
                         </Select>
                       </Form.Item>
-                    </Col>
-                    <Col span={8}>
+                    </Col> */}
+                    <Col span={12}>
                       <Form.Item
                         label="Phân loại"
                         name="productType"
@@ -601,7 +683,7 @@ function ProductDetail() {
                         </Select>
                       </Form.Item>
                     </Col>
-                    <Col span={8}>
+                    <Col span={12}>
                       <Form.Item
                         label="Thương hiệu"
                         name="brand"
@@ -643,7 +725,7 @@ function ProductDetail() {
                           },
                         ]}
                       >
-                        <Input />
+                        <InputNumber style={{ width: "100%" }} />
                       </Form.Item>
                     </Col>
                     <Col span={8}>
@@ -658,7 +740,13 @@ function ProductDetail() {
                         ]}
                         className="custom-form-item"
                       >
-                        <Input style={{ width: "100%" }} />
+                        <InputNumber
+                          min="0"
+                          max="5"
+                          step="0.1"
+                          stringMode
+                          style={{ width: "100%" }}
+                        />
                       </Form.Item>
                     </Col>
                     <Col span={8}>
@@ -696,9 +784,12 @@ function ProductDetail() {
                         ]}
                       >
                         <InputNumber
+                          min="0"
+                          max="5"
+                          step="0.1"
+                          stringMode
                           className="input"
                           style={{ width: "100%" }}
-                          allowClear
                           placeholder="Nhập Trọng Lượng Vàng"
                         />
                       </Form.Item>
