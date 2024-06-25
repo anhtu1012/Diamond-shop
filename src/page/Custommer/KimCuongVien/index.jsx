@@ -232,6 +232,9 @@ function KimCuongVien() {
             <Breadcrumb.Item>
               <Link to="/">Trang chủ</Link>
             </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <Link to="/kim-cuong-gia">Kim Cương GIA</Link>
+            </Breadcrumb.Item>
             <Breadcrumb.Item>Kim Cương Viên</Breadcrumb.Item>
           </Breadcrumb>
           <div

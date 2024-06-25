@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
-
 import { Button, Table, Tag } from "antd";
-
 import { Link } from "react-router-dom";
-import { getNewOrder } from "../../../../services/Uservices";
+import { getAllOrder } from "../../../../services/Uservices";
 import LoadingTruck from "../../../components/loading";
 
 const statusToStep = {
-  "Đơn đang nhận giao": 1,
-
+  "Chờ giao hàng": 1,
   "Đã giao": 2,
+  "Đã hủy": 3,
 };
 
 const getStatusColor = (currentStep) => {
@@ -18,26 +16,25 @@ const getStatusColor = (currentStep) => {
       return "#33CC33"; // Green
     case 2:
       return "#008000"; // Dark Green
-
-    default:
-      return "#FFD700"; // Default Yellow
+    case 3:
+      return "#FF0000"; // Red
   }
 };
 function CapNhatDon() {
-  const [filterStatus, setFilterStatus] = useState("Đơn đang nhận giao");
+  const [filterStatus, setFilterStatus] = useState("Chờ giao hàng");
   const [dataSource, seDataSource] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchNewOrder  = async () => {
+  const fetchAllOrder = async () => {
     setLoading(true);
-    const res = await getNewOrder ();
+    const res = await getAllOrder();
     seDataSource(res.data);
     console.log(dataSource);
     setLoading(false);
   };
 
   useEffect(() => {
-    fetchNewOrder();
+    fetchAllOrder();
   }, []);
 
   const handleStatusClick = (status) => {
@@ -115,9 +112,10 @@ function CapNhatDon() {
       width: "10%",
       render: (text, record) => (
         <div style={{ textAlign: "center" }}>
-          {record.status === "Đơn đang nhận giao" ? (
+          {record.status === "Chờ giao hàng" ? (
             <Link
-              to={`/delivery-page/chi-tiet-don-hang/${record.orderID}`}
+            
+              to={`/delivery-page/chi-tiet-don-hang1/${record.orderID}`}
               style={{ fontWeight: "bold" }}
             >
               Xem chi tiết
@@ -134,8 +132,8 @@ function CapNhatDon() {
       ),
     },
   ];
-
-  const statusButtons = ["Đơn đang nhận giao", "Đã giao"].map((status) => (
+  // ------------------------------------------------------------------------------------------------
+  const statusButtons = ["Chờ giao hàng", "Đã giao", "Đã hủy"].map((status) => (
     <Button
       key={status}
       type={filterStatus === status ? "primary" : "default"}
