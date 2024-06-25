@@ -1,10 +1,36 @@
 import { Col, Row } from "antd";
 import Container from "../../../components/container/Container";
 import { Link } from "react-router-dom";
-
+import { LuDot } from "react-icons/lu";
 import "./index.scss";
 import { useEffect } from "react";
-
+const cities = [
+  "Hà Nội",
+  "TP Hồ Chí Minh",
+  "Đà Nẵng",
+  "Hải Phòng",
+  "An Giang",
+  "Bà Rịa - Vũng Tàu",
+  "Bắc Giang",
+];
+const requests = [
+  "Tư vấn sản phẩm",
+  "Hỗ trợ bảo hành, chính sách thu mua thu đổi",
+  "Đối tác truyền thông",
+  "Đối tác đầu tư",
+];
+const products = [
+  "Nhẫn kim cương nữ",
+  "Nhẫn kim cương nam",
+  "Bông tai kim cương",
+  "Lắc/vòng tay kim cương",
+  "Mặt dây chuyền kim cương",
+  "Bộ trang sức kim cương",
+  "Kim cương viên GIA",
+  "Nhẫn cầu hôn kim cương",
+  "Nhẫn cưới kim cương",
+  "Bộ trang sức cưới kim cương",
+];
 function LienHe() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -15,39 +41,49 @@ function LienHe() {
         <div className="lien-he">
           <div className="anh">
             <img
-              src="https://a-static.besthdwallpaper.com/diamond-jewels-wallpaper-2048x576-11133_71.jpg"
+              src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/banner-ngang-kim-cuong-tu-nhien.jpg?alt=media&token=d3ed4705-c28b-4dd5-8710-7f86ed24caed"
               style={{ width: "100%", height: "auto" }}
             />
           </div>
-          <h1
+          <p
             style={{
               padding: "30px 0px",
               display: "flex",
+              fontWeight: "bold",
+              fontSize: "20px",
               justifyContent: "center",
+              textTransform: "uppercase",
             }}
           >
             Liên Hệ Với Chúng Tôi
-          </h1>
+          </p>
           <div className="thong-tin-lien-he" style={{ marginLeft: "100px" }}>
             <Row>
               <Col span={2}></Col>
               <Col span={10}>
                 <div className="thong-tin-lien-he-1">
-                  <p style={{ fontSize: "25px" }}>
+                  <p style={{ fontSize: "18px", textTransform: "uppercase" }}>
                     Công Ty Cổ Phần Diamond King
                   </p>
-                  <p style={{ fontSize: "16px", marginTop: "30px" , fontWeight: "bold"}}>
+                  <p
+                    style={{
+                      fontSize: "16px",
+                      marginTop: "30px",
+                      fontWeight: "bold",
+                    }}
+                  >
                     Địa chỉ:
                   </p>
                   <div className="dia-chi">
                     <p
                       style={{
+                        fontSize: "16px",
                         marginTop: "30px",
-                        marginLeft: "30px",
+
                         display: "inline-block",
                       }}
                     >
-                      Chi nhánh Hồ Chí Minh:
+                      <LuDot /> Chi nhánh Hồ Chí Minh:
                     </p>
                     <p style={{ marginLeft: "10px", display: "inline-block" }}>
                       <Link
@@ -59,13 +95,19 @@ function LienHe() {
                       </Link>
                     </p>
                   </div>
-                  <p style={{ fontSize: "16px", marginTop: "30px",  fontWeight: "bold"}}>
+                  <p
+                    style={{
+                      fontSize: "16px",
+                      marginTop: "30px",
+                      fontWeight: "bold",
+                    }}
+                  >
                     Hotline liên hệ:
                   </p>
                   <div className="so-lien-he">
-                    <div style={{ marginTop: "30px", marginLeft: "30px" }}>
-                      <p style={{ display: "inline-block" }}>
-                         Chi nhánh Hồ Chí Minh:
+                    <div style={{ marginTop: "30px" }}>
+                      <p style={{ display: "inline-block", fontSize: "16px" }}>
+                        <LuDot /> Chi nhánh Hồ Chí Minh:
                       </p>
                       <p
                         style={{ marginLeft: "10px", display: "inline-block" }}
@@ -76,9 +118,22 @@ function LienHe() {
                         (phím 1)
                       </p>
                     </div>
-                    <div style={{ marginTop: "16px", marginLeft: "30px" }}>
-                      <p style={{ display: "inline-block" }}>
-                        Góp ý:
+                    <div style={{ marginTop: "16px" }}>
+                      <p style={{ display: "inline-block", fontSize: "16px" }}>
+                        <LuDot /> Góp ý:
+                      </p>
+                      <p
+                        style={{ marginLeft: "10px", display: "inline-block" }}
+                      >
+                        <a href="tel:0916306945" rel="nofollow">
+                          012 345 6789
+                        </a>{" "}
+                        (phím 2)
+                      </p>
+                    </div>
+                    <div style={{ marginTop: "16px" }}>
+                      <p style={{ display: "inline-block", fontSize: "16px" }}>
+                        <LuDot /> CSKH:
                       </p>
                       <p
                         style={{ marginLeft: "10px", display: "inline-block" }}
@@ -91,21 +146,98 @@ function LienHe() {
                     </div>
                   </div>
                   <div className="facebook-lien-he">
-                 
-
-                    <p style={{ fontSize: "16px", marginTop: "30px" ,  fontWeight: "bold"}}>
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        marginTop: "30px",
+                        fontWeight: "bold",
+                      }}
+                    >
                       Facebook:
-                      <span style={{ marginLeft: "10px" }}>
+                      <span
+                        style={{ marginLeft: "10px", fontWeight: "normal" }}
+                      >
                         <a href="https://www.facebook.com" rel="nofollow">
-                        https://www.facebook.com/DIAMOND.KING
+                          https://www.facebook.com/DIAMOND.KING
+                        </a>
+                      </span>
+                    </p>
+                  </div>
+                  <div className="insta-lien-he">
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        marginTop: "30px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Instagram:
+                      <span
+                        style={{ marginLeft: "10px", fontWeight: "normal" }}
+                      >
+                        <a
+                          href="https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fterms%2Faccept%2F%3F__coig_login%3D1"
+                          rel="nofollow"
+                        >
+                          https://www.instagram.com/king_diamond
+                        </a>
+                      </span>
+                    </p>
+                  </div>
+                  <div className="tiktok-lien-he">
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        marginTop: "30px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Tiktok:
+                      <span
+                        style={{ marginLeft: "10px", fontWeight: "normal" }}
+                      >
+                        <a
+                          href="https://www.tiktok.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fterms%2Faccept%2F%3F__coig_login%3D1"
+                          rel="nofollow"
+                        >
+                          https://www.tiktok.com/king_diamond
+                        </a>
+                      </span>
+                    </p>
+                  </div>
+                  <div className="gmaol-lien-he">
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        marginTop: "30px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Gmail:
+                      <span
+                        style={{ marginLeft: "10px", fontWeight: "normal" }}
+                      >
+                        <a
+                          href="https://www.gmail.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fterms%2Faccept%2F%3F__coig_login%3D1"
+                          rel="nofollow"
+                        >
+                          diamondking@gmail.com
                         </a>
                       </span>
                     </p>
                   </div>
                   <div className="zalo-lien-he">
-                    <p style={{ fontSize: "16px", marginTop: "30px",  fontWeight: "bold" }}>
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        marginTop: "30px",
+                        fontWeight: "bold",
+                      }}
+                    >
                       Zalo:
-                      <span style={{ marginLeft: "10px" }}>
+                      <span
+                        style={{ marginLeft: "10px", fontWeight: "normal" }}
+                      >
                         <a
                           href="https://id.zalo.me/account?continue=https%3A%2F%2Fchat.zalo.me%2F"
                           rel="nofollow"
@@ -115,37 +247,17 @@ function LienHe() {
                       </span>
                     </p>
                   </div>
-                  <div className="insta-lien-he">
-                    <p style={{ fontSize: "16px", marginTop: "30px",  fontWeight: "bold" }}>
-                      Instagram:
-                      <span style={{ marginLeft: "10px" }}>
-                        <a
-                          href="https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fterms%2Faccept%2F%3F__coig_login%3D1"
-                          rel="nofollow"
-                        >
-                        https://www.instagram.com/king_diamond
-                        </a>
-                      </span>
-                    </p>
-                  </div>
-                  <div className="tiktok-lien-he">
-                    <p style={{ fontSize: "16px", marginTop: "30px" ,  fontWeight: "bold"}}>
-                      Tiktok:
-                      <span style={{ marginLeft: "10px" }}>
-                        <a
-                          href="https://www.tiktok.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fterms%2Faccept%2F%3F__coig_login%3D1"
-                          rel="nofollow"
-                        >
-                        https://www.tiktok.com/king_diamond
-                        </a>
-                      </span>
-                    </p>
-                  </div>
                 </div>
               </Col>
               <Col span={12}>
                 <div className="thong-tin-lien-he-2">
-                  <p style={{ fontSize: "25px", marginBottom: "30px" }}>
+                  <p
+                    style={{
+                      fontSize: "18px",
+                      marginBottom: "30px",
+                      textTransform: "uppercase",
+                    }}
+                  >
                     Chi Nhánh Hồ Chí Minh
                   </p>
                   <div className="google-map">
@@ -163,19 +275,29 @@ function LienHe() {
               </Col>
             </Row>
             <Row>
-              <Col span={6}></Col>
+              <Col span={2}></Col>
               <Col span={12}>
                 <p
                   style={{
-                    fontSize: "25px",
+                    fontSize: "20px",
                     marginTop: "30px",
-                    fontWeight: "400",
-                    marginBottom: "30px",
-                    marginLeft: "20px",
+                    fontWeight: "bold",
+                    marginBottom: "10px",
+                    marginLeft: "100px",
                   }}
                 >
-                  Hãy Liên Hệ Ngay Để Được Tư Vấn
+                  Hãy Liên Hệ Với Chúng Tôi
                 </p>
+                <h4
+                  style={{
+                    marginTop: "10px",
+                    fontWeight: "normal",
+                    marginBottom: "30px",
+                    marginLeft: "60px",
+                  }}
+                >
+                  Diamond King– chuyên gia trong lĩnh vực Kim cương
+                </h4>
                 <div className="liên-he-ngay" style={{ marginBottom: "40px" }}>
                   <div className="contact-form-wrapper">
                     <form
@@ -211,25 +333,58 @@ function LienHe() {
                           />
                         </div>
                         <div className="form-field">
-                          <input
-                            size="1"
-                            type="email"
-                            name="form_fields[email]"
-                            id="form-field-email"
+                          <select
+                            name="form_fields[product]"
+                            id="form-field-product"
                             className="text-field"
-                            placeholder="Email (*)"
                             required="required"
                             aria-required="true"
-                          />
+                          >
+                            <option value="">
+                              Sản phẩm quý khách quan tâm
+                            </option>
+                            {products.map((product, index) => (
+                              <option key={index} value={product}>
+                                {product}
+                              </option>
+                            ))}
+                          </select>
                         </div>
+
                         <div className="form-field">
-                          <textarea
-                            name="form_fields[message]"
-                            id="form-field-message"
-                            className="text-area"
-                            placeholder="Tin nhắn"
-                          ></textarea>
+                          <select
+                            name="form_fields[request]"
+                            id="form-field-request"
+                            className="text-field"
+                            required="required"
+                            aria-required="true"
+                          >
+                            <option value="">Chọn yêu cầu</option>
+                            {requests.map((request, index) => (
+                              <option key={index} value={request}>
+                                {request}
+                              </option>
+                            ))}
+                          </select>
                         </div>
+
+                        <div className="form-field">
+                          <select
+                            name="form_fields[city]"
+                            id="form-field-city"
+                            className="text-field"
+                            required="required"
+                            aria-required="true"
+                          >
+                            <option value="">Chọn tỉnh thành phố</option>
+                            {cities.map((city, index) => (
+                              <option key={index} value={city}>
+                                {city}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
                         <div>
                           <button
                             type="submit"
@@ -248,7 +403,7 @@ function LienHe() {
                   </div>
                 </div>
               </Col>
-              <Col span={6}></Col>
+              <Col span={10}></Col>
             </Row>
           </div>
         </div>

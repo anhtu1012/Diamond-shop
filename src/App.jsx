@@ -73,7 +73,11 @@ import CapNhatDon from "./page/Delivery/cap-nhat-don";
 import LichSuGiao from "./page/Delivery/lich-su-giao";
 
 import ViewOrderDetailsCusTom from "./page/Custommer/Order/ViewOrderDetail";
+import ChiTietCapNhat from "./page/Delivery/chi-tiet-cap-nhat";
+import KimCuongGIA from "./page/Custommer/KimCuongGIA";
+import XemDonDaGiao from "./page/Delivery/xem-don-da-giao";
 
+import DetailNewOrderDelivery1 from "./page/Delivery/chi-tiet-cap-nhat1";
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -190,6 +194,10 @@ const router = createBrowserRouter([
         path: "/thong-tin-chi-tiet",
         element: <AccountDetail />,
       },
+      {
+        path: "/kim-cuong-gia",
+        element: <KimCuongGIA />,
+      },
     ],
   },
 
@@ -222,10 +230,16 @@ const router = createBrowserRouter([
         path: "/delivery-page/don-hang-moi",
         element: <NewOrderDelivery />,
       },
+
       {
         path: "/delivery-page/chi-tiet-don-hang",
         element: <DetailNewOrderDelivery />,
       },
+      {
+        path: "/delivery-page/chi-tiet-don-hang1/:orderID",
+        element: <DetailNewOrderDelivery1 />,
+      },
+
       {
         path: "/delivery-page/cap-nhat-don-hang",
         element: <CapNhatDon />,
@@ -236,7 +250,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/delivery-page/lich-su-giao-hang/da-giao",
-        element: <LichSuGiao />,
+        element: <XemDonDaGiao />,
+      },
+      {
+        path: "/delivery-page/chi-tiet-cap-nhat/:orderID",
+        element: <ChiTietCapNhat />,
       },
     ],
   },
