@@ -73,11 +73,15 @@ import CapNhatDon from "./page/Delivery/cap-nhat-don";
 import LichSuGiao from "./page/Delivery/lich-su-giao";
 
 import ViewOrderDetailsCusTom from "./page/Custommer/Order/ViewOrderDetail";
+
+import WarrantyCus from "./page/Custommer/Bao-Hanh";
+
 import ChiTietCapNhat from "./page/Delivery/chi-tiet-cap-nhat";
 import KimCuongGIA from "./page/Custommer/KimCuongGIA";
 import XemDonDaGiao from "./page/Delivery/xem-don-da-giao";
 
 import DetailNewOrderDelivery1 from "./page/Delivery/chi-tiet-cap-nhat1";
+
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -89,6 +93,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "/giay-bao-hanh",
+        element: <WarrantyCus />,
       },
       {
         path: "cart",
