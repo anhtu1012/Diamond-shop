@@ -73,7 +73,7 @@ import CapNhatDon from "./page/Delivery/cap-nhat-don";
 import LichSuGiao from "./page/Delivery/lich-su-giao";
 
 import ViewOrderDetailsCusTom from "./page/Custommer/Order/ViewOrderDetail";
-
+import WarrantyCus from "./page/Custommer/Bao-Hanh";
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -85,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "/giay-bao-hanh",
+        element: <WarrantyCus />,
       },
       {
         path: "cart",

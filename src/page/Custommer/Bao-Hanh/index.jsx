@@ -1,0 +1,206 @@
+import { Button, Col, Row, Table } from "antd";
+import Container from "../../../components/container/Container";
+import "./index.scss";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+function WarrantyCus() {
+  const columns = [
+    {
+      title: "Mã Sản phảm",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Chi tiết sản phẩm",
+      dataIndex: "age",
+      key: "age",
+    },
+    {
+      title: "Giá",
+      dataIndex: "address",
+      key: "address",
+    },
+  ];
+  const headerStyle = { fontSize: "16px", margin: "5px 0" };
+  const paragraphStyle = { marginLeft: "20px", fontWeight: "300" };
+  const [loader, setLoader] = useState(false);
+
+  const downloadPDF = () => {
+    const capture = document.querySelector(".section-main"); // Ensure the correct class is used
+    if (!capture) {
+      console.error("Element not found!");
+      return;
+    }
+    setLoader(true);
+    html2canvas(capture)
+      .then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        const doc = new jsPDF("p", "mm", "a4");
+        const componentWidth = doc.internal.pageSize.getWidth();
+        const componentHeight = (canvas.height * componentWidth) / canvas.width;
+        doc.addImage(imgData, "PNG", 0, 0, componentWidth, componentHeight);
+        setLoader(false);
+        doc.save("phieu-bao-hanh.pdf");
+      })
+      .catch((error) => {
+        console.error("Error generating PDF:", error);
+        setLoader(false);
+      });
+  };
+  return (
+    <Container>
+      <Row className="section-main">
+        <Col span={24} className="header-col">
+          <Row className="row-head">
+            <Col span={12} className="col-head1">
+              Phiếu Bảo Hành :<span style={{ fontWeight: "bold" }}> #US33</span>
+            </Col>
+            <Col span={12} className="col-head2">
+              <div className="stutuss">
+                <Button>CÒN HẠN SỬ DỤNG</Button>
+              </div>
+              <Button
+                style={{ background: "#e70953", color: "white" }}
+                onClick={downloadPDF}
+              >
+                {loader ? "Đang tải..." : "Xuất ra PDF"}
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+        <Col span={24} className="body-col">
+          <Row>
+            <Col span={8} style={{ paddingLeft: "20px" }}>
+              <div style={{ padding: "10px 0px" }}>Từ:</div>
+              <div className="info">
+                <p className="title">Diamond King</p>
+                <p>
+                  Địa Chỉ:ấp thạnh an,Xã Thạnh Hải, Huyện Thạnh Phú, Tỉnh Bến
+                  Tre
+                </p>
+                <p>Email: diamondking0909@gmail.xom</p>
+                <p>Phone: 0231485231</p>
+              </div>
+            </Col>
+            <Col span={8} style={{ paddingLeft: "20px" }}>
+              <div style={{ padding: "10px 0px" }}>Đến:</div>
+              <div className="info">
+                <p className="title">Phạm Anh Tú</p>
+                <p>
+                  Địa Chỉ:ấp thạnh an,Xã Thạnh Hải, Huyện Thạnh Phú, Tỉnh Bến
+                  Tre
+                </p>
+                <p>Email: phamanhtu1012@gmail.xom</p>
+                <p>Phone: 0387905007</p>
+              </div>
+            </Col>
+            <Col span={8} style={{ paddingLeft: "20px" }}>
+              <div style={{ padding: "10px 0px" }}>Chi Tiết:</div>
+              <div className="info">
+                <p className="title">Mã đơn hàng: #OD123</p>
+                <p>Thời gian bảo hành: 1 năm</p>
+                <p>Ngày Đặt: 10:10:10 21/10/2024</p>
+                <p>Ngày Hết hạn: 10:10:10 21/10/2025</p>
+                <p>Ghi chú: bala bala bla</p>
+              </div>
+            </Col>
+            <Col span={24} style={{ padding: "20px" }}>
+              <Table columns={columns} />
+            </Col>
+          </Row>
+          <Row gutter={40} style={{ padding: "20px" }}>
+            <Col span={12}>
+              <h4 style={headerStyle}>1. Điều Kiện Áp Dụng</h4>
+              <p style={paragraphStyle}>
+                <strong>Điều kiện bảo hành:</strong> Bảo hành chỉ áp dụng cho
+                các lỗi liên quan đến chất lượng kim cương như độ tinh khiết,
+                màu sắc, và cắt gọt không đúng với mô tả ban đầu.
+              </p>
+              <p style={paragraphStyle}>
+                <strong>Điều kiện không bảo hành:</strong> Không áp dụng bảo
+                hành cho các hư hỏng do tác động vật lý (va đập, rơi vỡ), mất
+                mát, hoặc các tổn thất do việc sử dụng không đúng cách.
+              </p>
+
+              <h4 style={headerStyle}>2. Quyền Lợi Của Khách Hàng</h4>
+              <p style={paragraphStyle}>
+                <strong>Sửa chữa:</strong> Miễn phí sửa chữa hoặc điều chỉnh kim
+                cương trong thời gian bảo hành.
+              </p>
+              <p style={paragraphStyle}>
+                <strong>Đổi trả:</strong> Đổi kim cương mới nếu phát hiện lỗi từ
+                nhà sản xuất.
+              </p>
+              <p style={paragraphStyle}>
+                <strong>Hoàn tiền:</strong> Hoàn tiền 100% nếu sản phẩm không
+                đáp ứng đúng các tiêu chí chất lượng đã cam kết.
+              </p>
+
+              <h4 style={headerStyle}>3. Quy Định Và Điều Kiện</h4>
+              <p style={paragraphStyle}>
+                <strong>Bảo quản phiếu:</strong> Phiếu bảo hành phải được giữ
+                nguyên vẹn, không rách, không chỉnh sửa. Mất phiếu sẽ không được
+                cấp lại.
+              </p>
+              <p style={paragraphStyle}>
+                <strong>Kiểm định lại:</strong> Khách hàng có thể yêu cầu kiểm
+                định lại chất lượng kim cương tại các trung tâm được ủy quyền
+                nếu có nghi ngờ về chất lượng.
+              </p>
+              <p style={paragraphStyle}>
+                <strong>Điều kiện bảo hành:</strong> Chỉ áp dụng cho các lỗi
+                được xác định là do nhà sản xuất, không áp dụng cho các lỗi do
+                sử dụng không đúng cách hoặc do tai nạn.
+              </p>
+            </Col>
+            <Col span={12}>
+              <h4 style={headerStyle}>4. Liên Hệ</h4>
+              <p style={paragraphStyle}>
+                <strong>Số điện thoại:</strong> 0123456789
+              </p>
+              <p style={paragraphStyle}>
+                <strong>Email:</strong> support@diamondstore.com
+              </p>
+              <p style={paragraphStyle}>
+                <strong>Địa chỉ bảo hành:</strong> 456 Đường XYZ, Phường UVW,
+                Quận RST, Thành phố OPQ
+              </p>
+              <h4 style={headerStyle}>5. Hướng Dẫn Sử Dụng Sản Phẩm</h4>
+              <p style={paragraphStyle}>
+                <strong>Làm sạch:</strong> Sử dụng dung dịch làm sạch chuyên
+                dụng cho kim cương, tránh các hóa chất mạnh.
+              </p>
+              <p style={paragraphStyle}>
+                <strong>Bảo quản:</strong> Lưu trữ kim cương ở nơi khô ráo,
+                tránh tiếp xúc trực tiếp với nhiệt độ cao hoặc các vật liệu cứng
+                khác.
+              </p>
+
+              <h4 style={headerStyle}>6. Chính Sách Hoàn Trả</h4>
+              <p style={paragraphStyle}>
+                <strong>Cam kết hoàn trả:</strong> Hoàn trả 100% tiền mặt trong
+                vòng 30 ngày nếu sản phẩm không đáp ứng được nhu cầu của bạn.
+              </p>
+              <p style={paragraphStyle}>
+                <strong>Điều kiện hoàn trả:</strong> Sản phẩm phải còn nguyên
+                vẹn và đầy đủ chứng nhận.
+              </p>
+
+              <h4 style={headerStyle}>7. Câu Hỏi Thường Gặp</h4>
+              <p style={paragraphStyle}>
+                Xem thêm câu hỏi thường gặp: Thông tin chi tiết và câu trả lời
+                cho các thắc mắc liên quan đến bảo hành tại{" "}
+                <Link href="FAQs">FAQs</Link>.
+              </p>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </Container>
+  );
+}
+
+export default WarrantyCus;

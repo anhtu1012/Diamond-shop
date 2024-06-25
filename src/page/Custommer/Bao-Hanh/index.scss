@@ -1,0 +1,104 @@
+.section-main {
+  padding-top: 20px;
+  .header-col {
+    border: 2px solid #f8f8f9;
+    border-radius: 5px 5px 0px 0px;
+    background-color: #f8f8f9;
+    .row-head {
+      display: flex;
+      align-items: center;
+
+      .col-head1 {
+        padding: 5px 20px;
+        font-size: 20px;
+      }
+      .col-head2 {
+        padding: 5px 20px;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 10px;
+        .stutuss {
+          button {
+            background: #15393f;
+            border-radius: 5px;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            a {
+              color: white !important;
+            }
+          }
+          button {
+            background: #15393f;
+            color: white;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            &::before {
+              content: "";
+              position: absolute;
+              top: 0;
+              left: -75%;
+              width: 50%;
+              height: 100%;
+              background: rgba(255, 255, 255, 0.5);
+              transform: skewX(-25deg);
+              transition: left 0.75s ease; /* Ensures smooth transition */
+            }
+
+            &:hover::before {
+              left: 125%; /* Moves ::before smoothly on hover */
+            }
+
+            &:hover {
+              background-color: white;
+              color: #15393f;
+            }
+            &:hover {
+              background-color: #15393f;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+  .body-col {
+    border: 2px solid #f8f8f9;
+    border-radius: 0px 0px 5px 5px;
+    background-color: white;
+    .info {
+      display: flex;
+      flex-direction: column;
+      font-weight: 300;
+      gap: 5px;
+      .title {
+        font-weight: bold;
+      }
+    }
+    .toal-info {
+      display: flex;
+      justify-content: space-between;
+      padding: 25px 0px 10px 0px;
+      border-bottom: 1px solid gray;
+    }
+  }
+
+  &
+    .ant-table-wrapper
+    .ant-table-container
+    table
+    > thead
+    > tr:first-child
+    > *:first-child {
+    border-start-start-radius: 0px;
+  }
+  &
+    .ant-table-wrapper
+    .ant-table-container
+    table
+    > thead
+    > tr:first-child
+    > *:last-child {
+    border-start-end-radius: 0px;
+  }
+}

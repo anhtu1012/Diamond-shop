@@ -10,7 +10,7 @@ import {
   FaUserSecret,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { logoutApi } from "../../../services/Uservices";
+import { getQuantityCart, logoutApi } from "../../../services/Uservices";
 import "./index.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../../redux/features/counterSlice";
@@ -103,11 +103,25 @@ function Header() {
     // message.info(`Click on item ${key}`);
     navigate(`${key}`);
   };
+
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [quantity, setQuantity] = useState(false);
   const navigate = useNavigate(); // Hook useNavigate
   const user = useSelector(selectUser);
   console.log(user);
+  useEffect(() => {
+    const fetchQuantity = async () => {
+      try {
+        const res = await getQuantityCart(user.userID);
+        setQuantity(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchQuantity();
+  }, []);
   useEffect(() => {
     const handleScroll = () => {
       const header = document.querySelector(".container-fluid");
@@ -193,7 +207,7 @@ function Header() {
                   <input type="text" placeholder="Search..." />
                 )}
               </div>
-              <Badge count={5} size="small">
+              <Badge count={0} size="small">
                 <FaShoppingCart
                   style={{ fontSize: "25px", color: "#828282" }}
                   onClick={() => navigate("/cart")}
@@ -211,7 +225,7 @@ function Header() {
                   <input type="text" placeholder="Search..." />
                 )}
               </div>
-              <Badge count={5} size="small">
+              <Badge count={quantity} size="small">
                 <FaShoppingCart
                   style={{ fontSize: "25px", color: "#828282" }}
                   onClick={() => navigate("/cart")}
