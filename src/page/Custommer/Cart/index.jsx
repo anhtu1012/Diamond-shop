@@ -127,7 +127,6 @@ function Cart() {
       let fullAddress = `${formValues.detailAddress}, ${formValues.ward}, ${formValues.district}, ${formValues.province}`;
 
       if (isAddressChanged) {
-        // Tạo thông tin địa chỉ
         const { province, district, ward, detailAddress } = formValues;
 
         const selectedProvince = provinces.find((p) => p.code === province);
