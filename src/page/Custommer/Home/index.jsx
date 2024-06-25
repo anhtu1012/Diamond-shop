@@ -262,7 +262,9 @@ function HomePage() {
             alt="Promotion"
             className="modal-image"
           />
-          <Button className="buy-now-btn">Mua Ngay</Button>
+          <Button className="buy-now-btn">
+            <Link to="nhan-kim-cuong">Mua Ngay</Link>
+          </Button>
         </div>
       </Modal>
     </div>

@@ -133,14 +133,10 @@ export const fetchUserById = (id) => {
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/user/get/${id}`
   );
 };
-export const UpdateUser = (id) => {
-  return api.get(
-    `https://diamondshopgroup6.azurewebsites.net/swp391/api/user/update/${id}`
-  );
-};
-export const updateAccount = (id) => {
-  return api.get(
-    `https://diamondshopgroup6.azurewebsites.net/swp391/api/user/update/${id}`
+export const updateUser = (id, userr) => {
+  return api.post(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/user/update/${id}`,
+    userr
   );
 };
 

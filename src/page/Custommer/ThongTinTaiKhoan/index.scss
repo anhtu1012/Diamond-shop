@@ -124,4 +124,42 @@
       }
     }
   }
+  .lich-su-mua-hang {
+    .status-button {
+      background-color: #605c5c;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &.default {
+        background-color: #605c5c;
+      }
+
+      &.green {
+        background-color: green;
+
+        &:hover {
+          background-color: #28a745;
+        }
+      }
+
+      &.red {
+        background-color: red;
+
+        &:hover {
+          background-color: #dc3545;
+        }
+      }
+
+      &.yellow {
+        background-color: #a68909;
+
+        &:hover {
+          background-color: rgb(166, 137, 9, 0.8);
+        }
+      }
+    }
+  }
 }
