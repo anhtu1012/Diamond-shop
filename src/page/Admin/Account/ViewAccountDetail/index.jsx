@@ -62,13 +62,91 @@ function ProfileAccount() {
   const [showPasswordFields, setShowPasswordFields] = useState(false);
 
   const [data, setData] = useState([]);
-  const fetchOderById = async () => {
-    const res = await getOrderById(user.userID);
-    setData(res.data);
+
+  const handleLinkClick = () => {
+    setShowPasswordFields(!showPasswordFields);
+  };
+
+  const onChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
+
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+  };
+
+  const fetchUserByIds = async (userID) => {
+    const response = await fetchUserById(userID);
+    const userData = response.data.data;
+    setUser(userData);
+    console.log(response.data.data);
+    setOriginalValues({
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      email: userData.email,
+      avata: userData.avata,
+      gender: userData.gender,
+      address: userData.address,
+      phoneNumber: userData.phoneNumber,
+      enable: userData.enable,
+      password: userData.password,
+      yearOfBirth: moment(user.yearOfBirth, "YYYY-MM-DD"),
+      role: userData.role.roleID,
+      enabled: userData.enable,
+    });
+
+    form.setFieldsValue({
+      userID: userData.userID,
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      email: userData.email,
+      avata: userData.avata,
+      gender: userData.gender,
+      address: userData.address,
+      phoneNumber: userData.phoneNumber,
+      enable: userData.enable,
+      password: userData.password,
+      yearOfBirth: moment(user.yearOfBirth, "YYYY-MM-DD"),
+      role: userData.role.roleID,
+      createAt: moment(user.createAt, "YYYY-MM-DD"),
+      enabled: userData.enable,
+    });
+    setFileList([
+      {
+        uid: "1",
+        name: "avata",
+        status: "done",
+        url: user.avata,
+      },
+    ]);
   };
   useEffect(() => {
-    fetchOderById();
-  }, []);
+    fetchUserByIds(userID);
+  }, [userID]);
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+  const fetchOrderById = async (userID) => {
+    try {
+      const res = await getOrderById(userID);
+      console.log(res.data);
+      setData(res.data);
+    } catch (error) {
+      console.error("Error fetching order data:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (userID) {
+      fetchUserByIds(userID);
+      fetchOrderById(userID);
+    }
+  }, [userID]);
 
   const renderCard = (order, index, buttonText, buttonColor) => {
     const formattedDate = new Date(order.orderDate).toLocaleString("vi-VN", {
@@ -208,9 +286,7 @@ function ProfileAccount() {
         <Col span={18} className="text-left">
           <span>x {order.quantity} Sản Phẩm</span>
           <div>
-            <Link to={`/don-hang/chi-tiet-don-hang/${order.orderId}`}>
-              Xem Chi Tiết
-            </Link>
+            <Link to={`/`}>Xem Chi Tiết</Link>
           </div>
         </Col>
         <Col span={6} className="text-right">
@@ -231,81 +307,13 @@ function ProfileAccount() {
   const getDeliveredOrders = () => {
     return data?.orders?.filter((order) => order.status === "Đã giao") || [];
   };
-  const handleLinkClick = () => {
-    setShowPasswordFields(!showPasswordFields);
-  };
 
-  const onChange = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
-  };
-
-  const handlePreview = async (file) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
-    }
-    setPreviewImage(file.url || file.preview);
-    setPreviewOpen(true);
-  };
-
-  const fetchUserByIds = async (userID) => {
-    const response = await fetchUserById(userID);
-    const userData = response.data.data;
-    setUser(userData);
-    console.log(response.data.data);
-    setOriginalValues({
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      email: userData.email,
-      avata: userData.avata,
-      gender: userData.gender,
-      address: userData.address,
-      phoneNumber: userData.phoneNumber,
-      enable: userData.enable,
-      password: userData.password,
-      yearOfBirth: moment(user.yearOfBirth, "YYYY-MM-DD"),
-      role: userData.role.roleID,
-      enabled: userData.enable,
-    });
-
-    form.setFieldsValue({
-      userID: userData.userID,
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      email: userData.email,
-      avata: userData.avata,
-      gender: userData.gender,
-      address: userData.address,
-      phoneNumber: userData.phoneNumber,
-      enable: userData.enable,
-      password: userData.password,
-      yearOfBirth: moment(user.yearOfBirth, "YYYY-MM-DD"),
-      role: userData.role.roleID,
-      createAt: moment(user.createAt, "YYYY-MM-DD"),
-      enabled: userData.enable,
-    });
-    setFileList([
-      {
-        uid: "1",
-        name: "avata",
-        status: "done",
-        url: user.avata,
-      },
-    ]);
-  };
-  useEffect(() => {
-    fetchUserByIds(userID);
-  }, [userID]);
-
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
+  const deliveredOrders = getDeliveredOrders();
 
   const handleUpdate = async () => {
     try {
       const values = await form.validateFields();
       let updatedDetails = {};
-
-      // Check if the image needs to be updated
       let avata = originalValues.avata;
       if (fileList.length > 0 && fileList[0].originFileObj) {
         setUploading(true);
@@ -430,7 +438,6 @@ function ProfileAccount() {
     4: "Người dùng",
   };
   const userRole = roleMapping[user.role.roleID];
-  const deliveredOrders = getDeliveredOrders();
 
   return (
     <div className="profile-account">
