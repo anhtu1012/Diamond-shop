@@ -1,14 +1,15 @@
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { Button, Col, Rate, Row, Steps, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { Link, useParams } from "react-router-dom";
-import "./index.scss";
 import { TiArrowBack } from "react-icons/ti";
 import { IoDiamondOutline } from "react-icons/io5";
 import { GiBigDiamondRing } from "react-icons/gi";
-import { getOrderDetail } from "../../../../../services/Uservices";
-import { useEffect, useState } from "react";
-import LoadingTruck from "../../../../components/loading";
 import { VscError } from "react-icons/vsc";
+import { getOrderDetail } from "../../../../services/Uservices";
+import LoadingTruck from "../../../components/loading";
+import "./index.scss";
+
 const statusToStepIndex = {
   "Chờ thanh toán": 0,
   "Chờ giao hàng": 1,
@@ -138,7 +139,7 @@ const renderProductItem = (order, index) => (
   </Row>
 );
 
-function ViewOrderDetailsStaff() {
+function ViewOrderDetailDelivery() {
   const { orderID } = useParams();
 
   const [data, setData] = useState();
@@ -149,7 +150,8 @@ function ViewOrderDetailsStaff() {
   useEffect(() => {
     const fetchGetOrderDetail = async () => {
       const res = await getOrderDetail(orderID);
-      setData(res.data);
+      // For testing purposes, you can set the status here
+      setData({ ...res.data, status: "Chờ giao hàng" });
     };
 
     fetchGetOrderDetail();
@@ -206,7 +208,7 @@ function ViewOrderDetailsStaff() {
                     }}
                   >
                     <Link
-                      to={"/don-hang"}
+                      to={"/delivery-page/don-hang-moi"}
                       style={{ color: "black", fontWeight: 600 }}
                     >
                       <TiArrowBack style={{ justifyContent: "center" }} /> Quay
@@ -217,7 +219,7 @@ function ViewOrderDetailsStaff() {
                 <p
                   style={{
                     fontWeight: "400",
-                    background: "#15393f", 
+                    background: "#15393f",
                     color: "white",
                     border: "2px solid black",
                     gap: "5px",
@@ -461,4 +463,4 @@ function ViewOrderDetailsStaff() {
   );
 }
 
-export default ViewOrderDetailsStaff;
+export default ViewOrderDetailDelivery;

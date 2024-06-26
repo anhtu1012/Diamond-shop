@@ -115,14 +115,14 @@ function CapNhatDon() {
           {record.status === "Chờ giao hàng" ? (
             <Link
             
-              to={`/delivery-page/chi-tiet-don-hang1/${record.orderID}`}
+              to={`/delivery-page/chi-tiet-don-hang/${record.orderID}`}
               style={{ fontWeight: "bold" }}
             >
               Xem chi tiết
             </Link>
           ) : (
             <Link
-              to={`/delivery-page/don-hang/order-detail/${record.orderID}`}
+              to={`/delivery-page/don-hang/chi-tiet-don-hang/${record.orderID}`}
               style={{ fontWeight: "bold" }}
             >
               Xem chi tiết
