@@ -1,0 +1,87 @@
+.tong-order-detail {
+  .row {
+    padding-bottom: 5px;
+  }
+  .ant-select-selector {
+    border-radius: 8px 0px 0px 8px !important;
+    border-right: none !important;
+  }
+  .step-cancelled {
+    .css-dev-only-do-not-override-zg0ahe.ant-steps
+      .ant-steps-item-process
+      .ant-steps-item-icon {
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+  .step-cancelled {
+    .ant-steps-item-error .ant-steps-item-icon {
+      background-color: red !important;
+    }
+  }
+  .custom-form-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .custom-form-item .ant-form-item-label {
+    margin-bottom: 0px; // Adjust spacing as needed
+  }
+
+  .custom-form-item .ant-form-item-control {
+    width: 100%;
+  }
+
+  .table-container {
+    display: flex;
+    justify-content: center;
+
+    .custom-table {
+      width: 80%;
+      border-collapse: collapse;
+      border: 1px solid #efefef;
+
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #efefef;
+        font-family: helvetica-neue;
+        padding-left: 20px;
+        color: #15393f;
+        height: 45px;
+      }
+
+      th {
+        border: none;
+        border-right: 1px solid #efefef;
+        color: #222;
+        font-family: helvetica-neue;
+        font-size: 12px;
+        font-weight: 400;
+        text-transform: uppercase;
+        width: 150px;
+        border-bottom: 1px solid #efefef;
+      }
+
+      tr:nth-child(2n) td {
+        background-color: #f2f2f2; // Màu xám nhạt cho hàng chẵn
+      }
+
+      tr:nth-child(2n + 1) td {
+        background-color: #fff; // Màu trắng cho hàng lẻ
+      }
+      tr:nth-child(2n) th {
+        background-color: #f2f2f2; // Màu xám nhạt cho hàng chẵn
+      }
+
+      tr:nth-child(2n + 1) th {
+        background-color: #fff; // Màu trắng cho hàng lẻ
+      }
+
+      td {
+        color: #15393f;
+      }
+    }
+  }
+}

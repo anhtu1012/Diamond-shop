@@ -3,19 +3,20 @@ import { GiBigDiamondRing } from "react-icons/gi";
 import { IoDiamondOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import "./index.scss"; // Import your SCSS file for styling
-import { getNewOrder } from "../../../../services/Uservices";
-import { useEffect, useState } from "react";
 
-function NewOrder() {
+import { useEffect, useState } from "react";
+import { getNewOrder } from "../../../../services/Uservices";
+
+function NewOrderDelivery() {
   const [data, setData] = useState([]);
-  
+
   const fetchNewOrder = async () => {
     try {
       const res = await getNewOrder();
-      setData(res.data);
+      setData(res.data); // Assuming res.data is an array
     } catch (error) {
-      console.error("Error fetching new order:", error);
-      setData([]); // Set data to an empty array in case of error
+      console.error("Error fetching new orders:", error);
+      setData([]); // Set data to empty array in case of error
     }
   };
 
@@ -25,7 +26,7 @@ function NewOrder() {
 
   return (
     <>
-      {Array.isArray(data) && data.length > 0 ? (
+      {data.length > 0 ? (
         data.map((userData) => (
           <div key={userData.userId} className="oder_main">
             <h2 className="UserID-code">US: {userData.userId}</h2>
@@ -39,7 +40,7 @@ function NewOrder() {
                   hour: "2-digit",
                   minute: "2-digit",
                   second: "2-digit",
-                  hour12: false, // Sử dụng định dạng 24 giờ thay vì AM/PM
+                  hour12: false,
                 }
               );
               return (
@@ -52,25 +53,28 @@ function NewOrder() {
                     <div className="new_order_odID">
                       <span>OD: {order.orderId}</span>
                     </div>
-                    {order.productCustomize && order.productCustomize.product && (
-                      <img
-                        className="new_order_mg_main"
-                        src={
-                          order.productCustomize.product.productImages[0].imageUrl
-                        }
-                        width={130}
-                        alt={order.productCustomize.product.productName}
-                        style={{ marginLeft: "75px", top: "-10px" }}
-                      />
-                    )}
-                    {order.productCustomize && order.productCustomize.product && (
-                      <div style={{ marginLeft: "85px" }}>
-                        <Button className="new_order_button_custom">
-                          Size: {order.productCustomize.size}
-                        </Button>
-                      </div>
-                    )}
-                    {(order.cusproductCustomizetom?.diamond || order.diamond) && (
+                    {order.productCustomize &&
+                      order.productCustomize.product && (
+                        <img
+                          className="new_order_mg_main"
+                          src={
+                            order.productCustomize.product.productImages[0]
+                              .imageUrl
+                          }
+                          width={130}
+                          alt={order.productCustomize.product.productName}
+                          style={{ marginLeft: "75px", top: "-10px" }}
+                        />
+                      )}
+                    {order.productCustomize &&
+                      order.productCustomize.product && (
+                        <div style={{ marginLeft: "85px" }}>
+                          <Button className="new_order_button_custom">
+                            Size: {order.productCustomize.size}
+                          </Button>
+                        </div>
+                      )}
+                    {(order.productCustomize?.diamond || order.diamond) && (
                       <img
                         src={
                           order.productCustomize?.diamond?.image ||
@@ -90,35 +94,39 @@ function NewOrder() {
                   </Col>
 
                   <Col span={10} className="new_order_right">
-                    {order.productCustomize && order.productCustomize.product && (
-                      <div className="new_order_info_product">
-                        <div>
-                          <GiBigDiamondRing
-                            size={25}
-                            className="new_order_icon_order"
-                          />
+                    {order.productCustomize &&
+                      order.productCustomize.product && (
+                        <div className="new_order_info_product">
+                          <div>
+                            <GiBigDiamondRing
+                              size={25}
+                              className="new_order_icon_order"
+                            />
+                          </div>
+                          <div className="new_order_info_sub">
+                            <span>
+                              {order.productCustomize.product.productName}
+                              {" - "}
+                              {order.productCustomize.product.shapeDiamond}{" "}
+                              {order.productCustomize.product.dimensionsDiamond}{" "}
+                              ly
+                            </span>
+                            <p style={{ fontWeight: 400, fontSize: "13px" }}>
+                              {" "}
+                              {order.productCustomize.product.productID}
+                            </p>
+                            <Rate
+                              disabled
+                              defaultValue={
+                                order.productCustomize.product.rating
+                              }
+                              style={{
+                                fontSize: "13px",
+                              }}
+                            />
+                          </div>
                         </div>
-                        <div className="new_order_info_sub">
-                          <span>
-                            {order.productCustomize.product.productName}
-                            {" - "}
-                            {order.productCustomize.product.shapeDiamond}{" "}
-                            {order.productCustomize.product.dimensionsDiamond} ly
-                          </span>
-                          <p style={{ fontWeight: 400, fontSize: "13px" }}>
-                            {" "}
-                            {order.productCustomize.product.productID}
-                          </p>
-                          <Rate
-                            disabled
-                            defaultValue={order.productCustomize.product.rating}
-                            style={{
-                              fontSize: "13px",
-                            }}
-                          />
-                        </div>
-                      </div>
-                    )}
+                      )}
                     <div className="new_order_info_diamond">
                       <div>
                         <IoDiamondOutline
@@ -131,7 +139,12 @@ function NewOrder() {
                           {order.productCustomize?.diamond?.diamondName ||
                             order.diamond.diamondName}
                         </p>
-                        <div style={{ fontWeight: 400, fontSize: "13px" }}>
+                        <div
+                          style={{
+                            fontWeight: 400,
+                            fontSize: "13px",
+                          }}
+                        >
                           <span>
                             Carat:{" "}
                             {order.productCustomize?.diamond?.carat ||
@@ -166,7 +179,10 @@ function NewOrder() {
                           >
                             Kiểm định:{" "}
                             <span
-                              style={{ color: "#e4bd7b", fontWeight: "bold" }}
+                              style={{
+                                color: "#e4bd7b",
+                                fontWeight: "bold",
+                              }}
                             >
                               {" "}
                               {order.diamond.certificate}{" "}
@@ -197,7 +213,7 @@ function NewOrder() {
                     <span>x {order.quantity} Sản Phẩm</span>
                     <div>
                       <Link
-                        to={`/staff-page/chi-tiet-don-hang/${order.orderId}`}
+                        to={`/delivery-page/chi-tiet-don-hang/${order.orderId}`}
                         style={{ color: "#e4bd7b" }}
                       >
                         Xem chi tiết
@@ -215,8 +231,10 @@ function NewOrder() {
                       đ
                     </h3>
                     <button>
-                      <Link to={`/staff-page/chi-tiet-don-hang/${order.orderId}`}>
-                        Nhận tư vấn
+                      <Link
+                        to={`/delivery-page/chi-tiet-don-hang1/${order.orderId}`}
+                      >
+                        Nhận đơn hàng
                       </Link>
                     </button>
                   </Col>
@@ -226,10 +244,10 @@ function NewOrder() {
           </div>
         ))
       ) : (
-        <p>Không có đơn hàng mới</p> 
+        <div className="loading-message">Không có đơn hàng mới</div>
       )}
     </>
   );
 }
 
-export default NewOrder;
+export default NewOrderDelivery;
