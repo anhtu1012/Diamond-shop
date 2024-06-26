@@ -1,5 +1,14 @@
+/* eslint-disable react/prop-types */
 import { SearchOutlined } from "@ant-design/icons";
-import { Badge, Button, Dropdown, Modal, Tooltip, message } from "antd";
+import {
+  Badge,
+  Button,
+  Dropdown,
+  Modal,
+  Tooltip,
+  message,
+  notification,
+} from "antd";
 import { useEffect, useState } from "react";
 import {
   FaFacebookSquare,
@@ -10,7 +19,11 @@ import {
   FaUserSecret,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { getQuantityCart, logoutApi } from "../../../services/Uservices";
+import {
+  getOrderWaitPay,
+  getQuantityCart,
+  logoutApi,
+} from "../../../services/Uservices";
 import "./index.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../../redux/features/counterSlice";
@@ -97,17 +110,8 @@ const trangSucKimCuongItems = [
     key: "bo-suu-tap-kim-cuong",
   },
 ];
-const kimcuongvienItems = [
-  {
-    label: (
-      <div style={{ fontSize: "15px", padding: "5px 20px" }}>
-        Kim Cương GIA
-      </div>
-    ),
-    key: "kim-cuong-gia",
-  },
-]
-function Header() {
+
+function Header({ quantity, setQuantity }) {
   const onClick = ({ key }) => {
     // message.info(`Click on item ${key}`);
     navigate(`${key}`);
@@ -115,7 +119,8 @@ function Header() {
 
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const [quantity, setQuantity] = useState(false);
+
+  const [quantityWaitPay, setQuantityWaitPay] = useState(false);
   const navigate = useNavigate(); // Hook useNavigate
   const user = useSelector(selectUser);
   console.log(user);
@@ -130,6 +135,36 @@ function Header() {
     };
 
     fetchQuantity();
+  }, []);
+
+  useEffect(() => {
+    const fetchOrderWaitPay = async () => {
+      try {
+        const res = await getOrderWaitPay(user.userID);
+        setQuantityWaitPay(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchOrderWaitPay();
+  }, []);
+  useEffect(() => {
+    const sendNotification = () => {
+      if (quantityWaitPay > 0) {
+        notification.warning({
+          message: "Nhắc nhở thanh toán",
+          description: `Bạn có ${quantityWaitPay} đơn hàng chờ thanh toán. Vui lòng thanh toán ngay!`,
+          duration: 5,
+        });
+      }
+    };
+
+    sendNotification();
+
+    const intervalId = setInterval(sendNotification, 300000);
+
+    return () => clearInterval(intervalId);
   }, []);
   useEffect(() => {
     const handleScroll = () => {
@@ -248,7 +283,12 @@ function Header() {
                 placement="bottom"
                 arrow
               >
-                <FaUserCog onClick={(e) => e.preventDefault()} />
+                <Badge count={quantityWaitPay} size="small">
+                  <FaUserCog
+                    style={{ fontSize: "25px", color: "#828282" }}
+                    onClick={(e) => e.preventDefault()}
+                  />
+                </Badge>
               </Dropdown>
             </div>
           )}
@@ -287,15 +327,7 @@ function Header() {
             </Dropdown>
           </li>
           <li>
-          <Dropdown
-              menu={{
-                items: kimcuongvienItems,
-                onClick,
-              }}
-            >
-              <Link to="/kim-cuong-vien">Kim cương viên</Link>
-            </Dropdown>
-            
+            <Link to="/kim-cuong-vien">Kim cương viên</Link>
           </li>
           <li>
             <Link to="/huong-dan-do-ni">Hướng dẫn</Link>

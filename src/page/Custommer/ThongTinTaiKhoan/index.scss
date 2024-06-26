@@ -1,4 +1,16 @@
 .tong-trang-detail {
+  .custom-search .ant-btn {
+    background-color: #15393f;
+    border-color: #15393f;
+    &:hover {
+      background-color: #15393f;
+      border-color: #15393f;
+    }
+  }
+
+  .custom-search .ant-input::placeholder {
+    color: gray;
+  }
   .upload_image {
     display: flex;
     justify-content: center;

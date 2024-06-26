@@ -197,7 +197,7 @@ function KimCuongGIA() {
                 >
                   <Link to={`/product-details`}>
                     {" "}
-                    {/* /${product.id} */}
+                    
                     <div
                       style={{ padding: "20px 0px", width: "250px !important" }}
                     >

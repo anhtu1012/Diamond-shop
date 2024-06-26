@@ -7,10 +7,14 @@ import { Col, Image, Rate, Row, Select, Space, message } from "antd";
 import { GiBigDiamondRing } from "react-icons/gi";
 import { IoDiamondOutline } from "react-icons/io5";
 import { TbTruckDelivery } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { Option } from "antd/es/mentions";
 import { useDispatch, useSelector } from "react-redux";
-import { clearDiamond, clearProduct, selectUser } from "../../../redux/features/counterSlice";
+import {
+  clearDiamond,
+  clearProduct,
+  selectUser,
+} from "../../../redux/features/counterSlice";
 import { addToCartCustomize } from "../../../../services/Uservices";
 
 function Complete({ diamond, product, setCurrentStep }) {
@@ -40,8 +44,13 @@ function Complete({ diamond, product, setCurrentStep }) {
   const handleSizeChange = (value) => {
     setSelectedSize(value);
   };
+  const { setQuantity } = useOutletContext();
   const hanldeAddToCart = async () => {
     try {
+      if (!selectedSize) {
+        message.error("Vui lòng chọn size!");
+        return;
+      }
       const customizeRequest = {
         productId: product.productID,
         diamondId: diamond.diamondID,
@@ -49,10 +58,11 @@ function Complete({ diamond, product, setCurrentStep }) {
         totalPrice: totalPriceCustom,
       };
       await addToCartCustomize(user.userID, customizeRequest);
+      setQuantity((prev) => prev + 1);
       message.success("Thêm vào giỏ hàng thành công!");
       dispatch(clearProduct());
       dispatch(clearDiamond());
-      setCurrentStep(1); 
+      setCurrentStep(1);
     } catch (error) {
       message.error("Có lỗi xảy ra. Vui lòng thử lại!");
       console.error("Error adding to cart:", error);
@@ -187,6 +197,7 @@ function Complete({ diamond, product, setCurrentStep }) {
                 <h4>Chọn Kích Thước:</h4>
                 <Select
                   placeholder="Size"
+                  aria-required
                   style={{
                     width: 100,
                     height: "30px",

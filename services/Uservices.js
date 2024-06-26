@@ -123,6 +123,26 @@ export const getQuantityCart = (user_id) => {
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/carts/${user_id}`
   );
 };
+export const getOrderWaitPay = (user_id) => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/orders/orderWaitPay/${user_id}`
+  );
+};
+export const getWarrantyCard = (user_id) => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/warrantycards/user/${user_id}`
+  );
+};
+export const getOrderPending = () => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/orders/orderpending`
+  );
+};
+export const getWarrantyById = (warrantyCard_id) => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/warrantycards/warrantyCard_id/${warrantyCard_id}`
+  );
+};
 export const addToCartCustomize = (userID, customizeRequest) => {
   return api.post(
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/productcustomes/create_customizeProduct/${userID}`,

@@ -5,40 +5,12 @@ import {
   SketchCircleFilled,
   UserOutlined,
 } from "@ant-design/icons";
-import { Menu } from "antd";
+import { Badge, Menu, notification } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./layout.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getOrderPending } from "../../../services/Uservices";
 
-const items = [
-  {
-    key: "/staff-page/don-hang-moi",
-    icon: <ShoppingCartOutlined className="side-icon" />,
-    label: <h3>Đơn Hàng Mới</h3>,
-  },
-  {
-    key: "/staff-page/don-hang",
-    icon: <ShoppingCartOutlined className="side-icon" />,
-    label: "Đơn Hàng",
-  },
-  {
-    key: "/staff-page/tai-khoan",
-    icon: <UserOutlined className="side-icon" />,
-    label: "Tài Khoản",
-  },
-  {
-    key: "/staff-page/san-pham",
-    icon: <ProductOutlined className="side-icon" />,
-
-    label: "Sản Phẩm",
-  },
-  {
-    key: "/staff-page/bao-hanh",
-    icon: <ContainerOutlined className="side-icon" />,
-
-    label: "Phiếu Bảo Hành",
-  },
-];
 // eslint-disable-next-line react/prop-types
 function SidenavS({ collapsed }) {
   const navigate = useNavigate(); // Hook useNavigate
@@ -57,6 +29,73 @@ function SidenavS({ collapsed }) {
       children: item.children ? addSelectedItemClass(item.children) : undefined,
     }));
 
+  const [quantityPending, setQuantityPending] = useState();
+  useEffect(() => {
+    const fetchOrderPeding = async () => {
+      try {
+        const res = await getOrderPending();
+        setQuantityPending(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchOrderPeding();
+  }, []);
+  useEffect(() => {
+    const sendNotification = () => {
+      if (quantityPending > 0) {
+        notification.warning({
+          message: "Nhắc nhở đơn xác nhận",
+          description: `Bạn có ${quantityPending} đơn hàng gần xác nhận. Vui lòng xác nhận ngay cho khách!`,
+          duration: 5,
+        });
+      }
+    };
+
+    sendNotification();
+
+    const intervalId = setInterval(sendNotification, 300000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+  const items = [
+    {
+      key: "/staff-page/don-hang-moi",
+      icon: (
+        <Badge count={quantityPending} size="small">
+          {" "}
+          <ShoppingCartOutlined
+            style={{ fontSize: "25px", color: "black" }}
+            className="side-icon"
+          />
+        </Badge>
+      ),
+      label: <h3>Đơn Hàng Mới</h3>,
+    },
+    {
+      key: "/staff-page/don-hang",
+      icon: <ShoppingCartOutlined className="side-icon" />,
+      label: "Đơn Hàng",
+    },
+    {
+      key: "/staff-page/tai-khoan",
+      icon: <UserOutlined className="side-icon" />,
+      label: "Tài Khoản",
+    },
+    {
+      key: "/staff-page/san-pham",
+      icon: <ProductOutlined className="side-icon" />,
+
+      label: "Sản Phẩm",
+    },
+    {
+      key: "/staff-page/bao-hanh",
+      icon: <ContainerOutlined className="side-icon" />,
+
+      label: "Phiếu Bảo Hành",
+    },
+  ];
   const logoClass = collapsed ? "collapsed-logo" : "";
   return (
     <>

@@ -15,7 +15,7 @@ import {
   notification,
 } from "antd";
 import { IoDiamondOutline, IoTicket } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import Relate from "../../../components/carousel/related";
 import Container from "../../../components/container/Container";
 import "./index.scss";
@@ -34,6 +34,7 @@ const { Option } = Select;
 
 function Cart() {
   const [form] = Form.useForm();
+  
   const [email, setEmail] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [provinces, setProvinces] = useState([]);
@@ -116,6 +117,7 @@ function Cart() {
   const navigate = useNavigate();
   const handleSubmit = async () => {
     try {
+   
       // Lấy giá trị từ form
       const formValues = await form.validateFields();
       const isAddressChanged =
