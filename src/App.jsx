@@ -286,7 +286,7 @@ const router = createBrowserRouter([
         element: <AllOrder />,
       },
       {
-        path: "don-hang/all/order-detail/:orderID",
+        path: "/admin-page/don-hang/all/order-detail/:orderID",
         element: <ViewOrderDetails />,
       },
       {

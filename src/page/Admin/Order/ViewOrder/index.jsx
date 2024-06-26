@@ -5,150 +5,73 @@ import "./index.scss";
 import { TiArrowBack } from "react-icons/ti";
 import { IoDiamondOutline } from "react-icons/io5";
 import { GiBigDiamondRing } from "react-icons/gi";
-
-const data = [
-  {
-    odID: "OD123456",
-    dateOD: "19-06-2003",
-    status: "Đã giao",
-    user: {
-      userID: "US123456",
-      firstName: "Nguyen Thanh",
-      lastName: "Hai",
-      gender: "Nam",
-      email: "hai263672@gmail.com",
-      birthDay: "13-01-2003",
-      phone: "0916306945",
-      address: "24/9B, Vo van Hat, Ho Chi Minh",
-    },
-    custom: {
-      product: {
-        productID: "01117BT",
-        productName: "BÔNG TAI KIM CƯƠNG 18K",
-        shapeDiamond: "Round",
-        dimensionsDiamond: 5,
-        productType: "Bông Tai",
-        totalPrice: 53053440,
-        rating: 4.5,
-        status: true,
-        productImages:
-          "https://jemmia.vn/wp-content/uploads/2024/04/1-copy-5.jpg",
-        feedbacks: [],
-      },
-      diamond: {
-        diamondID: "1453851108",
-        diamondName: "KIM CƯƠNG VIÊN GIA 3LY6 – 6471017231",
-        carat: 0.61,
-        certificate: "GIA",
-        clarify: "VS2",
-        color: "Trắng",
-        colorLevel: "F",
-        cut: "Excellent",
-        shape: "Round",
-        dimensions: 5.4,
-        flourescence: "FAINT",
-        image:
-          "https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/kim-cuong-vien.png?alt=media&token=4fdf38b3-e37c-4e59-9906-3bae83608fe2",
-        status: true,
-        totalPrice: 748000000,
-        feedbacks: [],
-      },
-      sizes: 45,
-    },
-  },
-  {
-    odID: "OD123456",
-    dateOD: "19-06-2003",
-    status: "Đã giao",
-    user: {
-      userID: "US123456",
-      firstName: "Nguyen Thanh",
-      lastName: "Hai",
-      gender: "Nam",
-      email: "hai263672@gmail.com",
-      birthDay: "13-01-2003",
-      phone: "0916306945",
-      address: "24/9B, Vo van Hat, Ho Chi Minh",
-    },
-    custom: null,
-    diamond: {
-      diamondID: "1453851107",
-      diamondName: "KIM CƯƠNG VIÊN GIA 3LY6 – 6471017231",
-      carat: 0.61,
-      certificate: "GIA",
-      clarify: "VS2",
-      color: "Trắng",
-      colorLevel: "F",
-      cut: "Excellent",
-      shape: "Round",
-      dimensions: 5.4,
-      flourescence: "FAINT",
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/kim-cuong-vien.png?alt=media&token=4fdf38b3-e37c-4e59-9906-3bae83608fe2",
-      status: true,
-      totalPrice: 748000000,
-      feedbacks: [],
-    },
-  },
-];
-
+import { getOrderDetail } from "../../../../../services/Uservices";
+import { useEffect, useState } from "react";
+import LoadingTruck from "../../../../components/loading";
+import { VscError } from "react-icons/vsc";
 const statusToStepIndex = {
-  "Chờ giao hàng": 0,
-  "Đang giao": 1,
+  "Chờ thanh toán": 0,
+  "Chờ giao hàng": 1,
   "Đã giao": 2,
+  "Đã hủy": 3,
 };
 
 const renderProductItem = (order, index) => (
   <Row className="staff_order_frame" key={index}>
     <Col span={7} className="staff_order_left">
-      {order.custom && order.custom.product && (
+      {order.productCustomize && order.productCustomize.product && (
         <img
           className="img_main"
-          src={order.custom.product.productImages}
+          src={order.productCustomize.product.productImages[0].imageUrl}
           width={130}
-          style={{ marginLeft: "90px" }}
+          style={{ marginLeft: "80px" }}
         />
       )}
 
-      {order.custom && order.custom.product && (
+      {order.productCustomize && order.productCustomize.product && (
         <div style={{ textAlign: "center" }}>
-          <Button className="button_custom">Size: {order.custom.sizes}</Button>
+          <Button className="button_custom">
+            Size: {order.productCustomize.size}
+          </Button>
         </div>
       )}
-      {(order.custom?.diamond || order.diamond) && (
+      {(order.productCustomize?.diamond || order.diamond) && (
         <img
-          src={order.custom?.diamond?.image || order.diamond?.image}
+          src={order.productCustomize?.diamond?.image || order.diamond?.image}
           className={`staff_order_kimg ${
-            order.custom?.product
+            order.productCustomize?.product
               ? "staff_order_kimg_kid"
               : "staff_order_kimg_main"
           }`}
-          alt={order.custom?.diamond?.diamondName || order.diamond?.diamondName}
-          style={{ marginLeft: "80px" }}
+          alt={
+            order.productCustomize?.diamond?.diamondName ||
+            order.diamond?.diamondName
+          }
+          style={{ marginLeft: "90px" }}
         />
       )}
     </Col>
 
     <Col span={17} className="staff_order_right">
-      {order.custom && order.custom.product && (
+      {order.productCustomize && order.productCustomize.product && (
         <div className="info_product">
           <div>
             <GiBigDiamondRing size={25} className="icon_order" />
           </div>
           <div className="info_sub">
             <span>
-              {order.custom.product.productName}
+              {order.productCustomize.product.productName}
               {" - "}
-              {order.custom.product.shapeDiamond}{" "}
-              {order.custom.product.dimensionsDiamond} ly
+              {order.productCustomize.product.shapeDiamond}{" "}
+              {order.productCustomize.product.dimensionsDiamond} ly
             </span>
             <p style={{ fontWeight: 400, fontSize: "13px" }}>
               {" "}
-              {order.custom.product.productID}
+              {order.productCustomize.product.productID}
             </p>
             <Rate
               disabled
-              defaultValue={order.custom.product.rating}
+              defaultValue={order.productCustomize.product.rating}
               style={{
                 fontSize: "13px",
               }}
@@ -162,24 +85,31 @@ const renderProductItem = (order, index) => (
         </div>
         <div className="info_sub">
           <p>
-            {order.custom?.diamond?.diamondName || order.diamond.diamondName}
+            {order.productCustomize?.diamond?.diamondName ||
+              order.diamond.diamondName}
           </p>
           <div style={{ fontWeight: 400, fontSize: "13px" }}>
             <span>
-              Carat: {order.custom?.diamond?.carat || order.diamond.carat}
+              Carat:{" "}
+              {order.productCustomize?.diamond?.carat || order.diamond.carat}
             </span>
             {" - "}
             <span>
               Tinh Khiết :
-              {order.custom?.diamond?.clarify || order.diamond.clarify}
+              {order.productCustomize?.diamond?.clarify ||
+                order.diamond.clarify}
             </span>
             {" - "}
             <span>
               Cấp Màu :
-              {order.custom?.diamond?.colorLevel || order.diamond.colorLevel}
+              {order.productCustomize?.diamond?.colorLevel ||
+                order.diamond.colorLevel}
             </span>
             {" - "}
-            Cắt: <span>{order.custom?.diamond?.cut || order.diamond.cut}</span>
+            Cắt:{" "}
+            <span>
+              {order.productCustomize?.diamond?.cut || order.diamond.cut}
+            </span>
           </div>
           {order.diamond && (
             <div
@@ -198,9 +128,7 @@ const renderProductItem = (order, index) => (
     <Col span={24} className="price">
       <span style={{ textAlign: "right" }}>
         {(
-          order.custom?.product?.totalPrice ||
-          order.custom?.diamond?.totalPrice ||
-          order.diamond.totalPrice
+          order.productCustomize?.totalPrice || order.diamond.totalPrice
         ).toLocaleString("de-DE", {
           maximumFractionDigits: 2,
         })}{" "}
@@ -211,21 +139,35 @@ const renderProductItem = (order, index) => (
 );
 
 function ViewOrderDetails() {
-  const { odID } = useParams();
-  const order = data.find((d) => d.odID === odID);
-  const currentStepIndex = statusToStepIndex[order.status];
+  const { orderID } = useParams();
 
-  const totalPrice =
-    order.custom.product.totalPrice + order.custom.diamond.totalPrice;
-
-  if (!order) {
-    return <div>Order not found</div>;
-  }
-
+  const [data, setData] = useState();
   const {
     token: { borderRadiusLG },
   } = theme.useToken();
 
+  useEffect(() => {
+    const fetchGetOrderDetail = async () => {
+      const res = await getOrderDetail(orderID);
+      setData(res.data);
+    };
+
+    fetchGetOrderDetail();
+  }, [orderID]);
+
+  const currentStepIndex = statusToStepIndex[data?.status];
+  const formattedDate = new Date(data?.orderDate).toLocaleString("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    // hour: "2-digit",
+    // minute: "2-digit",
+    // second: "2-digit",
+  });
+
+  if (!data) {
+    return <LoadingTruck />;
+  }
   return (
     <div className="tong-order-detail">
       <div className="order-detail-1">
@@ -264,7 +206,7 @@ function ViewOrderDetails() {
                     }}
                   >
                     <Link
-                      to={"/admin-page/don-hang/all"}
+                      to={"/don-hang"}
                       style={{ color: "black", fontWeight: 600 }}
                     >
                       <TiArrowBack style={{ justifyContent: "center" }} /> Quay
@@ -285,7 +227,7 @@ function ViewOrderDetails() {
                     marginBottom: "10px",
                   }}
                 >
-                  Đặt ngày {order.dateOD}
+                  Đặt ngày: {formattedDate}
                 </p>
                 <p
                   style={{
@@ -298,10 +240,12 @@ function ViewOrderDetails() {
                     width: "10%",
                   }}
                 >
-                  {order.odID}
+                  {data.orderID}
                 </p>
                 <div>
-                  {data.map((order, index) => renderProductItem(order, index))}
+                  {data.orderDetails.map((order, index) =>
+                    renderProductItem(order, index)
+                  )}
                 </div>
               </div>
             </Content>
@@ -319,27 +263,44 @@ function ViewOrderDetails() {
             <div
               style={{
                 padding: 16,
-                minHeight: 190,
+                minHeight: 170,
                 background: "#fff",
                 borderRadius: borderRadiusLG,
                 boxShadow: "0px 0px 4px",
               }}
             >
               <Col span={24}>
-                <div className="step-giao-hang">
+                <div
+                  className={`step-giao-hang ${
+                    data.status === "Đã hủy" ? "step-cancelled" : ""
+                  }`}
+                >
                   <Steps
                     direction="vertical"
                     current={currentStepIndex}
-                    style={{ gap: "18px" }}
+                    style={{ gap: "2px" }}
                     items={[
+                      {
+                        title: "Chờ Thanh Toán",
+                      },
                       {
                         title: "Chờ giao hàng",
                       },
                       {
-                        title: "Đang giao",
+                        title: "Đã giao",
                       },
                       {
-                        title: "Đã giao",
+                        title: "Đã hủy",
+                        icon: data.status === "Đã hủy" && (
+                          <VscError
+                            size={35}
+                            style={{
+                              color: "white",
+                              background: "red",
+                              borderRadius: "50%",
+                            }}
+                          />
+                        ),
                       },
                     ]}
                   />
@@ -376,29 +337,32 @@ function ViewOrderDetails() {
                 >
                   <div className="row">
                     <p>Họ và Tên:</p>
-                    <span>
-                      {order.user.firstName} {order.user.lastName}
-                    </span>
+                    <span>{data.fullName}</span>
                   </div>
+
                   <div className="row">
                     <p>Email:</p>
-                    <span>{order.user.email}</span>
+                    <span>{data.email}</span>
                   </div>
                   <div className="row">
                     <p>Giới tính:</p>
-                    <span>{order.user.gender}</span>
-                  </div>
-                  <div className="row">
-                    <p>Sinh nhật:</p>
-                    <span>{order.user.birthDay}</span>
+                    <span>{data.gender}</span>
                   </div>
                   <div className="row">
                     <p>Địa chỉ:</p>
-                    <span>{order.user.address}</span>
+                    <span>{data.addressShipping}</span>
                   </div>
                   <div className="row">
                     <p>Số điện thoại:</p>
-                    <span>{order.user.phone}</span>
+                    <span>{data.phoneShipping}</span>
+                  </div>
+                  <div className="row">
+                    <p>Ghi Chú:</p>
+                    <span>{data.note}</span>
+                  </div>
+                  <div className="row">
+                    <p>Lí do:</p>
+                    <span>{data.reason}</span>
                   </div>
                 </div>
               </Content>
@@ -428,33 +392,50 @@ function ViewOrderDetails() {
                     className="total-price"
                     style={{ marginTop: "5px", textAlign: "left" }}
                   >
-                    <div className="row">
-                      <p>Giá nhẫn:</p>
-                      <span>
-                        {order.custom.product.totalPrice.toLocaleString(
-                          "vi-VN",
-                          {
-                            maximumFractionDigits: 0,
-                          }
-                        )} vnđ
-                      </span>
+                    <div>
+                      {data.orderDetails.length === 1 ? (
+                        <div className="row">
+                          <p>Giá Sản Phẩm 1 :</p>
+                          <span>
+                            {data.orderDetails[0].price.toLocaleString(
+                              "vi-VN",
+                              {
+                                maximumFractionDigits: 0,
+                              }
+                            )}{" "}
+                            vnđ
+                          </span>
+                        </div>
+                      ) : (
+                        data.orderDetails.map((order, index) => (
+                          <div className="row" key={index === 1}>
+                            <p>Giá Sản Phẩm {index + 1}:</p>
+                            <span>
+                              {order.price.toLocaleString("vi-VN", {
+                                maximumFractionDigits: 0,
+                              })}{" "}
+                              vnđ
+                            </span>
+                          </div>
+                        ))
+                      )}
                     </div>
+
                     <div className="row">
-                      <p>Giá kim cương:</p>
+                      <p>Giảm giá :</p>
                       <span>
-                        {order.custom.diamond.totalPrice.toLocaleString(
-                          "vi-VN",
-                          {
-                            maximumFractionDigits: 0,
-                          }
-                        )} vnđ
+                        -{" "}
+                        {data.discount.toLocaleString("vi-VN", {
+                          maximumFractionDigits: 0,
+                        })}{" "}
+                        vnđ
                       </span>
                     </div>
                     <div className="row">
                       <p>Giao hàng:</p>
                       <span>Miễn phí</span>
                     </div>
-                    <div className="row" style={{ marginTop: "65px" }}>
+                    <div className="row" style={{ marginTop: "25px" }}>
                       <p style={{ fontSize: "20px" }}>Tổng giá:</p>
                       <span
                         style={{
@@ -463,9 +444,10 @@ function ViewOrderDetails() {
                           fontWeight: "500",
                         }}
                       >
-                        {totalPrice.toLocaleString("vi-VN", {
+                        {data.price.toLocaleString("vi-VN", {
                           maximumFractionDigits: 0,
-                        })} vnđ
+                        })}{" "}
+                        vnđ
                       </span>
                     </div>
                   </div>
