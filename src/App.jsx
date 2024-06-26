@@ -66,21 +66,21 @@ import KimCuongVienTest from "./page/Custommer/KimCuongVien copy";
 
 import ViewOrderDetailsStaff from "./page/Staff/Order/ViewOrderDetail";
 
-import DeliveryPage from "./page/Delivery/delivery-page";
-import NewOrderDelivery from "./page/Delivery/New-Order-Delivery";
-import DetailNewOrderDelivery from "./page/Delivery/Order-detail";
-import CapNhatDon from "./page/Delivery/cap-nhat-don";
-import LichSuGiao from "./page/Delivery/lich-su-giao";
+import DeliveryPage from "./page/Delivery/DeliveryPape";
+import NewOrderDelivery from "./page/Delivery/NewOrderDelivery";
+import DetailNewOrderDelivery from "./page/Delivery/OrderDetail";
+import CapNhatDon from "./page/Delivery/CapNhatDon";
+import LichSuGiao from "./page/Delivery/LichSuGiao";
 
 import ViewOrderDetailsCusTom from "./page/Custommer/Order/ViewOrderDetail";
 
 import WarrantyCus from "./page/Custommer/Bao-Hanh";
 
-import ChiTietCapNhat from "./page/Delivery/chi-tiet-cap-nhat";
+import ChiTietCapNhat from "./page/Delivery/ChiTietCapNhat";
 import KimCuongGIA from "./page/Custommer/KimCuongGIA";
-import XemDonDaGiao from "./page/Delivery/xem-don-da-giao";
+import XemDonDaGiao from "./page/Delivery/XemDonDaGiao";
 
-import DetailNewOrderDelivery1 from "./page/Delivery/chi-tiet-cap-nhat1";
+import DetailNewOrderDelivery1 from "./page/Delivery/ChiTietCapNhat1";
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -239,7 +239,7 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "/delivery-page/chi-tiet-don-hang",
+        path: "/delivery-page/chi-tiet-don-hang/:orderID",
         element: <DetailNewOrderDelivery />,
       },
       {
