@@ -80,9 +80,7 @@ import ChiTietCapNhat from "./page/Delivery/ChiTietCapNhat";
 import KimCuongGIA from "./page/Custommer/KimCuongGIA";
 import XemDonDaGiao from "./page/Delivery/XemDonDaGiao";
 
-
 import DetailNewOrderDelivery1 from "./page/Delivery/ChiTietCapNhat1";
-
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -189,7 +187,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/kim-cuong-vien",
-        element: <KimCuongVien />,
+        element: <KimCuongGIA />,
       },
       {
         path: "/kim-cuong-vien-test",
@@ -205,7 +203,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/kim-cuong-gia",
-        element: <KimCuongGIA />,
+        element: <KimCuongVien />,
       },
     ],
   },

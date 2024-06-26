@@ -120,7 +120,7 @@ function ProfileAccount() {
         uid: "1",
         name: "avata",
         status: "done",
-        url: user.avata,
+        url: userData.avata,
       },
     ]);
   };
@@ -169,7 +169,7 @@ function ProfileAccount() {
               className="img_main"
               src={order.productCustomize.product.productImages[0].imageUrl}
               width={130}
-              style={{ marginLeft: "10px" }}
+              style={{ marginLeft: "100px" }}
               alt={order.productCustomize.product.productName}
             />
           )}
@@ -194,6 +194,7 @@ function ProfileAccount() {
                 order.productCustomize?.diamond?.diamondName ||
                 order.diamond?.diamondName
               }
+              style={{ marginLeft: "90px" }}
             />
           )}
         </Col>
@@ -286,7 +287,9 @@ function ProfileAccount() {
         <Col span={18} className="text-left">
           <span>x {order.quantity} Sản Phẩm</span>
           <div>
-            <Link to={`/`}>Xem Chi Tiết</Link>
+            <Link to={`/admin-page/don-hang/all/order-detail/${order.orderId}`}>
+              Xem Chi Tiết
+            </Link>
           </div>
         </Col>
         <Col span={6} className="text-right">
@@ -314,14 +317,12 @@ function ProfileAccount() {
     try {
       const values = await form.validateFields();
       let updatedDetails = {};
-      let avata = originalValues.avata;
       if (fileList.length > 0 && fileList[0].originFileObj) {
         setUploading(true);
-        avata = await uploadFile(fileList[0].originFileObj);
+        const avata = await uploadFile(fileList[0].originFileObj);
         setUploading(false);
         updatedDetails.avata = avata;
       }
-
       if (values.email !== originalValues.email) {
         updatedDetails.email = values.email;
       }
@@ -390,8 +391,6 @@ function ProfileAccount() {
         console.log("Validate Failed:", info);
       });
   };
-
-  const handleChange = ({ fileList }) => setFileList(fileList);
 
   const handleProvinceChange = (value) => {
     const districtsList = getDistricts(value);
@@ -483,28 +482,30 @@ function ProfileAccount() {
                               listType="picture-circle"
                               fileList={fileList}
                               onPreview={handlePreview}
-                              onChange={handleChange}
+                              onChange={onChange}
+                              onRemove={handleDeleteImage}
                             >
                               {fileList.length >= 1 ? null : uploadButton}
                             </Upload>
-
-                            <Image
-                              wrapperStyle={{ display: "none" }}
-                              preview={{
-                                visible: previewOpen,
-                                onVisibleChange: (visible) =>
-                                  setPreviewOpen(visible),
-                                afterOpenChange: (visible) =>
-                                  !visible && setPreviewImage(""),
-                              }}
-                              src={previewImage}
-                            />
+                            {previewImage && (
+                              <Image
+                                wrapperStyle={{ display: "none" }}
+                                preview={{
+                                  visible: previewOpen,
+                                  onVisibleChange: (visible) =>
+                                    setPreviewOpen(visible),
+                                  afterOpenChange: (visible) =>
+                                    !visible && setPreviewImage(""),
+                                }}
+                                src={previewImage}
+                              />
+                            )}
                           </Space>
                         </Form.Item>
                       </div>
                       <div
                         className="name"
-                        style={{ marginTop: "-40px", textAlign: "center" }}
+                        style={{ marginTop: "-10px", textAlign: "center" }}
                       >
                         <p
                           style={{
