@@ -25,15 +25,15 @@ function Layout() {
     fetchAllProduct();
     fetchAllDiamond();
   }, []);
+  const [quantity, setQuantity] = useState();
 
-  const contextValue = { allProduct, allDiamond };
+  const contextValue = { allProduct, allDiamond, setQuantity };
 
   const [showChatbox, setShowChatbox] = useState(false);
 
   const toggleChatbot = () => {
     setShowChatbox(!showChatbox);
   };
-  
 
   const renderChatbox = () => (
     <div className={`chatbox ${showChatbox ? "show" : ""}`}>
@@ -49,10 +49,9 @@ function Layout() {
       ></iframe>
     </div>
   );
-
   return (
     <div>
-      <Header />
+      <Header quantity={quantity} setQuantity={setQuantity} />
 
       <Outlet context={contextValue} />
       <FloatButton.Group

@@ -37,156 +37,156 @@ const OrderCustomer = () => {
       hour12: false, // Sử dụng định dạng 24 giờ thay vì AM/PM
     });
     return (
-      
-        <Row className="staff_order_frame" key={index}>
-          <Col span={7} className="staff_order_left">
-            <div className="new_order_odID">
-              <span>OD: {order.orderId}</span>
+      <Row className="staff_order_frame" key={index}>
+        <Col span={7} className="staff_order_left">
+          <div className="new_order_odID">
+            <span>OD: {order.orderId}</span>
+          </div>
+          {order.productCustomize && order.productCustomize.product && (
+            <img
+              className="img_main"
+              src={order.productCustomize.product.productImages[0].imageUrl}
+              width={130}
+              style={{ marginLeft: "10px" }}
+            />
+          )}
+
+          {order.productCustomize && order.productCustomize.product && (
+            <div style={{ textAlign: "center" }}>
+              <Button className="button_custom">
+                Size: {order.productCustomize.size}
+              </Button>
             </div>
-            {order.productCustomize && order.productCustomize.product && (
-              <img
-                className="img_main"
-                src={order.productCustomize.product.productImages[0].imageUrl}
-                width={130}
-                style={{ marginLeft: "10px" }}
-              />
-            )}
+          )}
+          {(order.productCustomize?.diamond || order.diamond) && (
+            <img
+              src={
+                order.productCustomize?.diamond?.image || order.diamond?.image
+              }
+              className={`staff_order_kimg ${
+                order.productCustomize?.product
+                  ? "staff_order_kimg_kid"
+                  : "staff_order_kimg_main"
+              }`}
+              alt={
+                order.productCustomize?.diamond?.diamondName ||
+                order.diamond?.diamondName
+              }
+            />
+          )}
+        </Col>
 
-            {order.productCustomize && order.productCustomize.product && (
-              <div style={{ textAlign: "center" }}>
-                <Button className="button_custom">
-                  Size: {order.productCustomize.size}
-                </Button>
-              </div>
-            )}
-            {(order.productCustomize?.diamond || order.diamond) && (
-              <img
-                src={
-                  order.productCustomize?.diamond?.image || order.diamond?.image
-                }
-                className={`staff_order_kimg ${
-                  order.productCustomize?.product
-                    ? "staff_order_kimg_kid"
-                    : "staff_order_kimg_main"
-                }`}
-                alt={
-                  order.productCustomize?.diamond?.diamondName ||
-                  order.diamond?.diamondName
-                }
-              />
-            )}
-          </Col>
-
-          <Col span={11} className="staff_order_right">
-            {order.productCustomize && order.productCustomize.product && (
-              <div className="info_product">
-                <div>
-                  <GiBigDiamondRing size={25} className="icon_order" />
-                </div>
-                <div className="info_sub">
-                  <span>
-                    {order.productCustomize.product.productName}
-                    {" - "}
-                    {order.productCustomize.product.shapeDiamond}{" "}
-                    {order.productCustomize.product.dimensionsDiamond} ly
-                  </span>
-                  <p style={{ fontWeight: 400, fontSize: "13px" }}>
-                    {" "}
-                    {order.productCustomize.product.productID}
-                  </p>
-                  <Rate
-                    disabled
-                    defaultValue={order.productCustomize.product.rating}
-                    style={{
-                      fontSize: "13px",
-                    }}
-                  />
-                </div>
-              </div>
-            )}
-            <div className="info_diamond">
+        <Col span={11} className="staff_order_right">
+          {order.productCustomize && order.productCustomize.product && (
+            <div className="info_product">
               <div>
-                <IoDiamondOutline size={25} className="icon_order" />
+                <GiBigDiamondRing size={25} className="icon_order" />
               </div>
               <div className="info_sub">
-                <p>
-                  {order.productCustomize?.diamond?.diamondName ||
-                    order.diamond.diamondName}
+                <span>
+                  {order.productCustomize.product.productName}
+                  {" - "}
+                  {order.productCustomize.product.shapeDiamond}{" "}
+                  {order.productCustomize.product.dimensionsDiamond} ly
+                </span>
+                <p style={{ fontWeight: 400, fontSize: "13px" }}>
+                  {" "}
+                  {order.productCustomize.product.productID}
                 </p>
-                <div style={{ fontWeight: 400, fontSize: "13px" }}>
-                  <span>
-                    Carat:{" "}
-                    {order.productCustomize?.diamond?.carat ||
-                      order.diamond.carat}
-                  </span>
-                  {" - "}
-                  <span>
-                    Tinh Khiết :
-                    {order.productCustomize?.diamond?.clarify ||
-                      order.diamond.clarify}
-                  </span>
-                  {" - "}
-                  <span>
-                    Cấp Màu :
-                    {order.productCustomize?.diamond?.colorLevel ||
-                      order.diamond.colorLevel}
-                  </span>
-                  {" - "}
-                  Cắt:{" "}
-                  <span>
-                    {order.productCustomize?.diamond?.cut || order.diamond.cut}
-                  </span>
-                </div>
-                {order.diamond && (
-                  <div
-                    style={{
-                      fontWeight: 400,
-                      fontSize: "13px",
-                      paddingTop: "3px",
-                    }}
-                  >
-                    Kiểm định:{" "}
-                    <span style={{ color: "red" }}>
-                      {" "}
-                      {order.diamond.certificate}{" "}
-                    </span>
-                  </div>
-                )}
+                <Rate
+                  disabled
+                  defaultValue={order.productCustomize.product.rating}
+                  style={{
+                    fontSize: "13px",
+                  }}
+                />
               </div>
             </div>
-          </Col>
-          <Col
-            span={6}
-            style={{ textAlign: "center", fontSize: "20px", fontWeight: "400" }}
-          >
-            {formattedDate}
-          </Col>
-          <Col
-            span={24}
-            style={{ borderBottom: "dashed 1px gray", paddingTop: "10px" }}
-          ></Col>
-          <Col span={18} className="text-left">
-            <span>x {order.quantity} Sản Phẩm</span>
+          )}
+          <div className="info_diamond">
             <div>
-              <Link to={`/don-hang/chi-tiet-don-hang/${order.orderId}`}>
-                Xem Chi Tiết
-              </Link>
+              <IoDiamondOutline size={25} className="icon_order" />
             </div>
-          </Col>
-          <Col span={6} className="text-right">
-            <h3>
-              {(
-                order.productCustomize?.totalPrice || order.diamond.totalPrice
-              ).toLocaleString("de-DE", {
-                maximumFractionDigits: 2,
-              })}{" "}
-              đ
-            </h3>
-            <button className={`status-button ${buttonColor}`}>
-              {buttonText}
-            </button>
-          </Col>
-        </Row>
+            <div className="info_sub">
+              <p>
+                {order.productCustomize?.diamond?.diamondName ||
+                  order.diamond.diamondName}
+              </p>
+              <div style={{ fontWeight: 400, fontSize: "13px" }}>
+                <span>
+                  Carat:{" "}
+                  {order.productCustomize?.diamond?.carat ||
+                    order.diamond.carat}
+                </span>
+                {" - "}
+                <span>
+                  Tinh Khiết :
+                  {order.productCustomize?.diamond?.clarify ||
+                    order.diamond.clarify}
+                </span>
+                {" - "}
+                <span>
+                  Cấp Màu :
+                  {order.productCustomize?.diamond?.colorLevel ||
+                    order.diamond.colorLevel}
+                </span>
+                {" - "}
+                Cắt:{" "}
+                <span>
+                  {order.productCustomize?.diamond?.cut || order.diamond.cut}
+                </span>
+              </div>
+              {order.diamond && (
+                <div
+                  style={{
+                    fontWeight: 400,
+                    fontSize: "13px",
+                    paddingTop: "3px",
+                  }}
+                >
+                  Kiểm định:{" "}
+                  <span style={{ color: "red" }}>
+                    {" "}
+                    {order.diamond.certificate}{" "}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        </Col>
+        <Col
+          span={6}
+          style={{ textAlign: "center", fontSize: "20px", fontWeight: "400" }}
+        >
+          {formattedDate}
+        </Col>
+        <Col
+          span={24}
+          style={{ borderBottom: "dashed 1px gray", paddingTop: "10px" }}
+        ></Col>
+        <Col span={18} className="text-left">
+          <span>x {order.quantity} Sản Phẩm</span>
+          <div>
+            <Link to={`/don-hang/chi-tiet-don-hang/${order.orderId}`}>
+              Xem Chi Tiết
+            </Link>
+          </div>
+        </Col>
+        <Col span={6} className="text-right">
+          <h3>
+            {(
+              order.productCustomize?.totalPrice || order.diamond.totalPrice
+            ).toLocaleString("de-DE", {
+              maximumFractionDigits: 2,
+            })}{" "}
+            đ
+          </h3>
+
+          <button className={`status-button ${buttonColor}`}>
+            {buttonText}
+          </button>
+        </Col>
+      </Row>
     );
   };
   const tabs = [

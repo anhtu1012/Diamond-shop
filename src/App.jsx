@@ -82,7 +82,6 @@ import XemDonDaGiao from "./page/Delivery/xem-don-da-giao";
 
 import DetailNewOrderDelivery1 from "./page/Delivery/chi-tiet-cap-nhat1";
 
-
 // import PageNewOrder from "./page/Staff/New-Order";
 
 const router = createBrowserRouter([
@@ -95,7 +94,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/giay-bao-hanh",
+        path: "/giay-bao-hanh/:warrantyCardID",
         element: <WarrantyCus />,
       },
       {
