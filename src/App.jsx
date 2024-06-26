@@ -80,7 +80,9 @@ import ChiTietCapNhat from "./page/Delivery/ChiTietCapNhat";
 import KimCuongGIA from "./page/Custommer/KimCuongGIA";
 import XemDonDaGiao from "./page/Delivery/XemDonDaGiao";
 
+
 import DetailNewOrderDelivery1 from "./page/Delivery/ChiTietCapNhat1";
+
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -284,7 +286,7 @@ const router = createBrowserRouter([
         element: <AllOrder />,
       },
       {
-        path: "don-hang/all/order-detail/:odID",
+        path: "don-hang/all/order-detail/:orderID",
         element: <ViewOrderDetails />,
       },
       {

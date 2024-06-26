@@ -58,6 +58,12 @@ export const createDiamond = (finalData) => {
     finalData
   );
 };
+export const createUser = (finalData) => {
+  return api.post(
+    "https://diamondshopgroup6.azurewebsites.net/swp391/api/admin/register",
+    finalData
+  );
+};
 export const getProducts = () => {
   return api.get(
     "https://diamondshopgroup6.azurewebsites.net/swp391/api/products/all_products"

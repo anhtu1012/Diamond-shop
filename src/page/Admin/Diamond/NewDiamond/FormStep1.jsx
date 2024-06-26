@@ -32,6 +32,7 @@ function FormStep1({ onFinish, initialValues }) {
       setFileList(initialValues.fileList || []);
     }
   }, [initialValues, form]);
+  
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };

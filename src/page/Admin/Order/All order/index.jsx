@@ -14,6 +14,7 @@ const statusToStep = {
   "Đang giao": 1,
   "Đã giao": 2,
   "Đã hủy": 3,
+  "Hoàn trả": 4,
 };
 
 const getStatusColor = (currentStep) => {
@@ -26,6 +27,8 @@ const getStatusColor = (currentStep) => {
       return "#008000"; // Dark Green
     case 3:
       return "#FF0000"; // Red
+    case 4:
+      return "#999999";
     default:
       return "#FFD700"; // Default Yellow
   }
@@ -123,14 +126,14 @@ function AllOrder() {
         <div style={{ textAlign: "center" }}>
           {record.status === "Chờ xác nhận" ? (
             <Link
-              to={`/staff-page/chi-tiet-don-hang/${record.orderID}`}
+              to={`/admin-page/don-hang/all/order-detail/${record.orderID}`}
               style={{ fontWeight: "bold" }}
             >
               Xem chi tiết
             </Link>
           ) : (
             <Link
-              to={`/staff-page/don-hang/order-detail/${record.orderID}`}
+              to={`/admin-page/don-hang/all/order-detail/${record.orderID}`}
               style={{ fontWeight: "bold" }}
             >
               Xem chi tiết
@@ -147,6 +150,7 @@ function AllOrder() {
     "Chờ giao hàng",
     "Đã giao",
     "Đã hủy",
+    "Hoàn trả",
   ].map((status) => (
     <Button
       key={status}
