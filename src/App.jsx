@@ -94,7 +94,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/giay-bao-hanh",
+        path: "/giay-bao-hanh/:warrantyCardID",
         element: <WarrantyCus />,
       },
       {

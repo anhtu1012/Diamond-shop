@@ -2,6 +2,7 @@
 import {
   Button,
   Col,
+  DatePicker,
   Form,
   Image,
   Input,
@@ -10,6 +11,7 @@ import {
   Row,
   Select,
   Space,
+  Table,
   Tabs,
   Upload,
   message,
@@ -26,6 +28,7 @@ import { GiBigDiamondRing } from "react-icons/gi";
 import {
   fetchUserById,
   getOrderById,
+  getWarrantyCard,
   updateUser,
 } from "../../../../services/Uservices";
 import LoadingTruck from "../../../components/loading";
@@ -33,6 +36,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/features/counterSlice";
 import moment from "moment/moment";
 
+const { Search } = Input;
 function callback(key) {
   console.log(key);
 }
@@ -44,7 +48,64 @@ const getBase64 = (file) =>
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
   });
-
+const columns = [
+  {
+    title: "Mã Bảo Hành",
+    dataIndex: "warrantyCardID",
+    key: "warrantyCardID",
+    width: "10%",
+  },
+  {
+    title: "Mã Sản Phẩm",
+    dataIndex: "objectId",
+    key: "objectId",
+    width: "10%",
+  },
+  {
+    title: "Ngày đặt hàng",
+    dataIndex: "purchaseDate",
+    key: "purchaseDate",
+    width: "15%",
+    sorter: (a, b) => new Date(a.purchaseDate) - new Date(b.purchaseDate),
+    sortDirections: ["descend", "ascend"],
+    render: (text) =>
+      new Date(text).toLocaleString("vi-VN", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      }),
+  },
+  {
+    title: "Ngày hết hạn",
+    dataIndex: "expirationDate",
+    key: "expirationDate",
+    width: "15%",
+    sorter: (a, b) => new Date(a.expirationDate) - new Date(b.expirationDate),
+    sortDirections: ["descend", "ascend"],
+    render: (text) =>
+      new Date(text).toLocaleString("vi-VN", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      }),
+  },
+  {
+    title: "Action",
+    dataIndex: "action",
+    key: "action",
+    width: "10%",
+    render: (text, record) => (
+      <div style={{ textAlign: "center" }}>
+        <Link
+          to={`/giay-bao-hanh/${record.warrantyCardID}`}
+          style={{ fontWeight: "bold" }}
+        >
+          Xem chi tiết
+        </Link>
+      </div>
+    ),
+  },
+];
 function AccountDetail() {
   const user = useSelector(selectUser);
   const [form] = Form.useForm();
@@ -59,13 +120,27 @@ function AccountDetail() {
   const [wards, setWards] = useState([]);
   const [showPasswordFields, setShowPasswordFields] = useState(false);
   const [data, setData] = useState([]);
-
+  const [loading, setLoading] = useState(true); // Add loading state
+  const [dataSource, setDataSource] = useState([]);
   const fetchOderById = async () => {
     const res = await getOrderById(user.userID);
     setData(res.data);
   };
   useEffect(() => {
     fetchOderById();
+  }, []);
+
+  useEffect(() => {
+    const fetchWarrantyCart = async () => {
+      try {
+        const res = await getWarrantyCard(user.userID);
+        setDataSource(res.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchWarrantyCart();
   }, []);
 
   const renderCard = (order, index, buttonText, buttonColor) => {
@@ -78,6 +153,7 @@ function AccountDetail() {
       second: "2-digit",
       hour12: false, // Sử dụng định dạng 24 giờ thay vì AM/PM
     });
+
     return (
       <Row className="staff_order_frame" key={index}>
         <Col span={7} className="staff_order_left">
@@ -233,15 +309,15 @@ function AccountDetail() {
   const fetchUserByIds = async () => {
     const response = await fetchUserById(user.userID);
     const userData = response.data.data;
-    console.log(userr);
     setUserr(userData);
+    
     const addressParts = userData.address.split(", ").reverse();
 
     const addressDetails = {
-      province: addressParts[3] || "",
-      district: addressParts[2] || "",
-      ward: addressParts[1] || "",
-      detailAddress: addressParts[0] || "",
+      province: addressParts[0] || "",
+      district: addressParts[1] || "",
+      ward: addressParts[2] || "",
+      detailAddress: addressParts[3] || "",
     };
     setOriginalcurrentValues({
       firstName: userData.firstName,
@@ -277,7 +353,7 @@ function AccountDetail() {
         uid: "1",
         name: "avata",
         status: "done",
-        url: userr.avata,
+        url: userData.avata,
       },
     ]);
   };
@@ -305,6 +381,20 @@ function AccountDetail() {
 
   const handleUpdate = async () => {
     try {
+      // Lấy giá trị từ form
+      const formValues = await form.validateFields();
+
+      const { province, district, ward, detailAddress } = formValues;
+
+      const selectedProvince = provinces.find((p) => p.code === province);
+      const selectedDistrict = districts.find((d) => d.code === district);
+      const selectedWard = wards.find((w) => w.code === ward);
+      const fullAddress = `${detailAddress}, ${
+        selectedWard ? selectedWard.name + ", " : ""
+      }${selectedDistrict ? selectedDistrict.name + ", " : ""}${
+        selectedProvince ? selectedProvince.name : ""
+      }`;
+
       const currentValues = await form.validateFields();
       let updatedDetails = {};
 
@@ -320,11 +410,11 @@ function AccountDetail() {
       if (userr.lastName !== currentValues.lastName) {
         updatedDetails.lastName = currentValues.lastName;
       }
-      if (userr.address !== currentValues.address) {
-        updatedDetails.address = currentValues.address;
+      if (userr.address !== fullAddress) {
+        updatedDetails.address = fullAddress;
       }
-      if (userr.phone !== currentValues.phone) {
-        updatedDetails.phone = currentValues.phone;
+      if (userr.phoneNumber !== currentValues.phone) {
+        updatedDetails.phoneNumber = currentValues.phone;
       }
       if (userr.gender !== currentValues.gender) {
         updatedDetails.gender = currentValues.gender;
@@ -590,16 +680,15 @@ function AccountDetail() {
                             phone: userr.phone,
                             address: userr.address,
                             gender: userr.gender,
-                            yearOfBirth: user.yearOfBirth,
+                            yearOfBirth: moment(
+                              userr.yearOfBirth,
+                              "YYYY-MM-DD"
+                            ),
+
                             formattedDate,
                           }}
                         >
                           <Row gutter={24}>
-                            <Col span={24}>
-                              <Form.Item label="Email" name="email">
-                                <Input defaultValue={userr.email} readOnly />
-                              </Form.Item>
-                            </Col>
                             <Col span={12}>
                               <Form.Item label="Họ" name="firstName">
                                 <Input placeholder="Họ*" />
@@ -622,17 +711,30 @@ function AccountDetail() {
                               </Form.Item>
                             </Col>
                             <Col span={12}>
-                              <Form.Item label="Ngày sinh" name="formattedDate">
-                                <Input />
+                              <Form.Item
+                                label="Ngày sinh"
+                                name="yearOfBirth"
+                                rules={[
+                                  {
+                                    required: true,
+                                    message: "Vui lòng chọn Ngày sinh!",
+                                  },
+                                ]}
+                              >
+                                <DatePicker
+                                  disabled={!isEditing}
+                                  format="YYYY-MM-DD"
+                                  style={{ width: "100%" }}
+                                />
                               </Form.Item>
                             </Col>
                           </Row>
-                          <Form.Item label="Tỉnh/TP" name="province">
+                          <Form.Item label="Tỉnh/Thành phố" name="province">
                             <Select
                               className="input"
                               placeholder="Tỉnh/TP*"
-                              showSearch
                               onChange={handleProvinceChange}
+                              showSearch
                               filterOption={(input, option) =>
                                 option.children
                                   .toLowerCase()
@@ -655,8 +757,9 @@ function AccountDetail() {
                                 <Select
                                   className="input"
                                   placeholder="Quận/Huyện*"
-                                  showSearch
                                   onChange={handleDistrictChange}
+                                  disabled={!districts.length}
+                                  showSearch
                                   filterOption={(input, option) =>
                                     option.children
                                       .toLowerCase()
@@ -679,6 +782,7 @@ function AccountDetail() {
                                 <Select
                                   className="input"
                                   placeholder="Phường/Xã*"
+                                  disabled={!wards.length}
                                   showSearch
                                   filterOption={(input, option) =>
                                     option.children
@@ -696,10 +800,13 @@ function AccountDetail() {
                             </Col>
                             <Col span={12}>
                               <Form.Item
-                                label="Địa chỉ cụ thể"
+                                label="Địa Chỉ cụ thể"
                                 name="detailAddress"
                               >
-                                <Input placeholder="Địa chỉ cụ thể*" />
+                                <Input
+                                  className="input"
+                                  placeholder="Địa chỉ cụ thể*"
+                                />
                               </Form.Item>
                             </Col>
                             <Col span={12}>
@@ -898,6 +1005,31 @@ function AccountDetail() {
                     </div>
                   </Col>
                   <Col span={2}></Col>
+                </Row>
+              </Tabs>
+              <Tabs tab="Phiếu bảo hành" key="3">
+                <Row gutter={24}>
+                  <Col span={24} style={{ textAlign: "center" }}>
+                    <Search
+                      placeholder="Nhập Mã sản phẩm"
+                      enterButton="Search"
+                      size="large"
+                      style={{ width: "30%" }}
+                      onSearch={(value) => console.log(value)}
+                      className="custom-search"
+                    />
+                  </Col>
+                  <Col span={24} style={{ paddingTop: "25px" }}>
+                    {loading ? (
+                      <LoadingTruck /> // Show LoadingTruck while loading
+                    ) : (
+                      <Table
+                        className="table"
+                        columns={columns}
+                        dataSource={dataSource}
+                      />
+                    )}
+                  </Col>
                 </Row>
               </Tabs>
             </Tabs>

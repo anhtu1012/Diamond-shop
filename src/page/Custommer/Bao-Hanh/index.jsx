@@ -1,35 +1,65 @@
 import { Button, Col, Row, Table } from "antd";
 import Container from "../../../components/container/Container";
 import "./index.scss";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { getWarrantyById } from "../../../../services/Uservices";
+import LoadingTruck from "../../../components/loading";
+import moment from "moment";
+
 function WarrantyCus() {
+  const { warrantyCardID } = useParams();
+  const [loading, setLoading] = useState(true); // Add loading state
+  const [dataSource, setDataSource] = useState();
+
+  useEffect(() => {
+    const fetchWarrantyById = async () => {
+      try {
+        const res = await getWarrantyById(warrantyCardID);
+        if (!Array.isArray(res.data)) {
+          setDataSource([res.data]);
+        } else {
+          setDataSource(res.data);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    };
+    fetchWarrantyById();
+  }, [warrantyCardID]);
+
   const columns = [
     {
-      title: "Mã Sản phảm",
-      dataIndex: "name",
-      key: "name",
+      title: "Mã Sản phẩm",
+      dataIndex: "objectId",
+      key: "objectId",
     },
     {
-      title: "Chi tiết sản phẩm",
-      dataIndex: "age",
-      key: "age",
+      title: "Loại sản phẩm",
+      dataIndex: "objectType",
+      key: "objectType",
     },
     {
       title: "Giá",
-      dataIndex: "address",
-      key: "address",
+      dataIndex: "price",
+      key: "price",
     },
   ];
+
   const headerStyle = { fontSize: "16px", margin: "5px 0" };
-  const paragraphStyle = { marginLeft: "20px", fontWeight: "300" };
+  const paragraphStyle = {
+    marginLeft: "20px",
+    fontWeight: "300",
+    marginBottom: "5px",
+  };
   const [loader, setLoader] = useState(false);
 
   const downloadPDF = () => {
-    const capture = document.querySelector(".section-main"); // Ensure the correct class is used
+    const capture = document.querySelector(".section-main");
     if (!capture) {
       console.error("Element not found!");
       return;
@@ -50,17 +80,38 @@ function WarrantyCus() {
         setLoader(false);
       });
   };
+
+  const isWarrantyValid = (expirationDate) => {
+    return moment().isBefore(moment(expirationDate));
+  };
+
+  const formatDate = (date) => {
+    return moment(date).format("DD/MM/YYYY");
+  };
+
+  if (!dataSource) {
+    return <LoadingTruck />;
+  }
+
   return (
     <Container>
       <Row className="section-main">
         <Col span={24} className="header-col">
           <Row className="row-head">
             <Col span={12} className="col-head1">
-              Phiếu Bảo Hành :<span style={{ fontWeight: "bold" }}> #US33</span>
+              Phiếu Bảo Hành :
+              <span style={{ fontWeight: "bold" }}>
+                {" "}
+                #US{dataSource[0].userId}
+              </span>
             </Col>
             <Col span={12} className="col-head2">
               <div className="stutuss">
-                <Button>CÒN HẠN SỬ DỤNG</Button>
+                <Button>
+                  {isWarrantyValid(dataSource[0].expirationDate)
+                    ? "CÒN HẠN SỬ DỤNG"
+                    : "HẾT HẠN SỬ DỤNG"}
+                </Button>
               </div>
               <Button
                 style={{ background: "#e70953", color: "white" }}
@@ -78,8 +129,8 @@ function WarrantyCus() {
               <div className="info">
                 <p className="title">Diamond King</p>
                 <p>
-                  Địa Chỉ:ấp thạnh an,Xã Thạnh Hải, Huyện Thạnh Phú, Tỉnh Bến
-                  Tre
+                  Địa Chỉ: Nhà Văn Hóa Sinh Viên,Lưu Hữu Phước, Đông Hoà, Dĩ An,
+                  Bình Dương
                 </p>
                 <p>Email: diamondking0909@gmail.xom</p>
                 <p>Phone: 0231485231</p>
@@ -88,27 +139,42 @@ function WarrantyCus() {
             <Col span={8} style={{ paddingLeft: "20px" }}>
               <div style={{ padding: "10px 0px" }}>Đến:</div>
               <div className="info">
-                <p className="title">Phạm Anh Tú</p>
-                <p>
-                  Địa Chỉ:ấp thạnh an,Xã Thạnh Hải, Huyện Thạnh Phú, Tỉnh Bến
-                  Tre
-                </p>
-                <p>Email: phamanhtu1012@gmail.xom</p>
-                <p>Phone: 0387905007</p>
+                <p className="title">{dataSource[0].fullName}</p>
+                <p>Địa Chỉ: {dataSource[0].address}</p>
+                <p>Email: {dataSource[0].email}</p>
+                <p>Phone: {dataSource[0].phone}</p>
               </div>
             </Col>
             <Col span={8} style={{ paddingLeft: "20px" }}>
               <div style={{ padding: "10px 0px" }}>Chi Tiết:</div>
               <div className="info">
-                <p className="title">Mã đơn hàng: #OD123</p>
-                <p>Thời gian bảo hành: 1 năm</p>
-                <p>Ngày Đặt: 10:10:10 21/10/2024</p>
-                <p>Ngày Hết hạn: 10:10:10 21/10/2025</p>
-                <p>Ghi chú: bala bala bla</p>
+                <Link
+                  style={{ color: "black" }}
+                  to={`/don-hang/chi-tiet-don-hang/${dataSource[0].orderId}`}
+                >
+                  <p className="title">
+                    Mã đơn hàng: #OD{dataSource[0].orderId}
+                    <br />
+                    <span style={{ fontWeight: "300" }}>
+                      (^ có thể bấm vào để xem chi tiết )
+                    </span>
+                  </p>
+                </Link>
+                <p>Thời gian bảo hành: 2 năm</p>
+                <p>Ngày Đặt: {formatDate(dataSource[0].purchaseDate)}</p>
+                <p>Ngày Hết hạn: {formatDate(dataSource[0].expirationDate)}</p>
               </div>
             </Col>
             <Col span={24} style={{ padding: "20px" }}>
-              <Table columns={columns} />
+              {loading ? (
+                <LoadingTruck /> // Show LoadingTruck while loading
+              ) : (
+                <Table
+                  columns={columns}
+                  dataSource={dataSource}
+                  pagination={false}
+                />
+              )}
             </Col>
           </Row>
           <Row gutter={40} style={{ padding: "20px" }}>

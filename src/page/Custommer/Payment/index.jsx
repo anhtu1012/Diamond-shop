@@ -168,7 +168,7 @@ function Payment() {
             <div className="khung">
               <div
                 className="thong-tin-don-mua"
-                style={{ textAlign: "center" ,}}
+                style={{ textAlign: "center" }}
               >
                 <span>ĐƠN HÀNG</span>
               </div>
@@ -299,8 +299,24 @@ function Payment() {
                       borderRadius: "8px",
                     }}
                   >
-                    <FaCreditCard style={{ marginRight: "8px" }} />
-                    Thanh toán trả góp qua thẻ tín dụng
+                    <p
+                      style={{
+                        margin: 0,
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img
+                        src="https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-cp-giai-phap-thanh-toan-viet-nam-vnpay-6194ba1fa3d66.jpg"
+                        style={{
+                          marginRight: "8px",
+                          width: "30px",
+                          height: "30px",
+                          display: "inline-block",
+                        }}
+                      />
+                      Thanh toán trả góp qua VnPay
+                    </p>
                   </Radio>
                   <Radio
                     value="online"

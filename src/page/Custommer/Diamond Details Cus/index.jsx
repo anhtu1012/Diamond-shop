@@ -14,7 +14,12 @@ import Container from "../../../components/container/Container";
 import "./index.scss";
 
 import { TbTruckDelivery } from "react-icons/tb";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useOutletContext,
+  useParams,
+} from "react-router-dom";
 import CommitmentQuality from "../../../components/DamBaoChatLuong";
 import Relate from "../../../components/carousel/related";
 
@@ -27,6 +32,7 @@ import { selectUser } from "../../../redux/features/counterSlice";
 const { Content } = Layout;
 
 const DiamondDetailss = () => {
+  const { setQuantity } = useOutletContext();
   const [diamondDetail, setDiamondDetail] = useState(null);
   const user = useSelector(selectUser);
   const navigate = useNavigate();
@@ -55,6 +61,7 @@ const DiamondDetailss = () => {
         productId: diamondDetail.diamondID,
       };
       await addToCart(data);
+      setQuantity((prev) => prev + 1);
       message.success("Thêm vào giỏ hàng thành công!");
     } catch (error) {
       message.error("Kim cương đã tồn tài trong giỏ hàng");
