@@ -1,14 +1,28 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Button, Col, Rate, Row, Steps, theme } from "antd";
+import { useEffect, useRef, useState } from "react";
+import { Link, Navigate, useParams } from "react-router-dom";
+import {
+  Button,
+  Col,
+  Divider,
+  Input,
+  Popconfirm,
+  Rate,
+  Row,
+  Select,
+  Space,
+  Steps,
+  message,
+  theme,
+} from "antd";
 import { Content } from "antd/es/layout/layout";
 import { TiArrowBack } from "react-icons/ti";
 import { IoDiamondOutline } from "react-icons/io5";
 import { GiBigDiamondRing } from "react-icons/gi";
 import { VscError } from "react-icons/vsc";
-import { getOrderDetail } from "../../../../services/Uservices";
+import { createOrder, getOrderDetail } from "../../../../services/Uservices";
 import LoadingTruck from "../../../components/loading";
 import "./index.scss";
+import { PlusOutlined } from "@ant-design/icons";
 
 const statusToStepIndex = {
   "Chờ thanh toán": 0,
@@ -146,7 +160,25 @@ function ViewOrderDetailDelivery() {
   const {
     token: { borderRadiusLG },
   } = theme.useToken();
-
+  const [items, setItems] = useState([
+    "Sản phẩm không đúng mô tả",
+    "Khách hàng không nhận hàng",
+  ]);
+  const [reason, setReason] = useState("");
+  const [name, setName] = useState("");
+  const inputRef = useRef(null);
+  const onNameChange = (event) => {
+    setName(event.target.value);
+  };
+  const addItem = (e) => {
+    let index = 0;
+    e.preventDefault();
+    setItems([...items, name || `New item ${index++}`]);
+    setName("");
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
   useEffect(() => {
     const fetchGetOrderDetail = async () => {
       const res = await getOrderDetail(orderID);
@@ -166,7 +198,19 @@ function ViewOrderDetailDelivery() {
     // minute: "2-digit",
     // second: "2-digit",
   });
-
+  const handleRemobeOrder = async () => {
+    try {
+      const status = {
+        status: "Đã hủy",
+        reason: reason,
+      };
+      await createOrder(orderID, status);
+      message.success("Hủy đơn hàng thành công");
+      Navigate("/delivery-page/don-hang-moi");
+    } catch (error) {
+      message.error("Đã có lỗi xảy ra khi hủy đơn hàng");
+    }
+  };
   if (!data) {
     return <LoadingTruck />;
   }
@@ -452,6 +496,71 @@ function ViewOrderDetailDelivery() {
                         vnđ
                       </span>
                     </div>
+                    {data?.status === "Chờ giao hàng" && (
+                      <div className="row">
+                        <Select
+                          style={{
+                            width: 200,
+                          }}
+                          onChange={setReason}
+                          placeholder="Chọn lý do hủy đơn"
+                          dropdownRender={(menu) => (
+                            <>
+                              {menu}
+                              <Divider
+                                style={{
+                                  margin: "8px 0",
+                                }}
+                              />
+                              <Space
+                                style={{
+                                  padding: "0 8px 4px",
+                                }}
+                              >
+                                <Input
+                                  placeholder="Nhập lí do"
+                                  ref={inputRef}
+                                  value={name}
+                                  onChange={onNameChange}
+                                  onKeyDown={(e) => e.stopPropagation()}
+                                />
+                                <Button
+                                  type="text"
+                                  icon={<PlusOutlined />}
+                                  onClick={addItem}
+                                >
+                                  Thêm Lý do
+                                </Button>
+                              </Space>
+                            </>
+                          )}
+                          options={items.map((item) => ({
+                            label: item,
+                            value: item,
+                          }))}
+                        />
+                        <span>
+                          {" "}
+                          <Popconfirm
+                            title="Hủy Đơn"
+                            onConfirm={handleRemobeOrder}
+                            okText="Yes"
+                            cancelText="No"
+                          >
+                            <Button
+                              style={{
+                                background: "red",
+                                color: "white",
+                                borderRadius: "0px 8px 8px 0px",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              Hủy Đơn
+                            </Button>
+                          </Popconfirm>
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </Content>

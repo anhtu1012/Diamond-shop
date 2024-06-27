@@ -58,7 +58,7 @@ function SidenavS({ collapsed }) {
     const intervalId = setInterval(sendNotification, 300000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [quantityPending]);
   const items = [
     {
       key: "/staff-page/don-hang-moi",

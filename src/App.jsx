@@ -67,20 +67,18 @@ import KimCuongVienTest from "./page/Custommer/KimCuongVien copy";
 import ViewOrderDetailsStaff from "./page/Staff/Order/ViewOrderDetail";
 
 import DeliveryPage from "./page/Delivery/DeliveryPape";
-import NewOrderDelivery from "./page/Delivery/NewOrderDelivery";
-import DetailNewOrderDelivery from "./page/Delivery/OrderDetail";
 import CapNhatDon from "./page/Delivery/CapNhatDon";
-import LichSuGiao from "./page/Delivery/LichSuGiao";
 
 import ViewOrderDetailsCusTom from "./page/Custommer/Order/ViewOrderDetail";
 
 import WarrantyCus from "./page/Custommer/Bao-Hanh";
 
-import ChiTietCapNhat from "./page/Delivery/ChiTietCapNhat";
 import KimCuongGIA from "./page/Custommer/KimCuongGIA";
-import XemDonDaGiao from "./page/Delivery/XemDonDaGiao";
 
-import DetailNewOrderDelivery1 from "./page/Delivery/ChiTietCapNhat1";
+import ViewOrderDetailDelivery from "./page/Delivery/OrderDetail";
+import NewOrderDelivery from "./page/Delivery/NewOrderDelivery";
+import DetailNewOrderDelivery from "./page/Delivery/NewOrderDelivery/DetailNewOrderDelivery";
+
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -240,28 +238,16 @@ const router = createBrowserRouter([
 
       {
         path: "/delivery-page/chi-tiet-don-hang/:orderID",
-        element: <DetailNewOrderDelivery />,
+        element: <ViewOrderDetailDelivery />,
       },
       {
-        path: "/delivery-page/chi-tiet-don-hang1/:orderID",
-        element: <DetailNewOrderDelivery1 />,
+        path: "/delivery-page/don-hang-moi/chi-tiet-don-hang/:orderID",
+        element: <DetailNewOrderDelivery />,
       },
 
       {
         path: "/delivery-page/cap-nhat-don-hang",
         element: <CapNhatDon />,
-      },
-      {
-        path: "/delivery-page/lich-su-giao-hang",
-        element: <LichSuGiao />,
-      },
-      {
-        path: "/delivery-page/lich-su-giao-hang/da-giao",
-        element: <XemDonDaGiao />,
-      },
-      {
-        path: "/delivery-page/chi-tiet-cap-nhat/:orderID",
-        element: <ChiTietCapNhat />,
       },
     ],
   },

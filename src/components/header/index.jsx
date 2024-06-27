@@ -173,7 +173,7 @@ function Header({ quantity, setQuantity }) {
     const intervalId = setInterval(sendNotification, 300000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [quantityWaitPay]);
   useEffect(() => {
     const handleScroll = () => {
       const header = document.querySelector(".container-fluid");
