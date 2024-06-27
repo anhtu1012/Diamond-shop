@@ -381,7 +381,6 @@ function AccountDetail() {
 
   const handleUpdate = async () => {
     try {
-      // Lấy giá trị từ form
       const formValues = await form.validateFields();
 
       const { province, district, ward, detailAddress } = formValues;

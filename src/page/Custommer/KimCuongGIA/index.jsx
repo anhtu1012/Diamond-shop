@@ -8,8 +8,7 @@ import { Content } from "antd/es/layout/layout";
 import { Link, useOutletContext } from "react-router-dom";
 import Relate from "../../../components/carousel/related";
 import LoadingTruck from "../../../components/loading";
-
-import CardIndex from "../../../components/Card";
+import { CartProduct } from "../../../components/Cardd/CartProduct";
 
 const layout = {
   labelCol: {
@@ -30,37 +29,30 @@ const validateMessages = {
     range: "${label} must be between ${min} and ${max}",
   },
 };
+
 const onFinish = (values) => {
   console.log(values);
 };
 
 function KimCuongGIA() {
-  const { allProduct } = useOutletContext();
+  const { allDiamond } = useOutletContext();
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentCategory] = useState("Bông Tai Kim Cương");
   const [sortOrder, setSortOrder] = useState("default");
   const [priceFilter, setPriceFilter] = useState("default");
   const [loading, setLoading] = useState(true);
   const productsPerPage = 16;
-  useEffect(() => {
-    setCurrentPage(1); // Reset page number when category, sort order, or price filter changes
-  }, [currentCategory, sortOrder, priceFilter]);
 
   useEffect(() => {
-    // Simulate data fetching with a timeout
-    setLoading(true); // Start loading
+    setLoading(true);
     setTimeout(() => {
-      setLoading(false); // End loading
-    }, 1000); // Adjust timeout as needed
+      setLoading(false);
+    }, 1000);
   }, []);
 
-  const filterByPrice = (product) => {
+  const filterByPrice = (diamond) => {
     if (priceFilter === "default") return true;
-    const price = product.totalPrice;
+    const price = diamond.totalPrice;
     switch (priceFilter) {
       case "0-10":
         return price >= 0 && price <= 10000000;
@@ -72,6 +64,7 @@ function KimCuongGIA() {
         return true;
     }
   };
+
   const sortByPrice = (a, b) => {
     if (sortOrder === "default") return 0;
     return sortOrder === "asc"
@@ -79,20 +72,17 @@ function KimCuongGIA() {
       : b.totalPrice - a.totalPrice;
   };
 
-  const filteredProducts = allProduct
-    ? allProduct
-        .filter((product) => product.category.categoryName === currentCategory)
-        .filter(filterByPrice)
-        .sort(sortByPrice)
-    : [];
-  // Calculate the products for the current page
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = filteredProducts
-    ? filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct)
+  const filteredDiamond = allDiamond
+    ? allDiamond.filter(filterByPrice).sort(sortByPrice)
     : [];
 
-  // Function to handle page change
+  const indexOfLastDiamond = currentPage * productsPerPage;
+  const indexOfFirstDiamond = indexOfLastDiamond - productsPerPage;
+  const currentDiamond = filteredDiamond.slice(
+    indexOfFirstDiamond,
+    indexOfLastDiamond
+  );
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -110,14 +100,15 @@ function KimCuongGIA() {
   } = theme.useToken();
 
   if (loading) {
-    return <LoadingTruck />; // Render LoadingTruck while loading
+    return <LoadingTruck />;
   }
+
   return (
     <div>
       <div className="baner">
         <img
           src="https://www.tierra.vn/files/banner-danh-m-c-PnlesVGpjV.jpg"
-          style={{ width: "100%", height: "10%" }}
+          style={{ width: "100%", height: "600px" }}
         />
       </div>
       <Container>
@@ -167,10 +158,7 @@ function KimCuongGIA() {
                       { value: "0-10", label: "Dưới 10 triệu" },
                       { value: "10-50", label: "Từ 10-50 triệu" },
                       { value: "50-100", label: "Từ 50-100 triệu" },
-                      {
-                        value: "100-500",
-                        label: "Từ 100-500 triệu",
-                      },
+                      { value: "100-500", label: "Từ 100-500 triệu" },
                     ]}
                   />
                 </Space>
@@ -186,121 +174,106 @@ function KimCuongGIA() {
                 lg: 32,
               }}
             >
-              {currentProducts.map((product) => (
+              {currentDiamond.map((diamond) => (
                 <Col
-                  key={product.id}
+                  key={diamond.diamonddID}
                   className="gutter-row"
                   xs={12}
                   sm={12}
                   md={12}
                   lg={6}
                 >
-                  <Link to={`/product-details`}>
-                    {" "}
-                    
-                    <div
-                      style={{ padding: "20px 0px", width: "250px !important" }}
-                    >
-                      <CardIndex
-                        style={{ width: "250px !important" }}
-                        product={product}
-                      />
-                    </div>
-                  </Link>
+                  <div
+                    style={{ padding: "20px 0px", width: "250px !important" }}
+                  >
+                    <CartProduct
+                      style={{ width: "250px !important" }}
+                      diamond={diamond}
+                    />
+                  </div>
                 </Col>
               ))}
             </Row>
           </div>
-          <div className="choose-page">
-            <Pagination
-              current={currentPage}
-              total={filteredProducts ? filteredProducts.length : 0}
-              pageSize={productsPerPage}
-              onChange={handlePageChange}
-            />
-          </div>
-          <h2 style={{ padding: "30px", fontWeight: "500" }}>
-            Có thể bạn quan tâm
-          </h2>
-          <Relate
-            numberOfSlides={4}
-            autoplay
-            category="Lắc/ Vòng Tay Kim Cương"
+          <Pagination
+            current={currentPage}
+            pageSize={productsPerPage}
+            total={filteredDiamond.length}
+            onChange={handlePageChange}
           />
-          <div className="form">
-            <h2 style={{ fontWeight: "400" }}>
-              Nhận tư vấn miễn phí từ Diamond
-            </h2>
-            <i style={{ color: "gray" }}>
-              Đăng kí ngay bên dưới để nhận thông tin từ chúng tôi
-            </i>
-            <div className="form-dien">
-              <Form
-                xs={12}
-                sm={12}
-                md={12}
-                lg={6}
-                {...layout}
-                name="nest-messages"
-                onFinish={onFinish}
-                style={{
-                  maxWidth: 500,
-                }}
-                validateMessages={validateMessages}
-              >
-                <Form.Item
-                  name={["Tên"]}
-                  rules={[
-                    {
-                      required: true,
-                    },
-                  ]}
-                >
-                  <Input placeholder="Họ và tên" style={{ width: 500 }} />
-                </Form.Item>
-                <Form.Item
-                  name={["Email"]}
-                  rules={[
-                    {
-                      type: "email",
-                      required: true,
-                    },
-                  ]}
-                >
-                  <Input placeholder="Email" style={{ width: 500 }} />
-                </Form.Item>
-                <Form.Item
-                  name={["Số điện thoại"]}
-                  rules={[
-                    {
-                      type: "number",
-                      required: true,
-                    },
-                  ]}
-                >
-                  <Input placeholder="Số điện thoại" style={{ width: 500 }} />
-                </Form.Item>
-                <Form.Item
-                  wrapperCol={{
-                    ...layout.wrapperCol,
-                    offset: 8,
-                  }}
-                >
-                  <div className="button">
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      style={{ backgroundColor: "black", borderColor: "black" }}
-                    >
-                      Tư vấn ngay
-                    </Button>
-                  </div>
-                </Form.Item>
-              </Form>
-            </div>
-          </div>
         </div>
       </Container>
+      <Relate />
+      <div className="thong-tin">
+        <h2 style={{ fontWeight: "400" }}>Nhận tư vấn miễn phí từ Diamond</h2>
+        <i style={{ color: "gray" }}>
+          Đăng kí ngay bên dưới để nhận thông tin từ chúng tôi
+        </i>
+        <div className="thong-tin1">
+          <Form
+            xs={12}
+            sm={12}
+            md={12}
+            lg={6}
+            {...layout}
+            name="nest-messages"
+            onFinish={onFinish}
+            style={{
+              maxWidth: 500,
+            }}
+            validateMessages={validateMessages}
+          >
+            <Form.Item
+              name={["Tên"]}
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input placeholder="Họ và tên" style={{ width: 500 }} />
+            </Form.Item>
+            <Form.Item
+              name={["Email"]}
+              rules={[
+                {
+                  type: "email",
+                  required: true,
+                },
+              ]}
+            >
+              <Input placeholder="Email" style={{ width: 500 }} />
+            </Form.Item>
+            <Form.Item
+              name={["Số điện thoại"]}
+              rules={[
+                {
+                  type: "number",
+                  required: true,
+                },
+              ]}
+            >
+              <Input placeholder="Số điện thoại" style={{ width: 500 }} />
+            </Form.Item>
+            <Form.Item
+              wrapperCol={{
+                ...layout.wrapperCol,
+                offset: 8,
+              }}
+            >
+              <div className="button">
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ backgroundColor: "black", borderColor: "black" }}
+                >
+                  Tư vấn ngay
+                </Button>
+              </div>
+            </Form.Item>
+          </Form>
+        </div>
+      </div>
     </div>
   );
 }

@@ -33,6 +33,19 @@
       height: 150px !important;
     }
   }
+  .new_order_kimg_kid {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 20px;
+    left: -5px;
+  }
+
+  .new_order_kimg_main {
+    width: 130px;
+
+    margin-left: 75px;
+  }
   .cart_product_frame {
     position: relative;
     margin: 10px 10px 10px 10px;
@@ -41,6 +54,7 @@
     box-shadow: 1px 1px 1px 1px rgb(128, 128, 128, 0.1);
     border-radius: 8px;
     background-color: rgb(255, 255, 255, 0.1);
+
     .cart_product_item {
       .cart_product_imgdm {
         width: 50px;

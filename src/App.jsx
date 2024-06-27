@@ -74,9 +74,11 @@ import ViewOrderDetailsCusTom from "./page/Custommer/Order/ViewOrderDetail";
 import WarrantyCus from "./page/Custommer/Bao-Hanh";
 
 import KimCuongGIA from "./page/Custommer/KimCuongGIA";
+
 import ViewOrderDetailDelivery from "./page/Delivery/OrderDetail";
 import NewOrderDelivery from "./page/Delivery/NewOrderDelivery";
 import DetailNewOrderDelivery from "./page/Delivery/NewOrderDelivery/DetailNewOrderDelivery";
+
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -183,7 +185,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/kim-cuong-vien",
-        element: <KimCuongVien />,
+        element: <KimCuongGIA />,
       },
       {
         path: "/kim-cuong-vien-test",
@@ -199,7 +201,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/kim-cuong-gia",
-        element: <KimCuongGIA />,
+        element: <KimCuongVien />,
       },
     ],
   },
