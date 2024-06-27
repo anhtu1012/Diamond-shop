@@ -75,6 +75,7 @@ import WarrantyCus from "./page/Custommer/Bao-Hanh";
 
 import KimCuongGIA from "./page/Custommer/KimCuongGIA";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ViewOrderDetailDelivery from "./page/Delivery/OrderDetail";
 import NewOrderDelivery from "./page/Delivery/NewOrderDelivery";
 import DetailNewOrderDelivery from "./page/Delivery/NewOrderDelivery/DetailNewOrderDelivery";
@@ -83,6 +84,13 @@ import XemDonDaGiao from "./page/Delivery/XemDonDaGiao";
 
 import DetailNewOrderDelivery1 from "./page/Delivery/ChiTietCapNhat1";
 >>>>>>> 344e771873a8579c7888b1a06687d5535303becd
+=======
+
+import ViewOrderDetailDelivery from "./page/Delivery/OrderDetail";
+import NewOrderDelivery from "./page/Delivery/NewOrderDelivery";
+import DetailNewOrderDelivery from "./page/Delivery/NewOrderDelivery/DetailNewOrderDelivery";
+
+>>>>>>> 2039305668d3b40ebbcc6c77e56466d3bf89e732
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
