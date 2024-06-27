@@ -110,6 +110,14 @@ const trangSucKimCuongItems = [
     key: "bo-suu-tap-kim-cuong",
   },
 ];
+const kimCuongVien = [
+  {
+    label: (
+      <div style={{ fontSize: "15px", padding: "10px" }}>Kim cương GIA</div>
+    ),
+    key: "/kim-cuong-gia",
+  },
+];
 
 function Header({ quantity, setQuantity }) {
   const onClick = ({ key }) => {
@@ -327,7 +335,14 @@ function Header({ quantity, setQuantity }) {
             </Dropdown>
           </li>
           <li>
-            <Link to="/kim-cuong-vien">Kim cương viên</Link>
+            <Dropdown
+              menu={{
+                items: kimCuongVien,
+                onClick,
+              }}
+            >
+              <Link to="/kim-cuong-vien">Kim cương viên</Link>
+            </Dropdown>
           </li>
           <li>
             <Link to="/huong-dan-do-ni">Hướng dẫn</Link>

@@ -195,7 +195,7 @@ function ViewOrderDetails() {
                       marginBottom: "5px",
                     }}
                   >
-                    Thông tin chi tiết sản phẩm
+                    Thông tin chi tiết đơn hàng
                   </h2>
 
                   <h2
@@ -206,7 +206,7 @@ function ViewOrderDetails() {
                     }}
                   >
                     <Link
-                      to={"/don-hang"}
+                      to={"/admin-page/don-hang/all"}
                       style={{ color: "black", fontWeight: 600 }}
                     >
                       <TiArrowBack style={{ justifyContent: "center" }} /> Quay
@@ -237,10 +237,10 @@ function ViewOrderDetails() {
                     padding: "4px",
 
                     fontWeight: "bold",
-                    width: "10%",
+                    width: "12%",
                   }}
                 >
-                  {data.orderID}
+                  Mã đơn: {data.orderID}
                 </p>
                 <div>
                   {data.orderDetails.map((order, index) =>
@@ -346,8 +346,9 @@ function ViewOrderDetails() {
                   </div>
                   <div className="row">
                     <p>Giới tính:</p>
-                    <span>{data.gender}</span>
+                    <span>{data.gender === "MALE" ? "Nam" : "Nữ"}</span>
                   </div>
+
                   <div className="row">
                     <p>Địa chỉ:</p>
                     <span>{data.addressShipping}</span>
