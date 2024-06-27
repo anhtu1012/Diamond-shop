@@ -1,0 +1,201 @@
+.delivery-detail-main {
+  .khung1 {
+    border: 1px solid #ddd;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .thong-tin-nguoi-mua {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  }
+
+  .khung {
+    border: 1px solid #ddd;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .thong-tin-don-mua {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  }
+  .thong-tin-chi-tiet {
+    display: flex;
+    font-size: 18px;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  .thong-tin-chi-tiet {
+    .thong-tin-item {
+      display: flex;
+      margin: 10px 0;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 400;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+      .label {
+        font-weight: bold;
+        margin-right: 30px;
+        width: 200px;
+      }
+
+      .value {
+        flex: 1;
+        text-align: right;
+      }
+    }
+  }
+
+  .repayp {
+    padding: 20px 0px;
+    font-size: 20px;
+    color: #605c5c;
+    border-bottom: 1px dashed gray;
+    font-style: italic;
+
+    .total_pricep {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+  .repay2p {
+    padding: 20px 0px;
+    font-size: 20px;
+    color: #605c5c;
+    font-size: 25px;
+    font-style: italic;
+
+    .totalp {
+      display: flex;
+
+      justify-content: space-between;
+      padding-bottom: 10px;
+      span {
+        font-weight: bold;
+        color: #e4bd7b#e4bd7b;
+        font-size: 25px;
+      }
+      p {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .code-user {
+    background-color: #e4bd7b;
+    color: black;
+    font-weight: bold;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 2px solid black;
+    margin-bottom: 10px;
+  }
+  .code-box {
+    background-color: #e4bd7b;
+    color: black;
+    font-weight: bold;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 2px solid black;
+    margin-bottom: 10px;
+  }
+  .custom-black-button {
+    background-color: green !important;
+    border-color: black !important;
+    color: white !important;
+  }
+
+  // ------------------------------------
+  .staff_order_frame {
+    position: relative;
+    margin: 10px 0px;
+    padding: 15px;
+    border: 1px solid rgb(128, 128, 128, 0.1);
+    box-shadow: 1px 1px 1px 1px rgb(128, 128, 128, 0.1);
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    .staff_order_left {
+      position: relative;
+      .staff_order_kimg_kid {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: -10px;
+        left: 0;
+      }
+      .staff_order_kimg_main {
+        width: 130px;
+        margin-left: 10px;
+      }
+      .button_custom {
+        width: 100px;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid gray;
+        transform: 0.5s;
+        &:hover {
+          color: black;
+          border-bottom: 1px solid black;
+        }
+      }
+    }
+    .price {
+      text-align: right;
+      font-size: 20px;
+      font-weight: bold;
+      color: #e4bd7b;
+    }
+    .staff_order_right {
+      .icon_order {
+        padding-right: 10px;
+      }
+      .info_product {
+        display: flex;
+        padding-bottom: 20px;
+        color: #15393f;
+        .info_sub {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          font-size: large;
+          font-weight: bold;
+        }
+      }
+      .info_diamond {
+        display: flex;
+        color: #15393f;
+        .info_sub {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          font-size: large;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

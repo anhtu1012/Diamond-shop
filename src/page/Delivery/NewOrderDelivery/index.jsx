@@ -3,20 +3,19 @@ import { GiBigDiamondRing } from "react-icons/gi";
 import { IoDiamondOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import "./index.scss"; // Import your SCSS file for styling
-
+import { getNewOrderDelivery } from "../../../../services/Uservices";
 import { useEffect, useState } from "react";
-import { getNewOrder } from "../../../../services/Uservices";
 
 function NewOrderDelivery() {
   const [data, setData] = useState([]);
 
   const fetchNewOrder = async () => {
     try {
-      const res = await getNewOrder();
-      setData(res.data); // Assuming res.data is an array
+      const res = await getNewOrderDelivery();
+      setData(res.data);
     } catch (error) {
-      console.error("Error fetching new orders:", error);
-      setData([]); // Set data to empty array in case of error
+      console.error("Error fetching new order:", error);
+      setData([]);
     }
   };
 
@@ -26,7 +25,7 @@ function NewOrderDelivery() {
 
   return (
     <>
-      {data.length > 0 ? (
+      {Array.isArray(data) && data.length > 0 ? (
         data.map((userData) => (
           <div key={userData.userId} className="oder_main">
             <h2 className="UserID-code">US: {userData.userId}</h2>
@@ -40,7 +39,7 @@ function NewOrderDelivery() {
                   hour: "2-digit",
                   minute: "2-digit",
                   second: "2-digit",
-                  hour12: false,
+                  hour12: false, // Sử dụng định dạng 24 giờ thay vì AM/PM
                 }
               );
               return (
@@ -74,7 +73,8 @@ function NewOrderDelivery() {
                           </Button>
                         </div>
                       )}
-                    {(order.productCustomize?.diamond || order.diamond) && (
+                    {(order.cusproductCustomizetom?.diamond ||
+                      order.diamond) && (
                       <img
                         src={
                           order.productCustomize?.diamond?.image ||
@@ -139,12 +139,7 @@ function NewOrderDelivery() {
                           {order.productCustomize?.diamond?.diamondName ||
                             order.diamond.diamondName}
                         </p>
-                        <div
-                          style={{
-                            fontWeight: 400,
-                            fontSize: "13px",
-                          }}
-                        >
+                        <div style={{ fontWeight: 400, fontSize: "13px" }}>
                           <span>
                             Carat:{" "}
                             {order.productCustomize?.diamond?.carat ||
@@ -179,10 +174,7 @@ function NewOrderDelivery() {
                           >
                             Kiểm định:{" "}
                             <span
-                              style={{
-                                color: "#e4bd7b",
-                                fontWeight: "bold",
-                              }}
+                              style={{ color: "#e4bd7b", fontWeight: "bold" }}
                             >
                               {" "}
                               {order.diamond.certificate}{" "}
@@ -232,9 +224,9 @@ function NewOrderDelivery() {
                     </h3>
                     <button>
                       <Link
-                        to={`/delivery-page/chi-tiet-don-hang1/${order.orderId}`}
+                        to={`/delivery-page/don-hang-moi/chi-tiet-don-hang/${order.orderId}`}
                       >
-                        Nhận đơn hàng
+                        Xem Thông tin
                       </Link>
                     </button>
                   </Col>
@@ -244,7 +236,7 @@ function NewOrderDelivery() {
           </div>
         ))
       ) : (
-        <div className="loading-message">Không có đơn hàng mới</div>
+        <p>Không có đơn hàng mới</p>
       )}
     </>
   );

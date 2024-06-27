@@ -114,15 +114,14 @@ function CapNhatDon() {
         <div style={{ textAlign: "center" }}>
           {record.status === "Chờ giao hàng" ? (
             <Link
-            
-              to={`/delivery-page/chi-tiet-don-hang/${record.orderID}`}
+              to={`/delivery-page/don-hang-moi/chi-tiet-don-hang/${record.orderID}`}
               style={{ fontWeight: "bold" }}
             >
               Xem chi tiết
             </Link>
           ) : (
             <Link
-              to={`/delivery-page/don-hang/chi-tiet-don-hang/${record.orderID}`}
+              to={`/delivery-page/chi-tiet-don-hang/${record.orderID}`}
               style={{ fontWeight: "bold" }}
             >
               Xem chi tiết

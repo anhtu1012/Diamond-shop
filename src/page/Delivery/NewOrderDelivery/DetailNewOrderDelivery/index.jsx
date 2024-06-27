@@ -1,11 +1,12 @@
-import { Button, Col, Popconfirm, Rate, Row, message } from "antd";
+import { Button, Col, Divider, Input, Popconfirm, Rate, Row, Select, Space, message } from "antd";
 import "./index.scss";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { GiBigDiamondRing } from "react-icons/gi";
 import { IoDiamondOutline } from "react-icons/io5";
-import { useEffect, useState } from "react";
-import { createOrder, getOrderDetail } from "../../../../services/Uservices";
-
+import { useEffect, useRef, useState } from "react";
+import { createOrder, getOrderDetail } from "../../../../../services/Uservices";
+import { TiArrowBack } from "react-icons/ti";
+import { PlusOutlined } from "@ant-design/icons";
 
 const renderProductItem = (order, index) => (
   <Row className="staff_order_frame" key={index}>
@@ -127,9 +128,10 @@ const renderProductItem = (order, index) => (
     </Col>
   </Row>
 );
-function DetailNewOrderDelivery1() {
+
+function DetailNewOrderDelivery() {
   const { orderID } = useParams();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [data, setData] = useState();
   useEffect(() => {
     const fetchGetOrderDetail = async () => {
@@ -139,25 +141,43 @@ function DetailNewOrderDelivery1() {
 
     fetchGetOrderDetail();
   }, [orderID]);
-
+  const [items, setItems] = useState([
+    "Sản phẩm không đúng mô tả",
+    "Khách hàng không nhận hàng",
+  ]);
+  const [reason, setReason] = useState("");
+  const [name, setName] = useState("");
+  const inputRef = useRef(null);
+  const onNameChange = (event) => {
+    setName(event.target.value);
+  };
+  const addItem = (e) => {
+    let index = 0;
+    e.preventDefault();
+    setItems([...items, name || `New item ${index++}`]);
+    setName("");
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
   const handleCreateOrder = async () => {
     try {
       const status = {
-        status: "Chờ thanh toán",
+        status: "Đã giao",
         reason: "",
       };
       await createOrder(orderID, status);
-      message.success("Nhận giao đơn hàng thành công");
+      message.success("Đã Giao thành công");
       navigate("/delivery-page/don-hang-moi");
     } catch (error) {
-      message.error("Đã có lỗi xảy ra khi nhận giao đơn hàng");
+      message.error("Đã có lỗi xảy ra khi tạo đơn hàng");
     }
   };
   const handleRemobeOrder = async () => {
     try {
       const status = {
         status: "Đã hủy",
-        reason: "",
+        reason: reason,
       };
       await createOrder(orderID, status);
       message.success("Hủy đơn hàng thành công");
@@ -170,7 +190,22 @@ function DetailNewOrderDelivery1() {
     return <div>No order details found.</div>;
   }
   return (
-    <div>
+    <div className="delivery-detail-main">
+      <h2
+        style={{
+          fontWeight: "500",
+          marginLeft: "auto",
+          textAlign: "right",
+          paddingBottom: "20px",
+        }}
+      >
+        <Link
+          to={"/delivery-page/don-hang-moi"}
+          style={{ color: "black", fontWeight: 600 }}
+        >
+          <TiArrowBack style={{ justifyContent: "center" }} /> Quay lại
+        </Link>
+      </h2>
       <Row gutter={10}>
         <Col span={10}>
           <div className="khung1">
@@ -205,29 +240,77 @@ function DetailNewOrderDelivery1() {
                 <p className="value">{data.note}</p>
               </div>
             </div>
-            <div style={{ marginTop: "10px", marginLeft: "auto" }}>
-              <Popconfirm
-                title="Hủy đơn"
-                description="Bạn có chắc muốn hủy không!?"
-                onConfirm={handleRemobeOrder}
-                okText="Yes"
-                cancelText="No"
-              >
-                <Button
-                  type="primary"
-                  danger
-                  style={{ marginRight: "10px", fontWeight: "bold" }}
-                >
-                  Hủy đơn
-                </Button>
-              </Popconfirm>
+            <div style={{ marginTop: "10px", marginLeft: "auto", display:"flex" , gap:"10px"}}>
+              <div className="row">
+                <Select
+                  style={{
+                    width: 200,
+                  }}
+                  onChange={setReason}
+                  placeholder="Chọn lý do hủy đơn"
+                  dropdownRender={(menu) => (
+                    <>
+                      {menu}
+                      <Divider
+                        style={{
+                          margin: "8px 0",
+                        }}
+                      />
+                      <Space
+                        style={{
+                          padding: "0 8px 4px",
+                        }}
+                      >
+                        <Input
+                          placeholder="Nhập lí do"
+                          ref={inputRef}
+                          value={name}
+                          onChange={onNameChange}
+                          onKeyDown={(e) => e.stopPropagation()}
+                        />
+                        <Button
+                          type="text"
+                          icon={<PlusOutlined />}
+                          onClick={addItem}
+                        >
+                          Thêm Lý do
+                        </Button>
+                      </Space>
+                    </>
+                  )}
+                  options={items.map((item) => ({
+                    label: item,
+                    value: item,
+                  }))}
+                />
+                <span>
+                  {" "}
+                  <Popconfirm
+                    title="Hủy Đơn"
+                    onConfirm={handleRemobeOrder}
+                    okText="Yes"
+                    cancelText="No"
+                  >
+                    <Button
+                      style={{
+                        background: "red",
+                        color: "white",
+                        borderRadius: "0px 8px 8px 0px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Hủy Đơn
+                    </Button>
+                  </Popconfirm>
+                </span>
+              </div>
               <Button
                 type="primary"
                 style={{ fontWeight: "bold" }}
                 className="custom-black-button"
                 onClick={handleCreateOrder}
               >
-                Nhận giao đơn hàng
+                Đã Giao
               </Button>
             </div>
           </div>
@@ -289,5 +372,4 @@ function DetailNewOrderDelivery1() {
   );
 }
 
-
-export default DetailNewOrderDelivery1;
+export default DetailNewOrderDelivery;

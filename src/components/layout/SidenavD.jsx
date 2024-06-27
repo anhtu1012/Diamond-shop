@@ -19,11 +19,6 @@ const items = [
     icon: <UserOutlined className="side-icon" />,
     label: "Cập nhật",
   },
-  {
-    key: "/delivery-page/lich-su-giao-hang",
-    icon: <UserOutlined className="side-icon" />,
-    label: "Lịch sử giao hàng",
-  },
 ];
 // eslint-disable-next-line react/prop-types
 function SidenavD({ collapsed }) {

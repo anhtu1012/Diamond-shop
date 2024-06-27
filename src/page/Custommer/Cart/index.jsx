@@ -34,7 +34,7 @@ const { Option } = Select;
 
 function Cart() {
   const [form] = Form.useForm();
-  
+  const { setQuantity } = useOutletContext();
   const [email, setEmail] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [provinces, setProvinces] = useState([]);
@@ -117,7 +117,6 @@ function Cart() {
   const navigate = useNavigate();
   const handleSubmit = async () => {
     try {
-   
       // Lấy giá trị từ form
       const formValues = await form.validateFields();
       const isAddressChanged =
@@ -176,6 +175,7 @@ function Cart() {
     const handleDeleteCart = async (cartItemId) => {
       try {
         await deleteCart(cartItemId);
+        setQuantity((prev) => prev - 1);
         message.success("Xóa thành công");
         // Cập nhật lại dữ liệu giỏ hàng trên UI sau khi xóa thành công
         fetchCart(); // Gọi hàm fetchDataCart() để cập nhật lại danh sách giỏ hàng

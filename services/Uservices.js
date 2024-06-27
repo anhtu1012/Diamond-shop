@@ -215,3 +215,8 @@ export const getNewOrder = () => {
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/orders/newest_order`
   );
 };
+export const getNewOrderDelivery = () => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/delivery/newest_order`
+  );
+};

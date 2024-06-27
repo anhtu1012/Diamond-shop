@@ -34,6 +34,9 @@ function Complete({ diamond, product, setCurrentStep }) {
       Number(product.totalPrice) + Number(diamond.totalPrice)
     );
     setSizeOptions(sizeOptions);
+    if (!sizeOptions) {
+      setSelectedSize(40);
+    }
   }, []);
   const hanldeChange = () => {
     setCurrentStep(1);
