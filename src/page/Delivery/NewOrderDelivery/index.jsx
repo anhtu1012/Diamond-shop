@@ -21,7 +21,7 @@ function NewOrderDelivery() {
 
   useEffect(() => {
     fetchNewOrder();
-  }, []);
+  }, [data]);
 
   return (
     <>

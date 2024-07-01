@@ -1,0 +1,8 @@
+.container-main {
+  padding: 20px 150px;
+  minheight: 800px;
+  overflow: hidden;
+  @media (max-width: 768px) {
+    padding: 20px 50px;
+  }
+}

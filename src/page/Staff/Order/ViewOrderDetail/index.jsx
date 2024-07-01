@@ -206,7 +206,7 @@ function ViewOrderDetailsStaff() {
                     }}
                   >
                     <Link
-                      to={"/don-hang"}
+                      to={"/staff-page/don-hang"}
                       style={{ color: "black", fontWeight: 600 }}
                     >
                       <TiArrowBack style={{ justifyContent: "center" }} /> Quay
@@ -217,7 +217,7 @@ function ViewOrderDetailsStaff() {
                 <p
                   style={{
                     fontWeight: "400",
-                    background: "#15393f", 
+                    background: "#15393f",
                     color: "white",
                     border: "2px solid black",
                     gap: "5px",
@@ -240,7 +240,7 @@ function ViewOrderDetailsStaff() {
                     width: "10%",
                   }}
                 >
-                  {data.orderID}
+                  {data.orderId}
                 </p>
                 <div>
                   {data.orderDetails.map((order, index) =>

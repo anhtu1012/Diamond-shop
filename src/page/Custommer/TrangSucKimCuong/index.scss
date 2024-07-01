@@ -18,6 +18,9 @@
   align-items: center;
   background-color: bisque;
   margin-top: 30px;
+  @media (max-width: 590px) {
+    display: none;
+  }
 
   h2 {
     padding: 30px;
@@ -68,7 +71,7 @@
   }
 }
 .chon-trang {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }

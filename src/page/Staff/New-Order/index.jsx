@@ -21,7 +21,7 @@ function NewOrder() {
 
   useEffect(() => {
     fetchNewOrder();
-  }, []);
+  }, [data]);
 
   return (
     <>

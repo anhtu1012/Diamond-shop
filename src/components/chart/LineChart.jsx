@@ -1,11 +1,10 @@
 import ReactApexChart from "react-apexcharts";
 import { Typography } from "antd";
 import { MinusOutlined } from "@ant-design/icons";
-import lineChart from "./configs/lineChart";
-
+import LChartConfig from "./configs/lineChart";
 function LineChart() {
   const { Title, Paragraph } = Typography;
-
+  const lineChart = LChartConfig();
   return (
     <>
       <div className="linechart">
@@ -17,8 +16,12 @@ function LineChart() {
         </div>
         <div className="sales">
           <ul>
-            <li><MinusOutlined /> Traffic</li>
-            <li><MinusOutlined /> Sales</li>
+            <li>
+              <MinusOutlined /> Traffic
+            </li>
+            <li>
+              <MinusOutlined /> Sales
+            </li>
           </ul>
         </div>
       </div>

@@ -20,77 +20,64 @@ import StaffPage from "./page/Staff/staff-page";
 import Layout from "./page/layout";
 
 import NhanCauHon from "./page/Custommer/NhanCauHon";
-import ProductDetails from "./page/Custommer/ProductDetails";
 import Payment from "./page/Custommer/Payment";
+import ProductDetails from "./page/Custommer/ProductDetails";
 
-import OrderCustomer from "./page/Custommer/Order";
 import DetailOrder from "./page/Custommer/DetailOrder";
+import OrderCustomer from "./page/Custommer/Order";
 
-import HuongDan from "./page/Custommer/HuongDanDoNi";
-import ViewDiamond from "./page/Admin/Diamond/ViewDiamond";
 import NewDiamond from "./page/Admin/Diamond/NewDiamond";
-import NhanCuoi from "./page/Custommer/NhanCuoi";
-import BoTrangSucCuoi from "./page/Custommer/BoTrangSucCuoi";
+import ViewDiamond from "./page/Admin/Diamond/ViewDiamond";
 import AboutDiamond from "./page/Custommer/AboutDiamond";
 import ChinhSachBaoMat from "./page/Custommer/BaoMat";
+import BoTrangSucCuoi from "./page/Custommer/BoTrangSucCuoi";
 import ChinhSachDoiTra from "./page/Custommer/ChinhSachDoiTra";
+import HuongDan from "./page/Custommer/HuongDanDoNi";
+import NhanCuoi from "./page/Custommer/NhanCuoi";
 
-import TrangSucCuoi from "./page/Custommer/TrangSucCuoi";
-import TrangSucKimCuong from "./page/Custommer/TrangSucKimCuong";
-import NhanKimCuong from "./page/Custommer/NhanKimCuong";
-import MatDayChuyenKimCuong from "./page/Custommer/MatDayChuyenKimCuong";
-import LacVongTayKimCuong from "./page/Custommer/LVTKimcuong";
 import BoSuuTapKimCuong from "./page/Custommer/BSTKimCuong";
 import BongTaiKimCuong from "./page/Custommer/BongTaiKimCuong";
 import KimCuongVien from "./page/Custommer/KimCuongVien";
+import LacVongTayKimCuong from "./page/Custommer/LVTKimcuong";
+import MatDayChuyenKimCuong from "./page/Custommer/MatDayChuyenKimCuong";
+import NhanKimCuong from "./page/Custommer/NhanKimCuong";
+import TrangSucCuoi from "./page/Custommer/TrangSucCuoi";
+import TrangSucKimCuong from "./page/Custommer/TrangSucKimCuong";
 
 import Custommize from "./page/Custommer/Custommize";
 
 import DiamondDetails from "./page/Admin/Diamond/DiamondDetails";
-import ProductDetail from "./page/Admin/Product/ProductDetail";
-import ForgotPassword from "./page/forgotpassword";
 import ViewOrderDetails from "./page/Admin/Order/ViewOrder";
-import LienHe from "./page/Custommer/LienHe";
+import ProductDetail from "./page/Admin/Product/ProductDetail";
 import DiamondDetailss from "./page/Custommer/Diamond Details Cus";
+import LienHe from "./page/Custommer/LienHe";
+import ForgotPassword from "./page/forgotpassword";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import LoginPage from "./page/login";
 import NotFound from "./page/404";
 import ProfileAccount from "./page/Admin/Account/ViewAccountDetail/index";
 import AccountDetail from "./page/Custommer/ThongTinTaiKhoan";
+import LoginPage from "./page/login";
 
+import KimCuongVienTest from "./page/Custommer/KimCuongVien copy";
 import DetailNewOrder from "./page/Staff/New-Order/DetailNewOrder";
 import ProductDetailStaff from "./page/Staff/ProductStaff/ProductDetail";
 import ViewProductS from "./page/Staff/ProductStaff/allProduct";
-import KimCuongVienTest from "./page/Custommer/KimCuongVien copy";
 
 import ViewOrderDetailsStaff from "./page/Staff/Order/ViewOrderDetail";
 
-import DeliveryPage from "./page/Delivery/DeliveryPape";
 import CapNhatDon from "./page/Delivery/CapNhatDon";
+import DeliveryPage from "./page/Delivery/DeliveryPape";
 
 import ViewOrderDetailsCusTom from "./page/Custommer/Order/ViewOrderDetail";
 
 import WarrantyCus from "./page/Custommer/Bao-Hanh";
 
 import KimCuongGIA from "./page/Custommer/KimCuongGIA";
-<<<<<<< HEAD
-<<<<<<< HEAD
-import ViewOrderDetailDelivery from "./page/Delivery/OrderDetail";
+
 import NewOrderDelivery from "./page/Delivery/NewOrderDelivery";
 import DetailNewOrderDelivery from "./page/Delivery/NewOrderDelivery/DetailNewOrderDelivery";
-=======
-import XemDonDaGiao from "./page/Delivery/XemDonDaGiao";
-
-import DetailNewOrderDelivery1 from "./page/Delivery/ChiTietCapNhat1";
->>>>>>> 344e771873a8579c7888b1a06687d5535303becd
-=======
-
 import ViewOrderDetailDelivery from "./page/Delivery/OrderDetail";
-import NewOrderDelivery from "./page/Delivery/NewOrderDelivery";
-import DetailNewOrderDelivery from "./page/Delivery/NewOrderDelivery/DetailNewOrderDelivery";
-
->>>>>>> 2039305668d3b40ebbcc6c77e56466d3bf89e732
 
 // import PageNewOrder from "./page/Staff/New-Order";
 

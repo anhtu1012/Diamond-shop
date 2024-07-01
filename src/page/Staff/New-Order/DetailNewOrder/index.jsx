@@ -234,7 +234,7 @@ function DetailNewOrder() {
         </Col>
         <Col span={14}>
           <div className="khung">
-            <div className="code-box">OD: OD{data.orderID}</div>
+            <div className="code-box">OD: OD{data.orderId}</div>
             <div className="thong-tin-don-mua" style={{ padding: "10px " }}>
               <span>Thông tin đơn hàng</span>
             </div>

@@ -227,7 +227,7 @@ function FormProductStep1({ onFinish, initialValues }) {
             <Input
               className="input"
               allowClear
-              placeholder="Nhập Mã Sản Phẩm"
+              placeholder="Chữ cái đầu + 5 số Ví dụ: NCH5xxxx"
             />
           </Form.Item>
           <Form.Item

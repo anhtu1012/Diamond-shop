@@ -1,18 +1,14 @@
-import { Button, Col, Form, Radio, Rate, Row } from "antd";
+import { Button, Col, Form, Radio, Rate, Row, message } from "antd";
 import "./index.scss";
 import { CaretLeftFilled } from "@ant-design/icons";
 import { GiBigDiamondRing } from "react-icons/gi";
-import {
-  FaCcMastercard,
-  FaCreditCard,
-  FaHome,
-  FaStoreAlt,
-} from "react-icons/fa";
+import { FaCcMastercard, FaHome, FaStoreAlt } from "react-icons/fa";
 import Container from "../../../components/container/Container";
 import { IoDiamondOutline } from "react-icons/io5";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getOrderDetail } from "../../../../services/Uservices";
+import { checkOut, getOrderDetail } from "../../../../services/Uservices";
+import NoData from "../../../components/nodata";
 
 const renderProductItem = (order, index) => (
   <Row className="staff_order_frame" key={index}>
@@ -147,9 +143,27 @@ function Payment() {
     };
 
     fetchGetOrderDetail();
-  }, [orderID]);
+  }, []);
+  const handleCheckOut = async () => {
+    try {
+      const values = form.getFieldsValue();
+      const paymentMethod =
+        values.paymentMethod === "installment" ? "vnpay" : "paypal";
+      const info = {
+        orderID: orderID,
+        paymentMethod: paymentMethod,
+      };
+      console.log(info);
+      const res = await checkOut(info);
+      const redirectUrl = res.data.replace("redirect:", "").trim(); // Remove 'redirect:' prefix
+      console.log(redirectUrl);
+      window.location.href = redirectUrl;
+    } catch (error) {
+      message.error("Đã có lỗi xảy ra khi tạo đơn hàng");
+    }
+  };
   if (!data) {
-    return <div>No order details found.</div>;
+    return <NoData />;
   }
 
   return (
@@ -172,7 +186,7 @@ function Payment() {
               >
                 <span>ĐƠN HÀNG</span>
               </div>
-              <div className="code-box">OD: OD{data.orderID}</div>
+              <div className="code-box">OD: OD{data.orderId}</div>
               <div>
                 {data.orderDetails.map((order, index) =>
                   renderProductItem(order, index)
@@ -219,7 +233,11 @@ function Payment() {
             </div>
           </Col>
           <Col span={10} className="pay_main_col">
-            <Form form={form} style={{ padding: "10px 30px" }}>
+            <Form
+              form={form}
+              style={{ padding: "10px 30px" }}
+              initialValues={{ paymentMethod: "online" }}
+            >
               <div className="pay_form_title">
                 <Button shape="circle" style={{ border: "2px solid black" }}>
                   <p>1</p>
@@ -271,22 +289,6 @@ function Payment() {
               <Form.Item name="paymentMethod">
                 <Radio.Group>
                   <Radio
-                    value="transfer"
-                    style={{
-                      width: "467px",
-                      height: "47px",
-                      display: "flex",
-                      alignItems: "center",
-                      border: "1px solid #ccc",
-                      padding: "0 10px",
-                      marginBottom: "10px",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <FaCreditCard style={{ marginRight: "8px" }} />
-                    Chuyển khoản qua ngân hàng
-                  </Radio>
-                  <Radio
                     value="installment"
                     style={{
                       width: "467px",
@@ -337,6 +339,7 @@ function Payment() {
               </Form.Item>
               <Button
                 type="primary"
+                onClick={handleCheckOut}
                 htmlType="submit"
                 className="payment_button"
                 style={{ width: "310px", height: "48px" }}

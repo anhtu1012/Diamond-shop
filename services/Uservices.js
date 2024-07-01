@@ -220,3 +220,30 @@ export const getNewOrderDelivery = () => {
     `https://diamondshopgroup6.azurewebsites.net/swp391/api/delivery/newest_order`
   );
 };
+export const checkOut = (info) => {
+  return api.post(
+    `https://diamondshopgroup6.azurewebsites.net/payment/checkout`,
+    info
+  );
+};
+export const getTotalRevenve = () => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/dashboards/total_revenue`
+  );
+};
+export const getRevenveDiamond = () => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/dashboards/total_revenue_diamond`
+  );
+};
+export const getRevenveCustomize = () => {
+  return api.get(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/dashboards/total_revenue_productcustomize`
+  );
+};
+export const changePass = (user_id, info) => {
+  return api.post(
+    `https://diamondshopgroup6.azurewebsites.net/swp391/api/user/change_password/${user_id}`,
+    info
+  );
+};

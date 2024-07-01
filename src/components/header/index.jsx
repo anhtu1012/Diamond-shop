@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined, MenuOutlined } from "@ant-design/icons";
 import {
   Badge,
   Button,
@@ -39,8 +39,8 @@ const items = [
     key: "gioi-thieu-ve-diamond",
   },
 ];
+
 const trangSucCuoiItems = [
-  // Đây là các mục sẽ xuất hiện dưới dropdown "Trang sức cưới"
   {
     label: (
       <div style={{ fontSize: "15px", padding: "5px 20px" }}>
@@ -68,7 +68,6 @@ const trangSucCuoiItems = [
 ];
 
 const trangSucKimCuongItems = [
-  // Đây là các mục sẽ xuất hiện dưới dropdown "Trang sức cưới"
   {
     label: (
       <div style={{ fontSize: "15px", padding: "5px 20px" }}>
@@ -110,6 +109,7 @@ const trangSucKimCuongItems = [
     key: "bo-suu-tap-kim-cuong",
   },
 ];
+
 const kimCuongVien = [
   {
     label: (
@@ -121,17 +121,17 @@ const kimCuongVien = [
 
 function Header({ quantity, setQuantity }) {
   const onClick = ({ key }) => {
-    // message.info(`Click on item ${key}`);
     navigate(`${key}`);
   };
 
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-
+  const [isNavVisible, setIsNavVisible] = useState(false);
   const [quantityWaitPay, setQuantityWaitPay] = useState(false);
-  const navigate = useNavigate(); // Hook useNavigate
+  const navigate = useNavigate();
   const user = useSelector(selectUser);
-  console.log(user);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const fetchQuantity = async () => {
       try {
@@ -157,6 +157,7 @@ function Header({ quantity, setQuantity }) {
 
     fetchOrderWaitPay();
   }, []);
+
   useEffect(() => {
     const sendNotification = () => {
       if (quantityWaitPay > 0) {
@@ -174,6 +175,7 @@ function Header({ quantity, setQuantity }) {
 
     return () => clearInterval(intervalId);
   }, [quantityWaitPay]);
+
   useEffect(() => {
     const handleScroll = () => {
       const header = document.querySelector(".container-fluid");
@@ -199,10 +201,11 @@ function Header({ quantity, setQuantity }) {
   const handleCancel = () => {
     setIsLoginModalVisible(false);
   };
+
   const toggleSearch = () => {
     setIsSearchVisible((prev) => !prev);
   };
-  const dispatch = useDispatch();
+
   const handleLogout = async () => {
     await logoutApi();
     localStorage.removeItem("token");
@@ -210,6 +213,7 @@ function Header({ quantity, setQuantity }) {
     navigate("/");
     message.success("Đăng Xuất Thành Công");
   };
+
   const settings = [
     {
       key: "/thong-tin-chi-tiet",
@@ -233,6 +237,10 @@ function Header({ quantity, setQuantity }) {
     },
   ];
 
+  const toggleNav = () => {
+    setIsNavVisible(!isNavVisible);
+  };
+
   return (
     <div className="container-fluid">
       <header className="header">
@@ -240,6 +248,9 @@ function Header({ quantity, setQuantity }) {
           <FaFacebookSquare />
           <FaInstagramSquare />
           <FaMapMarkerAlt />
+        </div>
+        <div className="menu-toggle" onClick={toggleNav}>
+          <MenuOutlined />
         </div>
         <div className="header_logo">
           <Link to="/">
@@ -249,8 +260,8 @@ function Header({ quantity, setQuantity }) {
               alt=""
             />
           </Link>
-        </div>
-        <div>
+        </div>{" "}
+        <div >
           {!user ? (
             <div className="header_social_right">
               <div className="search">
@@ -302,7 +313,7 @@ function Header({ quantity, setQuantity }) {
           )}
         </div>
       </header>
-      <nav className="nav">
+      <nav className={`nav ${isNavVisible ? "active" : ""}`}>
         <ul>
           <li>
             <Dropdown
@@ -357,7 +368,6 @@ function Header({ quantity, setQuantity }) {
           </li>
         </ul>
       </nav>
-
       <Modal
         centered
         open={isLoginModalVisible}
