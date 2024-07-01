@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Breadcrumb, Layout, theme } from "antd";
-import { Link, Outlet } from "react-router-dom";
+import { Layout, theme } from "antd";
+import { Outlet } from "react-router-dom";
 import { Footer } from "antd/es/layout/layout";
 import SidenavD from "../../../components/layout/SidenavD";
 import HeaderDelivery from "../../../components/layout/HeaderD";
+import Breadcrumbs from "../../../components/breadcums";
 
 const { Header, Sider, Content } = Layout;
 const DeliveryPage = () => {
@@ -41,21 +42,9 @@ const DeliveryPage = () => {
           }}
         >
           {" "}
-          <Breadcrumb
-            style={{
-              margin: "16px 0",
-            }}
-          >
-            <Breadcrumb.Item>
-              <Link to="/delivery-page">Đơn hàng mới</Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <Link to="/delivery-page/cap-nhat-don-hang">Cập nhật đơn hàng</Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <Link to="/delivery-page/lich-su-giao-hang">Lịch sử giao hàng</Link>
-            </Breadcrumb.Item>
-          </Breadcrumb>
+          <div className="breadcums" style={{ padding: "20px 10px" }}>
+            <Breadcrumbs />
+          </div>
           <div
             style={{
               padding: 24,
