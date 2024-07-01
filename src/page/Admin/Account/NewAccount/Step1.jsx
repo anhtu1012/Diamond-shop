@@ -1,9 +1,21 @@
 /* eslint-disable react/prop-types */
-import { Col, Form, Image, Input, Row, Select, Space, Upload } from "antd";
+import {
+  Col,
+  Form,
+  Image,
+  Input,
+  Row,
+  Select,
+  Space,
+  Upload,
+  message,
+} from "antd";
 import "./index.scss";
 import { PlusOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { getDistricts, getProvinces, getWards } from "vietnam-provinces";
+import uploadFile from "../../../../utils/upload";
+import { createUser } from "../../../../../services/Uservices";
 const { Option } = Select;
 
 const getBase64 = (file) =>
@@ -33,12 +45,20 @@ const Step1 = ({ onFinish, initialValues }) => {
     setFileList(newFileList);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (values) => {
     try {
-      const values = await form.validateFields();
-      onFinish(values);
-    } catch (errorInfo) {
-      console.log("Validation failed:", errorInfo);
+      const file = fileList[0]?.originFileObj;
+      const avata = file ? await uploadFile(file) : null;
+      const finalData = {
+        ...values,
+        avata,
+      };
+      await createUser(finalData);
+      message.success("Tạo tài khoản thành công! Vui lòng check Email.");
+      onFinish(finalData);
+    } catch (error) {
+      message.error("Tạo tài khoản thất bại, vui lòng thử lại!");
+      console.log("Upload failed:", error);
     }
   };
 

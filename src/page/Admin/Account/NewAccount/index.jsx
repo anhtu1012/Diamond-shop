@@ -3,24 +3,16 @@ import { Steps } from "antd";
 import { BsImage } from "react-icons/bs";
 import { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
-import { PiEyesFill } from "react-icons/pi";
 import Step1 from "./Step1";
-import XacNhan from "./XacNhan";
 import Success from "./Success";
 
 function NewAccount() {
   const [form, setForm] = useState(null);
   const [current, setCurrent] = useState(0);
-  const [combinedData, setCombinedData] = useState(null);
 
   const onFinishFormStep = (value) => {
     setForm(value);
     setCurrent(1);
-  };
-
-  const handleFinishConfirm = (finalData) => {
-    setCombinedData(finalData);
-    setCurrent(2); // Move to success step
   };
 
   const createAnotherUser = () => {
@@ -44,16 +36,6 @@ function NewAccount() {
       disabled: isStepDisabled(0),
     },
     {
-      title: <span style={{ fontWeight: "bold" }}>Bước 3</span>,
-      icon: <PiEyesFill size={30} />,
-      description: (
-        <span style={{ color: "gray", fontWeight: "bold" }}>
-          Xác Nhận Thông tin
-        </span>
-      ),
-      disabled: isStepDisabled(2),
-    },
-    {
       title: <span style={{ fontWeight: "bold" }}>Thành công</span>,
       icon: <FaCheckCircle size={30} />,
       description: "", // No description needed here
@@ -63,7 +45,6 @@ function NewAccount() {
 
   const forms = [
     <Step1 onFinish={onFinishFormStep} initialValues={form} />,
-    <XacNhan onFinish={handleFinishConfirm} combinedData={combinedData} />,
     <Success
       email={form?.email}
       password={form?.password}
