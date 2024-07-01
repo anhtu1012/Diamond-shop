@@ -1,4 +1,4 @@
-import { Button, Col, Rate, Row } from "antd";
+import {  Button, Col, Rate, Row } from "antd";
 import { GiBigDiamondRing } from "react-icons/gi";
 import { IoDiamondOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
@@ -7,6 +7,7 @@ import { getNewOrder } from "../../../../services/Uservices";
 import { useEffect, useState } from "react";
 
 function NewOrder() {
+  
   const [data, setData] = useState([]);
   
   const fetchNewOrder = async () => {
@@ -24,8 +25,10 @@ function NewOrder() {
   }, []);
 
   return (
+     
     <>
       {Array.isArray(data) && data.length > 0 ? (
+        
         data.map((userData) => (
           <div key={userData.userId} className="oder_main">
             <h2 className="UserID-code">US: {userData.userId}</h2>
@@ -43,11 +46,14 @@ function NewOrder() {
                 }
               );
               return (
+                
+                
                 <Row
                   className="new_order_frame"
                   key={order.orderId}
                   style={{ marginBottom: "20px" }}
                 >
+                  
                   <Col span={7} className="new_order_left">
                     <div className="new_order_odID">
                       <span>OD: {order.orderId}</span>
