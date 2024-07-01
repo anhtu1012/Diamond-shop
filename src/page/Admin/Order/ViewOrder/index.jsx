@@ -240,7 +240,7 @@ function ViewOrderDetails() {
                     width: "12%",
                   }}
                 >
-                  Mã đơn: {data.orderID}
+                  Mã đơn: {data.orderId}
                 </p>
                 <div>
                   {data.orderDetails.map((order, index) =>

@@ -290,7 +290,7 @@ function ViewOrderDetailsCusTom() {
                       width: "10%",
                     }}
                   >
-                    {data.orderID}
+                    {data.orderId}
                   </p>
                   <div>
                     {data.orderDetails.map((order, index) =>
@@ -573,7 +573,7 @@ function ViewOrderDetailsCusTom() {
                           className="thanh-toan"
                           style={{ textAlign: "center" }}
                         >
-                          <Link to={`/thanh-toan/${data.orderID}`}>
+                          <Link to={`/thanh-toan/${data.orderId}`}>
                             <Button
                               style={{
                                 background: "#15393f",

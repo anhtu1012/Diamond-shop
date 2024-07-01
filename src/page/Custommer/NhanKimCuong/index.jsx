@@ -66,7 +66,7 @@ function NhanKimCuong() {
         return price >= 50000000 && price <= 100000000;
       case "500-700":
         return price >= 50000000 && price <= 700000000;
-      default: 
+      default:
         return true;
     }
   };
@@ -94,6 +94,10 @@ function NhanKimCuong() {
 
   // Function to handle page change
   const handlePageChange = (pageNumber) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Cho phép cuộn mượt mà
+    });
     setCurrentPage(pageNumber);
   };
 
@@ -209,13 +213,17 @@ function NhanKimCuong() {
                 <Col
                   key={product.productID}
                   className="gutter-row"
-                  xs={12}
+                  xs={24}
                   sm={12}
                   md={12}
                   lg={6}
                 >
                   <div
-                    style={{ padding: "20px 0px", width: "250px !important" }}
+                    style={{
+                      textAlign: "center",
+                      padding: "20px 40px",
+                      width: "250px !important",
+                    }}
                   >
                     <CartProduct
                       style={{ width: "250px !important" }}

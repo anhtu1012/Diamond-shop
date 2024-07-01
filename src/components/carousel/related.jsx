@@ -53,7 +53,28 @@ export default function Relate({
   useEffect(() => {
     fetchItems();
   }, [data, isNewest]);
+  const handleCardClick = () => {
+    // Cuộn lên đầu trang
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Cho phép cuộn mượt mà
+    });
+  };
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isTablet, setIsTablet] = useState(
+    window.innerWidth >= 768 && window.innerWidth <= 1024
+  );
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth <= 1024);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   // Filter items based on shape or category
   const filteredItems = items.filter((item) => {
     if (data === "diamonds") {
@@ -70,11 +91,19 @@ export default function Relate({
   return (
     <div className="swiper-container" style={swiperContainerStyle}>
       <Swiper
-        slidesPerView={numberOfSlides}
+        spaceBetween={30}
+        slidesPerView={
+          isMobile
+            ? 1
+            : isTablet
+            ? data === "diamonds"
+              ? 2
+              : numberOfSlides -2
+            : numberOfSlides
+        }
         grid={{
           rows: rows,
         }}
-        spaceBetween={30}
         autoplay={
           autoplay
             ? {
@@ -91,11 +120,13 @@ export default function Relate({
             key={item.productID || item.diamondID}
             className="multi-slide"
           >
-            {data === "diamonds" ? (
-              <CartProduct diamond={item}  />
-            ) : (
-              <CartProduct product={item} />
-            )}
+            <div onClick={handleCardClick}>
+              {data === "diamonds" ? (
+                <CartProduct diamond={item} />
+              ) : (
+                <CartProduct product={item} />
+              )}
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

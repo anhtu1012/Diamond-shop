@@ -26,6 +26,7 @@ import { getDistricts, getWards, provinces } from "vietnam-provinces";
 import { IoDiamondOutline } from "react-icons/io5";
 import { GiBigDiamondRing } from "react-icons/gi";
 import {
+  changePass,
   fetchUserById,
   getOrderById,
   getWarrantyCard,
@@ -35,6 +36,7 @@ import LoadingTruck from "../../../components/loading";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/features/counterSlice";
 import moment from "moment/moment";
+import { useForm } from "antd/es/form/Form";
 
 const { Search } = Input;
 function callback(key) {
@@ -122,10 +124,12 @@ function AccountDetail() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); // Add loading state
   const [dataSource, setDataSource] = useState([]);
+  const [changeForm] = useForm();
   const fetchOderById = async () => {
     const res = await getOrderById(user.userID);
     setData(res.data);
   };
+
   useEffect(() => {
     fetchOderById();
   }, []);
@@ -310,7 +314,7 @@ function AccountDetail() {
     const response = await fetchUserById(user.userID);
     const userData = response.data.data;
     setUserr(userData);
-    
+
     const addressParts = userData.address.split(", ").reverse();
 
     const addressDetails = {
@@ -378,7 +382,27 @@ function AccountDetail() {
     setFileList(newFileList);
     message.success("Xóa ảnh thành công!");
   };
-
+  function handleOk() {
+    changeForm.submit();
+  }
+  const handleChangePass = async (values) => {
+    try {
+      const passValues = {
+        oldPassWord: values.oldPassWord,
+        newPassWord: values.newPassWord,
+      };
+      const res = await changePass(user.userID, passValues);
+      if (res.data.message === "Update password successfully") {
+        message.success("Đổi mật khẩu thành công");
+        setShowPasswordFields(false);
+        changeForm.resetFields();
+      } else {
+        message.error("Mẩu khẩu cũ không chính xác");
+      }
+    } catch (error) {
+      message.error(`Đổi mật khẩu thất bại: ${error.message}`);
+    }
+  };
   const handleUpdate = async () => {
     try {
       const formValues = await form.validateFields();
@@ -584,18 +608,74 @@ function AccountDetail() {
                                 alignItems: "center",
                               }}
                             >
-                              <Input
-                                placeholder="Mật khẩu cũ"
-                                style={{ marginTop: "10px", width: "200px" }}
-                              />
-                              <Input
-                                placeholder="Mật khẩu mới"
-                                style={{ marginTop: "10px", width: "200px" }}
-                              />
-                              <Input
-                                placeholder="Nhập lại mật khẩu mới"
-                                style={{ marginTop: "10px", width: "200px" }}
-                              />
+                              <Form
+                                form={changeForm}
+                                onFinish={handleChangePass}
+                              >
+                                <Form.Item
+                                  name="oldPassWord"
+                                  rules={[
+                                    {
+                                      required: true,
+                                      message: "Vui lòng nhập mật khẩu!",
+                                    },
+                                  ]}
+                                  hasFeedback
+                                >
+                                  <Input.Password placeholder="Mật khẩu Cũ..." />
+                                </Form.Item>
+                                <Form.Item
+                                  name="newPassWord"
+                                  rules={[
+                                    {
+                                      required: true,
+                                      message: "Vui lòng nhập mật khẩu!",
+                                    },
+                                    {
+                                      pattern: new RegExp(
+                                        "^(?=.*[A-Za-z])(?=.*\\d).{8,}$"
+                                      ),
+                                      message:
+                                        "Mật khẩu phải dài ít nhất 8 ký tự và bao gồm ít nhất một chữ số và một chữ cái.",
+                                    },
+                                  ]}
+                                  hasFeedback
+                                >
+                                  <Input.Password
+                                    className="input"
+                                    placeholder="Mật khẩu Mới"
+                                  />
+                                </Form.Item>
+                                <Form.Item
+                                  name="confirmPassword"
+                                  dependencies={["newPassWord"]}
+                                  hasFeedback
+                                  rules={[
+                                    {
+                                      required: true,
+                                      message: "Nhập lại mật khẩu!!!",
+                                    },
+                                    ({ getFieldValue }) => ({
+                                      validator(_, value) {
+                                        if (
+                                          !value ||
+                                          getFieldValue("newPassWord") === value
+                                        ) {
+                                          return Promise.resolve();
+                                        }
+                                        return Promise.reject(
+                                          new Error("Mật khẩu không hợp lệ!")
+                                        );
+                                      },
+                                    }),
+                                  ]}
+                                >
+                                  <Input.Password
+                                    className="input"
+                                    placeholder="Xác nhận lại mật khẩu..."
+                                  />
+                                </Form.Item>
+                              </Form>
                             </div>
                             <Col
                               span={24}
@@ -607,10 +687,9 @@ function AccountDetail() {
                             >
                               <Button
                                 type="primary"
-                                onClick={handleUpdate}
+                                onClick={handleOk}
                                 style={{
                                   background: "#15393f",
-                                  marginTop: "10px",
                                 }}
                               >
                                 Đổi mật khẩu

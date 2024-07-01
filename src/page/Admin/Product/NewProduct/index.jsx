@@ -45,11 +45,15 @@ function NewProduct() {
     if (stepNumber === 2) return form1 === null || form2 === null;
     return false;
   };
-
+  const getStepIconStyle = (stepIndex) => {
+    if (stepIndex <= current) {
+      return { color: "green" }; // All preceding steps turn blue
+    }
+  };
   const items = [
     {
       title: <span style={{ fontWeight: "bold" }}>Bước 1</span>,
-      icon: <BsImage size={30} />,
+      icon: <BsImage style={getStepIconStyle(0)} size={30} />,
       description: (
         <span style={{ color: "gray", fontWeight: "bold" }}>
           Thông tin cơ bản
@@ -59,7 +63,7 @@ function NewProduct() {
     },
     {
       title: <span style={{ fontWeight: "bold" }}>Bước 2</span>,
-      icon: <MdEditCalendar size={30} />,
+      icon: <MdEditCalendar style={getStepIconStyle(1)} size={30} />,
       description: (
         <span style={{ color: "gray", fontWeight: "bold" }}>
           Thông tin chi tiết
@@ -69,7 +73,7 @@ function NewProduct() {
     },
     {
       title: <span style={{ fontWeight: "bold" }}>Bước 3</span>,
-      icon: <PiEyesFill size={30} />,
+      icon: <PiEyesFill style={getStepIconStyle(2)} size={30} />,
       description: (
         <span style={{ color: "gray", fontWeight: "bold" }}>
           Xác Nhận Thông tin

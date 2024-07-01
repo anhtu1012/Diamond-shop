@@ -29,7 +29,7 @@ function HomePage() {
 
   return (
     <div style={{ overflow: "hidden" }}>
-      <Carousel />
+      <Carousel className="carousel" />
 
       <Container>
         <Row className="home_diamond_nature">
@@ -100,7 +100,7 @@ function HomePage() {
               </Link>
             </div>
           </Col>
-          <Col span={12} style={{ paddingBottom: "15px" }}>
+          <Col span={12} xs={24} sm={24} md={24} lg={12} xl={12} style={{ paddingBottom: "15px" }}>
             <Relate
               numberOfSlides={2}
               rows={2}
@@ -121,7 +121,7 @@ function HomePage() {
           <Col span={24}>
             <h2 className="h2">TRANG SỨC BÔNG TAI KIM CƯƠNG</h2>
           </Col>
-          <Col span={12} style={{ paddingBottom: "15px" }}>
+          <Col span={12} xs={24} sm={24} md={24} lg={12} xl={12} style={{ paddingBottom: "15px" }}>
             <Relate
               numberOfSlides={2}
               rows={2}
@@ -168,7 +168,7 @@ function HomePage() {
             </div>
           </Col>
           <Col
-            span={12}
+          span={12} xs={24} sm={24} md={24} lg={12} xl={12}
             style={{ paddingBottom: "15px", background: "#fff3f3" }}
           >
             <div className="widget-container">

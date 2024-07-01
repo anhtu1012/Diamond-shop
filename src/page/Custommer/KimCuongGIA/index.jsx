@@ -108,7 +108,7 @@ function KimCuongGIA() {
       <div className="baner">
         <img
           src="https://www.tierra.vn/files/banner-danh-m-c-PnlesVGpjV.jpg"
-          style={{ width: "100%", height: "600px" }}
+          style={{ width: "100%", height: "400px" }}
         />
       </div>
       <Container>
@@ -119,7 +119,7 @@ function KimCuongGIA() {
                 <Link to="/">Trang chủ</Link>
               </Breadcrumb.Item>
               <Breadcrumb.Item>
-                <Link to="/kim-cuong-gia">Kim Cương GIA</Link>
+                <Link to="/kim-cuong-gia">Kim Cương Viên</Link>
               </Breadcrumb.Item>
             </Breadcrumb>
             <div
@@ -131,7 +131,7 @@ function KimCuongGIA() {
               }}
             ></div>
           </Content>
-          <h1>Kim Cương GIA</h1>
+          <h1>Kim Cương Viên</h1>
           <div className="choose-product">
             <Row>
               <Col span={24}>

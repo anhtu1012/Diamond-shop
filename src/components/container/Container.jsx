@@ -1,12 +1,8 @@
+import "./index.scss";
 // eslint-disable-next-line react/prop-types
 function Container({ children }) {
   return (
-    <div
-      style={{
-        padding: "20px 150px",
-
-        minHeight: "800px",
-      }}
+    <div className="container-main"
     >
       {children}
     </div>

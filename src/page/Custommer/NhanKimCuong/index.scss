@@ -2,6 +2,7 @@
   padding: 0px;
   text-align: center;
 }
+
 .chon-nhan-kim-cuong {
   margin-top: 20px;
 
@@ -23,7 +24,9 @@
   align-items: center;
   background-color: bisque;
   margin-top: 30px;
-
+  @media (max-width: 590px) {
+    display: none;
+  }
   h2 {
     padding: 30px;
     text-align: center;

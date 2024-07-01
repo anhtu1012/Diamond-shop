@@ -259,7 +259,14 @@ function Cart() {
                 <IoDiamondOutline size={25} className="icon_order" />
               </div>
               <div className="info_sub">
-                <p>
+                <p
+                  className={
+                    item.diamondAdd?.status === false ||
+                    item.productCustomize?.diamond?.status === false
+                      ? "info_sub_sub"
+                      : ""
+                  }
+                >
                   {item.productCustomize?.diamond?.diamondName ||
                     item.diamondAdd?.diamondName}
                 </p>
@@ -666,7 +673,7 @@ function Cart() {
                     <IoTicket style={{ paddingRight: "5px" }} />
                     Nhập điểm:
                     <span style={{ fontWeight: "300" }}>
-                      (1đ = 500.000 vnđ)
+                      (Điểm của bạn: {Math.floor(dataCart?.user.totalPoints)})
                     </span>
                   </span>
                   <Input
@@ -675,10 +682,11 @@ function Cart() {
                     max={dataCart?.user.totalPoints}
                     onChange={(e) => handlePointsChange(e.target.value)}
                     className="input"
-                    placeholder={dataCart?.user.totalPoints}
+                    placeholder={Math.floor(dataCart?.user.totalPoints)}
                     style={{ width: "150px", height: "30px" }}
                   />
                 </div>
+                <p> 1 điểm = 500.000 vnđ</p>
                 <div className="cart_total_price">
                   <span className="cart_total_price_label">
                     Thành tiền (2 sản phẩm):

@@ -6,7 +6,6 @@ import { Button, Form, Input } from "antd";
 import Container from "../../../components/container/Container";
 import { Content } from "antd/es/layout/layout";
 import { Link } from "react-router-dom";
-import CardIndex from "../../../components/Card";
 import Relate from "../../../components/carousel/related";
 
 const layout = {
@@ -169,10 +168,7 @@ function BoSuuTapKimCuong() {
                     <div
                       style={{ padding: "20px 0px", width: "250px !important" }}
                     >
-                      <CardIndex
-                        style={{ width: "250px !important" }}
-                        product={product}
-                      />
+                      
                     </div>
                   </Link>
                 </Col>

@@ -115,6 +115,12 @@ function TrangSucKimCuong() {
   );
 
   const handlePageChange = (pageNumber) => {
+    // Cuộn lên đầu trang
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Cho phép cuộn mượt mà
+    });
+
     setCurrentPage(pageNumber);
   };
 
@@ -237,13 +243,17 @@ function TrangSucKimCuong() {
                 <Col
                   key={product.productID}
                   className="gutter-row"
-                  xs={12}
+                  xs={24}
                   sm={12}
                   md={12}
                   lg={6}
                 >
                   <div
-                    style={{ padding: "20px 0px", width: "250px !important" }}
+                    style={{
+                      textAlign: "center",
+                      padding: "20px 40px",
+                      width: "250px !important",
+                    }}
                   >
                     <CartProduct
                       style={{ width: "250px !important" }}
@@ -263,6 +273,7 @@ function TrangSucKimCuong() {
             />
           </div>
         </div>
+
         <div className="thong-tin">
           <h2 style={{ fontWeight: "400" }}>Nhận tư vấn miễn phí từ Diamond</h2>
           <i style={{ color: "gray" }}>
