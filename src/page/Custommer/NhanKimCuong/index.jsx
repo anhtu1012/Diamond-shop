@@ -122,7 +122,7 @@ function NhanKimCuong() {
   }
 
   return (
-    <div>
+    <div className="tong">
       <div className="banner">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/NhankimCuong.jpg?alt=media&token=15eaebb0-012e-443b-90de-d8bbca441d24.jpg"
@@ -152,8 +152,22 @@ function NhanKimCuong() {
           </Content>
           <h1 style={{ color: "#15393f" }}>Nhẫn Kim Cương</h1>
           <div className="chproduct">
-            <Row>
-              <Col span={12}>
+            <Row
+              gutter={{
+                xs: 8,
+                sm: 16,
+                md: 24,
+                lg: 32,
+              }}
+            >
+              <Col
+                span={24}
+                xs={24}
+                sm={24}
+                md={24}
+                lg={12}
+                className="filter-col"
+              >
                 <Space wrap>
                   <h3>Bộ lọc:</h3>
                   <Select
@@ -183,8 +197,15 @@ function NhanKimCuong() {
                   />
                 </Space>
               </Col>
-              <Col span={12}>
-                <Space>
+              <Col
+                span={24}
+                xs={24}
+                sm={24}
+                md={24}
+                lg={12}
+                className="sort-col"
+              >
+                <Space wrap>
                   <h3>Sắp xếp:</h3>
                   <Select
                     defaultValue="default"
@@ -200,6 +221,7 @@ function NhanKimCuong() {
               </Col>
             </Row>
           </div>
+
           <div className="product">
             <Row
               gutter={{

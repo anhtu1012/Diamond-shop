@@ -24,6 +24,10 @@ function KimCuongVien() {
     setSelectedPriceRange(event.target.value);
   };
   const handleChange = (value) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Cho phép cuộn mượt mà
+    });
     setSelectedSortOption(value);
   };
   useEffect(() => {

@@ -95,6 +95,10 @@ function NhanCauHon() {
     ? filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct)
     : [];
   const handlePageChange = (pageNumber) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Cho phép cuộn mượt mà
+    });
     setCurrentPage(pageNumber);
   };
 
@@ -115,7 +119,7 @@ function NhanCauHon() {
   }
 
   return (
-    <div>
+    <div className="tong">
       <div className="baner">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/nhan-cau-hon.jpg?alt=media&token=138db3a9-6be7-412e-81d7-bd34deedef32"
@@ -190,7 +194,7 @@ function NhanCauHon() {
                 <Col
                   key={product.productID}
                   className="gutter-row"
-                  xs={12}
+                  xs={24}
                   sm={12}
                   md={12}
                   lg={6}
@@ -223,14 +227,14 @@ function NhanCauHon() {
             autoplay
             category="Mặt Dây Chuyền Kim Cương"
           />
-          <div className="form">
+          <div className="form-nhan">
             <h2 style={{ fontWeight: "400" }}>
               Nhận tư vấn miễn phí từ Diamond
             </h2>
             <i style={{ color: "gray" }}>
               Đăng kí ngay bên dưới để nhận thông tin từ chúng tôi
             </i>
-            <div className="form-dien">
+            <div className="form-infor">
               <Form
                 xs={12}
                 sm={12}
@@ -269,7 +273,7 @@ function NhanCauHon() {
                   name={["Số điện thoại"]}
                   rules={[
                     {
-                      number: "number",
+                      type: "number",
                       required: true,
                     },
                   ]}
