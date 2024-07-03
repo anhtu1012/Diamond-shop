@@ -9,28 +9,29 @@ import LoadingTruck from "../../../../components/loading";
 
 const statusToStep = {
   "Chờ xác nhận": 0,
-  "Chờ thanh toán": 0,
-  "Chờ giao hàng": 1,
-  "Đang giao": 1,
-  "Đã giao": 2,
-  "Đã hủy": 3,
-  "Hoàn trả": 4,
+  "Chờ thanh toán": 1,
+  "Chờ giao hàng": 2,
+  "Không Thành Công": 3,
+  "Đã giao": 4,
+  "Đã hủy": 5,
 };
 
 const getStatusColor = (currentStep) => {
   switch (currentStep) {
     case 0:
-      return "#FFD700"; // Yellow
-    case 1:
-      return "#33CC33"; // Green
-    case 2:
-      return "#008000"; // Dark Green
-    case 3:
-      return "#FF0000"; // Red
-    case 4:
       return "#999999";
+    case 1:
+      return "#FFD700";
+    case 2:
+      return "#1d7a94";
+    case 3:
+      return "#ffa500";
+    case 4:
+      return "#008000";
+    case 5:
+      return "#FF0000";
     default:
-      return "#FFD700"; // Default Yellow
+      return "#605c5c";
   }
 };
 
@@ -124,21 +125,12 @@ function AllOrder() {
       width: "10%",
       render: (text, record) => (
         <div style={{ textAlign: "center" }}>
-          {record.status === "Chờ xác nhận" ? (
-            <Link
-              to={`/admin-page/don-hang/all/order-detail/${record.orderID}`}
-              style={{ fontWeight: "bold" }}
-            >
-              Xem chi tiết
-            </Link>
-          ) : (
-            <Link
-              to={`/admin-page/don-hang/all/order-detail/${record.orderID}`}
-              style={{ fontWeight: "bold" }}
-            >
-              Xem chi tiết
-            </Link>
-          )}
+          <Link
+            to={`/admin-page/don-hang/all/order-detail/${record.orderID}`}
+            style={{ fontWeight: "bold" }}
+          >
+            Xem chi tiết
+          </Link>
         </div>
       ),
     },
@@ -148,9 +140,9 @@ function AllOrder() {
     "Chờ xác nhận",
     "Chờ thanh toán",
     "Chờ giao hàng",
-    "Đã giao",
+    "Không Thành Công",
     "Đã hủy",
-    "Hoàn trả",
+    "Đã giao",
   ].map((status) => (
     <Button
       key={status}

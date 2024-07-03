@@ -6,8 +6,6 @@ import {
   Breadcrumb,
   Layout,
   theme,
-  Select,
-  Space,
   Rate,
   Divider,
 } from "antd";
@@ -24,13 +22,12 @@ import LoadingTruck from "../../../components/loading";
 import ToggleTab from "../../../components/caccauhoivisao";
 
 const { Content } = Layout;
-const { Option } = Select;
 
 const ProductDetails = () => {
   const [productDetail, setProductDetail] = useState(null);
   const [mainImage, setMainImage] = useState("");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [sizeOptions, setSizeOptions] = useState([]);
+  const [feedBacks, setFeedBacks] = useState([]);
   const navigate = useNavigate();
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -42,14 +39,8 @@ const ProductDetails = () => {
       const response = await fetchProductById(product_id);
       const productData = response.data;
       setProductDetail(productData);
+      setFeedBacks(response.data.feedbacks);
       setMainImage(productData.productImages[0].imageUrl);
-
-      const sizeOptions = productData.sizes.map((size) => (
-        <Option key={size.sizeID} value={size.sizeValue}>
-          {size.sizeValue} (SL: {size.quantity})
-        </Option>
-      ));
-      setSizeOptions(sizeOptions);
     } catch (error) {
       console.error("Error fetching product details:", error);
     }
@@ -57,7 +48,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     fetchProductByIds(product_id);
-  }, [product_id]);
+  }, [productDetail]);
 
   if (!productDetail) {
     return <LoadingTruck />;
@@ -141,7 +132,7 @@ const ProductDetails = () => {
                   <h1 style={{ color: "#15393f" }}>
                     {productDetail.productName}
                   </h1>
-                  <Rate disabled defaultValue={5} />
+                  <Rate disabled defaultValue={productDetail.rating} />
                   <h5 style={{ marginTop: "10px", fontWeight: "300" }}>
                     {productDetail.productID}
                   </h5>
@@ -168,21 +159,6 @@ const ProductDetails = () => {
                     <div className="giao-hang">
                       <h4>Miễn phí vận chuyển</h4>
                     </div>
-                  </div>
-                  <div className="size">
-                    <Space>
-                      <h4>Size:</h4>
-                      <Select
-                        placeholder="Size"
-                        style={{
-                          width: 100,
-                          height: "30px",
-                          marginTop: "10px",
-                        }}
-                      >
-                        {sizeOptions}
-                      </Select>
-                    </Space>
                   </div>
                   <div className="huong-dan">
                     <h5>
@@ -296,7 +272,7 @@ const ProductDetails = () => {
             <Row justify="center" gutter={[16, 16]}>
               <Col span={12} xs={24} sm={24} md={24} lg={12}>
                 <div className="intro">
-                  <ToggleTab />
+                  <ToggleTab feedBacks={feedBacks} product={product_id} />
                 </div>
               </Col>
               <Col span={12} xs={24} sm={24} md={24} lg={12}>

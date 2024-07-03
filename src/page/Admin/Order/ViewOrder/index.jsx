@@ -1,19 +1,36 @@
-import { Button, Col, Rate, Row, Steps, theme } from "antd";
+import {
+  Button,
+  Col,
+  Divider,
+  Input,
+  Popconfirm,
+  Rate,
+  Row,
+  Select,
+  Space,
+  Steps,
+  message,
+  theme,
+} from "antd";
 import { Content } from "antd/es/layout/layout";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./index.scss";
 import { TiArrowBack } from "react-icons/ti";
 import { IoDiamondOutline } from "react-icons/io5";
 import { GiBigDiamondRing } from "react-icons/gi";
-import { getOrderDetail } from "../../../../../services/Uservices";
-import { useEffect, useState } from "react";
-import LoadingTruck from "../../../../components/loading";
+import { useEffect, useRef, useState } from "react";
 import { VscError } from "react-icons/vsc";
+import { PlusOutlined } from "@ant-design/icons";
+import { createOrder, getOrderDetail } from "../../../../../services/Uservices";
+import LoadingTruck from "../../../../components/loading";
+
 const statusToStepIndex = {
-  "Chờ thanh toán": 0,
-  "Chờ giao hàng": 1,
-  "Đã giao": 2,
-  "Đã hủy": 3,
+  "Chờ Xác Nhận": 0,
+  "Chờ thanh toán": 1,
+  "Chờ giao hàng": 2,
+  "Không Thành Công": 2,
+  "Đã giao": 3,
+  "Đã hủy": 4,
 };
 
 const renderProductItem = (order, index) => (
@@ -140,12 +157,30 @@ const renderProductItem = (order, index) => (
 
 function ViewOrderDetails() {
   const { orderID } = useParams();
-
+  const navigate = useNavigate();
   const [data, setData] = useState();
   const {
     token: { borderRadiusLG },
   } = theme.useToken();
-
+  const [items, setItems] = useState([
+    "Tôi muốn thay đổi địa chỉ ",
+    "Tôi muốn thay đổi kim cương",
+  ]);
+  const [reason, setReason] = useState("");
+  const [name, setName] = useState("");
+  const inputRef = useRef(null);
+  const onNameChange = (event) => {
+    setName(event.target.value);
+  };
+  const addItem = (e) => {
+    let index = 0;
+    e.preventDefault();
+    setItems([...items, name || `New item ${index++}`]);
+    setName("");
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
   useEffect(() => {
     const fetchGetOrderDetail = async () => {
       const res = await getOrderDetail(orderID);
@@ -164,7 +199,19 @@ function ViewOrderDetails() {
     // minute: "2-digit",
     // second: "2-digit",
   });
-
+  const handleRemobeOrder = async () => {
+    try {
+      const status = {
+        status: "Đã hủy",
+        reason: reason,
+      };
+      await createOrder(orderID, status);
+      message.success("Hủy đơn hàng thành công");
+      navigate("/");
+    } catch (error) {
+      message.error("Đã có lỗi xảy ra khi hủy đơn hàng");
+    }
+  };
   if (!data) {
     return <LoadingTruck />;
   }
@@ -195,7 +242,7 @@ function ViewOrderDetails() {
                       marginBottom: "5px",
                     }}
                   >
-                    Thông tin chi tiết đơn hàng
+                    Thông tin chi tiết sản phẩm
                   </h2>
 
                   <h2
@@ -237,10 +284,10 @@ function ViewOrderDetails() {
                     padding: "4px",
 
                     fontWeight: "bold",
-                    width: "12%",
+                    width: "10%",
                   }}
                 >
-                  Mã đơn: {data.orderId}
+                  {data.orderId}
                 </p>
                 <div>
                   {data.orderDetails.map((order, index) =>
@@ -255,59 +302,64 @@ function ViewOrderDetails() {
 
       <div className="order-detail-2">
         <Row style={{ padding: "10px 10px" }}>
-          <Content
-            style={{
-              margin: "30px 10px",
-            }}
-          >
-            <div
+          <Col span={6}>
+            <Content
               style={{
-                padding: 16,
-                minHeight: 170,
-                background: "#fff",
-                borderRadius: borderRadiusLG,
-                boxShadow: "0px 0px 4px",
+                margin: "30px 10px",
               }}
             >
-              <Col span={24}>
-                <div
-                  className={`step-giao-hang ${
-                    data.status === "Đã hủy" ? "step-cancelled" : ""
-                  }`}
-                >
-                  <Steps
-                    direction="vertical"
-                    current={currentStepIndex}
-                    style={{ gap: "2px" }}
-                    items={[
-                      {
-                        title: "Chờ Thanh Toán",
-                      },
-                      {
-                        title: "Chờ giao hàng",
-                      },
-                      {
-                        title: "Đã giao",
-                      },
-                      {
-                        title: "Đã hủy",
-                        icon: data.status === "Đã hủy" && (
-                          <VscError
-                            size={35}
-                            style={{
-                              color: "white",
-                              background: "red",
-                              borderRadius: "50%",
-                            }}
-                          />
-                        ),
-                      },
-                    ]}
-                  />
-                </div>
-              </Col>
-            </div>
-          </Content>
+              <div
+                style={{
+                  padding: 16,
+                  minHeight: 170,
+                  background: "#fff",
+                  borderRadius: borderRadiusLG,
+                  boxShadow: "0px 0px 4px",
+                }}
+              >
+                <Col span={24}>
+                  <div
+                    className={`step-giao-hang ${
+                      data.status === "Đã hủy" ? "step-cancelled" : ""
+                    }`}
+                  >
+                    <Steps
+                      direction="vertical"
+                      current={currentStepIndex}
+                      style={{ gap: "2px" }}
+                      items={[
+                        {
+                          title: "Chờ Xác Nhận",
+                        },
+                        {
+                          title: "Chờ Thanh Toán",
+                        },
+                        {
+                          title: "Chờ giao hàng",
+                        },
+                        {
+                          title: "Đã giao",
+                        },
+                        {
+                          title: "Đã hủy",
+                          icon: data.status === "Đã hủy" && (
+                            <VscError
+                              size={35}
+                              style={{
+                                color: "white",
+                                background: "red",
+                                borderRadius: "50%",
+                              }}
+                            />
+                          ),
+                        },
+                      ]}
+                    />
+                  </div>
+                </Col>
+              </div>
+            </Content>
+          </Col>
           <Col span={10}>
             <div className="information">
               <p
@@ -346,9 +398,8 @@ function ViewOrderDetails() {
                   </div>
                   <div className="row">
                     <p>Giới tính:</p>
-                    <span>{data.gender === "MALE" ? "Nam" : "Nữ"}</span>
+                    <span>{data.gender}</span>
                   </div>
-
                   <div className="row">
                     <p>Địa chỉ:</p>
                     <span>{data.addressShipping}</span>
@@ -357,14 +408,28 @@ function ViewOrderDetails() {
                     <p>Số điện thoại:</p>
                     <span>{data.phoneShipping}</span>
                   </div>
-                  <div className="row">
-                    <p>Ghi Chú:</p>
-                    <span>{data.note}</span>
-                  </div>
-                  <div className="row">
-                    <p>Lí do:</p>
-                    <span>{data.reason}</span>
-                  </div>
+                  {data?.note != null && (
+                    <div className="row">
+                      <p>Ghi Chú:</p>
+                      <span>{data.note}</span>
+                    </div>
+                  )}
+                  {(data?.status === "Đã hủy" && data?.reason != null) ||
+                    (data?.status === "Không Thành Công" && (
+                      <div className="row">
+                        <p>Lí do:</p>
+                        <span>{data.reason}</span>
+                      </div>
+                    ))}
+                  {data?.status != "Chờ xác nhận" &&
+                    data?.status != "Chờ thanh toán" &&
+                    data?.payments &&
+                    data.payments.length > 0 && (
+                      <div className="row">
+                        <p>Phương thức thanh toán:</p>
+                        <span>{data.payments[0].methodPayment}</span>
+                      </div>
+                    )}
                 </div>
               </Content>
             </div>
@@ -451,6 +516,93 @@ function ViewOrderDetails() {
                         vnđ
                       </span>
                     </div>
+                    {data?.status === "Chờ xác nhận" && (
+                      <div className="row">
+                        <Select
+                          style={{
+                            width: 200,
+                          }}
+                          onChange={setReason}
+                          placeholder="Chọn lý do hủy đơn"
+                          dropdownRender={(menu) => (
+                            <>
+                              {menu}
+                              <Divider
+                                style={{
+                                  margin: "8px 0",
+                                }}
+                              />
+                              <Space
+                                style={{
+                                  padding: "0 8px 4px",
+                                }}
+                              >
+                                <Input
+                                  placeholder="Please enter item"
+                                  ref={inputRef}
+                                  value={name}
+                                  onChange={onNameChange}
+                                  onKeyDown={(e) => e.stopPropagation()}
+                                />
+                                <Button
+                                  type="text"
+                                  icon={<PlusOutlined />}
+                                  onClick={addItem}
+                                >
+                                  Add item
+                                </Button>
+                              </Space>
+                            </>
+                          )}
+                          options={items.map((item) => ({
+                            label: item,
+                            value: item,
+                          }))}
+                        />
+                        <span>
+                          {" "}
+                          <Popconfirm
+                            title="Hủy Đơn"
+                            onConfirm={handleRemobeOrder}
+                            okText="Yes"
+                            cancelText="No"
+                          >
+                            <Button
+                              style={{
+                                background: "red",
+                                color: "white",
+                                borderRadius: "0px 8px 8px 0px",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              Hủy Đơn
+                            </Button>
+                          </Popconfirm>
+                        </span>
+                      </div>
+                    )}
+
+                    {data?.status === "Không Thành Công" && (
+                      <div
+                        className="thanh-toan"
+                        style={{ textAlign: "center" }}
+                      >
+                        <Link to={`/thanh-toan/${data.orderId}`}>
+                          <Button
+                            style={{
+                              background: "orange",
+                              color: "white",
+                              borderRadius: "5px",
+                              fontWeight: "bold",
+                              width: "280px",
+                              height: "50px",
+                            }}
+                          >
+                            Không Thành Công
+                          </Button>
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
               </Content>

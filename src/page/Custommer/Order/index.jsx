@@ -24,7 +24,7 @@ const OrderCustomer = () => {
   };
   useEffect(() => {
     fetchOderById();
-  }, []);
+  }, [data]);
 
   const renderCard = (order, index, buttonText, buttonColor) => {
     const formattedDate = new Date(order.orderDate).toLocaleString("vi-VN", {
@@ -209,20 +209,26 @@ const OrderCustomer = () => {
       buttonColor: "blue",
     },
     {
-      label: "Đã giao",
+      label: "Không Thành Công",
       key: "4",
+      status: "Không Thành Công",
+      buttonColor: "orange",
+    },
+    {
+      label: "Đã giao",
+      key: "5",
       status: "Đã giao",
       buttonColor: "green",
     },
     {
       label: "Đã hủy",
-      key: "5",
+      key: "6",
       status: "Đã hủy",
       buttonColor: "red",
     },
     {
       label: "Lịch sử",
-      key: "6",
+      key: "7",
       status: "Đánh giá",
       buttonColor: "grey",
     },

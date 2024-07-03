@@ -4,6 +4,7 @@ import {
   Badge,
   Button,
   Dropdown,
+  Menu,
   Modal,
   Tooltip,
   message,
@@ -23,6 +24,7 @@ import {
   getOrderWaitPay,
   getQuantityCart,
   logoutApi,
+  searchResultss,
 } from "../../../services/Uservices";
 import "./index.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -156,7 +158,7 @@ function Header({ quantity, setQuantity }) {
     };
 
     fetchOrderWaitPay();
-  }, []);
+  }, [quantityWaitPay]);
 
   useEffect(() => {
     const sendNotification = () => {
@@ -240,6 +242,50 @@ function Header({ quantity, setQuantity }) {
   const toggleNav = () => {
     setIsNavVisible(!isNavVisible);
   };
+  const [searchResults, setSearchResults] = useState([]);
+  const handleSearch = async (event) => {
+    const query = event.target.value;
+    console.log("Searching for:", query); // Debug: Log the search query
+    if (query) {
+      try {
+        const response = await searchResultss(query);
+        console.log("Search results:", response.data); // Debug: Log the search results
+        setSearchResults(response.data);
+      } catch (error) {
+        console.error("Search error:", error); // Debug: Log the error
+        setSearchResults([]);
+      }
+    } else {
+      setSearchResults([]);
+    }
+  };
+  const searchMenu = (
+    <Menu>
+      {Array.isArray(searchResults) && searchResults.length > 0 ? (
+        searchResults.map((item) => (
+          <Menu.Item key={item.diamondID || item.productID}>
+            <Link
+              to={
+                item.diamondID
+                  ? `/diamond-details/${item.diamondID}`
+                  : `/product-details/${item.productID}`
+              }
+              onClick={toggleSearch}
+            >
+              <img
+                src={item.image || item.productImages[0].imageUrl}
+                alt={item.diamondName || item.productName}
+                style={{ width: "50px", marginRight: "10px" }}
+              />
+              {item.diamondName || item.productName}
+            </Link>
+          </Menu.Item>
+        ))
+      ) : (
+        <Menu.Item key="no-results">No results found</Menu.Item>
+      )}
+    </Menu>
+  );
 
   return (
     <div className="container-fluid">
@@ -261,13 +307,19 @@ function Header({ quantity, setQuantity }) {
             />
           </Link>
         </div>{" "}
-        <div >
+        <div>
           {!user ? (
             <div className="header_social_right">
               <div className="search">
                 <SearchOutlined onClick={toggleSearch} />
                 {isSearchVisible && (
-                  <input type="text" placeholder="Search..." />
+                  <Dropdown overlay={searchMenu} trigger={["click"]}>
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      onChange={handleSearch}
+                    />
+                  </Dropdown>
                 )}
               </div>
               <Badge count={0} size="small">
@@ -285,7 +337,13 @@ function Header({ quantity, setQuantity }) {
               <div className="search">
                 <SearchOutlined onClick={toggleSearch} />
                 {isSearchVisible && (
-                  <input type="text" placeholder="Search..." />
+                  <Dropdown overlay={searchMenu} trigger={["click"]}>
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      onChange={handleSearch}
+                    />
+                  </Dropdown>
                 )}
               </div>
               <Badge count={quantity} size="small">

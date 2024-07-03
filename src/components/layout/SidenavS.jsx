@@ -41,7 +41,7 @@ function SidenavS({ collapsed }) {
     };
 
     fetchOrderPeding();
-  }, []);
+  }, [quantityPending]);
   useEffect(() => {
     const sendNotification = () => {
       if (quantityPending > 0) {
