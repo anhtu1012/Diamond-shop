@@ -161,7 +161,7 @@
       }
 
       &.green {
-        background-color: green;
+        background-color: #008000;
 
         &:hover {
           background-color: #28a745;
@@ -175,9 +175,23 @@
           background-color: #dc3545;
         }
       }
+      &.blue {
+        background-color: rgb(29, 122, 148);
+
+        &:hover {
+          background-color: #1d7a94;
+        }
+      }
+      &.orange {
+        background-color: #ffa500;
+
+        &:hover {
+          background-color: orange
+        }
+      }
 
       &.yellow {
-        background-color: #a68909;
+        background-color: #e3bf1f;
 
         &:hover {
           background-color: rgb(166, 137, 9, 0.8);

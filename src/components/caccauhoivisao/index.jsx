@@ -1,6 +1,12 @@
+/* eslint-disable react/prop-types */
+import { UserOutlined } from "@ant-design/icons";
 import "./index.scss";
-import { Collapse } from "antd";
-
+import { Avatar, Button, Collapse, Form, Rate, message } from "antd";
+import moment from "moment";
+import TextArea from "antd/es/input/TextArea";
+import { feedBack } from "../../../services/Uservices";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/features/counterSlice";
 const text1 = (
   <div>
     <h4>Trang Sức Kim Cương Tại Diamond King</h4>
@@ -88,7 +94,77 @@ const text3 = (
     </ul>
   </div>
 );
-function ToggleTab() {
+
+function ToggleTab({ feedBacks, diamond, product }) {
+  const [form] = Form.useForm();
+  const user = useSelector(selectUser);
+  const handleFeeBack = async (value) => {
+    try {
+      const info = {
+        comment: value.comment,
+        rating: value.rating,
+        diamondID: diamond,
+        productID: product,
+        userID: user.userID,
+      };
+      await feedBack(info);
+      message.success("Đánh giá Thành công");
+      form.resetFields();
+    } catch (error) {
+      message.error("Đánh giá thất bại");
+    }
+  };
+  const text4 = (
+    <div>
+      <Form form={form} onFinish={handleFeeBack} style={{ marginTop: 20 }}>
+        <Form.Item
+          name="comment"
+          label=<Avatar className="reviewer-avatar" icon={<UserOutlined />} />
+        >
+          <TextArea rows={2} />
+        </Form.Item>
+        <Form.Item
+          name="rating"
+          style={{ paddingLeft: "40px" }}
+          rules={[{ required: true, message: "Vui lòng đánh giá!" }]}
+        >
+          <Rate />
+        </Form.Item>
+        <Form.Item style={{ paddingLeft: "40px" }}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{ background: "orange" }}
+          >
+            Đánh giá
+          </Button>
+        </Form.Item>
+      </Form>
+      {feedBacks.map((feedback, index) => (
+        <div key={index} className="review">
+          <div className="review-header">
+            <Avatar className="reviewer-avatar" icon={<UserOutlined />} />
+            <div>
+              <span className="reviewer-name">{feedback.fullName}</span>
+              <span className="verified-buyer">
+                {moment(feedback.createAt).format("DD-MM-YYYY HH:mm:ss")}
+              </span>
+            </div>
+          </div>
+          <div className="review-rating">
+            <Rate disabled defaultValue={feedback.rating} className="stars" />
+          </div>
+          <div className="review-details">
+            <div>{feedback.comment}</div>
+          </div>
+          <div className="review-actions">
+            <span className="share">Share</span> |{" "}
+            <span className="comments">Comments (1)</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
   return (
     <div className="dropdown">
       <Collapse
@@ -131,7 +207,7 @@ function ToggleTab() {
           {
             key: "4",
             label: <strong>Bình luận và đánh giá</strong>,
-            children: <pre style={{ whiteSpace: "pre-wrap" }}></pre>,
+            children: <pre style={{ whiteSpace: "pre-wrap" }}>{text4}</pre>,
           },
         ]}
       />

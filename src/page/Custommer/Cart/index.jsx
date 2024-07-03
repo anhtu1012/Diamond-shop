@@ -46,10 +46,13 @@ function Cart() {
   const [discount, setDiscount] = useState(0);
   const [dataCart, setDataCart] = useState();
   const [initialValues, setInitialValues] = useState({});
+  const [loader, setLoader] = useState(false);
   const fetchCart = async () => {
     try {
       console.log(userr.userID);
+      setLoader(true);
       const res = await getCart(userr.userID);
+      setLoader(false);
       const user = res.data.user;
       const addressParts = user.address.split(",");
       const initialValues = {
@@ -117,6 +120,7 @@ function Cart() {
   const navigate = useNavigate();
   const handleSubmit = async () => {
     try {
+      setLoader(true);
       // Lấy giá trị từ form
       const formValues = await form.validateFields();
       const isAddressChanged =
@@ -154,7 +158,9 @@ function Cart() {
         note: formValues.note,
       };
       console.log("Order information:", orderInfo);
+
       const response = await submitOrder(orderInfo);
+      setLoader(false);
       console.log(response);
       navigate("/don-hang");
       if (response) {
@@ -707,7 +713,7 @@ function Cart() {
                   style={{ width: "100%", height: "48px" }}
                   onClick={handleSubmit}
                 >
-                  Xác nhận
+                  {loader ? "Đang tải..." : "Xuất nhận"}
                 </Button>
               </div>
             </Form>

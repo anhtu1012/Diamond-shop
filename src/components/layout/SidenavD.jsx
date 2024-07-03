@@ -3,27 +3,66 @@ import {
   SketchCircleFilled,
   UserOutlined,
 } from "@ant-design/icons";
-import { Menu } from "antd";
+import { Badge, Menu, notification } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./layout.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getOrderDelivery } from "../../../services/Uservices";
 
-const items = [
-  {
-    key: "/delivery-page/don-hang-moi",
-    icon: <ShoppingCartOutlined className="side-icon" />,
-    label: <h3>Đơn Hàng Mới</h3>,
-  },
-  {
-    key: "/delivery-page/cap-nhat-don-hang",
-    icon: <UserOutlined className="side-icon" />,
-    label: "Cập nhật",
-  },
-];
 // eslint-disable-next-line react/prop-types
 function SidenavD({ collapsed }) {
   const navigate = useNavigate(); // Hook useNavigate
   const [selectedKey, setSelectedKey] = useState("/admin-page/dashboard");
+  const [quantityDelivery, setQuantityDelivery] = useState();
+  useEffect(() => {
+    const fetchOrderPeding = async () => {
+      try {
+        const res = await getOrderDelivery();
+        setQuantityDelivery(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchOrderPeding();
+  }, [quantityDelivery]);
+  useEffect(() => {
+    const sendNotification = () => {
+      if (quantityDelivery > 0) {
+        notification.warning({
+          message: "Nhắc nhở đơn xác nhận",
+          description: `Bạn có ${quantityDelivery} đơn hàng gần xác nhận. Vui lòng xác nhận ngay cho khách!`,
+          duration: 5,
+        });
+      }
+    };
+
+    sendNotification();
+
+    const intervalId = setInterval(sendNotification, 300000);
+
+    return () => clearInterval(intervalId);
+  }, [quantityDelivery]);
+  const items = [
+    {
+      key: "/delivery-page/don-hang-moi",
+      icon: (
+        <Badge count={quantityDelivery} size="small">
+          {" "}
+          <ShoppingCartOutlined
+            style={{ fontSize: "25px", color: "black" }}
+            className="side-icon"
+          />
+        </Badge>
+      ),
+      label: <h3>Đơn Hàng Mới</h3>,
+    },
+    {
+      key: "/delivery-page/cap-nhat-don-hang",
+      icon: <UserOutlined className="side-icon" />,
+      label: "Cập nhật",
+    },
+  ];
   const handleMenuClick = (e) => {
     // Điều hướng đến path tương ứng với key của mục menu được click
     navigate(e.key);

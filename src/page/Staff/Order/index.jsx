@@ -8,25 +8,29 @@ import LoadingTruck from "../../../components/loading";
 
 const statusToStep = {
   "Chờ xác nhận": 0,
-  "Chờ thanh toán": 0,
-  "Chờ giao hàng": 1,
-  "Đang giao": 1,
-  "Đã giao": 2,
-  "Đã hủy": 3,
+  "Chờ thanh toán": 1,
+  "Chờ giao hàng": 2,
+  "Không Thành Công": 3,
+  "Đã giao": 4,
+  "Đã hủy": 5,
 };
 
 const getStatusColor = (currentStep) => {
   switch (currentStep) {
     case 0:
-      return "#FFD700"; // Yellow
+      return "#999999"; 
     case 1:
-      return "#33CC33"; // Green
+      return "#FFD700"; 
     case 2:
-      return "#008000"; // Dark Green
+      return "#1d7a94"; 
     case 3:
-      return "#FF0000"; // Red
+      return "#ffa500"; 
+    case 4:
+      return "#008000"; 
+    case 5:
+      return "#FF0000"; 
     default:
-      return "#FFD700"; // Default Yellow
+      return "#605c5c"; 
   }
 };
 
@@ -144,6 +148,7 @@ function AllOrder() {
     "Chờ xác nhận",
     "Chờ thanh toán",
     "Chờ giao hàng",
+    "Không Thành Công",
     "Đã giao",
     "Đã hủy",
   ].map((status) => (

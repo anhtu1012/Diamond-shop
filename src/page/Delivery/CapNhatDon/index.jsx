@@ -6,8 +6,9 @@ import LoadingTruck from "../../../components/loading";
 
 const statusToStep = {
   "Chờ giao hàng": 1,
-  "Đã giao": 2,
-  "Đã hủy": 3,
+  "Không Thành Công": 2,
+  "Đã giao": 3,
+  "Đã hủy": 4,
 };
 
 const getStatusColor = (currentStep) => {
@@ -15,8 +16,10 @@ const getStatusColor = (currentStep) => {
     case 1:
       return "#33CC33"; // Green
     case 2:
-      return "#008000"; // Dark Green
+      return "#FFA500"; //  Orange
     case 3:
+      return "#008000"; // Dark Green
+    case 4:
       return "#FF0000"; // Red
   }
 };
@@ -112,7 +115,8 @@ function CapNhatDon() {
       width: "10%",
       render: (text, record) => (
         <div style={{ textAlign: "center" }}>
-          {record.status === "Chờ giao hàng" ? (
+          {record.status === "Chờ giao hàng" ||
+          record.status === "Không Thành Công" ? (
             <Link
               to={`/delivery-page/don-hang-moi/chi-tiet-don-hang/${record.orderID}`}
               style={{ fontWeight: "bold" }}
@@ -132,7 +136,12 @@ function CapNhatDon() {
     },
   ];
   // ------------------------------------------------------------------------------------------------
-  const statusButtons = ["Chờ giao hàng", "Đã giao", "Đã hủy"].map((status) => (
+  const statusButtons = [
+    "Chờ giao hàng",
+    "Không Thành Công",
+    "Đã giao",
+    "Đã hủy",
+  ].map((status) => (
     <Button
       key={status}
       type={filterStatus === status ? "primary" : "default"}

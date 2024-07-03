@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "./index.scss"; // Import your SCSS file for styling
 import { getNewOrderDelivery } from "../../../../services/Uservices";
 import { useEffect, useState } from "react";
+import NoData from "../../../components/nodata";
 
 function NewOrderDelivery() {
   const [data, setData] = useState([]);
@@ -236,7 +237,7 @@ function NewOrderDelivery() {
           </div>
         ))
       ) : (
-        <p>Không có đơn hàng mới</p>
+       <NoData/>
       )}
     </>
   );

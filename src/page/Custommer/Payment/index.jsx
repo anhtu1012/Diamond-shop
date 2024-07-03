@@ -155,9 +155,11 @@ function Payment() {
       };
       console.log(info);
       const res = await checkOut(info);
-      const redirectUrl = res.data.replace("redirect:", "").trim(); // Remove 'redirect:' prefix
-      console.log(redirectUrl);
-      window.location.href = redirectUrl;
+      if (res.data.code === "Success") {
+        window.location.href = res.data.link;
+      } else {
+        message.error("Thanh toán thất bại");
+      }
     } catch (error) {
       message.error("Đã có lỗi xảy ra khi tạo đơn hàng");
     }

@@ -28,6 +28,7 @@ const statusToStepIndex = {
   "Chờ Xác Nhận": 0,
   "Chờ thanh toán": 1,
   "Chờ giao hàng": 2,
+  "Không Thành Công": 2,
   "Đã giao": 3,
   "Đã hủy": 4,
 };
@@ -305,62 +306,64 @@ function ViewOrderDetailsCusTom() {
 
         <div className="order-detail-2">
           <Row style={{ padding: "10px 10px" }}>
-            <Content
-              style={{
-                margin: "30px 10px",
-              }}
-            >
-              <div
+            <Col span={6}>
+              <Content
                 style={{
-                  padding: 16,
-                  minHeight: 170,
-                  background: "#fff",
-                  borderRadius: borderRadiusLG,
-                  boxShadow: "0px 0px 4px",
+                  margin: "30px 10px",
                 }}
               >
-                <Col span={24}>
-                  <div
-                    className={`step-giao-hang ${
-                      data.status === "Đã hủy" ? "step-cancelled" : ""
-                    }`}
-                  >
-                    <Steps
-                      direction="vertical"
-                      current={currentStepIndex}
-                      style={{ gap: "2px" }}
-                      items={[
-                        {
-                          title: "Chờ Xác Nhận",
-                        },
-                        {
-                          title: "Chờ Thanh Toán",
-                        },
-                        {
-                          title: "Chờ giao hàng",
-                        },
-                        {
-                          title: "Đã giao",
-                        },
-                        {
-                          title: "Đã hủy",
-                          icon: data.status === "Đã hủy" && (
-                            <VscError
-                              size={35}
-                              style={{
-                                color: "white",
-                                background: "red",
-                                borderRadius: "50%",
-                              }}
-                            />
-                          ),
-                        },
-                      ]}
-                    />
-                  </div>
-                </Col>
-              </div>
-            </Content>
+                <div
+                  style={{
+                    padding: 16,
+                    minHeight: 170,
+                    background: "#fff",
+                    borderRadius: borderRadiusLG,
+                    boxShadow: "0px 0px 4px",
+                  }}
+                >
+                  <Col span={24}>
+                    <div
+                      className={`step-giao-hang ${
+                        data.status === "Đã hủy" ? "step-cancelled" : ""
+                      }`}
+                    >
+                      <Steps
+                        direction="vertical"
+                        current={currentStepIndex}
+                        style={{ gap: "2px" }}
+                        items={[
+                          {
+                            title: "Chờ Xác Nhận",
+                          },
+                          {
+                            title: "Chờ Thanh Toán",
+                          },
+                          {
+                            title: "Chờ giao hàng",
+                          },
+                          {
+                            title: "Đã giao",
+                          },
+                          {
+                            title: "Đã hủy",
+                            icon: data.status === "Đã hủy" && (
+                              <VscError
+                                size={35}
+                                style={{
+                                  color: "white",
+                                  background: "red",
+                                  borderRadius: "50%",
+                                }}
+                              />
+                            ),
+                          },
+                        ]}
+                      />
+                    </div>
+                  </Col>
+                </div>
+              </Content>
+            </Col>
             <Col span={10}>
               <div className="information">
                 <p
@@ -409,14 +412,28 @@ function ViewOrderDetailsCusTom() {
                       <p>Số điện thoại:</p>
                       <span>{data.phoneShipping}</span>
                     </div>
-                    <div className="row">
-                      <p>Ghi Chú:</p>
-                      <span>{data.note}</span>
-                    </div>
-                    <div className="row">
-                      <p>Lí do:</p>
-                      <span>{data.reason}</span>
-                    </div>
+                    {data?.note != null && (
+                      <div className="row">
+                        <p>Ghi Chú:</p>
+                        <span>{data.note}</span>
+                      </div>
+                    )}
+                    {(data?.status === "Đã hủy" && data?.reason != null) ||
+                      (data?.status === "Không Thành Công" && (
+                        <div className="row">
+                          <p>Lí do:</p>
+                          <span>{data.reason}</span>
+                        </div>
+                      ))}
+                    {data?.status != "Chờ xác nhận" &&
+                      data?.status != "Chờ thanh toán" &&
+                      data?.payments &&
+                      data.payments.length > 0 && (
+                        <div className="row">
+                          <p>Phương thức thanh toán:</p>
+                          <span>{data.payments[0].methodPayment}</span>
+                        </div>
+                      )}
                   </div>
                 </Content>
               </div>
@@ -585,6 +602,27 @@ function ViewOrderDetailsCusTom() {
                               }}
                             >
                               Thanh toán ngay
+                            </Button>
+                          </Link>
+                        </div>
+                      )}
+                      {data?.status === "Không Thành Công" && (
+                        <div
+                          className="thanh-toan"
+                          style={{ textAlign: "center" }}
+                        >
+                          <Link to={`/thanh-toan/${data.orderId}`}>
+                            <Button
+                              style={{
+                                background: "orange",
+                                color: "white",
+                                borderRadius: "5px",
+                                fontWeight: "bold",
+                                width: "300px",
+                                height: "50px",
+                              }}
+                            >
+                              Không Thành Công
                             </Button>
                           </Link>
                         </div>

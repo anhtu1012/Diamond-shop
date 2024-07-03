@@ -34,6 +34,7 @@ const { Content } = Layout;
 const DiamondDetailss = () => {
   const { setQuantity } = useOutletContext();
   const [diamondDetail, setDiamondDetail] = useState(null);
+  const [feedBacks, setFeedBacks] = useState([]);
   const user = useSelector(selectUser);
   const navigate = useNavigate();
   const {
@@ -46,6 +47,7 @@ const DiamondDetailss = () => {
       const response = await fetchDiamondById(diamondID);
       const productData = response.data;
       setDiamondDetail(productData);
+      setFeedBacks(response.data.feedbacks);
     } catch (error) {
       console.error("Error fetching product details:", error);
     }
@@ -53,7 +55,7 @@ const DiamondDetailss = () => {
 
   useEffect(() => {
     fetchProductByIds(diamondID);
-  }, [diamondID]);
+  }, [diamondDetail]);
   const hanldeAddtoCart = async () => {
     try {
       const data = {
@@ -233,7 +235,7 @@ const DiamondDetailss = () => {
             <Row justify="center" gutter={[16, 16]}>
               <Col span={12} xs={24} sm={24} md={24} lg={12}>
                 <div className="intro">
-                  <ToggleTab />
+                  <ToggleTab feedBacks={feedBacks} diamond={diamondID} />
                 </div>
               </Col>
 
