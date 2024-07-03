@@ -92,6 +92,10 @@ function LacVongTayKimCuong() {
     ? filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct)
     : [];
   const handlePageChange = (pageNumber) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Cho phép cuộn mượt mà
+    });
     setCurrentPage(pageNumber);
   };
 
@@ -112,7 +116,7 @@ function LacVongTayKimCuong() {
   }
 
   return (
-    <div>
+    <div className="tong">
       <div className="baner">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/Lac%20vong%20tay.jpg?alt=media&token=d61c9a39-a11f-47de-979d-1733acccca6a"
@@ -190,7 +194,7 @@ function LacVongTayKimCuong() {
                 <Col
                   key={product.productID}
                   className="gutter-row"
-                  xs={12}
+                  xs={24}
                   sm={12}
                   md={12}
                   lg={6}
@@ -219,14 +223,14 @@ function LacVongTayKimCuong() {
             Có thể bạn quan tâm
           </h2>
           <Relate numberOfSlides={4} autoplay category="Bông Tai Kim Cương" />
-          <div className="form">
+          <div className="form-nhan">
             <h2 style={{ fontWeight: "400" }}>
               Nhận tư vấn miễn phí từ Diamond
             </h2>
             <i style={{ color: "gray" }}>
               Đăng kí ngay bên dưới để nhận thông tin từ chúng tôi
             </i>
-            <div className="form-dien">
+            <div className="form-infor">
               <Form
                 xs={12}
                 sm={12}

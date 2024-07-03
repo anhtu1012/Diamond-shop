@@ -101,6 +101,10 @@ function MatDayChuyenKimCuong() {
   );
 
   const handlePageChange = (pageNumber) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Cho phép cuộn mượt mà
+    });
     setCurrentPage(pageNumber);
   };
 
@@ -121,7 +125,7 @@ function MatDayChuyenKimCuong() {
   }
 
   return (
-    <div>
+    <div className="tong">
       <div className="baner">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/mat%20day%20chuyen.jpg?alt=media&token=bff7dc5f-b880-411b-b3be-cc4cb5264eec"
@@ -198,7 +202,7 @@ function MatDayChuyenKimCuong() {
                 <Col
                   key={product.productID}
                   className="gutter-row"
-                  xs={12}
+                  xs={24}
                   sm={12}
                   md={12}
                   lg={6}
@@ -231,14 +235,14 @@ function MatDayChuyenKimCuong() {
             autoplay
             category="Nhẫn Cầu Hôn Kim Cương"
           />
-          <div className="form">
+          <div className="form-nhan">
             <h2 style={{ fontWeight: "400" }}>
               Nhận tư vấn miễn phí từ Diamond
             </h2>
             <i style={{ color: "gray" }}>
               Đăng kí ngay bên dưới để nhận thông tin từ chúng tôi
             </i>
-            <div className="form-dien">
+            <div className="form-infor">
               <Form
                 xs={12}
                 sm={12}

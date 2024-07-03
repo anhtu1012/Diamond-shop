@@ -84,6 +84,10 @@ function KimCuongGIA() {
   );
 
   const handlePageChange = (pageNumber) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Cho phép cuộn mượt mà
+    });
     setCurrentPage(pageNumber);
   };
 
@@ -178,7 +182,7 @@ function KimCuongGIA() {
                 <Col
                   key={diamond.diamonddID}
                   className="gutter-row"
-                  xs={12}
+                  xs={24}
                   sm={12}
                   md={12}
                   lg={6}
@@ -204,12 +208,12 @@ function KimCuongGIA() {
         </div>
       </Container>
       <Relate />
-      <div className="thong-tin">
+      <div className="form-nhan">
         <h2 style={{ fontWeight: "400" }}>Nhận tư vấn miễn phí từ Diamond</h2>
         <i style={{ color: "gray" }}>
           Đăng kí ngay bên dưới để nhận thông tin từ chúng tôi
         </i>
-        <div className="thong-tin1">
+        <div className="form-infor">
           <Form
             xs={12}
             sm={12}

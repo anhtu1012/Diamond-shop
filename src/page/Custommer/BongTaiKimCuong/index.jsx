@@ -93,6 +93,10 @@ function BongTaiKimCuong() {
 
   // Function to handle page change
   const handlePageChange = (pageNumber) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Cho phép cuộn mượt mà
+    });
     setCurrentPage(pageNumber);
   };
 
@@ -112,7 +116,7 @@ function BongTaiKimCuong() {
     return <LoadingTruck />; // Render LoadingTruck while loading
   }
   return (
-    <div>
+    <div className="tong">
       <div className="baner">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/Bong%20tai.jpg?alt=media&token=24580765-67c7-49b7-8220-4d1be5b82efb"
@@ -190,7 +194,7 @@ function BongTaiKimCuong() {
                 <Col
                   key={product.productID}
                   className="gutter-row"
-                  xs={12}
+                  xs={24}
                   sm={12}
                   md={12}
                   lg={6}
@@ -223,14 +227,14 @@ function BongTaiKimCuong() {
             autoplay
             category="Lắc/ Vòng Tay Kim Cương"
           />
-          <div className="form">
+          <div className="form-nhan">
             <h2 style={{ fontWeight: "400" }}>
               Nhận tư vấn miễn phí từ Diamond
             </h2>
             <i style={{ color: "gray" }}>
               Đăng kí ngay bên dưới để nhận thông tin từ chúng tôi
             </i>
-            <div className="form-dien">
+            <div className="form-infor">
               <Form
                 xs={12}
                 sm={12}
