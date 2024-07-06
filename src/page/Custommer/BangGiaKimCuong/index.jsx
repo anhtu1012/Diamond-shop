@@ -858,10 +858,10 @@ function BangGiaKimCuong() {
       <h4 className="tiu-de41">
         Giá bán kim cương có thể thay đổi do thị trường
       </h4>
-      <h4 className="tiu-de5">
+      <h5 className="tiu-de5">
         Đặc quyền online, Ưu đãi giảm thêm 1.000.000VNĐ cho đơn hàng từ 30 triệu
         áp dụng cho dòng sản phầm kim cương viên từ 4ly 5 đến 6ly.
-      </h4>
+      </h5>
       <h5 className="tiu-de6">
         Lưu ý: Không áp dụng đồng thời nhiều chương trình ưu đãi. Vui lòng liên
         hệ chuyên gia Diamond tư vấn để có giá chính xác và ưu đãi nhất: 0123
