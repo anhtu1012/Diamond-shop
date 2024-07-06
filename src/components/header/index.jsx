@@ -119,6 +119,12 @@ const kimCuongVien = [
     ),
     key: "/kim-cuong-gia",
   },
+  {
+    label: (
+      <div style={{ fontSize: "15px", padding: "10px" }}>Bảng giá kim cương viên</div>
+    ),
+    key: "/bang-gia-kim-cuong",
+  },
 ];
 
 function Header({ quantity, setQuantity }) {
