@@ -282,7 +282,7 @@ function ViewAccount() {
 
   const filteredDataSource = filterRole
     ? dataSource.filter(
-        (user) => renderRoleName(user.role.roleID) === filterRole
+        (user) => renderRoleName(user.role?.roleID) === filterRole
       )
     : dataSource;
 
