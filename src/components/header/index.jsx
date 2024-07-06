@@ -151,7 +151,7 @@ function Header({ quantity, setQuantity }) {
     };
 
     fetchQuantity();
-  }, []);
+  }, [quantity]);
 
   useEffect(() => {
     const fetchOrderWaitPay = async () => {
@@ -278,12 +278,16 @@ function Header({ quantity, setQuantity }) {
               }
               onClick={toggleSearch}
             >
-              <img
-                src={item.image || item.productImages[0].imageUrl}
-                alt={item.diamondName || item.productName}
-                style={{ width: "50px", marginRight: "10px" }}
-              />
-              {item.diamondName || item.productName}
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div>
+                  <img
+                    src={item.image || item.productImages[0].imageUrl}
+                    alt={item.diamondName || item.productName}
+                    style={{ width: "50px", marginRight: "10px" }}
+                  />
+                </div>
+                <div>{item.diamondName || item.productName}</div>
+              </div>
             </Link>
           </Menu.Item>
         ))

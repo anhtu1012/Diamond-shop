@@ -241,6 +241,11 @@ export const getTotalRevenve = () => {
     `https://diamondshopproject.azurewebsites.net/swp391/api/dashboards/total_revenue`
   );
 };
+export const getCompareMonth = () => {
+  return api.get(
+    `https://diamondshopproject.azurewebsites.net/swp391/api/dashboards/compare_month`
+  );
+};
 export const getRevenveDiamond = () => {
   return api.get(
     `https://diamondshopproject.azurewebsites.net/swp391/api/dashboards/total_revenue_diamond`
@@ -249,6 +254,11 @@ export const getRevenveDiamond = () => {
 export const getRevenveCustomize = () => {
   return api.get(
     `https://diamondshopproject.azurewebsites.net/swp391/api/dashboards/total_revenue_productcustomize`
+  );
+};
+export const getTotalRevenueDate = () => {
+  return api.get(
+    `https://diamondshopproject.azurewebsites.net/swp391/api/dashboards/total_revenue_date`
   );
 };
 export const changePass = (user_id, info) => {

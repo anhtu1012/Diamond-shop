@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Card,
@@ -34,6 +34,9 @@ import card from "../assets/images/info-card-1.jpg";
 import EChart from "../../../components/chart/EChart";
 import LineChart from "../../../components/chart/LineChart";
 import "./main.css";
+import {
+  getTotalRevenueDate,
+} from "../../../../services/Uservices";
 
 function Dashboard() {
   const { Title, Text } = Typography;
@@ -41,7 +44,15 @@ function Dashboard() {
   const onChange = (e) => console.log(`radio checked:${e.target.value}`);
 
   const [reverse, setReverse] = useState(false);
-
+  const [totalDate, setTotalDate] = useState(0);
+  useEffect(() => {
+    const fetchTotalRevenueDate = async () => {
+      const res = await getTotalRevenueDate();
+      setTotalDate(res.data.data);
+    };
+    fetchTotalRevenueDate();
+  }, [totalDate]);
+  
   const dollor = [
     <svg
       width="22"
@@ -130,8 +141,8 @@ function Dashboard() {
   ];
   const count = [
     {
-      today: "Today’s Sales",
-      title: "$53,000",
+      today: "Doanh Thu Hôm Nay",
+      title: `${totalDate.toLocaleString("vi-VN")}  `,
       persent: "+30%",
       icon: dollor,
       bnb: "bnb2",
@@ -348,7 +359,7 @@ function Dashboard() {
                   <Row align="middle" gutter={[24, 0]}>
                     <Col xs={18}>
                       <span>{c.today}</span>
-                      <Title level={3}>
+                      <Title level={4}>
                         {c.title} <small className={c.bnb}>{c.persent}</small>
                       </Title>
                     </Col>

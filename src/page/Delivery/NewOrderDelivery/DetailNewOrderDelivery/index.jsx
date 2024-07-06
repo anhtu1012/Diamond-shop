@@ -186,7 +186,7 @@ function DetailNewOrderDelivery() {
   };
   const handleRemobeOrder = async () => {
     try {
-    console.log(reason);
+      console.log(reason);
       const status = {
         status: "Đã hủy",
         reason: reason,
@@ -198,7 +198,7 @@ function DetailNewOrderDelivery() {
       message.error("Đã có lỗi xảy ra khi hủy đơn hàng");
     }
   };
-   const handleDeliveryFailedOrder = async () => {
+  const handleDeliveryFailedOrder = async () => {
     try {
       const status = {
         status: "Không Thành Công",
@@ -274,132 +274,132 @@ function DetailNewOrderDelivery() {
                 gap: "10px",
               }}
             >
-             <div className="row">
-            <Select
-              style={{
-                width: "100%",
-              }}
-               onChange={(value) => setReason(value)}
-              placeholder="Chọn lý do hủy đơn"
-              dropdownRender={(menu) => (
-                <>
-                  {menu}
-                  <Divider
-                    style={{
-                      margin: "8px 0",
-                    }}
-                  />
-                  <Space
-                    style={{
-                      padding: "0 8px 4px",
-                    }}
-                  >
-                    <Input
-                      placeholder="Nhập lí do"
-                      ref={inputRef}
-                      value={name}
-                      onChange={onNameChange}
-                      onKeyDown={(e) => e.stopPropagation()}
-                    />
-                    <Button
-                      type="text"
-                      icon={<PlusOutlined />}
-                      onClick={addItem}
-                    >
-                      Thêm Lý do
-                    </Button>
-                  </Space>
-                </>
-              )}
-              options={items.map((item) => ({
-                label: item,
-                value: item,
-              }))}
-            />
-            <span>
-              {" "}
-              <Popconfirm
-                title="Hủy Đơn"
-                onConfirm={handleRemobeOrder}
-                okText="Yes"
-                cancelText="No"
-              >
-                <Button
+              <div className="row">
+                <Select
                   style={{
-                    background: "red",
-                    color: "white",
-                    borderRadius: "0px 8px 8px 0px",
-                    fontWeight: "bold",
+                    width: "100%",
                   }}
-                >
-                  Hủy Đơn
-                </Button>
-              </Popconfirm>
-            </span>
-          </div>
-          <div className="row">
-            <Select
-              style={{
-                width: "100%",
-              }}
-               onChange={(value) => setReason(value)}
-              placeholder="Chọn lý do không thành công"
-              dropdownRender={(menu) => (
-                <>
-                  {menu}
-                  <Divider
-                    style={{
-                      margin: "8px 0",
-                    }}
-                  />
-                  <Space
-                    style={{
-                      padding: "0 8px 4px",
-                    }}
+                  onChange={(value) => setReason(value)}
+                  placeholder="Chọn lý do hủy đơn"
+                  dropdownRender={(menu) => (
+                    <>
+                      {menu}
+                      <Divider
+                        style={{
+                          margin: "8px 0",
+                        }}
+                      />
+                      <Space
+                        style={{
+                          padding: "0 8px 4px",
+                        }}
+                      >
+                        <Input
+                          placeholder="Nhập lí do"
+                          ref={inputRef}
+                          value={name}
+                          onChange={onNameChange}
+                          onKeyDown={(e) => e.stopPropagation()}
+                        />
+                        <Button
+                          type="text"
+                          icon={<PlusOutlined />}
+                          onClick={addItem}
+                        >
+                          Thêm Lý do
+                        </Button>
+                      </Space>
+                    </>
+                  )}
+                  options={items.map((item) => ({
+                    label: item,
+                    value: item,
+                  }))}
+                />
+                <span>
+                  {" "}
+                  <Popconfirm
+                    title="Hủy Đơn"
+                    onConfirm={handleRemobeOrder}
+                    okText="Yes"
+                    cancelText="No"
                   >
-                    <Input
-                      placeholder="Nhập lí do"
-                      ref={inputRef}
-                      value={name}
-                      onChange={onNameChange}
-                      onKeyDown={(e) => e.stopPropagation()}
-                    />
                     <Button
-                      type="text"
-                      icon={<PlusOutlined />}
-                      onClick={addItem}
+                      style={{
+                        background: "red",
+                        color: "white",
+                        borderRadius: "0px 8px 8px 0px",
+                        fontWeight: "bold",
+                      }}
                     >
-                      Thêm Lý do
+                      Hủy Đơn
                     </Button>
-                  </Space>
-                </>
-              )}
-              options={items.map((item) => ({
-                label: item,
-                value: item,
-              }))}
-            />
-            <span>
-              {" "}
-              <Popconfirm
-                title="Giao lại"
-                onConfirm={handleDeliveryFailedOrder}
-                okText="Yes"
-                cancelText="No"
-              >
-                <Button
+                  </Popconfirm>
+                </span>
+              </div>
+              <div className="row">
+                <Select
                   style={{
-                    background: "orange ",
-                    color: "white",
-                    borderRadius: "0px 8px 8px 0px",
-                    fontWeight: "bold",
+                    width: "100%",
                   }}
-                >
-                  Giao Lại
-                </Button>
-              </Popconfirm>
-            </span>
-          </div>
+                  onChange={(value) => setReason(value)}
+                  placeholder="Chọn lý do không thành công"
+                  dropdownRender={(menu) => (
+                    <>
+                      {menu}
+                      <Divider
+                        style={{
+                          margin: "8px 0",
+                        }}
+                      />
+                      <Space
+                        style={{
+                          padding: "0 8px 4px",
+                        }}
+                      >
+                        <Input
+                          placeholder="Nhập lí do"
+                          ref={inputRef}
+                          value={name}
+                          onChange={onNameChange}
+                          onKeyDown={(e) => e.stopPropagation()}
+                        />
+                        <Button
+                          type="text"
+                          icon={<PlusOutlined />}
+                          onClick={addItem}
+                        >
+                          Thêm Lý do
+                        </Button>
+                      </Space>
+                    </>
+                  )}
+                  options={items.map((item) => ({
+                    label: item,
+                    value: item,
+                  }))}
+                />
+                <span>
+                  {" "}
+                  <Popconfirm
+                    title="Giao lại"
+                    onConfirm={handleDeliveryFailedOrder}
+                    okText="Yes"
+                    cancelText="No"
+                  >
+                    <Button
+                      style={{
+                        background: "orange ",
+                        color: "white",
+                        borderRadius: "0px 8px 8px 0px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Giao Lại
+                    </Button>
+                  </Popconfirm>
+                </span>
+              </div>
               <Button
                 type="primary"
                 style={{ fontWeight: "bold" }}
@@ -413,7 +413,7 @@ function DetailNewOrderDelivery() {
         </Col>
         <Col span={14} xs={24} sm={24} md={24} lg={24} xl={14}>
           <div className="khung">
-            <div className="code-box">OD: OD{data.orderID}</div>
+            <div className="code-box">OD: OD{data.orderId}</div>
             <div className="thong-tin-don-mua" style={{ padding: "10px " }}>
               <span>Thông tin đơn hàng</span>
             </div>
