@@ -158,6 +158,7 @@
   & .ant-btn {
     display: block;
   }
+  
 }
 
 //--------------------------------------
@@ -199,5 +200,79 @@
     position: absolute;
     top: 0;
     left: 0;
+  }
+}
+.chpage {
+  padding: 20px;
+}
+.tieu-de {
+  text-align: center;
+  font-weight: 500;
+  padding-bottom: 30px;
+}
+.danh-muc {
+  display: flex;
+  justify-content: center;
+  padding-inline-start: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.filter-space {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .filter-space {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.form-nhan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: bisque;
+  margin-top: 30px;
+  @media (max-width: 590px) {
+    display: none;
+  }
+  h2 {
+    padding: 30px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .form-infor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center; // Center the form items horizontally within the form
+
+      .ant-form-item {
+        width: 100%; // Ensure form items take full width within the form
+
+        input {
+          width: 100%; // Ensure input fields take full width within the form item
+        }
+        .button {
+          display: flex;
+          width: 100%;
+
+          button {
+            width: 50%; // Adjust the width of the button as needed
+          }
+        }
+      }
+    }
   }
 }

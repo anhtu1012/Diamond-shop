@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { FaArrowDown } from "react-icons/fa";
 import LoadingTruck from "../../../components/loading";
 import { LuDot } from "react-icons/lu";
+import { useMediaQuery } from "react-responsive";
 
 function KimCuongVien() {
   const { allDiamond } = useOutletContext(); // Lấy allProduct từ context
@@ -53,6 +54,8 @@ function KimCuongVien() {
     "F-VS1-3.6",
     "E-VS2-3.6",
   ];
+
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   const columns = [
     {
@@ -101,6 +104,37 @@ function KimCuongVien() {
       title: "Nét Cắt/Độ Bóng/Đối Xứng",
       dataIndex: "cut",
       key: "cut",
+      align: "center",
+    },
+    {
+      title: "Giá (VNĐ)",
+      dataIndex: "totalPrice",
+      key: "totalPrice",
+      render: (text) => <span>{text.toLocaleString()}</span>,
+      align: "center",
+    },
+    {
+      title: "Chi tiết",
+      dataIndex: "details",
+      key: "details",
+      render: (text, record) => (
+        <Link to={`/diamond-details/${record.diamondID}`}>Chi tiết</Link>
+      ),
+      align: "center",
+    },
+  ];
+
+  const mobileColumns = [
+    {
+      title: "Kích Thước (mm)",
+      dataIndex: "dimensions",
+      key: "dimensions",
+      align: "center",
+    },
+    {
+      title: "Phát Quang",
+      dataIndex: "flourescence",
+      key: "flourescence",
       align: "center",
     },
     {
@@ -237,9 +271,9 @@ function KimCuongVien() {
               <Link to="/">Trang chủ</Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
-              <Link to="/kim-cuong-gia">Kim Cương GIA</Link>
+              <Link to="/kim-cuong-vien">Kim Cương Viên</Link>
             </Breadcrumb.Item>
-            <Breadcrumb.Item>Kim Cương Viên</Breadcrumb.Item>
+            <Breadcrumb.Item>Kim Cương GIA</Breadcrumb.Item>
           </Breadcrumb>
           <div
             style={{
@@ -285,7 +319,7 @@ function KimCuongVien() {
 
         <div className="thanh-phan">
           <Row>
-            <Col span={7}>
+            <Col span={7} xs={24} sm={24} md={24} lg={12}>
               <div className="chon-anh">
                 <span style={{ fontSize: "16px", fontWeight: "bold" }}>
                   Hình dạng(Shape)
@@ -378,7 +412,7 @@ function KimCuongVien() {
               </div>
             </Col>
 
-            <Col span={17}>
+            <Col span={17} xs={24} sm={24} md={24} lg={12}>
               <div className="chon-thong-so">
                 <div className="option">
                   <span style={{ fontSize: "16px", fontWeight: "bold" }}>
@@ -580,7 +614,7 @@ function KimCuongVien() {
                   })
 
                   .slice(0, visibleProducts)}
-                columns={columns}
+                columns={isTabletOrMobile ? mobileColumns : columns}
                 pagination={false}
               />
             </Col>

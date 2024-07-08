@@ -1,319 +1,339 @@
-.product-details {
-  h1 {
-    margin-bottom: 10px;
-  }
-  h2 {
-    margin-top: 10px;
-  }
-  h3 {
-    margin-top: 10px;
-    font-weight: normal;
-  }
-  h4 {
-    margin-top: 10px;
-    font-weight: normal;
-  }
-}
-
-.delivery-icon {
-  display: flex;
-  margin-top: 5px;
-  h4 {
-    font-weight: 300;
-  }
-  .icon-delivery {
-    margin-left: 10px;
-    margin-right: 5px;
-    font-size: 200%;
-  }
-  .giao-hang {
+.tong {
+  .product-details {
+    h1 {
+      margin-bottom: 10px;
+    }
+    h2 {
+      margin-top: 10px;
+    }
+    h3 {
+      margin-top: 10px;
+      font-weight: normal;
+    }
     h4 {
-      font-weight: 400;
+      margin-top: 10px;
+      font-weight: normal;
     }
   }
-}
-.focus {
-  margin-top: 10px;
-  h4 {
-    font-weight: 300;
+
+  .delivery-icon {
+    display: flex;
+    margin-top: 5px;
+    h4 {
+      font-weight: 300;
+    }
+    .icon-delivery {
+      margin-left: 10px;
+      margin-right: 5px;
+      font-size: 200%;
+    }
+    .giao-hang {
+      h4 {
+        font-weight: 400;
+      }
+    }
   }
-}
+  .focus {
+    margin-top: 10px;
+    h4 {
+      font-weight: 300;
+    }
+  }
 
-.image {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  .image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.image-add {
-  margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  .ant-row {
+  .image-add {
+    margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 0; // Ensure there are no margins on the row
 
-    .ant-col {
-      flex: 0 0 25%; // 4 columns in a row
-      max-width: 25%; // Ensure columns do not exceed 25%
-      padding: 0; // Remove padding
-      margin: 0; // Remove margins
+    .ant-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0; // Ensure there are no margins on the row
 
-      .thumbnail {
-        cursor: pointer;
-        transition: transform 0.3s ease-in-out;
-        width: 100%; // Ensure the thumbnail takes full width of the column
+      .ant-col {
+        flex: 0 0 25%; // 4 columns in a row
+        max-width: 25%; // Ensure columns do not exceed 25%
+        padding: 0; // Remove padding
         margin: 0; // Remove margins
 
-        &:hover {
-          transform: scale(1.1);
+        .thumbnail {
+          cursor: pointer;
+          transition: transform 0.3s ease-in-out;
+          width: 100%; // Ensure the thumbnail takes full width of the column
+          margin: 0; // Remove margins
+
+          &:hover {
+            transform: scale(1.1);
+          }
         }
       }
     }
   }
-}
-.description-product {
-  .size {
-    display: center;
-    margin-top: 5px;
-    h4 {
-      font-weight: 300;
+  .description-product {
+    .size {
+      display: center;
+      margin-top: 5px;
+      h4 {
+        font-weight: 300;
+      }
     }
-  }
-  .huong-dan {
-    margin-top: 10px;
-    h5 {
+    .huong-dan {
+      margin-top: 10px;
+      h5 {
+        font-weight: normal;
+      }
+    }
+    .quantity {
+      margin-top: 5px;
+      h4 {
+        font-weight: 300;
+      }
+      display: flex;
+      align-items: center;
+    }
+
+    .count {
+      margin-top: 10px;
+      margin-left: 10px;
+      font-size: 14px;
       font-weight: normal;
     }
-  }
-  .quantity {
-    margin-top: 5px;
-    h4 {
-      font-weight: 300;
+
+    .button_count {
+      display: flex;
+      align-items: center; /* Center items vertically */
     }
+
+    .custom {
+      margin-top: 20px;
+      display: center;
+      flex-direction: column;
+      gap: 20px;
+      @media (max-width: 768px) {
+        // iPad Mini
+        flex-direction: column;
+        align-items: stretch;
+        button{
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 390px) {
+        // iPhone 12 Pro
+        flex-direction: column;
+        align-items: stretch;
+        button{
+          width: 100%;
+        }
+      }
+      button {
+        background-color: transparent;
+        padding: 10px 20px;
+        border: 3px solid rgb(5, 4, 4);
+        border-radius: 25px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        position: relative; /* Needed for the ::before pseudo-element */
+        overflow: hidden;
+        margin-top: 10px;
+      }
+      button {
+        background: #15393f;
+        color: white;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -75%;
+          width: 50%;
+          height: 100%;
+          background: rgba(255, 255, 255, 0.5);
+          transform: skewX(-25deg);
+          transition: left 0.75s ease; /* Ensures smooth transition */
+        }
+
+        &:hover::before {
+          left: 125%; /* Moves ::before smoothly on hover */
+        }
+
+        &:hover {
+          background-color: white;
+          color: #15393f;
+        }
+        &:hover {
+          background-color: white;
+          color: #15393f;
+        }
+      }
+      .custom_button1 {
+        margin-left: 10px;
+        flex-direction: column;
+        gap: 20px;
+        color: #fff;
+      }
+      .custom_button2 {
+        margin-left: 10px;
+        flex-direction: column;
+        gap: 20px;
+        color: #fff;
+      }
+    }
+    @keyframes sparkle {
+      0% {
+        left: -75%;
+      }
+      50% {
+        left: 125%;
+      }
+      100% {
+        left: -75%;
+      }
+    }
+  }
+
+  .intro {
+    margin-top: 10px;
     display: flex;
+    flex-direction: column;
     align-items: center;
   }
 
-  .count {
-    margin-top: 10px;
-    margin-left: 10px;
-    font-size: 14px;
-    font-weight: normal;
-  }
+  .elementor-column {
+    .elementor-widget-wrap {
+      .elementor-icon-list {
+        .elementor-widget-container {
+          .elementor-icon-list-items {
+            .elementor-icon-list-item {
+              display: flex;
+              align-items: center;
+              margin-bottom: 16px;
 
-  .button_count {
-    display: flex;
-    align-items: center; /* Center items vertically */
-  }
+              .elementor-icon-list-icon {
+                margin-right: 8px;
 
-  .custom {
-    margin-top: 20px;
-    display: center;
-    flex-direction: column;
-    gap: 20px;
-    button {
-      background-color: transparent;
-      padding: 10px 20px;
-      border: 3px solid rgb(5, 4, 4);
-      border-radius: 25px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      position: relative; /* Needed for the ::before pseudo-element */
-      overflow: hidden;
-    }
-    button {
-      background: #15393f;
-      color: white;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -75%;
-        width: 50%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.5);
-        transform: skewX(-25deg);
-        transition: left 0.75s ease; /* Ensures smooth transition */
+                i {
+                  font-size: 20px;
+                }
+              }
+
+              .elementor-icon-list-text {
+                font-weight: bold;
+                font-size: 18px;
+              }
+            }
+          }
+        }
       }
 
-      &:hover::before {
-        left: 125%; /* Moves ::before smoothly on hover */
-      }
-
-      &:hover {
-        background-color: white;
-        color: #15393f;
-      }
-      &:hover {
-        background-color: white;
-        color: #15393f;
-      }
-    }
-    .custom_button1 {
-      margin-left: 10px;
-      flex-direction: column;
-      gap: 20px;
-      color: #fff;
-    }
-    .custom_button2 {
-      margin-left: 20px;
-      flex-direction: column;
-      gap: 20px;
-      color: #fff;
-    }
-  }
-  @keyframes sparkle {
-    0% {
-      left: -75%;
-    }
-    50% {
-      left: 125%;
-    }
-    100% {
-      left: -75%;
-    }
-  }
-}
-
-.intro {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.elementor-column {
-  .elementor-widget-wrap {
-    .elementor-icon-list {
-      .elementor-widget-container {
-        .elementor-icon-list-items {
-          .elementor-icon-list-item {
+      .elementor-text-editor {
+        .elementor-widget-container {
+          .row {
             display: flex;
             align-items: center;
             margin-bottom: 16px;
 
-            .elementor-icon-list-icon {
+            .column1 {
               margin-right: 8px;
 
               i {
+                color: red;
                 font-size: 20px;
               }
             }
 
-            .elementor-icon-list-text {
-              font-weight: bold;
-              font-size: 18px;
+            .column {
+              font-size: 14px;
+              font-family: "Helvetica Neue", sans-serif;
             }
           }
         }
       }
     }
+  }
+  .ant-collapse {
+    border: none !important;
+    margin-bottom: 10px;
+  }
+  .ant-collapse-header {
+    border-radius: 8px !important;
+    border: 1px solid;
+  }
+  .product-relate-container {
+    text-align: center;
+    margin-bottom: 30px;
 
-    .elementor-text-editor {
-      .elementor-widget-container {
-        .row {
-          display: flex;
-          align-items: center;
-          margin-bottom: 16px;
+    h2 {
+      margin: 20px 0;
+    }
 
-          .column1 {
-            margin-right: 8px;
+    .ant-row {
+      margin-top: 20px;
 
-            i {
-              color: red;
-              font-size: 20px;
-            }
-          }
-
-          .column {
-            font-size: 14px;
-            font-family: "Helvetica Neue", sans-serif;
-          }
-        }
+      .gutter-row {
+        text-align: center;
       }
     }
   }
-}
-.ant-collapse {
-  border: none !important;
-  margin-bottom: 10px;
-}
-.ant-collapse-header {
-  border-radius: 8px !important;
-  border: 1px solid;
-}
-.product-relate-container {
-  text-align: center;
-  margin-bottom: 30px;
+  .table-container {
+    display: flex;
+    justify-content: center;
 
-  h2 {
-    margin: 20px 0;
-  }
+    .custom-table {
+      width: 80%;
+      border-collapse: collapse;
+      border: 1px solid #efefef;
 
-  .ant-row {
-    margin-top: 20px;
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #efefef;
+        font-family: "Roboto", sans-serif;
+        padding-left: 20px;
+        color: #15393f;
+        height: 45px;
+      }
 
-    .gutter-row {
-      text-align: center;
-    }
-  }
-}
-.table-container {
-  display: flex;
-  justify-content: center;
+      th {
+        border: none;
+        border-right: 1px solid #efefef;
+        color: #222;
+        font-family: "Roboto", sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        text-transform: uppercase;
+        width: 150px;
+        border-bottom: 1px solid #efefef;
+      }
 
-  .custom-table {
-    width: 80%;
-    border-collapse: collapse;
-    border: 1px solid #efefef;
+      tr:nth-child(2n) td {
+        background-color: #f2f2f2; // Màu xám nhạt cho hàng chẵn
+      }
 
-    th,
-    td {
-      padding: 10px;
-      text-align: left;
-      border-bottom: 1px solid #efefef;
-      font-family: "Roboto", sans-serif;
-      padding-left: 20px;
-      color: #15393f;
-      height: 45px;
-    }
+      tr:nth-child(2n + 1) td {
+        background-color: #fff; // Màu trắng cho hàng lẻ
+      }
+      tr:nth-child(2n) th {
+        background-color: #f2f2f2; // Màu xám nhạt cho hàng chẵn
+      }
 
-    th {
-      border: none;
-      border-right: 1px solid #efefef;
-      color: #222;
-      font-family: "Roboto", sans-serif;
-      font-size: 12px;
-      font-weight: 400;
-      text-transform: uppercase;
-      width: 150px;
-      border-bottom: 1px solid #efefef;
-    }
+      tr:nth-child(2n + 1) th {
+        background-color: #fff; // Màu trắng cho hàng lẻ
+      }
 
-    tr:nth-child(2n) td {
-      background-color: #f2f2f2; // Màu xám nhạt cho hàng chẵn
-    }
-
-    tr:nth-child(2n + 1) td {
-      background-color: #fff; // Màu trắng cho hàng lẻ
-    }
-    tr:nth-child(2n) th {
-      background-color: #f2f2f2; // Màu xám nhạt cho hàng chẵn
-    }
-
-    tr:nth-child(2n + 1) th {
-      background-color: #fff; // Màu trắng cho hàng lẻ
-    }
-
-    td {
-      color: #15393f;
+      td {
+        color: #15393f;
+      }
     }
   }
 }

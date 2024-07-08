@@ -116,6 +116,23 @@
     display: center;
     flex-direction: column;
     gap: 20px;
+    @media (max-width: 768px) {
+      // iPad Mini
+      flex-direction: column;
+      align-items: stretch;
+      button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 390px) {
+      // iPhone 12 Pro
+      flex-direction: column;
+      align-items: stretch;
+      button {
+        width: 100%;
+      }
+    }
     button {
       background-color: transparent;
       padding: 10px 20px;
@@ -126,6 +143,7 @@
       transition: background-color 0.3s ease, color 0.3s ease;
       position: relative; /* Needed for the ::before pseudo-element */
       overflow: hidden;
+      margin-top: 10px;
     }
     button {
       background: #15393f;
@@ -162,14 +180,8 @@
       gap: 20px;
       color: #fff;
     }
-    .custom_button1:disabled {
-      display: none;
-    }
-    .custom_button2:disabled {
-      display: none;
-    }
     .custom_button2 {
-      margin-left: 20px;
+      margin-left: 10px;
       flex-direction: column;
       gap: 20px;
       color: #fff;

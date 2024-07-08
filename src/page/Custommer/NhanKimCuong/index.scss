@@ -3,6 +3,27 @@
     padding: 0px;
     text-align: center;
   }
+  .danh-muc {
+    display: flex;
+    justify-content: center;
+    padding-inline-start: 5px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .filter-space {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  @media (min-width: 576px) {
+    .filter-space {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
 
   .chon-nhan-kim-cuong {
     margin-top: 20px;
