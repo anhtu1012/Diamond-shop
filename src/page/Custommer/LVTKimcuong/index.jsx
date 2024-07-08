@@ -116,7 +116,7 @@ function LacVongTayKimCuong() {
   }
 
   return (
-    <div className="tong">
+    <div className="tong-lvt">
       <div className="baner">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/Lac%20vong%20tay.jpg?alt=media&token=d61c9a39-a11f-47de-979d-1733acccca6a"

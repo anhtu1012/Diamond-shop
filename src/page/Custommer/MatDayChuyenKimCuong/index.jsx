@@ -125,7 +125,7 @@ function MatDayChuyenKimCuong() {
   }
 
   return (
-    <div className="tong">
+    <div className="tong-day-chuyen">
       <div className="baner">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/mat%20day%20chuyen.jpg?alt=media&token=bff7dc5f-b880-411b-b3be-cc4cb5264eec"

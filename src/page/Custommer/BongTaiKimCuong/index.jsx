@@ -116,7 +116,7 @@ function BongTaiKimCuong() {
     return <LoadingTruck />; // Render LoadingTruck while loading
   }
   return (
-    <div className="tong">
+    <div className="tong-bong-tai">
       <div className="baner">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/Bong%20tai.jpg?alt=media&token=24580765-67c7-49b7-8220-4d1be5b82efb"

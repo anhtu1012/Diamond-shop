@@ -145,7 +145,7 @@ function TrangSucKimCuong() {
   }
 
   return (
-    <div className="tong">
+    <div className="tong-trang-suc">
       <div className="bannert">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/%E1%BA%A2nh%20trang%20s%E1%BB%A9c%20kim%20c%C6%B0%C6%A1ng%20banner.jpg?alt=media&token=d29df524-0926-46ac-97a8-161e12557b89"

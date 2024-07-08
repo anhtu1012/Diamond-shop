@@ -119,7 +119,7 @@ function NhanCauHon() {
   }
 
   return (
-    <div className="tong">
+    <div className="tong-nhan-cau-hon">
       <div className="baner">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/nhan-cau-hon.jpg?alt=media&token=138db3a9-6be7-412e-81d7-bd34deedef32"
