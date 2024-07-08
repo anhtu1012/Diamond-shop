@@ -121,7 +121,9 @@ const kimCuongVien = [
   },
   {
     label: (
-      <div style={{ fontSize: "15px", padding: "10px" }}>Bảng giá kim cương viên</div>
+      <div style={{ fontSize: "15px", padding: "10px" }}>
+        Bảng giá kim cương GIA
+      </div>
     ),
     key: "/bang-gia-kim-cuong",
   },

@@ -149,7 +149,7 @@ const ProductDetails = () => {
                     đ
                   </h2>
                   <h4>
-                    <a href="/">Chính sách hoàn trả</a>
+                    <a href="/chinh-sach-doi-tra">Chính sách hoàn trả</a>
                   </h4>
                   <div className="delivery-icon">
                     <h4>Vận chuyển:</h4>
