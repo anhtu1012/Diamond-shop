@@ -66,10 +66,12 @@ function FormDiamond({ product }) {
     if (priceFilter === "default") return true;
     const price = diamond.totalPrice;
     switch (priceFilter) {
+      case "0-10":
+        return price >= 0 && price <= 10000000;
+      case "10-50":
+        return price >= 10000000 && price <= 50000000;
       case "50-100":
         return price >= 50000000 && price <= 100000000;
-      case "500-700":
-        return price >= 500000000 && price <= 700000000;
       default:
         return true;
     }
@@ -81,6 +83,7 @@ function FormDiamond({ product }) {
       ? a.totalPrice - b.totalPrice
       : b.totalPrice - a.totalPrice;
   };
+
   const filterByShape = (diamond) => {
     if (product === null) return true;
     return diamond.shape === product.shapeDiamond;
@@ -107,6 +110,10 @@ function FormDiamond({ product }) {
   );
 
   const handlePageChange = (pageNumber) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Cho phép cuộn mượt mà
+    });
     setCurrentPage(pageNumber);
   };
 
@@ -142,37 +149,45 @@ function FormDiamond({ product }) {
   return (
     <div className="form-main">
       <div className="san-pham">
-        <Row className="danh-muc">
-          <Col span={24}>
-            <h1 className="tieu-de">Chọn Theo Phong Cách Của Bạn</h1>
-          </Col>
+        <h1 className="tieu-de">
+          Chọn theo phong cách của bạn
+        </h1>
+        <div className="choose-product">
+          <Row >
+            <Col
+              span={24}
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              <Space wrap>
+                <Select
+                  defaultValue="Mức giá"
+                  style={{ width: 100, paddingInlineStart: "3px" }}
+                  onChange={handleSortChange}
+                  options={[
+                    { value: "default", label: "Mặc định" },
+                    { value: "asc", label: "Giá tăng dần" },
+                    { value: "desc", label: "Giá giảm dần" },
+                  ]}
+                />
+              </Space>
 
-          <Space wrap>
-            <Select
-              defaultValue="Mức giá"
-              style={{ width: 150, paddingInlineStart: "3px" }}
-              onChange={handlePriceFilterChange}
-              options={[
-                { value: "default", label: "Tất Cả" },
-                { value: "50-100", label: "Từ 50-100 triệu" },
-                { value: "500-700", label: "Từ 500-700 triệu" },
-              ]}
-            />
-          </Space>
-
-          <Space>
-            <Select
-              defaultValue="Sắp xếp"
-              style={{ width: 150, paddingInlineStart: "10px" }}
-              onChange={handleSortChange}
-              options={[
-                { value: "default", label: "Mặc định" },
-                { value: "asc", label: "Giá tăng dần" },
-                { value: "desc", label: "Giá giảm dần" },
-              ]}
-            />
-          </Space>
-        </Row>
+              <Space>
+                <Select
+                  defaultValue="Sắp xếp"
+                  style={{ width: 150, paddingInlineStart: "10px" }}
+                  onChange={handlePriceFilterChange}
+                  options={[
+                    { value: "default", label: "Tất cả" },
+                    { value: "0-10", label: "Dưới 10 triệu" },
+                    { value: "10-50", label: "Từ 10-50 triệu" },
+                    { value: "50-100", label: "Từ 50-100 triệu" },
+                    { value: "100-500", label: "Từ 100-500 triệu" },
+                  ]}
+                />
+              </Space>
+            </Col>
+          </Row>
+        </div>
         <div className="product">
           <Row
             gutter={{
@@ -186,7 +201,7 @@ function FormDiamond({ product }) {
               <Col
                 key={diamond.diamondID}
                 className="gutter-row"
-                xs={12}
+                xs={24}
                 sm={12}
                 md={12}
                 lg={6}
@@ -201,21 +216,21 @@ function FormDiamond({ product }) {
             ))}
           </Row>
         </div>
-        <div className="chon-trang">
+        <div className="chpage" style={{display: 'flex', justifyContent: 'center'}}>
           <Pagination
             current={currentPage}
-            total={filteredProducts.length}
+            total={filteredProducts ? filteredProducts.length : 0}
             pageSize={productsPerPage}
             onChange={handlePageChange}
           />
         </div>
       </div>
-      <div className="thong-tin">
+      <div className="form-nhan">
         <h2 style={{ fontWeight: "400" }}>Nhận tư vấn miễn phí từ Diamond</h2>
         <i style={{ color: "gray" }}>
           Đăng kí ngay bên dưới để nhận thông tin từ chúng tôi
         </i>
-        <div className="thong-tin1">
+        <div className="form-infor">
           <Form
             xs={12}
             sm={12}

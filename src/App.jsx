@@ -78,7 +78,11 @@ import KimCuongGIA from "./page/Custommer/KimCuongGIA";
 import NewOrderDelivery from "./page/Delivery/NewOrderDelivery";
 import DetailNewOrderDelivery from "./page/Delivery/NewOrderDelivery/DetailNewOrderDelivery";
 import ViewOrderDetailDelivery from "./page/Delivery/OrderDetail";
+
+import ProfileAccountStaff from "./page/Staff/View-User/View-User-Detail";
+
 import BangGiaKimCuong from "./page/Custommer/BangGiaKimCuong";
+
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -354,6 +358,10 @@ const router = createBrowserRouter([
       {
         path: "/staff-page/tai-khoan",
         element: <ViewUser />,
+      },
+      {
+        path: "/staff-page/tai-khoan/xem-tat-ca-tai-khoan/:userID",
+        element: <ProfileAccountStaff />,
       },
       {
         path: "/staff-page/san-pham",

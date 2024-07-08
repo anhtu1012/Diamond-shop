@@ -107,6 +107,10 @@ function FormProuct({ diamond }) {
   );
 
   const handlePageChange = (pageNumber) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Cho phép cuộn mượt mà
+    });
     setCurrentPage(pageNumber);
   };
 
@@ -133,12 +137,11 @@ function FormProuct({ diamond }) {
   return (
     <div className="form-main">
       <div className="san-pham">
-        <Row className="danh-muc">
-          <Col span={24}>
-            <h1 className="tieu-de">Chọn Theo Phong Cách Của Bạn</h1>
-          </Col>
-
-          <Space wrap>
+        <Col span={24}>
+          <h1 className="tieu-de">TRANG SỨC KIM CƯƠNG TỰ NHIÊN</h1>
+        </Col>
+        <Row className="danh-muc" style={{display: 'flex', justifyContent: 'center'}}>
+          <Space wrap className="filter-space">
             <Select
               defaultValue="Danh mục sản phẩm"
               style={{ width: 170 }}
@@ -159,32 +162,23 @@ function FormProuct({ diamond }) {
                   value: "Dây Chuyền Kim Cương",
                   label: "Dây Chuyền Kim Cương",
                 },
-                {
-                  value: "Nhẫn Cầu Hôn Kim Cương",
-                  label: "Nhẫn Cầu Hôn Kim Cương",
-                },
-                {
-                  value: "Nhẫn Cưới Kim Cương",
-                  label: "Nhẫn Cưới Kim Cương",
-                },
               ]}
             />
             <Select
               defaultValue="Mức giá"
-              style={{ width: 150, paddingInlineStart: "3px" }}
+              style={{ width: 150 }}
               onChange={handlePriceFilterChange}
               options={[
-                { value: "default", label: "Tất Cả" },
+                { value: "default", label: "Tất cả" },
+                { value: "20", label: "Dưới 20 triệu" },
+                { value: "20-50", label: "Từ 20-50 triệu" },
                 { value: "50-100", label: "Từ 50-100 triệu" },
-                { value: "500-700", label: "Từ 500-700 triệu" },
+                { value: "100", label: "Trên 100 triệu" },
               ]}
             />
-          </Space>
-
-          <Space>
             <Select
               defaultValue="Sắp xếp"
-              style={{ width: 150, paddingInlineStart: "10px" }}
+              style={{ width: 150 }}
               onChange={handleSortChange}
               options={[
                 { value: "default", label: "Mặc định" },
@@ -207,7 +201,7 @@ function FormProuct({ diamond }) {
               <Col
                 key={product.productID}
                 className="gutter-row"
-                xs={12}
+                xs={24}
                 sm={12}
                 md={12}
                 lg={6}
@@ -222,7 +216,10 @@ function FormProuct({ diamond }) {
             ))}
           </Row>
         </div>
-        <div className="chon-trang">
+        <div
+          className="chon-trang"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
           <Pagination
             current={currentPage}
             total={filteredProducts.length}
@@ -231,14 +228,14 @@ function FormProuct({ diamond }) {
           />
         </div>
       </div>
-      <div className="thong-tin">
+      <div className="form-nhan">
         <h2 style={{ fontWeight: "400" }}>Nhận tư vấn miễn phí từ Diamond</h2>
         <i style={{ color: "gray" }}>
           Đăng kí ngay bên dưới để nhận thông tin từ chúng tôi
         </i>
-        <div className="thong-tin1">
+        <div className="form-infor">
           <Form
-            xs={12}
+            xs={24}
             sm={12}
             md={12}
             lg={6}

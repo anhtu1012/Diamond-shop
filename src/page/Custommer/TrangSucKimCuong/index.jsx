@@ -145,7 +145,7 @@ function TrangSucKimCuong() {
   }
 
   return (
-    <div>
+    <div className="tong">
       <div className="bannert">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/%E1%BA%A2nh%20trang%20s%E1%BB%A9c%20kim%20c%C6%B0%C6%A1ng%20banner.jpg?alt=media&token=d29df524-0926-46ac-97a8-161e12557b89"
@@ -171,13 +171,15 @@ function TrangSucKimCuong() {
             ></div>
           </Content>
         </div>
-        <Col span={24}>
-          <h1 className="tieu-de">TRANG SỨC KIM CƯƠNG TỰ NHIÊN</h1>
-        </Col>
-
         <div className="san-pham">
-          <Row className="danh-muc">
-            <Space wrap>
+          <Col span={24}>
+            <h1 className="tieu-de">TRANG SỨC KIM CƯƠNG TỰ NHIÊN</h1>
+          </Col>
+          <Row
+            className="danh-muc"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            <Space wrap className="filter-space">
               <Select
                 defaultValue="Danh mục sản phẩm"
                 style={{ width: 170 }}
@@ -202,25 +204,19 @@ function TrangSucKimCuong() {
               />
               <Select
                 defaultValue="Mức giá"
-                style={{ width: 150, paddingInlineStart: "3px" }}
+                style={{ width: 150 }}
                 onChange={handlePriceFilterChange}
                 options={[
                   { value: "default", label: "Tất cả" },
                   { value: "20", label: "Dưới 20 triệu" },
                   { value: "20-50", label: "Từ 20-50 triệu" },
                   { value: "50-100", label: "Từ 50-100 triệu" },
-                  {
-                    value: "100",
-                    label: "Trên 100 triệu",
-                  },
+                  { value: "100", label: "Trên 100 triệu" },
                 ]}
               />
-            </Space>
-
-            <Space>
               <Select
                 defaultValue="Sắp xếp"
-                style={{ width: 150, paddingInlineStart: "10px" }}
+                style={{ width: 150 }}
                 onChange={handleSortChange}
                 options={[
                   { value: "default", label: "Mặc định" },
@@ -249,11 +245,7 @@ function TrangSucKimCuong() {
                   lg={6}
                 >
                   <div
-                    style={{
-                      textAlign: "center",
-                      padding: "20px 40px",
-                      width: "250px !important",
-                    }}
+                    style={{ padding: "20px 0px", width: "250px !important" }}
                   >
                     <CartProduct
                       style={{ width: "250px !important" }}

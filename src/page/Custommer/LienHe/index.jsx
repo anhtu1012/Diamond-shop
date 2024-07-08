@@ -59,8 +59,7 @@ function LienHe() {
           </p>
           <div className="thong-tin-lien-he" style={{ marginLeft: "100px" }}>
             <Row>
-              <Col span={2}></Col>
-              <Col span={10}>
+              <Col span={12} xs={24} sm={24} md={24} lg={12}>
                 <div className="thong-tin-lien-he-1">
                   <p style={{ fontSize: "18px", textTransform: "uppercase" }}>
                     Công Ty Cổ Phần Diamond King
@@ -232,6 +231,7 @@ function LienHe() {
                         fontSize: "16px",
                         marginTop: "30px",
                         fontWeight: "bold",
+                        marginBottom: '20px'
                       }}
                     >
                       Zalo:
@@ -249,7 +249,7 @@ function LienHe() {
                   </div>
                 </div>
               </Col>
-              <Col span={12}>
+              <Col span={12} xs={24} sm={24} md={24} lg={12}>
                 <div className="thong-tin-lien-he-2">
                   <p
                     style={{
@@ -275,15 +275,15 @@ function LienHe() {
               </Col>
             </Row>
             <Row>
-              <Col span={2}></Col>
-              <Col span={12}>
+              <Col span={24} xs={24} sm={24} md={24} lg={12}>
                 <p
                   style={{
                     fontSize: "20px",
                     marginTop: "30px",
                     fontWeight: "bold",
                     marginBottom: "10px",
-                    marginLeft: "100px",
+                    display: 'flex',
+                    justifyContent: 'center'
                   }}
                 >
                   Hãy Liên Hệ Với Chúng Tôi
@@ -293,12 +293,13 @@ function LienHe() {
                     marginTop: "10px",
                     fontWeight: "normal",
                     marginBottom: "30px",
-                    marginLeft: "60px",
+                    display: 'flex',
+                    justifyContent: 'center'
                   }}
                 >
                   Diamond King– chuyên gia trong lĩnh vực Kim cương
                 </h4>
-                <div className="liên-he-ngay" style={{ marginBottom: "40px" }}>
+                <div className="lien-he-ngay" style={{ marginBottom: "40px" }}>
                   <div className="contact-form-wrapper">
                     <form
                       className="contact-form"
@@ -403,7 +404,6 @@ function LienHe() {
                   </div>
                 </div>
               </Col>
-              <Col span={10}></Col>
             </Row>
           </div>
         </div>

@@ -152,73 +152,59 @@ function NhanKimCuong() {
           </Content>
           <h1 style={{ color: "#15393f" }}>Nhẫn Kim Cương</h1>
           <div className="chproduct">
-            <Row
-              gutter={{
-                xs: 8,
-                sm: 16,
-                md: 24,
-                lg: 32,
-              }}
-            >
-              <Col
-                span={24}
-                xs={24}
-                sm={24}
-                md={24}
-                lg={12}
-                className="filter-col"
-              >
-                <Space wrap>
-                  <h3>Bộ lọc:</h3>
-                  <Select
-                    defaultValue="Danh mục sản phẩm"
-                    style={{ width: 170 }}
-                    onChange={handleCategoryChange}
-                    options={[
-                      {
-                        value: "Nhẫn Kim Cương Nam",
-                        label: "Nhẫn Kim Cương Nam",
-                      },
-                      {
-                        value: "Nhẫn Kim Cương Nữ",
-                        label: "Nhẫn Kim Cương Nữ",
-                      },
-                    ]}
-                  />
-                  <Select
-                    defaultValue="Mức giá"
-                    style={{ width: 150 }}
-                    onChange={handlePriceFilterChange}
-                    options={[
-                      { value: "default", label: "Tất cả" },
-                      { value: "50-100", label: "Từ 50-100 triệu" },
-                      { value: "500-700", label: "Từ 500-700 triệu" },
-                    ]}
-                  />
-                </Space>
-              </Col>
-              <Col
-                span={24}
-                xs={24}
-                sm={24}
-                md={24}
-                lg={12}
-                className="sort-col"
-              >
-                <Space wrap>
-                  <h3>Sắp xếp:</h3>
-                  <Select
-                    defaultValue="default"
-                    style={{ width: 150 }}
-                    onChange={handleSortChange}
-                    options={[
-                      { value: "default", label: "Mặc định" },
-                      { value: "asc", label: "Giá tăng dần" },
-                      { value: "desc", label: "Giá giảm dần" },
-                    ]}
-                  />
-                </Space>
-              </Col>
+            <Row className="danh-muc">
+              <Space wrap className="filter-space">
+                <Select
+                  defaultValue="Danh mục sản phẩm"
+                  style={{ width: 170 }}
+                  onChange={handleCategoryChange}
+                  options={[
+                    {
+                      value: "Nhẫn Kim Cương Nam",
+                      label: "Nhẫn Kim Cương Nam",
+                    },
+                    { value: "Nhẫn Kim Cương Nữ", label: "Nhẫn Kim Cương Nữ" },
+                    {
+                      value: "Bông Tai Kim Cương",
+                      label: "Bông Tai Kim Cương",
+                    },
+                    {
+                      value: "Lắc/ Vòng Tay Kim Cương",
+                      label: "Lắc/ Vòng Tay Kim Cương",
+                    },
+                    {
+                      value: "Mặt Dây Chuyền Kim Cương",
+                      label: "Mặt Dây Chuyền Kim Cương",
+                    },
+                    {
+                      value: "Dây Chuyền Kim Cương",
+                      label: "Dây Chuyền Kim Cương",
+                    },
+                  ]}
+                />
+                <Select
+                  defaultValue="Mức giá"
+                  style={{ width: 150 }}
+                  onChange={handlePriceFilterChange}
+                  options={[
+                    { value: "default", label: "Tất cả" },
+                    { value: "20", label: "Dưới 20 triệu" },
+                    { value: "20-50", label: "Từ 20-50 triệu" },
+                    { value: "50-100", label: "Từ 50-100 triệu" },
+                    { value: "100", label: "Trên 100 triệu" },
+                  ]}
+                />
+                <Select
+                  defaultValue="Sắp xếp"
+                  style={{ width: 150 }}
+                  onChange={handleSortChange}
+                  options={[
+                    { value: "default", label: "Mặc định" },
+                    { value: "asc", label: "Giá tăng dần" },
+                    { value: "desc", label: "Giá giảm dần" },
+                  ]}
+                />
+              </Space>
             </Row>
           </div>
 
