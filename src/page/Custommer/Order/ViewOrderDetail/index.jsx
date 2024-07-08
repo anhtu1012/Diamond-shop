@@ -627,6 +627,25 @@ function ViewOrderDetailsCusTom() {
                           </Link>
                         </div>
                       )}
+                      {data?.status === "Đã giao" && (
+                        <div
+                          className="thanh-toan"
+                          style={{ textAlign: "center" }}
+                        >
+                          <Button
+                            style={{
+                              background: "orange",
+                              color: "white",
+                              borderRadius: "5px",
+                              fontWeight: "bold",
+                              width: "300px",
+                              height: "50px",
+                            }}
+                          >
+                            Đánh giá sản phẩm
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </Content>

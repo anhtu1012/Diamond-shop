@@ -41,7 +41,6 @@ const DiamondDetailss = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   const { diamondID } = useParams();
-  console.log(diamondID);
   const fetchProductByIds = async (diamondID) => {
     try {
       const response = await fetchDiamondById(diamondID);

@@ -262,7 +262,7 @@ function DetailNewOrderDelivery() {
               </div>
               <div className="thong-tin-item">
                 <p className="label">Ghi Chú:</p>
-                <p className="value">{data.note}</p>
+                <p className="value">{data.reason}</p>
               </div>
             </div>
             <div
