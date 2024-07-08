@@ -73,7 +73,7 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="tong">
+    <div className="tong-product-detail">
       <Container>
         <div className="tabner">
           <Content style={{ padding: "0 0px" }}>

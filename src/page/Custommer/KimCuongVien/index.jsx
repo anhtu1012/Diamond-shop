@@ -263,7 +263,7 @@ function KimCuongVien() {
     return <LoadingTruck />;
   }
   return (
-    <div>
+    <div className="tong-kim-cuong-vien">
       <Container>
         <Content style={{ padding: "0 0px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
@@ -319,7 +319,7 @@ function KimCuongVien() {
 
         <div className="thanh-phan">
           <Row>
-            <Col span={7} xs={24} sm={24} md={24} lg={12}>
+            <Col span={7} xs={24} sm={24} md={24} lg={7}>
               <div className="chon-anh">
                 <span style={{ fontSize: "16px", fontWeight: "bold" }}>
                   Hình dạng(Shape)
@@ -412,7 +412,7 @@ function KimCuongVien() {
               </div>
             </Col>
 
-            <Col span={17} xs={24} sm={24} md={24} lg={12}>
+            <Col span={17} xs={24} sm={24} md={24} lg={17}>
               <div className="chon-thong-so">
                 <div className="option">
                   <span style={{ fontSize: "16px", fontWeight: "bold" }}>

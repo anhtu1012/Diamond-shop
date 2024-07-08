@@ -122,7 +122,7 @@ function NhanKimCuong() {
   }
 
   return (
-    <div className="tong">
+    <div className="tong-nhan">
       <div className="banner">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/NhankimCuong.jpg?alt=media&token=15eaebb0-012e-443b-90de-d8bbca441d24.jpg"

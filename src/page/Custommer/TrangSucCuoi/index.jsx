@@ -14,7 +14,7 @@ function TrangSucCuoi() {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div>
+    <div className="tong-trang-suc-cuoi">
       <div className="baner1">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/Trang%20s%E1%BB%A9c%20c%C6%B0%E1%BB%9Bi.webp?alt=media&token=4d281899-82c5-4a2a-a854-9c88a2f48028.jpg"
