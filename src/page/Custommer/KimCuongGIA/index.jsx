@@ -108,7 +108,7 @@ function KimCuongGIA() {
   }
 
   return (
-    <div>
+    <div className="tong-kim-cuong-gia">
       <div className="baner">
         <img
           src="https://www.tierra.vn/files/banner-danh-m-c-PnlesVGpjV.jpg"
@@ -206,78 +206,78 @@ function KimCuongGIA() {
             onChange={handlePageChange}
           />
         </div>
-      </Container>
-      <Relate />
-      <div className="form-nhan">
-        <h2 style={{ fontWeight: "400" }}>Nhận tư vấn miễn phí từ Diamond</h2>
-        <i style={{ color: "gray" }}>
-          Đăng kí ngay bên dưới để nhận thông tin từ chúng tôi
-        </i>
-        <div className="form-infor">
-          <Form
-            xs={12}
-            sm={12}
-            md={12}
-            lg={6}
-            {...layout}
-            name="nest-messages"
-            onFinish={onFinish}
-            style={{
-              maxWidth: 500,
-            }}
-            validateMessages={validateMessages}
-          >
-            <Form.Item
-              name={["Tên"]}
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input placeholder="Họ và tên" style={{ width: 500 }} />
-            </Form.Item>
-            <Form.Item
-              name={["Email"]}
-              rules={[
-                {
-                  type: "email",
-                  required: true,
-                },
-              ]}
-            >
-              <Input placeholder="Email" style={{ width: 500 }} />
-            </Form.Item>
-            <Form.Item
-              name={["Số điện thoại"]}
-              rules={[
-                {
-                  type: "number",
-                  required: true,
-                },
-              ]}
-            >
-              <Input placeholder="Số điện thoại" style={{ width: 500 }} />
-            </Form.Item>
-            <Form.Item
-              wrapperCol={{
-                ...layout.wrapperCol,
-                offset: 8,
+        <Relate />
+        <div className="form-nhan">
+          <h2 style={{ fontWeight: "400" }}>Nhận tư vấn miễn phí từ Diamond</h2>
+          <i style={{ color: "gray" }}>
+            Đăng kí ngay bên dưới để nhận thông tin từ chúng tôi
+          </i>
+          <div className="form-infor">
+            <Form
+              xs={12}
+              sm={12}
+              md={12}
+              lg={6}
+              {...layout}
+              name="nest-messages"
+              onFinish={onFinish}
+              style={{
+                maxWidth: 500,
               }}
+              validateMessages={validateMessages}
             >
-              <div className="button">
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  style={{ backgroundColor: "black", borderColor: "black" }}
-                >
-                  Tư vấn ngay
-                </Button>
-              </div>
-            </Form.Item>
-          </Form>
+              <Form.Item
+                name={["Tên"]}
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <Input placeholder="Họ và tên" style={{ width: 500 }} />
+              </Form.Item>
+              <Form.Item
+                name={["Email"]}
+                rules={[
+                  {
+                    type: "email",
+                    required: true,
+                  },
+                ]}
+              >
+                <Input placeholder="Email" style={{ width: 500 }} />
+              </Form.Item>
+              <Form.Item
+                name={["Số điện thoại"]}
+                rules={[
+                  {
+                    type: "number",
+                    required: true,
+                  },
+                ]}
+              >
+                <Input placeholder="Số điện thoại" style={{ width: 500 }} />
+              </Form.Item>
+              <Form.Item
+                wrapperCol={{
+                  ...layout.wrapperCol,
+                  offset: 8,
+                }}
+              >
+                <div className="button">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    style={{ backgroundColor: "black", borderColor: "black" }}
+                  >
+                    Tư vấn ngay
+                  </Button>
+                </div>
+              </Form.Item>
+            </Form>
+          </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

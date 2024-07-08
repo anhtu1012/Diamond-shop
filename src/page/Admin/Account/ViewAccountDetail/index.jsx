@@ -341,8 +341,8 @@ function ProfileAccount() {
       if (values.address !== originalValues.address) {
         updatedDetails.address = values.address;
       }
-      if (values.phone !== originalValues.phone) {
-        updatedDetails.phone = values.phone;
+      if (values.phoneNumber !== originalValues.phoneNumber) {
+        updatedDetails.phoneNumber = values.phoneNumber;
       }
       if (values.role.roleID !== originalValues.role.roleID) {
         updatedDetails.role.roleID = values.role.roleID;
@@ -627,7 +627,7 @@ function ProfileAccount() {
                                   </div>
                                   <div className="row">
                                     <p>Số điện thoại:</p>
-                                    <span>{user.phone}</span>
+                                    <span>{user.phoneNumber}</span>
                                   </div>
                                   <div className="row">
                                     <p>Phân quyền:</p>
@@ -699,7 +699,7 @@ function ProfileAccount() {
                           firstName: user.firstName,
                           lastName: user.lastName,
                           address: user.address,
-                          phone: user.phone,
+                          phoneNumber: user.phoneNumber,
                           userRole,
                           formattedDate,
                           gender: user.gender,
@@ -911,7 +911,7 @@ function ProfileAccount() {
                           <Col span={12}>
                             <Form.Item
                               label="Số điện thoại"
-                              name="phone"
+                              name="phoneNumber"
                               rules={[
                                 {
                                   required: true,
@@ -919,7 +919,7 @@ function ProfileAccount() {
                                 },
                               ]}
                             >
-                              <Input placeholder="Số điện thoại" readOnly />
+                              <Input placeholder="Số điện thoại" />
                             </Form.Item>
                           </Col>
                           <Col span={12}>

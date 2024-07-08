@@ -1,74 +1,77 @@
-//Sidenav......................
-.side {
-  padding: 20px;
-  &_logo {
-    text-align: center;
-    font-size: 50px;
-    background-color: whitesmoke;
-  }
-}
-.ant-layout-sider-children{}
-.side-icon {
-  display: inline-flex;
-  width: 32px;
-  height: 32px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
-  border-radius: 6px;
-  justify-content: center;
-  align-items: center;
-  vertical-align: middle;
-  .collapsed & {
-    // Khi menu được thu gọn
-    padding: 0; // Xóa lề phải có thể đã thêm từ trước
-  }
-}
-/* Thêm class tùy chỉnh cho menu item được chọn */
-.menu-item-selected {
-  background-color: #CCC !important; /* Thay đổi màu nền của item được chọn */
-  color: black !important;
-  .side-icon {
-    color: black;
-    background-color: #639ed5 !important;
-  }
-}
-.ant-menu-light.ant-menu-inline .ant-menu-item,
-:where(.css-dev-only-do-not-override-1r287do).ant-menu-light
-  > .ant-menu.ant-menu-inline
-  .ant-menu-item {
-  padding: 30px;
-}
-.customized-submenu {
-  // Xác định các styles cho submenu
-  background: whitesmoke;
-  border: none;
-
-  .ant-menu-submenu {
-    padding: 10px;
-    .ant-menu-submenu-title {
-      justify-content: center !important; // Canh giữa title submenu
-      height: auto;
-      line-height: normal;
-      padding: 10px 16px !important;
-      color: #141414;
-      border-radius: 8px;
-      background-color: transparent;
-      box-shadow: none;
-      transition: all 0.3s ease-in-out;
-      text-overflow: clip;
+.tong-layout {
+  //Sidenav......................
+  .side {
+    padding: 20px;
+    &_logo {
+      text-align: center;
+      font-size: 50px;
+      background-color: whitesmoke;
     }
   }
-}
-//Header......................
-.header_admin {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0px;
-  background-color: transparent;
-  &_icon {
-    display: flex;
+  .ant-layout-sider-children {
+  }
+  .side-icon {
+    display: inline-flex;
+    width: 32px;
+    height: 32px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    justify-content: center;
     align-items: center;
-    font-size: 25px;
+    vertical-align: middle;
+    .collapsed & {
+      // Khi menu được thu gọn
+      padding: 0; // Xóa lề phải có thể đã thêm từ trước
+    }
+  }
+  /* Thêm class tùy chỉnh cho menu item được chọn */
+  .menu-item-selected {
+    background-color: #ccc !important; /* Thay đổi màu nền của item được chọn */
+    color: black !important;
+    .side-icon {
+      color: black;
+      background-color: #639ed5 !important;
+    }
+  }
+  .ant-menu-light.ant-menu-inline .ant-menu-item,
+  :where(.css-dev-only-do-not-override-1r287do).ant-menu-light
+    > .ant-menu.ant-menu-inline
+    .ant-menu-item {
+    padding: 30px;
+  }
+  .customized-submenu {
+    // Xác định các styles cho submenu
+    background: whitesmoke;
+    border: none;
+
+    .ant-menu-submenu {
+      padding: 10px;
+      .ant-menu-submenu-title {
+        justify-content: center !important; // Canh giữa title submenu
+        height: auto;
+        line-height: normal;
+        padding: 10px 16px !important;
+        color: #141414;
+        border-radius: 8px;
+        background-color: transparent;
+        box-shadow: none;
+        transition: all 0.3s ease-in-out;
+        text-overflow: clip;
+      }
+    }
+  }
+  //Header......................
+  .header_admin {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px;
+    background-color: transparent;
+    &_icon {
+      display: flex;
+      align-items: center;
+      font-size: 25px;
+    }
   }
 }
