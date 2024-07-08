@@ -1,0 +1,131 @@
+.tiu-de {
+  text-align: left;
+  font-weight: bold;
+}
+
+.tiu-de2 {
+  text-align: center;
+  padding-top: 100px;
+}
+
+.tiu-de3 {
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+.tiu-de4 {
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.tiu-de41 {
+  text-align: center;
+  font-weight: normal;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.tiu-de5 {
+  font-weight: 400;
+  background-color: lightgray;
+  padding: 10px;
+  border-radius: 5px;
+  width:70%;
+  margin: auto;
+}
+
+.tiu-de6 {
+  text-align: center;
+  font-weight: normal;
+  padding: 50px;
+}
+
+.tiu-de7 {
+  font-weight: normal;
+  padding-bottom: 10px;
+  padding-top: 10px;
+
+  .highlight-text {
+    font-weight: bold;
+  }
+
+  .color-text {
+    font-weight: bold;
+    color: red;
+  }
+}
+
+.tiu-dekc {
+  text-align: center;
+  font-weight: bold;
+  padding: 20px;
+}
+
+.picture {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+}
+
+.size-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  .size-option {
+    display: inline-block;
+    padding: 10px;
+    margin: 0 5px 10px 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    width: 120px;
+    height: 40px;
+
+    &.active {
+      border-color: #e4bd7b;
+      background-color: #f0f0f0;
+    }
+  }
+}
+
+:where(.css-dev-only-do-not-override-zg0ahe).ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > th,
+:where(.css-dev-only-do-not-override-zg0ahe).ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > td {
+  position: relative;
+  color: rgba(0, 0, 0, 0.88);
+  background-color: #15393f;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s ease;
+  color: white;
+}
+:where(.css-dev-only-do-not-override-zg0ahe).ant-table-wrapper
+  .ant-table-tbody
+  > tr
+  > th,
+:where(.css-dev-only-do-not-override-zg0ahe).ant-table-wrapper
+  .ant-table-tbody
+  > tr
+  > td {
+  transition: background 0.2s, border-color 0.2s;
+  text-align: center;
+  font-size: medium;
+  border-bottom: 1px solid #f0f0f0;
+}
+.custom-table {
+    width: 70%;
+    margin: auto; /* Để căn giữa bảng trong container */
+  }
+  

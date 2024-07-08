@@ -138,31 +138,31 @@ function NewOrder() {
                       <div className="new_order_info_sub">
                         <p>
                           {order.productCustomize?.diamond?.diamondName ||
-                            order.diamond.diamondName}
+                            order.diamond?.diamondName}
                         </p>
                         <div style={{ fontWeight: 400, fontSize: "13px" }}>
                           <span>
                             Carat:{" "}
                             {order.productCustomize?.diamond?.carat ||
-                              order.diamond.carat}
+                              order.diamond?.carat}
                           </span>
                           {" - "}
                           <span>
                             Tinh Khiết :
                             {order.productCustomize?.diamond?.clarify ||
-                              order.diamond.clarify}
+                              order.diamond?.clarify}
                           </span>
                           {" - "}
                           <span>
                             Cấp Màu :
                             {order.productCustomize?.diamond?.colorLevel ||
-                              order.diamond.colorLevel}
+                              order.diamond?.colorLevel}
                           </span>
                           {" - "}
                           Cắt:{" "}
                           <span>
                             {order.productCustomize?.diamond?.cut ||
-                              order.diamond.cut}
+                              order.diamond?.cut}
                           </span>
                         </div>
                         {order.diamond && (
@@ -178,7 +178,7 @@ function NewOrder() {
                               style={{ color: "#e4bd7b", fontWeight: "bold" }}
                             >
                               {" "}
-                              {order.diamond.certificate}{" "}
+                              {order.diamond?.certificate}{" "}
                             </span>
                           </div>
                         )}
@@ -217,10 +217,10 @@ function NewOrder() {
                     <h3>
                       {(
                         order.productCustomize?.totalPrice ||
-                        order.diamond.totalPrice ||
+                        order.diamond?.totalPrice ||
                         order.orderDetails.reduce(
                           (total, detail) =>
-                            total + detail.price - detail.discount
+                            total + detail?.price - detail?.discount
                         )
                       ).toLocaleString("de-DE", {
                         maximumFractionDigits: 2,
