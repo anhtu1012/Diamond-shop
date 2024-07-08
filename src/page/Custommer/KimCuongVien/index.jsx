@@ -1127,11 +1127,11 @@ function KimCuongVien() {
           </h3>
           <h3 className="kc-gia1">
             <LuDot />
-            Website: https://diamond.vn /
+            Website: https://kingdiamond.vn /
           </h3>
           <h3 className="kc-gia1">
             <LuDot />
-            Điện thoại: 096 888 8888
+            Điện thoại: 0123 456 789
           </h3>
         </div>
       </Container>
