@@ -505,6 +505,7 @@ function AccountDetail() {
   if (!userr) {
     return <LoadingTruck />;
   }
+
   const genderText = userr.gender === "MALE" ? "Nam" : "Nữ";
   const formattedDate = moment(userr.yearOfBirth, "YYYY-MM-DD").format(
     "YYYY-MM-DD"

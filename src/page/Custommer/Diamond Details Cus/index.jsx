@@ -167,7 +167,11 @@ const DiamondDetailss = () => {
                       hỗ trợ.{" "}
                     </h4>
                   </div>
-                  <div className="custom">
+                  <div
+                    className={
+                      diamondDetail.status === false ? "customNone" : "custom"
+                    }
+                  >
                     <button
                       className="custom_button1"
                       onClick={handleAddDetailsClick}
