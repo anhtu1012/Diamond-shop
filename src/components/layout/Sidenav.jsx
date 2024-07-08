@@ -83,7 +83,7 @@ function Sidenav({ collapsed }) {
 
   const logoClass = collapsed ? "collapsed-logo" : "";
   return (
-    <>
+    <div className="tong-layout">
       <div className="side_logo">
         {!collapsed ? (
           <Link to={"/"}>
@@ -108,7 +108,7 @@ function Sidenav({ collapsed }) {
         className="menu-theme-light customized-submenu"
         style={{ fontSize: "20px" }}
       />
-    </>
+    </div>
   );
 }
 

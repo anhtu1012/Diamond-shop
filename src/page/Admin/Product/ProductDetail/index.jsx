@@ -54,6 +54,7 @@ function ProductDetail() {
       const response = await fetchProductById(productID);
       const productData = response.data;
       setProduct(productData);
+      console.log(productData);
       const images = productData.productImages.map((img, index) => ({
         uid: img.imageId.toString(),
         name: `images${index + 1}.png`,
@@ -452,6 +453,10 @@ function ProductDetail() {
                       <tr>
                         <th>Trọng lượng vàng</th>
                         <td>{product.goldWeight} chỉ</td>
+                      </tr>
+                      <tr>
+                        <th>Số lượng</th>
+                        <td></td>
                       </tr>
                       <tr>
                         <th>Chất liệu khác</th>
