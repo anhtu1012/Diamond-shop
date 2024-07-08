@@ -110,7 +110,9 @@
     display: flex;
     align-items: center; /* Center items vertically */
   }
-
+  .customNone {
+    display: none;
+  }
   .custom {
     margin-top: 20px;
     display: center;
