@@ -174,7 +174,7 @@ const ForgotPassword = () => {
               ]}
               hasFeedback
             >
-              <Input.Password className="input" placeholder="Mật khẩu..." />
+              <Input.Password className="input" placeholder="Mật khẩu mới..." />
             </Form.Item>
             <Form.Item
               name="confirmPassword"
