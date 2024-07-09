@@ -166,8 +166,8 @@ function Login({ onLoginSuccess }) {
   };
   const handleloginGG = async () => {
     try {
-      // Replace with your API endpoint for Google login
       const googleLoginUrl = await loginGG();
+      console.log(googleLoginUrl);
       window.location.href = googleLoginUrl;
     } catch (error) {
       console.error("Error during Google login:", error);

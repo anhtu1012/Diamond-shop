@@ -31,7 +31,7 @@ export const logoutApi = () => {
 };
 export const loginGG = () => {
   return api.get(
-    "https://diamondshopproject.azurewebsites.net//oauth2/authorization/google"
+    "https://diamondshopproject.azurewebsites.net/oauth2/authorization/google"
   );
 };
 export const loginFB = () => {
