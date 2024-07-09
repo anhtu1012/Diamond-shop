@@ -31,7 +31,7 @@ export const logoutApi = () => {
 };
 export const loginGG = () => {
   return api.get(
-    "https://accounts.google.com/o/oauth2/v2/auth?scope=email%20profile&include_granted_scopes=true&response_type=code&state=TAv2NoUQjQEP7TXXquZlYZYoqDV7lRO4kXbB8_vc_hM%3D&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2F&client_id=478830836024-e2fa5s2erqeal7bupi7tim4ap64d0cha.apps.googleusercontent.com"
+    "https://diamondshopproject.azurewebsites.net//oauth2/authorization/google"
   );
 };
 export const loginFB = () => {
