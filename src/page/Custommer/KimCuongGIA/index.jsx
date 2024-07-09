@@ -203,6 +203,7 @@ function KimCuongGIA() {
             current={currentPage}
             pageSize={productsPerPage}
             total={filteredDiamond.length}
+            style={{ display: "flex", justifyContent: "center" }}
             onChange={handlePageChange}
           />
         </div>

@@ -263,11 +263,15 @@ function ViewProduct() {
       },
     },
     {
-      title: "Giá",
+      title: "Giá (VNĐ)",
       dataIndex: "totalPrice",
       key: "totalPrice",
       width: "15%",
       sorter: (a, b) => parseInt(a.totalPrice) - parseInt(b.totalPrice),
+      render: (text) =>
+        parseInt(text).toLocaleString("vi-VN", {
+          maximumFractionDigits: 0,
+        }),
     },
     {
       title: "Action",

@@ -29,6 +29,11 @@ function ProductDetailStaff() {
     try {
       const response = await fetchProductById(productID);
       const productData = response.data;
+      const totalQuantity = productData.sizes.reduce(
+        (acc, size) => acc + size.quantity,
+        0
+      );
+      productData.totalQuantity = totalQuantity;
       setProduct(productData);
       form.setFieldsValue({
         productID: productData.productID,
@@ -266,6 +271,10 @@ function ProductDetailStaff() {
                         <tr>
                           <th>Trọng lượng vàng</th>
                           <td>{product.goldWeight} chỉ</td>
+                        </tr>
+                        <tr>
+                          <th>Số lượng</th>
+                          <td>{product.totalQuantity}</td>
                         </tr>
                         <tr>
                           <th>Chất liệu khác</th>
