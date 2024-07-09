@@ -713,7 +713,7 @@ function Cart() {
                   style={{ width: "100%", height: "48px" }}
                   onClick={handleSubmit}
                 >
-                  {loader ? "Đang tải..." : "Xuất nhận"}
+                  {loader ? "Đang tải..." : "Xác nhận"}
                 </Button>
               </div>
             </Form>

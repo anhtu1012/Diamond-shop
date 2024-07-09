@@ -339,15 +339,24 @@ function Payment() {
                   </Radio>
                 </Radio.Group>
               </Form.Item>
-              <Button
-                type="primary"
-                onClick={handleCheckOut}
-                htmlType="submit"
-                className="payment_button"
-                style={{ width: "310px", height: "48px" }}
-              >
-                Thanh toán
-              </Button>
+              <div className="thanh-taon">
+                <Button
+                  type="primary"
+                  onClick={handleCheckOut}
+                  htmlType="submit"
+                  className="payment_button"
+                  style={{
+                    background: "#15393f",
+                    color: "white",
+                    borderRadius: "5px",
+                    fontWeight: "bold",
+                    width: "300px",
+                    height: "50px",
+                  }}
+                >
+                  Thanh toán
+                </Button>
+              </div>
             </Form>
           </Col>
         </Row>

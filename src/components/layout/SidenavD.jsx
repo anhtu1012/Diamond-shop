@@ -31,7 +31,7 @@ function SidenavD({ collapsed }) {
       if (quantityDelivery > 0) {
         notification.warning({
           message: "Nhắc nhở đơn xác nhận",
-          description: `Bạn có ${quantityDelivery} đơn hàng gần xác nhận. Vui lòng xác nhận ngay cho khách!`,
+          description: `Bạn có ${quantityDelivery} đơn hàng cần xác nhận. Vui lòng xác nhận ngay cho khách!`,
           duration: 5,
         });
       }

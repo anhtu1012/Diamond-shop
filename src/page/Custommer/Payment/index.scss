@@ -75,8 +75,6 @@
     }
   }
 
-  
-
   .pay_main_col {
     padding: 0 30px;
   }
@@ -95,9 +93,6 @@
     }
   }
 
-  .payment_button {
-    margin-top: 30px;
-  }
   .pay_product_action {
     // nút xóa
     position: absolute;
@@ -105,14 +100,57 @@
     right: 4px;
   }
   .payment_button {
-    background-color: black;
-    color: white;
+    margin-top: 30px;
     padding: 1px 65px;
     font-size: 25px;
     cursor: pointer;
     display: block;
     margin: 5px 0 5px 100px;
     text-align: center;
+    button {
+      background: #15393f;
+      border-radius: 5px;
+      width: 300px;
+      height: 50px;
+      font-size: 25px;
+      font-weight: bold;
+      position: relative;
+      overflow: hidden;
+      a {
+        color: white !important;
+      }
+    }
+    .thanh-toan {
+      button {
+        background: #15393f;
+        color: white;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -75%;
+          width: 50%;
+          height: 100%;
+          background: rgba(255, 255, 255, 0.5);
+          transform: skewX(-25deg);
+          transition: left 0.75s ease; /* Ensures smooth transition */
+        }
+
+        &:hover::before {
+          left: 125%; /* Moves ::before smoothly on hover */
+        }
+
+        &:hover {
+          background-color: white;
+          color: #15393f;
+        }
+        &:hover {
+          background-color: #15393f;
+          color: #15393f;
+        }
+      }
+    }
   }
 
   .payment_order {
