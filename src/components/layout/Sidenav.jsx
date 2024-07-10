@@ -1,4 +1,5 @@
 import {
+  ContainerOutlined,
   GroupOutlined,
   PieChartFilled,
   ProductOutlined,
@@ -61,6 +62,12 @@ const items = [
       { key: "bo-suu-tap/xem-tat-ca-bo-suu-tap", label: "Xem Bộ Sưu Tập" },
       { key: "bo-suu-tap/tao-bo-suu-tap", label: "Tạo Bộ Sưu Tập" },
     ],
+  },
+  {
+    key: "/admin-page/view-bao-hanh",
+    icon: <ContainerOutlined className="side-icon" />,
+
+    label: "Phiếu Bảo Hành",
   },
 ];
 // eslint-disable-next-line react/prop-types

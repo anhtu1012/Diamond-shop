@@ -6,6 +6,7 @@ import {
   Form,
   Image,
   Input,
+  Menu,
   Radio,
   Rate,
   Row,
@@ -18,7 +19,7 @@ import {
 } from "antd";
 import Container from "../../../components/container/Container";
 import uploadFile from "../../../utils/upload";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./index.scss";
 import { Option } from "antd/es/mentions";
@@ -30,6 +31,7 @@ import {
   fetchUserById,
   getOrderById,
   getWarrantyCard,
+  searchWarranty,
   updateUser,
 } from "../../../../services/Uservices";
 import LoadingTruck from "../../../components/loading";
@@ -37,6 +39,8 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/features/counterSlice";
 import moment from "moment/moment";
 import { useForm } from "antd/es/form/Form";
+import Highlighter from "react-highlight-words";
+import { SearchOutlined } from "@ant-design/icons";
 
 const { Search } = Input;
 function callback(key) {
@@ -50,64 +54,7 @@ const getBase64 = (file) =>
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
   });
-const columns = [
-  {
-    title: "Mã Bảo Hành",
-    dataIndex: "warrantyCardID",
-    key: "warrantyCardID",
-    width: "10%",
-  },
-  {
-    title: "Mã Sản Phẩm",
-    dataIndex: "objectId",
-    key: "objectId",
-    width: "10%",
-  },
-  {
-    title: "Ngày đặt hàng",
-    dataIndex: "purchaseDate",
-    key: "purchaseDate",
-    width: "15%",
-    sorter: (a, b) => new Date(a.purchaseDate) - new Date(b.purchaseDate),
-    sortDirections: ["descend", "ascend"],
-    render: (text) =>
-      new Date(text).toLocaleString("vi-VN", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      }),
-  },
-  {
-    title: "Ngày hết hạn",
-    dataIndex: "expirationDate",
-    key: "expirationDate",
-    width: "15%",
-    sorter: (a, b) => new Date(a.expirationDate) - new Date(b.expirationDate),
-    sortDirections: ["descend", "ascend"],
-    render: (text) =>
-      new Date(text).toLocaleString("vi-VN", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      }),
-  },
-  {
-    title: "Action",
-    dataIndex: "action",
-    key: "action",
-    width: "10%",
-    render: (text, record) => (
-      <div style={{ textAlign: "center" }}>
-        <Link
-          to={`/giay-bao-hanh/${record.warrantyCardID}`}
-          style={{ fontWeight: "bold" }}
-        >
-          Xem chi tiết
-        </Link>
-      </div>
-    ),
-  },
-];
+
 function AccountDetail() {
   const user = useSelector(selectUser);
   const [form] = Form.useForm();
@@ -146,6 +93,208 @@ function AccountDetail() {
     };
     fetchWarrantyCart();
   }, []);
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+
+  const toggleSearch = () => {
+    setIsSearchVisible((prev) => !prev);
+  };
+
+  async function searchWarrantys(query) {
+    console.log("Searching for:", query);
+    if (query) {
+      try {
+        const response = await searchWarranty(query);
+        console.log("Search results:", response.data);
+        setSearchResults(response.data);
+      } catch (error) {
+        console.error("Search error:", error);
+        setSearchResults([]);
+      }
+    } else {
+      setSearchResults([]);
+    }
+  }
+
+  const searchMenu = (
+    <Menu>
+      {Array.isArray(searchResults) && searchResults.length > 0 ? (
+        searchResults.map((item) => (
+          <Menu.Item key={item.warrantyCardID}>
+            <Link
+              to={`/giay-bao-hanh/${item.warrantyCardID}`}
+              onClick={toggleSearch}
+            >
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div>{item.warrantyCardID || item.objectId}</div>
+              </div>
+            </Link>
+          </Menu.Item>
+        ))
+      ) : (
+        <Menu.Item key="no-results">No results found</Menu.Item>
+      )}
+    </Menu>
+  );
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
+  const searchInput = useRef(null);
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText("");
+  };
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+      close,
+    }) => (
+      <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
+        <Input
+          ref={searchInput}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{ marginBottom: 8, display: "block" }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => clearFilters && handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              confirm({ closeDropdown: false });
+              setSearchText(selectedKeys[0]);
+              setSearchedColumn(dataIndex);
+            }}
+          >
+            Filter
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              close();
+            }}
+          >
+            Close
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined style={{ color: filtered ? "#1677ff" : undefined }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex]
+        ? record[dataIndex]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
+        : "",
+    onFilterDropdownOpenChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
+  });
+  const columns = [
+    {
+      title: "Mã Bảo Hành",
+      dataIndex: "warrantyCardID",
+      key: "warrantyCardID",
+      width: "10%",
+      ...getColumnSearchProps("warrantyCardID"),
+    },
+    {
+      title: "Mã Sản Phẩm",
+      dataIndex: "objectId",
+      key: "objectId",
+      width: "10%",
+      ...getColumnSearchProps("objectId"),
+    },
+    {
+      title: "Ngày đặt hàng",
+      dataIndex: "purchaseDate",
+      key: "purchaseDate",
+      width: "15%",
+      sorter: (a, b) => new Date(a.purchaseDate) - new Date(b.purchaseDate),
+      sortDirections: ["descend", "ascend"],
+      render: (text) =>
+        new Date(text).toLocaleString("vi-VN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        }),
+    },
+    {
+      title: "Ngày hết hạn",
+      dataIndex: "expirationDate",
+      key: "expirationDate",
+      width: "15%",
+      sorter: (a, b) => new Date(a.expirationDate) - new Date(b.expirationDate),
+      sortDirections: ["descend", "ascend"],
+      render: (text) =>
+        new Date(text).toLocaleString("vi-VN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        }),
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      width: "10%",
+      render: (text, record) => (
+        <div style={{ textAlign: "center" }}>
+          <Link
+            to={`/giay-bao-hanh/${record.warrantyCardID}`}
+            style={{ fontWeight: "bold" }}
+          >
+            Xem chi tiết
+          </Link>
+        </div>
+      ),
+    },
+  ];
 
   const renderCard = (order, index, buttonText, buttonColor) => {
     const formattedDate = new Date(order.orderDate).toLocaleString("vi-VN", {
@@ -1090,13 +1239,14 @@ function AccountDetail() {
                 <Row gutter={24}>
                   <Col span={24} style={{ textAlign: "center" }}>
                     <Search
-                      placeholder="Nhập Mã sản phẩm"
+                      placeholder="Nhập Mã Bảo Hành"
                       enterButton="Search"
                       size="large"
                       style={{ width: "30%" }}
-                      onSearch={(value) => console.log(value)}
+                      onSearch={searchWarrantys}
                       className="custom-search"
                     />
+                    {isSearchVisible && searchMenu}
                   </Col>
                   <Col span={24} style={{ paddingTop: "25px" }}>
                     {loading ? (

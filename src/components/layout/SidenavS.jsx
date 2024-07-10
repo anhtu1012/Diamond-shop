@@ -90,10 +90,16 @@ function SidenavS({ collapsed }) {
       label: "Sản Phẩm",
     },
     {
-      key: "/staff-page/bao-hanh",
+      key: "/staff-page/view-bao-hanh",
       icon: <ContainerOutlined className="side-icon" />,
 
       label: "Phiếu Bảo Hành",
+    },
+    {
+      key: "/staff-page/bao-hanh",
+      icon: <ContainerOutlined className="side-icon" />,
+
+      label: "Tạo Phiếu Bảo Hành",
     },
   ];
   const logoClass = collapsed ? "collapsed-logo" : "";
