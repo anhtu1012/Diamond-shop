@@ -23,6 +23,7 @@ import { GiBigDiamondRing } from "react-icons/gi";
 import {
   createOrder,
   feedBack,
+  fetchOrderFeedback,
   getOrderDetail,
 } from "../../../../../services/Uservices";
 import { useEffect, useRef, useState } from "react";
@@ -39,8 +40,8 @@ const statusToStepIndex = {
   "Không Thành Công": 2,
   "Đã giao": 3,
   "Đã hủy": 4,
+  "Đã hoàn tiền": 4,
 };
-
 const renderProductItem = (order, index) => (
   <Row className="staff_order_frame" key={index}>
     <Col span={7} className="staff_order_left">
@@ -181,21 +182,23 @@ function ViewOrderDetailsCusTom() {
   const onNameChange = (event) => {
     setName(event.target.value);
   };
+  const [selectedProduct, setSelectedProduct] = useState([]);
+  useEffect(() => {
+    const getOrderFeedback = async () => {
+      try {
+        if (data?.orderId) {
+          const res = await fetchOrderFeedback(data.orderId);
+          setSelectedProduct(res.data.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch order feedback:", error);
+        message.error("Failed to fetch order feedback");
+      }
+    };
 
-  const selectedProduct = [
-    {
-      product: {
-        productID: "01121N",
-        productName: "NHẪN KIM CƯƠNG NỮ 18k",
-      },
-    },
-    {
-      product: {
-        productID: "01121N",
-        productName: "NHẪN KIM CƯƠNG NỮ 18k",
-      },
-    },
-  ];
+    getOrderFeedback();
+  }, [data?.orderId]);
+
   const addItem = (e) => {
     let index = 0;
     e.preventDefault();
@@ -252,7 +255,7 @@ function ViewOrderDetailsCusTom() {
       const info = {
         comment: values[`comment-${selectedProduct.indexOf(order)}`],
         rating: values[`rating-${selectedProduct.indexOf(order)}`],
-        productID: order.product?.productID,
+        productID: order.productID,
         diamondID: null,
         userID: user.userID,
       };
@@ -380,7 +383,10 @@ function ViewOrderDetailsCusTom() {
                   <Col span={24}>
                     <div
                       className={`step-giao-hang ${
-                        data.status === "Đã hủy" ? "step-cancelled" : ""
+                        data.status === "Đã hủy" ||
+                        data.status === "Đã hoàn tiền "
+                          ? "step-cancelled"
+                          : ""
                       }`}
                     >
                       <Steps
@@ -401,8 +407,12 @@ function ViewOrderDetailsCusTom() {
                             title: "Đã giao",
                           },
                           {
-                            title: "Đã hủy",
-                            icon: data.status === "Đã hủy" && (
+                            title:
+                              data.status === "Đã hủy"
+                                ? "Đã hủy"
+                                : "Đã hoàn tiền",
+                            icon: (data.status === "Đã hủy" ||
+                              data.status === "Đã hoàn tiền") && (
                               <VscError
                                 size={35}
                                 style={{
@@ -723,8 +733,8 @@ function ViewOrderDetailsCusTom() {
       >
         {selectedProduct.map((order, index) => (
           <div key={index}>
-            <Link to={`/product-details/${order.product.productID}`}>
-              <div className="feedBackModal">{order.product?.productName}</div>
+            <Link to={`/product-details/${order.productID}`}>
+              <div className="feedBackModal">{order.productName}</div>
             </Link>
             {form && (
               <Form
@@ -732,10 +742,24 @@ function ViewOrderDetailsCusTom() {
                 layout="vertical"
                 onFinish={(values) => handleFeedback(values, order)}
               >
-                <Form.Item name={`rating-${index}`} label="Đánh giá">
+                <Form.Item
+                  style={{ paddingTop: "10px", fontWeight: "bold" }}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Vui lòng chọn số sao",
+                    },
+                  ]}
+                  name={`rating-${index}`}
+                  label="Đánh giá"
+                >
                   <Rate />
                 </Form.Item>
-                <Form.Item name={`comment-${index}`} label="Bình luận">
+                <Form.Item
+                  style={{ fontWeight: "bold" }}
+                  name={`comment-${index}`}
+                  label="Bình luận"
+                >
                   <Input.TextArea rows={4} />
                 </Form.Item>
               </Form>

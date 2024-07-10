@@ -13,24 +13,25 @@ const statusToStep = {
   "Không Thành Công": 3,
   "Đã giao": 4,
   "Đã hủy": 5,
+  "Đã hoàn tiền": 5,
 };
 
 const getStatusColor = (currentStep) => {
   switch (currentStep) {
     case 0:
-      return "#999999"; 
+      return "#999999";
     case 1:
-      return "#FFD700"; 
+      return "#FFD700";
     case 2:
-      return "#1d7a94"; 
+      return "#1d7a94";
     case 3:
-      return "#ffa500"; 
+      return "#ffa500";
     case 4:
-      return "#008000"; 
+      return "#008000";
     case 5:
-      return "#FF0000"; 
+      return "#FF0000";
     default:
-      return "#605c5c"; 
+      return "#605c5c";
   }
 };
 
@@ -151,6 +152,7 @@ function AllOrder() {
     "Không Thành Công",
     "Đã giao",
     "Đã hủy",
+    "Đã hoàn tiền",
   ].map((status) => (
     <Button
       key={status}
@@ -159,7 +161,7 @@ function AllOrder() {
       style={{
         fontWeight: "bold",
         color: "white",
-        marginRight: 5,
+        marginRight: 2,
         textTransform: "uppercase",
         backgroundColor: getStatusColor(statusToStep[status]),
       }}

@@ -29,7 +29,7 @@ const statusToStepIndex = {
   "Chờ giao hàng": 2,
   "Không Thành Công": 2,
   "Đã giao": 3,
-  "Đã hủy": 4,
+  "Đã hoàn tiền": 4,
 };
 
 const renderProductItem = (order, index) => (
@@ -201,7 +201,7 @@ function ViewOrderDetailDelivery() {
   const handleRemobeOrder = async () => {
     try {
       const status = {
-        status: "Đã hủy",
+        status: "Đã hoàn tiền",
         reason: reason,
       };
       await createOrder(orderID, status);
@@ -319,7 +319,7 @@ function ViewOrderDetailDelivery() {
                 <Col span={24}>
                   <div
                     className={`step-giao-hang ${
-                      data.status === "Đã hủy" ? "step-cancelled" : ""
+                      data.status === "Đã hoàn tiền" ? "step-cancelled" : ""
                     }`}
                   >
                     <Steps
@@ -340,8 +340,8 @@ function ViewOrderDetailDelivery() {
                           title: "Đã giao",
                         },
                         {
-                          title: "Đã hủy",
-                          icon: data.status === "Đã hủy" && (
+                          title: "Đã hoàn tiền",
+                          icon: data.status === "Đã hoàn tiền" && (
                             <VscError
                               size={35}
                               style={{
@@ -413,7 +413,7 @@ function ViewOrderDetailDelivery() {
                       <span>{data.note}</span>
                     </div>
                   )}
-                  {(data?.status === "Đã hủy" && data?.reason != null) ||
+                  {(data?.status === "Đã hoàn tiền" && data?.reason != null) ||
                     (data?.status === "Không Thành Công" && (
                       <div className="row">
                         <p>Lí do:</p>
@@ -425,7 +425,7 @@ function ViewOrderDetailDelivery() {
                     data?.payments &&
                     data.payments.length > 0 && (
                       <div className="row">
-                        <p>Phương thức thanh toán:</p>
+                        <p>Thanh toán:</p>
                         <span>{data.payments[0].methodPayment}</span>
                       </div>
                     )}

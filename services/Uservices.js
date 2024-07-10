@@ -113,6 +113,18 @@ export const addToCart = (data) => {
     data
   );
 };
+export const paymentRefundPaypal = (data) => {
+  return api.post(
+    `https://diamondshopproject.azurewebsites.net/payment/paypal/refund`,
+    data
+  );
+};
+export const paymentRefundVnpay = (data) => {
+  return api.post(
+    `https://diamondshopproject.azurewebsites.net/payment/vnpay/refund`,
+    data
+  );
+};
 export const getCart = (user_id) => {
   return api.get(
     `https://diamondshopproject.azurewebsites.net/swp391/api/carts/cartUser/${user_id}`
@@ -172,6 +184,11 @@ export const getAllUser = () => {
 export const fetchUserById = (id) => {
   return api.get(
     `https://diamondshopproject.azurewebsites.net/swp391/api/user/get/${id}`
+  );
+};
+export const fetchOrderFeedback = (order_id) => {
+  return api.get(
+    `https://diamondshopproject.azurewebsites.net/swp391/api/feedback/get_model_detail/${order_id}`
   );
 };
 export const updateUser = (id, userr) => {

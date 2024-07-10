@@ -8,7 +8,7 @@ const statusToStep = {
   "Chờ giao hàng": 1,
   "Không Thành Công": 2,
   "Đã giao": 3,
-  "Đã hủy": 4,
+  "Đã hoàn tiền": 4,
 };
 
 const getStatusColor = (currentStep) => {
@@ -140,7 +140,7 @@ function CapNhatDon() {
     "Chờ giao hàng",
     "Không Thành Công",
     "Đã giao",
-    "Đã hủy",
+    "Đã hoàn tiền",
   ].map((status) => (
     <Button
       key={status}
