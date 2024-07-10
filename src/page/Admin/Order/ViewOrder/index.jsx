@@ -31,6 +31,7 @@ const statusToStepIndex = {
   "Không Thành Công": 2,
   "Đã giao": 3,
   "Đã hủy": 4,
+  "Đã hoàn tiền": 4,
 };
 
 const renderProductItem = (order, index) => (
@@ -320,7 +321,10 @@ function ViewOrderDetails() {
                 <Col span={24}>
                   <div
                     className={`step-giao-hang ${
-                      data.status === "Đã hủy" ? "step-cancelled" : ""
+                      data.status === "Đã hủy" ||
+                      data.status === "Đã hoàn tiền "
+                        ? "step-cancelled"
+                        : ""
                     }`}
                   >
                     <Steps
@@ -341,8 +345,12 @@ function ViewOrderDetails() {
                           title: "Đã giao",
                         },
                         {
-                          title: "Đã hủy",
-                          icon: data.status === "Đã hủy" && (
+                          title:
+                            data.status === "Đã hủy"
+                              ? "Đã hủy"
+                              : "Đã hoàn tiền",
+                          icon: (data.status === "Đã hủy" ||
+                            data.status === "Đã hoàn tiền") && (
                             <VscError
                               size={35}
                               style={{

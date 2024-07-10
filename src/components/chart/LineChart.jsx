@@ -9,18 +9,18 @@ function LineChart() {
     <>
       <div className="linechart">
         <div>
-          <Title level={5}>Active Users</Title>
+          <Title level={5}>Doanh Thu</Title>
           <Paragraph className="lastweek">
-            than last week <span className="bnb2">+30%</span>
+            so với ngày hôm qua <span className="bnb2">+30%</span>
           </Paragraph>
         </div>
         <div className="sales">
           <ul>
             <li>
-              <MinusOutlined /> Traffic
+              <MinusOutlined /> Kim Cương
             </li>
             <li>
-              <MinusOutlined /> Sales
+              <MinusOutlined /> Sản phẩm Tùy Chỉnh
             </li>
           </ul>
         </div>

@@ -227,9 +227,9 @@ const OrderCustomer = () => {
       buttonColor: "red",
     },
     {
-      label: "Lịch sử",
+      label: "Đã hoàn tiền",
       key: "7",
-      status: "Đánh giá",
+      status: "Đã hoàn tiền",
       buttonColor: "grey",
     },
   ];

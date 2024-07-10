@@ -15,7 +15,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { GiBigDiamondRing } from "react-icons/gi";
 import { IoDiamondOutline } from "react-icons/io5";
 import { useEffect, useRef, useState } from "react";
-import { createOrder, getOrderDetail } from "../../../../../services/Uservices";
+import {
+  createOrder,
+  getOrderDetail,
+  paymentRefundPaypal,
+  paymentRefundVnpay,
+} from "../../../../../services/Uservices";
 import { TiArrowBack } from "react-icons/ti";
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -187,11 +192,17 @@ function DetailNewOrderDelivery() {
   const handleRemobeOrder = async () => {
     try {
       console.log(reason);
-      const status = {
-        status: "Đã hủy",
-        reason: reason,
-      };
-      await createOrder(orderID, status);
+      // const status = {
+      //   status: "Đã hoàn tiền",
+      //   reason: reason,
+      // };
+      // await createOrder(orderID, status);
+      // console.log(data.payments[0].methodPayment);
+      if (data.payments[0].methodPayment === "VNPay") {
+        await paymentRefundVnpay(orderID);
+      } else {
+        await paymentRefundPaypal(orderID);
+      }
       message.success("Hủy đơn hàng thành công");
       navigate("/delivery-page/don-hang-moi");
     } catch (error) {

@@ -14,6 +14,7 @@ const statusToStep = {
   "Không Thành Công": 3,
   "Đã giao": 4,
   "Đã hủy": 5,
+  "Đã hoàn tiền": 5,
 };
 
 const getStatusColor = (currentStep) => {
@@ -141,8 +142,9 @@ function AllOrder() {
     "Chờ thanh toán",
     "Chờ giao hàng",
     "Không Thành Công",
-    "Đã hủy",
     "Đã giao",
+    "Đã hủy",
+    "Đã hoàn tiền",
   ].map((status) => (
     <Button
       key={status}
@@ -151,7 +153,7 @@ function AllOrder() {
       style={{
         fontWeight: "bold",
         color: "white",
-        marginRight: 5,
+        marginRight: 2,
         textTransform: "uppercase",
         backgroundColor: getStatusColor(statusToStep[status]),
       }}
