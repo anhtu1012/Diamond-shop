@@ -129,7 +129,7 @@ const renderProductItem = (order, index) => (
 
 function DetailNewOrder() {
   const { orderID } = useParams();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [data, setData] = useState();
   useEffect(() => {
     const fetchGetOrderDetail = async () => {
@@ -200,10 +200,19 @@ function DetailNewOrder() {
                 <p className="label">Địa Chỉ:</p>
                 <p className="value">{data.addressShipping}</p>
               </div>
-              <div className="thong-tin-item">
-                <p className="label">Ghi Chú:</p>
-                <p className="value">{data.note}</p>
-              </div>
+              {data?.note != null && (
+                <div className="thong-tin-item">
+                  <p className="label">Ghi Chú:</p>
+                  <span>{data.note}</span>
+                </div>
+              )}
+              {(data?.status === "Đã hủy" && data?.reason != null) ||
+                (data?.status === "Không Thành Công" && (
+                  <div className="thong-tin-item">
+                    <p className="label">Lí do:</p>
+                    <span>{data.reason}</span>
+                  </div>
+                ))}
             </div>
             <div style={{ marginTop: "10px", marginLeft: "auto" }}>
               <Popconfirm

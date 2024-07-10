@@ -261,9 +261,22 @@ function DetailNewOrderDelivery() {
                 <p className="value">{data.addressShipping}</p>
               </div>
               <div className="thong-tin-item">
-                <p className="label">Ghi Chú:</p>
-                <p className="value">{data.reason}</p>
+                <p className="label">Thanh toán:</p>
+                <p className="value">{data.payments[0].methodPayment}</p>
               </div>
+              {data?.note != null && (
+                <div className="thong-tin-item">
+                  <p className="label">Ghi Chú:</p>
+                  <span>{data.note}</span>
+                </div>
+              )}
+              {(data?.status === "Đã hủy" && data?.reason != null) ||
+                (data?.status === "Không Thành Công" && (
+                  <div className="thong-tin-item">
+                    <p className="label">Lí do:</p>
+                    <span>{data.reason}</span>
+                  </div>
+                ))}
             </div>
             <div
               style={{

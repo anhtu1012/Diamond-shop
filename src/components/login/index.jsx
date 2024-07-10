@@ -16,12 +16,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaSquareFacebook } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  loginApi,
-  loginFB,
-  loginGG,
-  registerApi,
-} from "../../../services/Uservices";
+import { loginApi, loginFB, registerApi } from "../../../services/Uservices";
 import { login } from "../../redux/features/counterSlice";
 function Login({ onLoginSuccess }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -73,7 +68,6 @@ function Login({ onLoginSuccess }) {
       form.submit();
     }
   };
-  
 
   const handleRegister = async (values) => {
     try {
@@ -164,10 +158,25 @@ function Login({ onLoginSuccess }) {
       window.grecaptcha.reset();
     }
   };
-  const handleloginGG = async () => {
+  // const handleloginGG = async () => {
+  //   try {
+  //     const googleLoginUrl = await loginGG();
+  //     console.log(googleLoginUrl);
+  //     // window.location.href = googleLoginUrl;
+  //   } catch (error) {
+  //     console.error("Error during Google login:", error);
+  //     notification.error({
+  //       message: "Login with Google failed",
+  //       description:
+  //         "There was an issue logging in with Google. Please try again later.",
+  //     });
+  //   }
+  // };
+
+  const handleloginGG = () => {
     try {
-      const googleLoginUrl = await loginGG();
-      console.log(googleLoginUrl);
+      const googleLoginUrl =
+        "https://diamondshopproject.azurewebsites.net/oauth2/authorization/google";
       window.location.href = googleLoginUrl;
     } catch (error) {
       console.error("Error during Google login:", error);

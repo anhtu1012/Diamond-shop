@@ -1,12 +1,8 @@
 /* eslint-disable react/prop-types */
 import { UserOutlined } from "@ant-design/icons";
 import "./index.scss";
-import { Avatar, Button, Collapse, Form, Rate, message } from "antd";
+import { Avatar, Collapse, Rate } from "antd";
 import moment from "moment";
-import TextArea from "antd/es/input/TextArea";
-import { feedBack } from "../../../services/Uservices";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../redux/features/counterSlice";
 const text1 = (
   <div>
     <h4>Trang Sức Kim Cương Tại Diamond King</h4>
@@ -95,51 +91,9 @@ const text3 = (
   </div>
 );
 
-function ToggleTab({ feedBacks, diamond, product }) {
-  const [form] = Form.useForm();
-  const user = useSelector(selectUser);
-  const handleFeeBack = async (value) => {
-    try {
-      const info = {
-        comment: value.comment,
-        rating: value.rating,
-        diamondID: diamond,
-        productID: product,
-        userID: user.userID,
-      };
-      await feedBack(info);
-      message.success("Đánh giá Thành công");
-      form.resetFields();
-    } catch (error) {
-      message.error("Đánh giá thất bại");
-    }
-  };
+function ToggleTab({ feedBacks }) {
   const text4 = (
     <div>
-      <Form form={form} onFinish={handleFeeBack} style={{ marginTop: 20 }}>
-        <Form.Item
-          name="comment"
-          label=<Avatar className="reviewer-avatar" icon={<UserOutlined />} />
-        >
-          <TextArea rows={2} />
-        </Form.Item>
-        <Form.Item
-          name="rating"
-          style={{ paddingLeft: "40px" }}
-          rules={[{ required: true, message: "Vui lòng đánh giá!" }]}
-        >
-          <Rate />
-        </Form.Item>
-        <Form.Item style={{ paddingLeft: "40px" }}>
-          <Button
-            type="primary"
-            htmlType="submit"
-            style={{ background: "orange" }}
-          >
-            Đánh giá
-          </Button>
-        </Form.Item>
-      </Form>
       {feedBacks.map((feedback, index) => (
         <div key={index} className="review">
           <div className="review-header">
