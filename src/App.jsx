@@ -82,7 +82,10 @@ import ViewOrderDetailDelivery from "./page/Delivery/OrderDetail";
 import ProfileAccountStaff from "./page/Staff/View-User/View-User-Detail";
 
 import BangGiaKimCuong from "./page/Custommer/BangGiaKimCuong";
-
+import ViewWarranty from "./page/Staff/View-warranty";
+import ViewWarrantyAdmin from "./page/Admin/Warranty";
+import ViewWarrantyDetail from "./page/Admin/Warranty/View-Warranty";
+import ViewWarrantyDetailS from "./page/Staff/View-warranty/Warranty-detail";
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -209,8 +212,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/bang-gia-kim-cuong",
-        element:  <BangGiaKimCuong/>,
-       
+        element: <BangGiaKimCuong />,
       },
     ],
   },
@@ -330,6 +332,14 @@ const router = createBrowserRouter([
         path: "bo-suu-tap/tao-bo-suu-tap",
         element: <NewCollection />,
       },
+      {
+        path: "/admin-page/view-bao-hanh",
+        element: <ViewWarrantyAdmin />,
+      },
+      {
+        path: "/admin-page/view-bao-hanh/xem-chi-tiet-bao-hanh/:warrantyCardID",
+        element: <ViewWarrantyDetail />,
+      },
     ],
   },
   {
@@ -374,6 +384,14 @@ const router = createBrowserRouter([
       {
         path: "/staff-page/bao-hanh",
         element: <Warranty />,
+      },
+      {
+        path: "/staff-page/view-bao-hanh",
+        element: <ViewWarranty />,
+      },
+      {
+        path: "/staff-page/view-bao-hanh/xem-chi-tiet-bao-hanh/:warrantyCardID",
+        element: <ViewWarrantyDetailS />,
       },
       {
         path: "/staff-page/chi-tiet-don-hang/:orderID",

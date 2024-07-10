@@ -128,6 +128,16 @@ export const getOrderWaitPay = (user_id) => {
     `https://diamondshopproject.azurewebsites.net/swp391/api/orders/orderWaitPay/${user_id}`
   );
 };
+export const getWarrantyAllCard = () => {
+  return api.get(
+    `https://diamondshopproject.azurewebsites.net/swp391/api/warrantycards/all_warranty_card`
+  );
+};
+// export const getWarrantyCardById = (warrantyCard_id) => {
+//   return api.get(
+//     `https://diamondshopproject.azurewebsites.net/swp391/api/warrantycards/warrantyCard_id/${warrantyCard_id}`
+//   );
+// };
 export const getWarrantyCard = (user_id) => {
   return api.get(
     `https://diamondshopproject.azurewebsites.net/swp391/api/warrantycards/user/${user_id}`
@@ -276,5 +286,10 @@ export const feedBack = (info) => {
 export const searchResultss = (query) => {
   return api.get(
     `https://diamondshopproject.azurewebsites.net/swp391/api/search?query=${query}`
+  );
+};
+export const searchWarranty = (query) => {
+  return api.get(
+    `https://diamondshopproject.azurewebsites.net/swp391/api/warrantycards/search?query=${query}`
   );
 };
