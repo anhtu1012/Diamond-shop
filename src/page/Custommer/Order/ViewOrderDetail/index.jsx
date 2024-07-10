@@ -2,7 +2,9 @@ import {
   Button,
   Col,
   Divider,
+  Form,
   Input,
+  Modal,
   Popconfirm,
   Rate,
   Row,
@@ -18,12 +20,18 @@ import "./index.scss";
 import { TiArrowBack } from "react-icons/ti";
 import { IoDiamondOutline } from "react-icons/io5";
 import { GiBigDiamondRing } from "react-icons/gi";
-import { createOrder, getOrderDetail } from "../../../../../services/Uservices";
+import {
+  createOrder,
+  feedBack,
+  getOrderDetail,
+} from "../../../../../services/Uservices";
 import { useEffect, useRef, useState } from "react";
 import LoadingTruck from "../../../../components/loading";
 import Container from "../../../../components/container/Container";
 import { VscError } from "react-icons/vsc";
 import { PlusOutlined } from "@ant-design/icons";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../../redux/features/counterSlice";
 const statusToStepIndex = {
   "Chờ Xác Nhận": 0,
   "Chờ thanh toán": 1,
@@ -159,6 +167,7 @@ function ViewOrderDetailsCusTom() {
   const { orderID } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState();
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const {
     token: { borderRadiusLG },
   } = theme.useToken();
@@ -172,6 +181,21 @@ function ViewOrderDetailsCusTom() {
   const onNameChange = (event) => {
     setName(event.target.value);
   };
+
+  const selectedProduct = [
+    {
+      product: {
+        productID: "01121N",
+        productName: "NHẪN KIM CƯƠNG NỮ 18k",
+      },
+    },
+    {
+      product: {
+        productID: "01121N",
+        productName: "NHẪN KIM CƯƠNG NỮ 18k",
+      },
+    },
+  ];
   const addItem = (e) => {
     let index = 0;
     e.preventDefault();
@@ -210,6 +234,38 @@ function ViewOrderDetailsCusTom() {
       navigate("/");
     } catch (error) {
       message.error("Đã có lỗi xảy ra khi hủy đơn hàng");
+    }
+  };
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+  const hanldeSubmit = () => {
+    form.submit();
+  };
+  const [form] = Form.useForm();
+  const user = useSelector(selectUser);
+  const handleFeedback = async (values, order) => {
+    try {
+      const info = {
+        comment: values[`comment-${selectedProduct.indexOf(order)}`],
+        rating: values[`rating-${selectedProduct.indexOf(order)}`],
+        productID: order.product?.productID,
+        diamondID: null,
+        userID: user.userID,
+      };
+      console.log(info);
+      await feedBack(info);
+      message.success("Đánh giá thành công");
+      form.resetFields([
+        `comment-${selectedProduct.indexOf(order)}`,
+        `rating-${selectedProduct.indexOf(order)}`,
+      ]);
+      handleCancel();
+    } catch (error) {
+      message.error("Đánh giá thất bại");
     }
   };
   if (!data) {
@@ -430,7 +486,7 @@ function ViewOrderDetailsCusTom() {
                       data?.payments &&
                       data.payments.length > 0 && (
                         <div className="row">
-                          <p>Phương thức thanh toán:</p>
+                          <p>Thanh toán:</p>
                           <span>{data.payments[0].methodPayment}</span>
                         </div>
                       )}
@@ -633,6 +689,7 @@ function ViewOrderDetailsCusTom() {
                           style={{ textAlign: "center" }}
                         >
                           <Button
+                            onClick={() => showModal(data?.orderDetails)}
                             style={{
                               background: "orange",
                               color: "white",
@@ -654,6 +711,47 @@ function ViewOrderDetailsCusTom() {
           </Row>
         </div>
       </div>
+      <Modal
+        title="Đánh giá sản phẩm"
+        open={isModalVisible}
+        onCancel={handleCancel}
+        footer={[
+          <Button key="back" onClick={handleCancel}>
+            Đóng
+          </Button>,
+        ]}
+      >
+        {selectedProduct.map((order, index) => (
+          <div key={index}>
+            <Link to={`/product-details/${order.product.productID}`}>
+              <div className="feedBackModal">{order.product?.productName}</div>
+            </Link>
+            {form && (
+              <Form
+                form={form}
+                layout="vertical"
+                onFinish={(values) => handleFeedback(values, order)}
+              >
+                <Form.Item name={`rating-${index}`} label="Đánh giá">
+                  <Rate />
+                </Form.Item>
+                <Form.Item name={`comment-${index}`} label="Bình luận">
+                  <Input.TextArea rows={4} />
+                </Form.Item>
+              </Form>
+            )}
+            <div style={{ textAlign: "right", paddingBottom: "10px" }}>
+              <Button
+                type="primary"
+                onClick={hanldeSubmit}
+                style={{ background: "orange" }}
+              >
+                Đánh giá
+              </Button>
+            </div>
+          </div>
+        ))}
+      </Modal>
     </Container>
   );
 }
