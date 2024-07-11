@@ -153,6 +153,7 @@ function DetailNewOrder() {
       message.error("Đã có lỗi xảy ra khi tạo đơn hàng");
     }
   };
+  const genderText = data?.gender === "MALE" ? "Nam" : "Nữ";
   const handleRemobeOrder = async () => {
     try {
       const status = {
@@ -194,7 +195,7 @@ function DetailNewOrder() {
               </div>
               <div className="thong-tin-item">
                 <p className="label">Giới Tính:</p>
-                <p className="value">{data.gender}</p>
+                <p className="value">{genderText}</p>
               </div>
               <div className="thong-tin-item">
                 <p className="label">Địa Chỉ:</p>

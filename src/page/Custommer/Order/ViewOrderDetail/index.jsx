@@ -215,6 +215,7 @@ function ViewOrderDetailsCusTom() {
   }, [orderID]);
 
   const currentStepIndex = statusToStepIndex[data?.status];
+  const genderText = data?.gender === "MALE" ? "Nam" : "Nữ";
   const formattedDate = new Date(data?.orderDate).toLocaleString("vi-VN", {
     day: "2-digit",
     month: "2-digit",
@@ -268,6 +269,7 @@ function ViewOrderDetailsCusTom() {
       message.error("Đánh giá thất bại");
     }
   };
+
   if (!data) {
     return <LoadingTruck />;
   }
@@ -458,7 +460,7 @@ function ViewOrderDetailsCusTom() {
                     </div>
                     <div className="row">
                       <p>Giới tính:</p>
-                      <span>{data.gender}</span>
+                      <span>{genderText}</span>
                     </div>
                     <div className="row">
                       <p>Địa chỉ:</p>
