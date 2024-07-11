@@ -191,17 +191,19 @@ function DetailNewOrderDelivery() {
   };
   const handleRemobeOrder = async () => {
     try {
-      console.log(reason);
-      // const status = {
-      //   status: "Đã hoàn tiền",
-      //   reason: reason,
-      // };
-      // await createOrder(orderID, status);
-      // console.log(data.payments[0].methodPayment);
-      if (data.payments[0].methodPayment === "VNPay") {
-        await paymentRefundVnpay(orderID);
+      const status = {
+        status: "Đã hoàn tiền",
+        reason: reason,
+      };
+      await createOrder(orderID, status);
+      const dataa = {
+        orderID: orderID,
+      };
+      if (data.payments[0].methodPayment === "Paypal") {
+        const res = await paymentRefundPaypal(dataa);
+        console.log(res.data);
       } else {
-        await paymentRefundPaypal(orderID);
+        await paymentRefundVnpay(dataa);
       }
       message.success("Hủy đơn hàng thành công");
       navigate("/delivery-page/don-hang-moi");
