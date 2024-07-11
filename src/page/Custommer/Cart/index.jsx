@@ -707,14 +707,24 @@ function Cart() {
                 <div className="cart_vat_statement">
                   Giá tham khảo đã bao gồm VAT
                 </div>
-                <Button
-                  className="confirm_button"
-                  type="primary"
-                  style={{ width: "100%", height: "48px" }}
-                  onClick={handleSubmit}
-                >
-                  {loader ? "Đang tải..." : "Xác nhận"}
-                </Button>
+                {loader ? (
+                  <Button
+                    className="confirm_button"
+                    type="primary"
+                    style={{ width: "100%", height: "48px" }}
+                  >
+                    Đang tải...
+                  </Button>
+                ) : (
+                  <Button
+                    className="confirm_button"
+                    type="primary"
+                    style={{ width: "100%", height: "48px" }}
+                    onClick={handleSubmit}
+                  >
+                    Xác nhận
+                  </Button>
+                )}
               </div>
             </Form>
           </Col>
