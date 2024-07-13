@@ -179,6 +179,56 @@ function Login({ onLoginSuccess }) {
       const googleLoginUrl =
         "https://diamondshopproject.azurewebsites.net/oauth2/authorization/google";
       window.location.href = googleLoginUrl;
+      window.addEventListener("message", async (event) => {
+        if (event.origin !== "https://diamondshopproject.azurewebsites.net") {
+          return;
+        }
+
+        const response = event.data;
+        // Process the response
+        if (response && response.token) {
+          const usertoken = response.token;
+          console.log(usertoken);
+          localStorage.setItem("token", usertoken);
+
+          const base64Url = usertoken.split(".")[1];
+          const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+          const payload = JSON.parse(window.atob(base64));
+          const user = payload;
+          dispatch(login(user));
+          onLoginSuccess();
+
+          // Reset captcha if needed
+          window.grecaptcha.reset();
+
+          switch (payload.role[0].authority) {
+            case "ROLE_ADMIN":
+              navigate("/admin-page");
+              message.success("Chào mừng bạn đến Admin");
+              break;
+            case "ROLE_STAFF":
+              navigate("/staff-page");
+              message.success("Chào mừng bạn đến Staff");
+              break;
+            case "ROLE_DELIVERY":
+              navigate("/delivery-page");
+              message.success("Chào mừng bạn đến DELIVERY");
+              break;
+            case "ROLE_USER":
+              navigate("/");
+              message.success("Chào mừng bạn đến DIAMOND KING");
+              break;
+            default:
+              break;
+          }
+        } else {
+          notification.error({
+            message: "Login with Google failed",
+            description:
+              "There was an issue logging in with Google. Please try again later.",
+          });
+        }
+      });
     } catch (error) {
       console.error("Error during Google login:", error);
       notification.error({
@@ -189,24 +239,6 @@ function Login({ onLoginSuccess }) {
     }
   };
 
-  const getQueryParam = (param) => {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-  };
-
-  useEffect(() => {
-    const token = getQueryParam("token");
-    console.log(token);
-    if (token) {
-      localStorage.setItem("authToken", token);
-      // Optionally, dispatch login action and navigate to protected route
-      const base64Url = token.split(".")[1];
-      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-      const payload = JSON.parse(window.atob(base64));
-      dispatch(login(payload));
-      navigate("/");
-    }
-  }, [navigate, dispatch]);
   const handleloginFB = async () => {
     await loginFB();
   };
