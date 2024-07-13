@@ -38,6 +38,7 @@ function Login({ onLoginSuccess }) {
   useEffect(() => {
     loadReCaptchaScript();
     loadGoogleSignInScript();
+    checkForTokenInUrl();
   }, []);
 
   const loadGoogleSignInScript = () => {
@@ -158,22 +159,7 @@ function Login({ onLoginSuccess }) {
       window.grecaptcha.reset();
     }
   };
-  // const handleloginGG = async () => {
-  //   try {
-  //     const googleLoginUrl = await loginGG();
-  //     console.log(googleLoginUrl);
-  //     // window.location.href = googleLoginUrl;
-  //   } catch (error) {
-  //     console.error("Error during Google login:", error);
-  //     notification.error({
-  //       message: "Login with Google failed",
-  //       description:
-  //         "There was an issue logging in with Google. Please try again later.",
-  //     });
-  //   }
-  // };
 
-  // Handle Google login
   const handleloginGG = async () => {
     try {
       const googleLoginUrl =
@@ -191,23 +177,20 @@ function Login({ onLoginSuccess }) {
 
   const getQueryParam = (param) => {
     const urlParams = new URLSearchParams(window.location.search);
-    console.log(urlParams);
     return urlParams.get(param);
   };
 
-  useEffect(() => {
+  const checkForTokenInUrl = () => {
     const token = getQueryParam("token");
     console.log(token);
     if (token) {
-      localStorage.setItem("authToken", token);
-      // Optionally, dispatch login action and navigate to protected route
+      localStorage.setItem("token", token);
       const base64Url = token.split(".")[1];
       const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
       const payload = JSON.parse(window.atob(base64));
-      console.log();
       dispatch(login(payload));
     }
-  }, [navigate, dispatch]);
+  };
   const handleloginFB = async () => {
     await loginFB();
   };

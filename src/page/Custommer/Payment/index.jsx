@@ -157,17 +157,7 @@ function Payment() {
       console.log(info);
       const res = await checkOut(info);
       if (res.data.code === "Success") {
-        const newWindow = window.open(res.data.link, "_blank");
-
-        // Kiểm tra nếu trang đã tải xong
-        const checkPaymentStatus = setInterval(() => {
-          if (newWindow.closed) {
-            clearInterval(checkPaymentStatus);
-            toast.success(
-              "Thanh toán thành công, Mời quý khách tiếp tục mua sắm"
-            );
-          }
-        }, 1000);
+        window.location.href = res.data.link;
       } else {
         message.error("Thanh toán thất bại");
       }
