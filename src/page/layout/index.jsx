@@ -18,7 +18,10 @@ function Layout() {
 
   const fetchAllDiamond = async () => {
     const res = await getDiamonds();
-    setAllDiamond(res.data);
+    const filteredDiamonds = res.data.filter(
+      (diamond) => diamond.status === true
+    );
+    setAllDiamond(filteredDiamonds);
   };
 
   useEffect(() => {
