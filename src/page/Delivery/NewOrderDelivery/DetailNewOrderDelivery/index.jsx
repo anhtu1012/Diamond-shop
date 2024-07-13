@@ -18,8 +18,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   createOrder,
   getOrderDetail,
-  paymentRefundPaypal,
-  paymentRefundVnpay,
+  paymentRefund,
 } from "../../../../../services/Uservices";
 import { TiArrowBack } from "react-icons/ti";
 import { PlusOutlined } from "@ant-design/icons";
@@ -191,20 +190,10 @@ function DetailNewOrderDelivery() {
   };
   const handleRemobeOrder = async () => {
     try {
-      const status = {
-        status: "Đã hoàn tiền",
-        reason: reason,
-      };
-      await createOrder(orderID, status);
       const dataa = {
         orderID: orderID,
       };
-      if (data.payments[0].methodPayment === "Paypal") {
-        const res = await paymentRefundPaypal(dataa);
-        console.log(res.data);
-      } else {
-        await paymentRefundVnpay(dataa);
-      }
+      await paymentRefund(dataa);
       message.success("Hủy đơn hàng thành công");
       navigate("/delivery-page/don-hang-moi");
     } catch (error) {

@@ -1,7 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:5173";
-// const baseUrl = "http://68.183.180.21:8080";
-//
+const baseUrl = "https://diamondshopproject.azurewebsites.net/";
 const config = {
   baseUrl,
   timeout: 3000000,
