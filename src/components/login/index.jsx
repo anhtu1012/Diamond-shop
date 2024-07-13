@@ -173,12 +173,6 @@ function Login({ onLoginSuccess }) {
   //   }
   // };
 
-  // Utility function to extract query parameters
-  const getQueryParam = (param) => {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-  };
-
   // Handle Google login
   const handleloginGG = async () => {
     try {
@@ -195,15 +189,24 @@ function Login({ onLoginSuccess }) {
     }
   };
 
-  // Handle login response on component mount
+  const getQueryParam = (param) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  };
+
   useEffect(() => {
     const token = getQueryParam("token");
+    console.log(token);
     if (token) {
       localStorage.setItem("authToken", token);
-      // Optionally, redirect to the dashboard or another protected route
-      window.location.href = "/";
+      // Optionally, dispatch login action and navigate to protected route
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const payload = JSON.parse(window.atob(base64));
+      dispatch(login(payload));
+      navigate("/");
     }
-  }, []);
+  }, [navigate, dispatch]);
   const handleloginFB = async () => {
     await loginFB();
   };
