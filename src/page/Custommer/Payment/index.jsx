@@ -9,6 +9,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { checkOut, getOrderDetail } from "../../../../services/Uservices";
 import NoData from "../../../components/nodata";
+import { toast } from "react-toastify";
 
 const renderProductItem = (order, index) => (
   <Row className="staff_order_frame" key={index}>
@@ -156,11 +157,21 @@ function Payment() {
       console.log(info);
       const res = await checkOut(info);
       if (res.data.code === "Success") {
-        window.location.href = res.data.link;
+        const newWindow = window.open(res.data.link, "_blank");
+
+        // Kiểm tra nếu trang đã tải xong
+        const checkPaymentStatus = setInterval(() => {
+          if (newWindow.closed) {
+            clearInterval(checkPaymentStatus);
+            toast.success(
+              "Thanh toán thành công, Mời quý khách tiếp tục mua sắm"
+            );
+          }
+        }, 1000);
       } else {
         message.error("Thanh toán thất bại");
       }
-      message.success("Thanh toán thành công");
+      toast.success("Thanh toán thành công, Mời quý khách tiếp tục mua sắm");
     } catch (error) {
       message.error("Đã có lỗi xảy ra khi tạo đơn hàng");
     }

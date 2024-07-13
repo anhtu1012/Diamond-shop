@@ -77,7 +77,7 @@ function Cart() {
 
   useEffect(() => {
     fetchCart();
-  }, []);
+  }, [userr.userID, form]);
 
   useEffect(() => {
     const provincesList = getProvinces();
@@ -118,6 +118,52 @@ function Cart() {
     console.log("Received values: ", values);
   };
   const navigate = useNavigate();
+  const handlePointsChange = (value) => {
+    const usedPoints = Math.min(value, dataCart?.user.totalPoints || 0); // Đặt giới hạn điểm sử dụng không vượt quá tổng điểm có
+    if (value > dataCart.user.totalPoints) {
+      // Hiển thị thông báo lỗi nếu nhập điểm vượt quá tổng điểm có
+      notification.error({
+        message: "Lỗi nhập điểm",
+        description:
+          "Số điểm bạn nhập vượt quá tổng điểm hiện có. Xin vui lòng nhập lại.",
+        duration: 3,
+      });
+      return; // Dừng hàm để không thực thi các lệnh tiếp theo
+    }
+
+    setPoints(usedPoints);
+
+    // Phần còn lại của hàm để tính toán giảm giá và cập nhật thành tiền...
+  };
+  useEffect(() => {
+    const calculateTotalCartValue = () => {
+      const totalValue = dataCart?.items.reduce(
+        (acc, item) => acc + item.totalPrice,
+        0
+      );
+      return totalValue || 0;
+    };
+
+    const calculatedDiscount = points * 500000;
+
+    const totalValue = calculateTotalCartValue();
+
+    if (calculatedDiscount > totalValue) {
+      notification.error({
+        message: "Lỗi nhập điểm",
+        description:
+          "Giá trị giảm giá vượt quá tổng giá trị của giỏ hàng. Xin vui lòng nhập lại.",
+        duration: 3,
+      });
+
+      setDiscount(0); // Reset giá trị giảm giá về 0
+      setTotalCartValue(totalValue); // Cập nhật lại tổng giá trị giỏ hàng mà không trừ giảm giá
+    } else {
+      // Cập nhật giá trị giảm giá và tổng giá trị giỏ hàng sau khi đã trừ giảm giá
+      setDiscount(calculatedDiscount);
+      setTotalCartValue(totalValue - calculatedDiscount);
+    }
+  }, [points, dataCart?.items]);
   const handleSubmit = async () => {
     try {
       setLoader(true);
@@ -143,7 +189,7 @@ function Cart() {
           selectedProvince ? selectedProvince.name : ""
         }`;
       }
-
+      const calculatedDiscount = points * 500000;
       // Tạo thông tin đơn hàng
       const orderInfo = {
         userID: userr.userID,
@@ -151,7 +197,7 @@ function Cart() {
         phoneShipping: formValues.phone,
         addressShipping: fullAddress,
         price: totalCartValue,
-        discount: discount,
+        discount: calculatedDiscount,
         usedPoint: points,
         email: formValues.email,
         gender: formValues.gender,
@@ -162,21 +208,30 @@ function Cart() {
       const response = await submitOrder(orderInfo);
       setLoader(false);
       console.log(response);
-      navigate("/don-hang");
       if (response) {
         message.success("Đặt hàng thành công!");
+        navigate("/don-hang");
+        setQuantity((prev) => prev - 1);
         console.log("Order submitted successfully:", response);
       }
     } catch (error) {
-      // Xử lý khi có lỗi xảy ra, ví dụ: hiển thị thông báo lỗi
-      console.error("Failed to submit order:", error.message);
-      message.error("Kim cương đã tồn tài trong giỏ hàng!");
+      setLoader(false);
+      if (error.response && error.response.status === 400) {
+        // Log detailed error response
+        console.log("Error response:", error.response.data);
+        message.error(
+          "Đặt hàng không thành công. Vui lòng kiểm tra lại thông tin."
+        );
+      } else {
+        // Handle other types of errors
+        message.error("Đã xảy ra lỗi khi đặt hàng. Vui lòng thử lại sau.");
+      }
     }
   };
 
   const renderProductItem = (item) => {
     if (!item.productCustomize && !item.diamondAdd) {
-      return null; // Trả về null hoặc một JSX tương ứng nếu không có thông tin để hiển thị
+      return null;
     }
     const handleDeleteCart = async (cartItemId) => {
       try {
@@ -355,52 +410,6 @@ function Cart() {
     };
   }, []);
 
-  const handlePointsChange = (value) => {
-    const usedPoints = Math.min(value, dataCart.user.totalPoints); // Đặt giới hạn điểm sử dụng không vượt quá tổng điểm có
-    if (value > dataCart.user.totalPoints) {
-      // Hiển thị thông báo lỗi nếu nhập điểm vượt quá tổng điểm có
-      notification.error({
-        message: "Lỗi nhập điểm",
-        description:
-          "Số điểm bạn nhập vượt quá tổng điểm hiện có. Xin vui lòng nhập lại.",
-        duration: 3,
-      });
-      return; // Dừng hàm để không thực thi các lệnh tiếp theo
-    }
-
-    setPoints(usedPoints);
-
-    // Phần còn lại của hàm để tính toán giảm giá và cập nhật thành tiền...
-  };
-  useEffect(() => {
-    const calculateTotalCartValue = () => {
-      const totalValue = dataCart?.items.reduce(
-        (acc, item) => acc + item.totalPrice,
-        0
-      );
-      return totalValue;
-    };
-
-    const calculatedDiscount = points * 500000;
-
-    const totalValue = calculateTotalCartValue();
-
-    if (calculatedDiscount > totalValue) {
-      notification.error({
-        message: "Lỗi nhập điểm",
-        description:
-          "Giá trị giảm giá vượt quá tổng giá trị của giỏ hàng. Xin vui lòng nhập lại.",
-        duration: 3,
-      });
-
-      setDiscount(0); // Reset giá trị giảm giá về 0
-      setTotalCartValue(totalValue); // Cập nhật lại tổng giá trị giỏ hàng mà không trừ giảm giá
-    } else {
-      // Cập nhật giá trị giảm giá và tổng giá trị giỏ hàng sau khi đã trừ giảm giá
-      setDiscount(calculatedDiscount);
-      setTotalCartValue(totalValue - calculatedDiscount);
-    }
-  }, [points, dataCart?.items]);
   if (!dataCart || !dataCart.items.length) {
     return <NotFound />;
   }
@@ -707,24 +716,17 @@ function Cart() {
                 <div className="cart_vat_statement">
                   Giá tham khảo đã bao gồm VAT
                 </div>
-                {loader ? (
-                  <Button
-                    className="confirm_button"
-                    type="primary"
-                    style={{ width: "100%", height: "48px" }}
-                  >
-                    Đang tải...
-                  </Button>
-                ) : (
-                  <Button
-                    className="confirm_button"
-                    type="primary"
-                    style={{ width: "100%", height: "48px" }}
-                    onClick={handleSubmit}
-                  >
-                    Xác nhận
-                  </Button>
-                )}
+
+                <Button
+                  className="confirm_button"
+                  type="primary"
+                  htmlType="submit"
+                  style={{ width: "100%", height: "48px" }}
+                  onClick={handleSubmit}
+                  loading={loader}
+                >
+                  {loader ? "Đang tải..." : "Xác Nhận"}
+                </Button>
               </div>
             </Form>
           </Col>

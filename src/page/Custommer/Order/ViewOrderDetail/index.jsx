@@ -176,6 +176,12 @@ function ViewOrderDetailsCusTom() {
     "Tôi muốn thay đổi địa chỉ ",
     "Tôi muốn thay đổi kim cương",
   ]);
+  const handlePageChange = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Cho phép cuộn mượt mà
+    });
+  };
   const [reason, setReason] = useState("");
   const [name, setName] = useState("");
   const inputRef = useRef(null);
@@ -236,6 +242,7 @@ function ViewOrderDetailsCusTom() {
       await createOrder(orderID, status);
       message.success("Hủy đơn hàng thành công");
       navigate("/");
+      handlePageChange();
     } catch (error) {
       message.error("Đã có lỗi xảy ra khi hủy đơn hàng");
     }
