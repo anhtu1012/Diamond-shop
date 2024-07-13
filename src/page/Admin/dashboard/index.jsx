@@ -13,10 +13,7 @@ import {
   Timeline,
   Radio,
 } from "antd";
-import {
-  ToTopOutlined,
-  MenuUnfoldOutlined,
-} from "@ant-design/icons";
+import { ToTopOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import Paragraph from "antd/lib/typography/Paragraph";
 
 import ava1 from "../assets/images/logo-shopify.svg";
@@ -33,6 +30,7 @@ import EChart from "../../../components/chart/EChart";
 import LineChart from "../../../components/chart/LineChart";
 import "./main.css";
 import {
+  getCompareDay,
   getTotalRevenueDate,
 } from "../../../../services/Uservices";
 
@@ -50,7 +48,15 @@ function Dashboard() {
     };
     fetchTotalRevenueDate();
   }, [totalDate]);
-  
+  const [compareDay, setCompareDay] = useState(0);
+  useEffect(() => {
+    const fetchFetCompareDay = async () => {
+      const res = await getCompareDay();
+      setCompareDay(res.data.data);
+    };
+    fetchFetCompareDay();
+  }, [compareDay]);
+
   const dollor = [
     <svg
       width="22"
@@ -141,9 +147,9 @@ function Dashboard() {
     {
       today: "Doanh Thu Hôm Nay",
       title: `${totalDate.toLocaleString("vi-VN")}  `,
-      persent: "+30%",
+      persent: `${compareDay} %`,
       icon: dollor,
-      bnb: "bnb2",
+      bnb: compareDay < 0 ? "redtext" : "bnb2",
     },
     {
       today: "Today’s Users",
@@ -485,8 +491,6 @@ function Dashboard() {
             </Card>
           </Col>
         </Row>
-
-        
       </div>
     </div>
   );

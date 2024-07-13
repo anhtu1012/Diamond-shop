@@ -46,10 +46,12 @@ function EChart() {
         />
       </div>
       <div className="chart-vistior">
-      
         <Title level={5}>Tổng Doanh Thu Từng Tháng</Title>
         <Paragraph className="lastweek">
-          tỉ lệ tăng so với tháng trước <span className="bnb2">{percent}%</span>
+          tỉ lệ tăng so với tháng trước{" "}
+          <span className="bnb2" style={{ color: percent < 0 ? "red" : "" }}>
+            {percent}%
+          </span>
         </Paragraph>
         <Paragraph className="lastweek">
           We have created multiple options for you to put together and customise

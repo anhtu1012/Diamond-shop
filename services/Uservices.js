@@ -165,6 +165,9 @@ export const getTotalRevenve = () => {
 export const getCompareMonth = () => {
   return api.get(`swp391/api/dashboards/compare_month`);
 };
+export const getCompareDay = () => {
+  return api.get(`swp391/api/dashboards/compare_total_date`);
+};
 export const getRevenveDiamond = () => {
   return api.get(`swp391/api/dashboards/total_revenue_diamond`);
 };
