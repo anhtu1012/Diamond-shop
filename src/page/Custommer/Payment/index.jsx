@@ -160,6 +160,7 @@ function Payment() {
       } else {
         message.error("Thanh toán thất bại");
       }
+      message.success("Thanh toán thành công");
     } catch (error) {
       message.error("Đã có lỗi xảy ra khi tạo đơn hàng");
     }

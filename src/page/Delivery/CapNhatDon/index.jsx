@@ -162,7 +162,7 @@ function CapNhatDon() {
     <div className="all-order">
       <div style={{ marginBottom: 16 }}>{statusButtons}</div>
       {loading ? (
-        <LoadingTruck /> // Show LoadingTruck while loading
+        <LoadingTruck /> 
       ) : (
         <Table className="table" columns={columns} dataSource={filteredData} />
       )}

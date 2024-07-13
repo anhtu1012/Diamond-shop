@@ -173,7 +173,14 @@ function Login({ onLoginSuccess }) {
   //   }
   // };
 
-  const handleloginGG = () => {
+  // Utility function to extract query parameters
+  const getQueryParam = (param) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  };
+
+  // Handle Google login
+  const handleloginGG = async () => {
     try {
       const googleLoginUrl =
         "https://diamondshopproject.azurewebsites.net/oauth2/authorization/google";
@@ -187,6 +194,16 @@ function Login({ onLoginSuccess }) {
       });
     }
   };
+
+  // Handle login response on component mount
+  useEffect(() => {
+    const token = getQueryParam("token");
+    if (token) {
+      localStorage.setItem("authToken", token);
+      // Optionally, redirect to the dashboard or another protected route
+      window.location.href = "/";
+    }
+  }, []);
   const handleloginFB = async () => {
     await loginFB();
   };

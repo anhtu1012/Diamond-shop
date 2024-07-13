@@ -107,7 +107,7 @@ const NewAccount = () => {
   };
 
   return (
-    <div className="create-account">
+    <div className="create-account" >
       <div className="title-create-account">
         <h1>Tạo tài khoản</h1>
       </div>
