@@ -308,8 +308,12 @@ function AccountDetail() {
     });
 
     return (
-      <Row className="staff_order_frame" key={index}>
-        <Col span={7} className="staff_order_left">
+      <Row
+        className="staff_order_frame"
+        key={index}
+        style={{ marginBottom: "15px" }}
+      >
+        <Col xs={24} sm={7} className="staff_order_left">
           <div className="new_order_odID">
             <span>OD: {order.orderId}</span>
           </div>
@@ -318,12 +322,12 @@ function AccountDetail() {
               className="img_main"
               src={order.productCustomize.product.productImages[0].imageUrl}
               width={130}
-              style={{ marginLeft: "10px" }}
+              style={{ marginLeft: "10px", marginBottom: "10px" }}
               alt={order.productCustomize.product.productName}
             />
           )}
           {order.productCustomize && order.productCustomize.product && (
-            <div style={{ textAlign: "center" }}>
+            <div style={{ textAlign: "center", marginBottom: "10px" }}>
               <Button className="button_custom">
                 Size: {order.productCustomize.size}
               </Button>
@@ -346,7 +350,7 @@ function AccountDetail() {
             />
           )}
         </Col>
-        <Col span={11} className="staff_order_right">
+        <Col xs={24} sm={11} className="staff_order_right">
           {order.productCustomize && order.productCustomize.product && (
             <div className="info_product">
               <div>
@@ -423,16 +427,13 @@ function AccountDetail() {
           </div>
         </Col>
         <Col
-          span={6}
-          style={{ textAlign: "center", fontSize: "20px", fontWeight: "400" }}
+          xs={24}
+          sm={6}
+          style={{ textAlign: "center", fontSize: "16px", fontWeight: "400" }}
         >
           {formattedDate}
         </Col>
-        <Col
-          span={24}
-          style={{ borderBottom: "dashed 1px gray", paddingTop: "10px" }}
-        ></Col>
-        <Col span={18} className="text-left">
+        <Col xs={24} className="text-left">
           <span>x {order.quantity} Sản Phẩm</span>
           <div>
             <Link to={`/don-hang/chi-tiet-don-hang/${order.orderId}`}>
@@ -440,7 +441,7 @@ function AccountDetail() {
             </Link>
           </div>
         </Col>
-        <Col span={6} className="text-right">
+        <Col xs={24} sm={6} className="text-right">
           <h3>
             {(
               order.productCustomize?.totalPrice || order.diamond.totalPrice
@@ -689,8 +690,7 @@ function AccountDetail() {
             <Tabs defaultActiveKey="1" onChange={callback}>
               <Tabs tab="Thông tin chi tiết tài khoản" key="1">
                 <Row gutter={24} className="thong-tin-chi-tiet-tai-khoan-tong">
-                  <Col span={2}></Col>
-                  <Col span={8}>
+                  <Col span={8} xs={24} sm={8}>
                     <h2 style={{ textAlign: "start", fontWeight: "500" }}>
                       Ảnh đại diện
                     </h2>
@@ -854,7 +854,7 @@ function AccountDetail() {
                       style={{ marginTop: "10px" }}
                     ></div>
                   </Col>
-                  <Col span={12}>
+                  <Col span={12} sm={12} xs={24}>
                     <div className="thong-tin-chi-tiet-tai-khoan">
                       <Row gutter={24}>
                         <Col span={18}>
@@ -1102,7 +1102,7 @@ function AccountDetail() {
                           style={{ marginTop: "40px" }}
                         >
                           <Row gutter={24}>
-                            <Col span={8}>
+                            <Col span={8} xs={24} sm={8}>
                               <p
                                 style={{ fontSize: "16px", fontWeight: "400" }}
                               >
@@ -1216,7 +1216,6 @@ function AccountDetail() {
                       )}
                     </div>
                   </Col>
-                  <Col span={2}></Col>
                 </Row>
               </Tabs>
               <Tabs tab="Lịch sử mua hàng" key="2">

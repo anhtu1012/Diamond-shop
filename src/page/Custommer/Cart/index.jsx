@@ -425,7 +425,7 @@ function Cart() {
         </div>
 
         <Row className="cart-main">
-          <Col span={9} className="cart_main_col">
+          <Col span={9} xs={24} sm={9} className="cart_main_col">
             <div className="cart_form">
               <div className="cart_form_title">
                 <Button shape="circle">
@@ -627,7 +627,7 @@ function Cart() {
             </div>
           </Col>
 
-          <Col span={15}>
+          <Col span={15} xs={24} sm={15}>
             <div className="cart_form_content" style={{ padding: "0px 20px" }}>
               <div className="cart_form_title">
                 <Button shape="circle">

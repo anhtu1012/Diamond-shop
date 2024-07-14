@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Tabs, Row, Col, Rate, Button } from "antd";
 import Container from "../../../components/container/Container";
 import "./index.scss";
@@ -5,26 +6,32 @@ import { Link } from "react-router-dom";
 import Relate from "../../../components/carousel/related";
 import { IoDiamondOutline } from "react-icons/io5";
 import { GiBigDiamondRing } from "react-icons/gi";
-
 import NoData from "../../../components/nodata";
-import { useEffect, useState } from "react";
 import { getOrderById } from "../../../../services/Uservices";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/features/counterSlice";
 import LoadingTruck from "../../../components/loading";
+
 const OrderCustomer = () => {
   const onChange = (key) => {
     console.log(key);
   };
+
   const user = useSelector(selectUser);
   const [data, setData] = useState();
-  const fetchOderById = async () => {
-    const res = await getOrderById(user.userID);
-    setData(res.data);
+
+  const fetchOrderById = async () => {
+    try {
+      const res = await getOrderById(user.userID);
+      setData(res.data);
+    } catch (error) {
+      console.error("Error fetching order data:", error);
+    }
   };
+
   useEffect(() => {
-    fetchOderById();
-  }, [data]);
+    fetchOrderById();
+  }, []);
 
   const renderCard = (order, index, buttonText, buttonColor) => {
     const formattedDate = new Date(order.orderDate).toLocaleString("vi-VN", {
@@ -34,11 +41,12 @@ const OrderCustomer = () => {
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
-      hour12: false, // Sử dụng định dạng 24 giờ thay vì AM/PM
+      hour12: false,
     });
+
     return (
       <Row className="staff_order_frame" key={index}>
-        <Col span={7} className="staff_order_left">
+        <Col xs={24} sm={7} className="staff_order_left">
           <div className="new_order_odID">
             <span>OD: {order.orderId}</span>
           </div>
@@ -46,13 +54,11 @@ const OrderCustomer = () => {
             <img
               className="img_main"
               src={order.productCustomize.product.productImages[0].imageUrl}
-              width={130}
-              style={{ marginLeft: "10px" }}
+              alt={order.productCustomize.product.productName}
             />
           )}
-
           {order.productCustomize && order.productCustomize.product && (
-            <div style={{ textAlign: "center" }}>
+            <div style={{ textAlign: "center", marginTop: "10px" }}>
               <Button className="button_custom">
                 Size: {order.productCustomize.size}
               </Button>
@@ -75,8 +81,7 @@ const OrderCustomer = () => {
             />
           )}
         </Col>
-
-        <Col span={11} className="staff_order_right">
+        <Col xs={24} sm={11} className="staff_order_right">
           {order.productCustomize && order.productCustomize.product && (
             <div className="info_product">
               <div>
@@ -89,16 +94,15 @@ const OrderCustomer = () => {
                   {order.productCustomize.product.shapeDiamond}{" "}
                   {order.productCustomize.product.dimensionsDiamond} ly
                 </span>
-                <p style={{ fontWeight: 400, fontSize: "13px" }}>
-                  {" "}
+                <p
+                  style={{ fontWeight: 400, fontSize: "13px", margin: "5px 0" }}
+                >
                   {order.productCustomize.product.productID}
                 </p>
                 <Rate
                   disabled
                   defaultValue={order.productCustomize.product.rating}
-                  style={{
-                    fontSize: "13px",
-                  }}
+                  style={{ fontSize: "13px" }}
                 />
               </div>
             </div>
@@ -112,7 +116,9 @@ const OrderCustomer = () => {
                 {order.productCustomize?.diamond?.diamondName ||
                   order.diamond.diamondName}
               </p>
-              <div style={{ fontWeight: 400, fontSize: "13px" }}>
+              <div
+                style={{ fontWeight: 400, fontSize: "13px", margin: "5px 0" }}
+              >
                 <span>
                   Carat:{" "}
                   {order.productCustomize?.diamond?.carat ||
@@ -138,33 +144,25 @@ const OrderCustomer = () => {
               </div>
               {order.diamond && (
                 <div
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "13px",
-                    paddingTop: "3px",
-                  }}
+                  style={{ fontWeight: 400, fontSize: "13px", margin: "5px 0" }}
                 >
                   Kiểm định:{" "}
                   <span style={{ color: "red" }}>
-                    {" "}
-                    {order.diamond.certificate}{" "}
+                    {order.diamond.certificate}
                   </span>
                 </div>
               )}
             </div>
           </div>
         </Col>
-        <Col
-          span={6}
-          style={{ textAlign: "center", fontSize: "20px", fontWeight: "400" }}
-        >
+        <Col xs={24} sm={6} className="text-center order_date_col">
           {formattedDate}
         </Col>
         <Col
-          span={24}
-          style={{ borderBottom: "dashed 1px gray", paddingTop: "10px" }}
+          xs={24}
+          style={{ borderBottom: "dashed 1px gray", padding: "10px 0" }}
         ></Col>
-        <Col span={18} className="text-left">
+        <Col xs={24} sm={18} className="text-left">
           <span>x {order.quantity} Sản Phẩm</span>
           <div>
             <Link to={`/don-hang/chi-tiet-don-hang/${order.orderId}`}>
@@ -172,7 +170,7 @@ const OrderCustomer = () => {
             </Link>
           </div>
         </Col>
-        <Col span={6} className="text-right">
+        <Col xs={24} sm={6} className="text-right">
           <h3>
             {(
               order.productCustomize?.totalPrice || order.diamond.totalPrice
@@ -181,7 +179,6 @@ const OrderCustomer = () => {
             })}{" "}
             đ
           </h3>
-
           <button className={`status-button ${buttonColor}`}>
             {buttonText}
           </button>
@@ -189,6 +186,7 @@ const OrderCustomer = () => {
       </Row>
     );
   };
+
   const tabs = [
     {
       label: "Chờ xác nhận",
@@ -214,18 +212,8 @@ const OrderCustomer = () => {
       status: "Không Thành Công",
       buttonColor: "orange",
     },
-    {
-      label: "Đã giao",
-      key: "5",
-      status: "Đã giao",
-      buttonColor: "green",
-    },
-    {
-      label: "Đã hủy",
-      key: "6",
-      status: "Đã hủy",
-      buttonColor: "red",
-    },
+    { label: "Đã giao", key: "5", status: "Đã giao", buttonColor: "green" },
+    { label: "Đã hủy", key: "6", status: "Đã hủy", buttonColor: "red" },
     {
       label: "Đã hoàn tiền",
       key: "7",
@@ -233,6 +221,7 @@ const OrderCustomer = () => {
       buttonColor: "grey",
     },
   ];
+
   function getContentForTab(status, buttonColor) {
     const filteredOrders =
       data?.orders?.filter((order) => order.status === status) || [];
@@ -249,6 +238,7 @@ const OrderCustomer = () => {
   if (!data) {
     return <LoadingTruck />;
   }
+
   return (
     <Container>
       <div className="tabs-container">

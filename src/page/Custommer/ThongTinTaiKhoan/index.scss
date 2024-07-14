@@ -35,13 +35,37 @@
   }
   .baner-detail {
     position: relative;
-    .user-name-on-banner {
-      position: absolute;
-      margin-left: 40px;
-      top: 140px;
-      font-style: italic;
+    max-width: 100%;
+    @media screen and (max-width: 768px) {
+      .user-name-on-banner {
+        top: 30%;
+        margin-top: 20px;
+        margin-left: 100px;
+        h1{
+          font-size: 16px;
+        } 
+        h2{
+          font-size: 10px;
+        }
+      }
     }
   }
+
+  .user-name-on-banner {
+    position: absolute;
+    top: 50%; /* Điều chỉnh vị trí dọc theo chiều cao của img */
+    left: 10%; /* Điều chỉnh vị trí ngang của chữ */
+    transform: translate(-50%, -50%); /* Đưa chữ về vị trí chính giữa */
+    text-align: start;
+    font-style: italic;
+    width: 80%; /* Đảm bảo chữ không rộng quá so với img */
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
   .user-phan-chia {
     .css-dev-only-do-not-override-zg0ahe.ant-tabs
       .ant-tabs-tab.ant-tabs-tab-active
