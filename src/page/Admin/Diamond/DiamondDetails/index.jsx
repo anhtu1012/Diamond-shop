@@ -78,9 +78,7 @@ function DiamondDetails() {
     form.setFieldsValue({
       diamondID: diamondData.diamondID,
       diamondName: diamondData.diamondName,
-      originPrice: diamondData.originPrice.toLocaleString("vi-VN", {
-        maximumFractionDigits: 0,
-      }),
+      originPrice: diamondData.originPrice,
       ratio: diamondData.ratio,
       inputDate: moment(diamondData.inputDate, "YYYY-MM-DD"),
       flourescence: diamondData.flourescence,

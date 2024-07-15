@@ -1,4 +1,4 @@
-import { Button, Image, Input, Select, Space, Table } from "antd";
+import { Button, Image, Input, Select, Space, Table, Tag } from "antd";
 import { Link } from "react-router-dom";
 import "./index.scss";
 import { useEffect, useRef, useState } from "react";
@@ -7,14 +7,32 @@ import { SearchOutlined } from "@ant-design/icons";
 import { getDiamonds } from "../../../../../services/Uservices";
 import LoadingTruck from "../../../../components/loading";
 
+const statusToStep = {
+  true: 1,
+  false: 0,
+};
+
+const getStatusColor = (currentStep) => {
+  console.log("Current Step:", currentStep); // Debug log
+  switch (currentStep) {
+    case 0:
+      return "#FFCC33"; // Yellow
+    case 1:
+      return "#33CC33"; // Green
+    default:
+      return "#FFCC33"; // Default Yellow
+  }
+};
+
 function ViewDiamond() {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
   const [dataSource, setDataSource] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
-  const [loading, setLoading] = useState(true); // Add loading state
-  
   async function fetchDiamonds() {
     setLoading(true); // Set loading to true when starting the fetch
     const response = await getDiamonds();
@@ -144,14 +162,7 @@ function ViewDiamond() {
       ),
   });
 
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [deleteLoading, setDeleteLoading] = useState(false);
-
   const start = () => {
-    setLoading(true);
-    if (!deleteLoading) {
-      return <LoadingTruck />;
-    }
     setDeleteLoading(true);
     const newData = dataSource.filter(
       (item) => !selectedRowKeys.includes(item.key)
@@ -171,6 +182,8 @@ function ViewDiamond() {
   };
 
   const hasSelected = selectedRowKeys.length > 0;
+
+  const statusToText = (status) => (status ? "Còn hàng" : "Hết hàng");
 
   const columns = [
     {
@@ -209,14 +222,14 @@ function ViewDiamond() {
       title: "Trọng lượng (cts)",
       dataIndex: "carat",
       key: "carat",
-      width: "10%",
+      width: "8%",
       ...getColumnSearchProps("carat"),
     },
     {
       title: "Cấp màu",
       dataIndex: "colorLevel",
       key: "colorLevel",
-      width: "10%",
+      width: "6%",
       ...getColumnSearchProps("colorLevel", [
         "D",
         "E",
@@ -270,6 +283,27 @@ function ViewDiamond() {
       sorter: (a, b) => parseInt(a.totalPrice) - parseInt(b.totalPrice),
       ...getColumnSearchProps("totalPrice"),
     },
+    {
+      title: "Trạng thái",
+      dataIndex: "status",
+      key: "status",
+      width: "10%",
+      ...getColumnSearchProps("status", ["Còn hàng", "Hết hàng"]),
+      render: (status) => {
+        const currentStep = statusToStep[status];
+        const text = statusToText(status);
+        return (
+          <Tag
+            color={getStatusColor(currentStep)}
+            key={text}
+            style={{ fontWeight: "bold" }}
+          >
+            {text.toUpperCase()}
+          </Tag>
+        );
+      },
+    },
+
     {
       title: "Action",
       dataIndex: "action",

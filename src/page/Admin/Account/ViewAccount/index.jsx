@@ -257,6 +257,7 @@ function ViewAccount() {
         marginRight: 5,
         textTransform: "uppercase",
         backgroundColor: getRoleColor(roleUser[role]),
+        border: filterRole === role ? "3px solid #000" : "none",
       }}
     >
       {role}
@@ -274,6 +275,7 @@ function ViewAccount() {
         color: "white",
         textTransform: "uppercase",
         backgroundColor: "black",
+        border: filterRole === null ? "3px solid #fff" : "none",
       }}
     >
       Tất cả tài khoản
