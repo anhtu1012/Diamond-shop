@@ -33,6 +33,7 @@ import { VscError } from "react-icons/vsc";
 import { PlusOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../../redux/features/counterSlice";
+import NoData from "../../../../components/nodata";
 const statusToStepIndex = {
   "Chờ Xác Nhận": 0,
   "Chờ thanh toán": 1,
@@ -198,7 +199,6 @@ function ViewOrderDetailsCusTom() {
         }
       } catch (error) {
         console.error("Failed to fetch order feedback:", error);
-        message.error("Failed to fetch order feedback");
       }
     };
 
@@ -740,50 +740,54 @@ function ViewOrderDetailsCusTom() {
           </Button>,
         ]}
       >
-        {selectedProduct.map((order, index) => (
-          <div key={index}>
-            <Link to={`/product-details/${order.productID}`}>
-              <div className="feedBackModal">{order.productName}</div>
-            </Link>
-            {form && (
-              <Form
-                form={form}
-                layout="vertical"
-                onFinish={(values) => handleFeedback(values, order)}
-              >
-                <Form.Item
-                  style={{ paddingTop: "10px", fontWeight: "bold" }}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Vui lòng chọn số sao",
-                    },
-                  ]}
-                  name={`rating-${index}`}
-                  label="Đánh giá"
+        {selectedProduct && selectedProduct.length > 0 ? (
+          selectedProduct.map((order, index) => (
+            <div key={index}>
+              <Link to={`/product-details/${order.productID}`}>
+                <div className="feedBackModal">{order.productName}</div>
+              </Link>
+              {form && (
+                <Form
+                  form={form}
+                  layout="vertical"
+                  onFinish={(values) => handleFeedback(values, order)}
                 >
-                  <Rate />
-                </Form.Item>
-                <Form.Item
-                  style={{ fontWeight: "bold" }}
-                  name={`comment-${index}`}
-                  label="Bình luận"
+                  <Form.Item
+                    style={{ paddingTop: "10px", fontWeight: "bold" }}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Vui lòng chọn số sao",
+                      },
+                    ]}
+                    name={`rating-${index}`}
+                    label="Đánh giá"
+                  >
+                    <Rate />
+                  </Form.Item>
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
+                    name={`comment-${index}`}
+                    label="Bình luận"
+                  >
+                    <Input.TextArea rows={4} />
+                  </Form.Item>
+                </Form>
+              )}
+              <div style={{ textAlign: "right", paddingBottom: "10px" }}>
+                <Button
+                  type="primary"
+                  onClick={hanldeSubmit}
+                  style={{ background: "orange" }}
                 >
-                  <Input.TextArea rows={4} />
-                </Form.Item>
-              </Form>
-            )}
-            <div style={{ textAlign: "right", paddingBottom: "10px" }}>
-              <Button
-                type="primary"
-                onClick={hanldeSubmit}
-                style={{ background: "orange" }}
-              >
-                Đánh giá
-              </Button>
+                  Đánh giá
+                </Button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <NoData />
+        )}
       </Modal>
     </Container>
   );

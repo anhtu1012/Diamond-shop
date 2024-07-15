@@ -5,7 +5,7 @@ import Highlighter from "react-highlight-words";
 import { Select } from "antd";
 
 import { Link } from "react-router-dom";
-import { getAllUserStaff } from "../../../../services/Uservices";
+import { getAllUserStaff, reportFormat } from "../../../../services/Uservices";
 
 function ViewUser() {
   const [searchText, setSearchText] = useState("");
@@ -18,7 +18,6 @@ function ViewUser() {
       const response = await getAllUserStaff();
       if (response && response.data && Array.isArray(response.data.data)) {
         setDataSource(response.data.data);
-        console.log(response.data.data);
       } else {
         console.error("Unexpected API response structure:", response);
       }
@@ -153,6 +152,14 @@ function ViewUser() {
     (user) => user.role && user.role.roleID === 4
   );
 
+  const handleReport = async () => {
+    try {
+      await reportFormat("pdf");
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
   const renderRoleName = (roleID) => {
     const roleNames = {
       4: "Người dùng",
@@ -228,6 +235,7 @@ function ViewUser() {
 
   return (
     <div className="all-account">
+      <Button onClick={handleReport}></Button>
       <Table
         className="table"
         columns={columns}

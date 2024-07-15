@@ -158,6 +158,7 @@ function AllOrder() {
       key={status}
       type={filterStatus === status ? "primary" : "default"}
       onClick={() => handleStatusClick(status)}
+      className={`status-button ${filterStatus === status ? "active" : ""}`}
       style={{
         fontWeight: "bold",
         color: "white",
@@ -175,6 +176,7 @@ function AllOrder() {
       key="all"
       type={filterStatus === null ? "primary" : "default"}
       onClick={() => handleStatusClick(null)}
+      className={`status-button ${filterStatus === null ? "active" : ""}`}
       style={{
         fontWeight: "bold",
         marginRight: 5,
