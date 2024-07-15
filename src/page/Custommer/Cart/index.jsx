@@ -144,9 +144,8 @@ function Cart() {
       return totalValue || 0;
     };
 
-    const calculatedDiscount = points * 500000;
-
     const totalValue = calculateTotalCartValue();
+    const calculatedDiscount = points * 500000;
 
     if (calculatedDiscount > totalValue) {
       notification.error({
@@ -155,11 +154,9 @@ function Cart() {
           "Giá trị giảm giá vượt quá tổng giá trị của giỏ hàng. Xin vui lòng nhập lại.",
         duration: 3,
       });
-
       setDiscount(0); // Reset giá trị giảm giá về 0
       setTotalCartValue(totalValue); // Cập nhật lại tổng giá trị giỏ hàng mà không trừ giảm giá
     } else {
-      // Cập nhật giá trị giảm giá và tổng giá trị giỏ hàng sau khi đã trừ giảm giá
       setDiscount(calculatedDiscount);
       setTotalCartValue(totalValue - calculatedDiscount);
     }
@@ -190,6 +187,7 @@ function Cart() {
         }`;
       }
       const calculatedDiscount = points * 500000;
+
       // Tạo thông tin đơn hàng
       const orderInfo = {
         userID: userr.userID,
@@ -650,7 +648,7 @@ function Cart() {
               </div>
             </div>
 
-            <div className="cart_summary">
+            <div className="cart_summary" style={{marginLeft:"22px"}}>
               <div className="cart_summary_item">
                 <span className="cart_summary_label">Điểm:</span>
                 <span className="cart_summary_value">
@@ -691,15 +689,17 @@ function Cart() {
                       (Điểm của bạn: {Math.floor(dataCart?.user.totalPoints)})
                     </span>
                   </span>
-                  <Input
-                    type="number"
-                    min={0}
-                    max={dataCart?.user.totalPoints}
-                    onChange={(e) => handlePointsChange(e.target.value)}
-                    className="input"
-                    placeholder={Math.floor(dataCart?.user.totalPoints)}
-                    style={{ width: "150px", height: "30px" }}
-                  />
+                  <Form.Item name="points">
+                    <Input
+                      type="number"
+                      min={0}
+                      max={dataCart?.user.totalPoints}
+                      onChange={(e) => handlePointsChange(e.target.value)}
+                      className="input"
+                      placeholder={Math.floor(dataCart?.user.totalPoints)}
+                      style={{ width: "150px", height: "30px" }}
+                    />
+                  </Form.Item>
                 </div>
                 <p> 1 điểm = 500.000 vnđ</p>
                 <div className="cart_total_price">

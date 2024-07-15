@@ -177,6 +177,18 @@ export const getRevenveCustomize = () => {
 export const getTotalRevenueDate = () => {
   return api.get(`swp391/api/dashboards/total_revenue_date`);
 };
+export const listOrderReturn = () => {
+  return api.get(`swp391/api/dashboards/listorderreturn`);
+};
+export const listOrderFailed = () => {
+  return api.get(`swp391/api/dashboards/listorderfailed`);
+};
+export const listOrderSuccessfully = () => {
+  return api.get(`swp391/api/dashboards/listordersuccessfully`);
+};
+export const listNeworder = () => {
+  return api.get(`/swp391/api/dashboards/listneworder`);
+};
 export const changePass = (user_id, info) => {
   return api.post(`swp391/api/user/change_password/${user_id}`, info);
 };
@@ -188,4 +200,7 @@ export const searchResultss = (query) => {
 };
 export const searchWarranty = (query) => {
   return api.get(`swp391/api/warrantycards/search?query=${query}`);
+};
+export const reportFormat = (reportFormat) => {
+  return api.get(`swp391/api/report/user/${reportFormat}`);
 };

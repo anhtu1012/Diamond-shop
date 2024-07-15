@@ -12,10 +12,14 @@
     transform: translateX(5px);
   }
 }
-:where(.css-dev-only-do-not-override-zg0ahe).ant-float-btn-primary
+
+:where(.css-dev-only-do-not-override-98ntnt).ant-float-btn-primary
   .ant-float-btn-body {
   background-color: #e70953;
   transition: background-color 0.2s;
+  &:hover {
+    background-color: rgb(231, 9, 83, 0.9);
+  }
 }
 @keyframes pulse {
   0% {

@@ -1,46 +1,38 @@
 import { useEffect, useState } from "react";
 
+import { MenuUnfoldOutlined } from "@ant-design/icons";
 import {
+  Button,
   Card,
   Col,
-  Row,
-  Typography,
-  Tooltip,
-  Progress,
-  Upload,
-  message,
-  Button,
-  Timeline,
   Radio,
+  Row,
+  Table,
+  Timeline,
+  Typography,
 } from "antd";
-import { ToTopOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import Paragraph from "antd/lib/typography/Paragraph";
 
-import ava1 from "../assets/images/logo-shopify.svg";
-import ava2 from "../assets/images/logo-atlassian.svg";
-import ava3 from "../assets/images/logo-slack.svg";
-import ava4 from "../assets/images/logo-spotify.svg";
-import ava5 from "../assets/images/logo-jira.svg";
-import ava6 from "../assets/images/logo-invision.svg";
-import team1 from "../assets/images/team-1.jpg";
-import team2 from "../assets/images/team-2.jpg";
-import team3 from "../assets/images/team-3.jpg";
-import team4 from "../assets/images/team-4.jpg";
-import EChart from "../../../components/chart/EChart";
-import LineChart from "../../../components/chart/LineChart";
-import "./main.css";
 import {
   getCompareDay,
   getTotalRevenueDate,
+  listOrderFailed,
+  listOrderReturn,
+  listOrderSuccessfully,
 } from "../../../../services/Uservices";
+import EChart from "../../../components/chart/EChart";
+import LineChart from "../../../components/chart/LineChart";
+import "./main.css";
+import moment from "moment/moment";
 
 function Dashboard() {
   const { Title, Text } = Typography;
 
-  const onChange = (e) => console.log(`radio checked:${e.target.value}`);
-
   const [reverse, setReverse] = useState(false);
   const [totalDate, setTotalDate] = useState(0);
+
+  const [orders, setOrders] = useState([]);
+  const [orderType, setOrderType] = useState("a");
   useEffect(() => {
     const fetchTotalRevenueDate = async () => {
       const res = await getTotalRevenueDate();
@@ -57,6 +49,51 @@ function Dashboard() {
     fetchFetCompareDay();
   }, [compareDay]);
 
+  useEffect(() => {
+    const fetchOrders = async () => {
+      let res;
+      switch (orderType) {
+        case "a":
+          res = await listOrderReturn();
+          break;
+        case "b":
+          res = await listOrderSuccessfully();
+          break;
+        case "c":
+          res = await listOrderFailed();
+          break;
+        default:
+          res = await listOrderReturn();
+      }
+      setOrders(res.data.data);
+    };
+    fetchOrders();
+  }, [orderType]);
+
+  const columns = [
+    {
+      title: "Mã Đơn",
+      dataIndex: "orderID",
+      key: "orderID",
+    },
+    {
+      title: "Người Nhận",
+      dataIndex: "fullName",
+      key: "fullName",
+    },
+    {
+      title: "Tổng Tiền",
+      dataIndex: "price",
+      key: "price",
+      render: (text) => `${text.toLocaleString("vi-VN")} vnđ`,
+    },
+    {
+      title: "Ngày Đặt Hàng",
+      dataIndex: "orderDate",
+      key: "orderDate",
+      render: (text) => moment(text).format("DD/MM/YYYY HH:mm:ss"),
+    },
+  ];
   const dollor = [
     <svg
       width="22"
@@ -174,128 +211,6 @@ function Dashboard() {
     },
   ];
 
-  const list = [
-    {
-      img: ava1,
-      Title: "Soft UI Shopify Version",
-      bud: "$14,000",
-      progress: <Progress percent={60} size="small" />,
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team2} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Alexander Smith">
-            <img className="tootip-img" src={team3} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Jessica Doe">
-            <img className="tootip-img" src={team4} alt="" />
-          </Tooltip>
-        </div>
-      ),
-    },
-    {
-      img: ava2,
-      Title: "Progress Track",
-      bud: "$3,000",
-      progress: <Progress percent={10} size="small" />,
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team2} alt="" />
-          </Tooltip>
-        </div>
-      ),
-    },
-    {
-      img: ava3,
-      Title: "Fix Platform Errors",
-      bud: "Not Set",
-      progress: <Progress percent={100} size="small" status="active" />,
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Alexander Smith">
-            <img className="tootip-img" src={team3} alt="" />
-          </Tooltip>
-        </div>
-      ),
-    },
-    {
-      img: ava4,
-      Title: "Launch new Mobile App",
-      bud: "$20,600",
-      progress: <Progress percent={100} size="small" status="active" />,
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team2} alt="" />
-          </Tooltip>
-        </div>
-      ),
-    },
-    {
-      img: ava5,
-      Title: "Add the New Landing Page",
-      bud: "$4,000",
-      progress: <Progress percent={80} size="small" />,
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team2} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Alexander Smith">
-            <img className="tootip-img" src={team3} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Jessica Doe">
-            <img className="tootip-img" src={team4} alt="" />
-          </Tooltip>
-        </div>
-      ),
-    },
-
-    {
-      img: ava6,
-      Title: "Redesign Online Store",
-      bud: "$2,000",
-      progress: (
-        <Progress
-          percent={100}
-          size="small"
-          status="exception"
-          format={() => "Cancel"}
-        />
-      ),
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team2} alt="" />
-          </Tooltip>
-        </div>
-      ),
-    },
-  ];
-
   const timelineList = [
     {
       title: "$2,400 - Redesign store",
@@ -325,24 +240,6 @@ function Dashboard() {
       color: "gray",
     },
   ];
-
-  const uploadProps = {
-    name: "file",
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    headers: {
-      authorization: "authorization-text",
-    },
-    onChange(info) {
-      if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === "done") {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  };
 
   return (
     <div className="main">
@@ -395,68 +292,26 @@ function Dashboard() {
             <Card bordered={false} className="criclebox cardbody h-full">
               <div className="project-ant">
                 <div>
-                  <Title level={5}>Projects</Title>
+                  <Title level={5}>Đơn hàng</Title>
                   <Paragraph className="lastweek">
                     done this month<span className="blue">40%</span>
                   </Paragraph>
                 </div>
                 <div className="ant-filtertabs">
                   <div className="antd-pro-pages-dashboard-analysis-style-salesExtra">
-                    <Radio.Group onChange={onChange} defaultValue="a">
-                      <Radio.Button value="a">ALL</Radio.Button>
-                      <Radio.Button value="b">ONLINE</Radio.Button>
-                      <Radio.Button value="c">STORES</Radio.Button>
+                    <Radio.Group
+                      onChange={(e) => setOrderType(e.target.value)}
+                      defaultValue="a"
+                    >
+                      <Radio.Button value="a">Hoàn Trả</Radio.Button>
+                      <Radio.Button value="b">Thành Công</Radio.Button>
+                      <Radio.Button value="c">Đã Hủy</Radio.Button>
                     </Radio.Group>
                   </div>
                 </div>
               </div>
               <div className="ant-list-box table-responsive">
-                <table className="width-100">
-                  <thead>
-                    <tr>
-                      <th>COMPANIES</th>
-                      <th>MEMBERS</th>
-                      <th>BUDGET</th>
-                      <th>COMPLETION</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {list.map((d, index) => (
-                      <tr key={index}>
-                        <td>
-                          <h6>
-                            <img
-                              src={d.img}
-                              alt=""
-                              className="avatar-sm mr-10"
-                            />{" "}
-                            {d.Title}
-                          </h6>
-                        </td>
-                        <td>{d.member}</td>
-                        <td>
-                          <span className="text-xs font-weight-bold">
-                            {d.bud}{" "}
-                          </span>
-                        </td>
-                        <td>
-                          <div className="percent-progress">{d.progress}</div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="uploadfile shadow-none">
-                <Upload {...uploadProps}>
-                  <Button
-                    type="dashed"
-                    className="ant-full-box"
-                    icon={<ToTopOutlined />}
-                  >
-                    <span className="click">Click to Upload</span>
-                  </Button>
-                </Upload>
+                <Table columns={columns} dataSource={orders} rowKey="orderID" />
               </div>
             </Card>
           </Col>

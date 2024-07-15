@@ -1,0 +1,10 @@
+.status-button {
+  font-weight: bold;
+  color: white;
+  margin-right: 5px;
+  text-transform: uppercase;
+
+  &.active {
+    border: 5px solid #000; // Thicker border for active button
+  }
+}
