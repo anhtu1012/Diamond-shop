@@ -1,75 +1,77 @@
-@keyframes shake {
-  0%,
-  100% {
-    transform: translateX(0);
+.main {
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    20%,
+    60% {
+      transform: translateX(-5px);
+    }
+    40%,
+    80% {
+      transform: translateX(5px);
+    }
   }
-  20%,
-  60% {
-    transform: translateX(-5px);
-  }
-  40%,
-  80% {
-    transform: translateX(5px);
-  }
-}
 
-:where(.css-dev-only-do-not-override-98ntnt).ant-float-btn-primary
-  .ant-float-btn-body {
-  background-color: #e70953;
-  transition: background-color 0.2s;
-  &:hover {
-    background-color: rgb(231, 9, 83, 0.9);
+  :where(.css-dev-only-do-not-override-98ntnt).ant-float-btn-primary
+    .ant-float-btn-body {
+    background-color: #e70953;
+    transition: background-color 0.2s;
+    &:hover {
+      background-color: rgb(231, 9, 83, 0.9);
+    }
   }
-}
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(109, 4, 4, 0.7);
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(109, 4, 4, 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(212, 3, 17, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+    }
   }
-  70% {
-    box-shadow: 0 0 0 10px rgba(212, 3, 17, 0);
+
+  .shake-icon {
+    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite,
+      pulse 2s infinite;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
-  100% {
-    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+
+  .chatbox {
+    position: fixed; /* Đặt chatbox cố định so với viewport */
+    right: 80px; /* Khoảng cách từ cạnh phải của viewport */
+    bottom: 20px; /* Khoảng cách từ cạnh dưới của viewport */
+    width: 350px; /* Chiều rộng của chatbox */
+    height: 430px; /* Chiều cao của chatbox */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tạo bóng đổ cho chatbox */
+    border-radius: 10px; /* Bo tròn các góc */
+    display: none; /* Mặc định ẩn chatbox */
+    z-index: 3;
   }
-}
 
-.shake-icon {
-  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite,
-    pulse 2s infinite;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
+  .chatbox.show {
+    display: block;
+  }
 
-.chatbox {
-  position: fixed; /* Đặt chatbox cố định so với viewport */
-  right: 80px; /* Khoảng cách từ cạnh phải của viewport */
-  bottom: 20px; /* Khoảng cách từ cạnh dưới của viewport */
-  width: 350px; /* Chiều rộng của chatbox */
-  height: 430px; /* Chiều cao của chatbox */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tạo bóng đổ cho chatbox */
-  border-radius: 10px; /* Bo tròn các góc */
-  display: none; /* Mặc định ẩn chatbox */
-  z-index: 3;
-}
+  .close-btn {
+    position: absolute;
+    color: white;
+    top: 20px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 24px; /* Kích thước của nút tắt */
+  }
 
-.chatbox.show {
-  display: block;
-}
-
-.close-btn {
-  position: absolute;
-  color: white;
-  top: 20px;
-  right: 10px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  font-size: 24px; /* Kích thước của nút tắt */
-}
-
-.chatbox-frame {
-  width: 350px;
-  height: 430px;
-  border: none;
+  .chatbox-frame {
+    width: 350px;
+    height: 430px;
+    border: none;
+  }
 }
