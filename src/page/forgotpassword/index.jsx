@@ -2,7 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Form, Input, Button, notification } from "antd";
 import "./index.scss";
-import { forgetPassword } from "../../../services/Uservices";
+import {
+  forgetPassword,
+  resetPassword,
+  submitOTP,
+} from "../../../services/Uservices";
 
 const validateMessages = {
   required: "${label} không được để trống",
@@ -23,9 +27,16 @@ const ForgotPassword = () => {
   };
 
   const handleSubmitCredential = async () => {
-    console.log("Credential:", emailOrPhone);
-    await handleForgetPassword(emailOrPhone);
-    setStep(2);
+    try {
+      await forgetPassword({ emailOrPhone });
+      notification.info({
+        message: "Vui lòng xem Email hoặc SĐT để nhận mã OTP",
+        duration: null,
+      });
+      setStep(2);
+    } catch (error) {
+      console.error("Error forgetting password:", error);
+    }
   };
 
   const handleBackToCredential = () => {
@@ -35,38 +46,38 @@ const ForgotPassword = () => {
     setMessage("");
   };
 
-  const handleForgetPassword = async (value) => {
+  const handleSubmitOtp = async (values) => {
     try {
-      await forgetPassword({ emailOrPhone: value });
+      await submitOTP({ emailOrPhone, otp: values.otp });
+      notification.success({
+        message: "OTP đã được xác nhận thành công!",
+        duration: 2,
+      });
+      setStep(3);
     } catch (error) {
-      console.error("Error forgetting password:", error);
+      console.error("Error submitting OTP:", error);
+      setMessage("OTP không đúng hoặc đã hết hạn.");
     }
   };
 
-  const handleSubmitOtp = async (values) => {
-    console.log("OTP:", values.otp);
-    notification.info({
-      message: "Vui lòng xem Email hoặc SĐT để nhận mã OTP",
-      duration: null,
-    });
-    setStep(3);
+  const handleResetPassword = async (values) => {
+    if (values.newPassword !== values.confirmPassword) {
+      setMessage("Mật khẩu xác nhận không trùng khớp");
+      return;
+    }
+    try {
+      await resetPassword({ emailOrPhone, newPassword: values.newPassword });
+      setMessage("Mật khẩu đã được đặt lại thành công!");
+      notification.success({
+        message: "Mật khẩu đã được đặt lại thành công!",
+        duration: 2,
+      });
+      setStep(1);
+    } catch (error) {
+      console.error("Error resetting password:", error);
+      setMessage("Đã xảy ra lỗi khi đặt lại mật khẩu.");
+    }
   };
-  // const handleResetPassword = async () => {
-  //   if (newPassword !== confirmPassword) {
-  //     setMessage("Mật khẩu xác nhận không trùng khớp");
-  //     return;
-  //   }
-  //   try {
-  //     // Gọi API để đặt lại mật khẩu mới
-  //     // Sử dụng newPassword và emailOrPhone để đặt lại mật khẩu
-  //     // Lưu ý: Cần truyền đúng định dạng của dữ liệu được yêu cầu bởi API
-  //     await resetPassword({ emailOrPhone, newPassword });
-  //     setMessage("Mật khẩu đã được đặt lại thành công!");
-  //   } catch (error) {
-  //     console.error("Error resetting password:", error);
-  //     setMessage("Đã xảy ra lỗi khi đặt lại mật khẩu.");
-  //   }
-  // };
 
   return (
     <div>
@@ -103,7 +114,6 @@ const ForgotPassword = () => {
                 },
                 {
                   validator: (_, value) => {
-                    // Check if the value is either an email or a phone number
                     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     const phoneRegex = /^\d{10,11}$/;
                     if (!emailRegex.test(value) && !phoneRegex.test(value)) {
@@ -132,7 +142,6 @@ const ForgotPassword = () => {
             <h4 style={{ fontWeight: 600, paddingBottom: "10px" }}>
               Nhập OTP:
             </h4>
-
             <Form.Item
               name="otp"
               rules={[
@@ -161,9 +170,9 @@ const ForgotPassword = () => {
             </Button>
           </Form>
         ) : (
-          <Form>
+          <Form onFinish={handleResetPassword}>
             <Form.Item
-              name="password"
+              name="newPassword"
               rules={[
                 { required: true, message: "Vui lòng nhập mật khẩu!" },
                 {
@@ -178,13 +187,13 @@ const ForgotPassword = () => {
             </Form.Item>
             <Form.Item
               name="confirmPassword"
-              dependencies={["password"]}
+              dependencies={["newPassword"]}
               hasFeedback
               rules={[
                 { required: true, message: "Nhập lại mật khẩu!!!" },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
-                    if (!value || getFieldValue("password") === value) {
+                    if (!value || getFieldValue("newPassword") === value) {
                       return Promise.resolve();
                     }
                     return Promise.reject(new Error("Mật khẩu không hợp lệ!"));

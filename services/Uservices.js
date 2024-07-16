@@ -32,7 +32,12 @@ export const loginFB = () => {
 export const forgetPassword = (emailOrPhone) => {
   return api.post("public/forget_password", emailOrPhone);
 };
-
+export const submitOTP = (emailOrPhone, otp) => {
+  return api.post("public/validationOTP", emailOrPhone, otp);
+};
+export const resetPassword = (emailOrPhone, newPassword) => {
+  return api.post("public/set_password", emailOrPhone, newPassword);
+};
 export const createProduct = (productData) => {
   return api.post("swp391/api/products/create_product", productData);
 };
