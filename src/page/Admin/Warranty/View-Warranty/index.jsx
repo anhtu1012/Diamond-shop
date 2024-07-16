@@ -6,7 +6,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import moment from "moment";
 import LoadingTruck from "../../../../components/loading";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, Table } from "antd";
 import { TiArrowBack } from "react-icons/ti";
 
 function ViewWarrantyDetail() {
@@ -31,6 +31,23 @@ function ViewWarrantyDetail() {
     };
     fetchWarrantyById();
   }, [warrantyCardID]);
+  const columns = [
+    {
+      title: "Mã Sản phẩm",
+      dataIndex: "objectId",
+      key: "objectId",
+    },
+    {
+      title: "Loại sản phẩm",
+      dataIndex: "objectType",
+      key: "objectType",
+    },
+    {
+      title: "Giá",
+      dataIndex: "price",
+      key: "price",
+    },
+  ];
 
   const headerStyle = { fontSize: "16px", margin: "5px 0" };
   const paragraphStyle = {
@@ -159,6 +176,17 @@ function ViewWarrantyDetail() {
                 <p>Ngày Đặt: {formatDate(dataSource[0].purchaseDate)}</p>
                 <p>Ngày Hết hạn: {formatDate(dataSource[0].expirationDate)}</p>
               </div>
+            </Col>
+            <Col span={24} style={{ padding: "20px" }}>
+              {loading ? (
+                <LoadingTruck /> // Show LoadingTruck while loading
+              ) : (
+                <Table
+                  columns={columns}
+                  dataSource={dataSource}
+                  pagination={false}
+                />
+              )}
             </Col>
           </Row>
           <Row gutter={40} style={{ padding: "20px" }}>

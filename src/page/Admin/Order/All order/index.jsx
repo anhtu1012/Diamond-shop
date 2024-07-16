@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-
 import { Button, Table, Tag } from "antd";
-
 import { Link } from "react-router-dom";
-
 import { getAllOrder } from "../../../../../services/Uservices";
 import LoadingTruck from "../../../../components/loading";
 
@@ -39,18 +36,19 @@ const getStatusColor = (currentStep) => {
 function AllOrder() {
   const [filterStatus, setFilterStatus] = useState("Chờ xác nhận");
   const [dataSource, seDataSource] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
+
   const fetchAllOrder = async () => {
     setLoading(true);
     const res = await getAllOrder();
     seDataSource(res.data);
-    console.log(dataSource);
     setLoading(false);
   };
 
   useEffect(() => {
     fetchAllOrder();
   }, []);
+
   const handleStatusClick = (status) => {
     setFilterStatus(status);
   };
@@ -156,6 +154,7 @@ function AllOrder() {
         marginRight: 2,
         textTransform: "uppercase",
         backgroundColor: getStatusColor(statusToStep[status]),
+        border: filterStatus === status ? "3px solid #000" : "none",
       }}
     >
       {status}
@@ -173,6 +172,7 @@ function AllOrder() {
         color: "white",
         textTransform: "uppercase",
         backgroundColor: "black",
+        border: filterStatus === null ? "3px solid #fff" : "none",
       }}
     >
       Tất cả sản phẩm
@@ -183,11 +183,12 @@ function AllOrder() {
     <div className="all-order">
       <div style={{ marginBottom: 16 }}>{statusButtons}</div>
       {loading ? (
-        <LoadingTruck /> // Show LoadingTruck while loading
+        <LoadingTruck />
       ) : (
         <Table className="table" columns={columns} dataSource={filteredData} />
       )}
     </div>
   );
 }
+
 export default AllOrder;
