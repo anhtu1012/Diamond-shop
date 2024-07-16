@@ -31,7 +31,7 @@ const OrderCustomer = () => {
 
   useEffect(() => {
     fetchOrderById();
-  }, []);
+  }, [data]);
 
   const renderCard = (order, index, buttonText, buttonColor) => {
     const formattedDate = new Date(order.orderDate).toLocaleString("vi-VN", {
