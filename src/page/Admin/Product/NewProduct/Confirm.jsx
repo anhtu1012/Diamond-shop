@@ -5,6 +5,7 @@ import { Result, Button, message } from "antd";
 import { FcReadingEbook } from "react-icons/fc";
 import uploadFile from "../../../../utils/upload";
 import { createProduct } from "../../../../../services/Uservices";
+import { toast } from "react-toastify";
 
 function Confirm({ onFinish, combinedData }) {
   console.log("Combined Data in Confirm:", combinedData);
@@ -58,7 +59,7 @@ function Confirm({ onFinish, combinedData }) {
 
       // Log thêm thông tin lỗi
       if (error.response) {
-        console.error("Data:", error.response.data);
+        message.error("Data:", error.response.data.message);
         console.error("Status:", error.response.status);
         console.error("Headers:", error.response.headers);
       } else if (error.request) {

@@ -5,6 +5,7 @@ import { FcReadingEbook } from "react-icons/fc";
 import uploadFile from "../../../../utils/upload";
 import moment from "moment";
 import { createDiamond } from "../../../../../services/Uservices";
+import { toast } from "react-toastify";
 
 function Confirm({ onFinish, combinedData }) {
   const handleConfirm = async () => {
@@ -35,7 +36,7 @@ function Confirm({ onFinish, combinedData }) {
       console.log(finalData);
       onFinish(finalData);
     } catch (errorInfo) {
-      console.log("Upload failed:", errorInfo);
+      toast.error(errorInfo.response.data.message);
     }
   };
   return (
