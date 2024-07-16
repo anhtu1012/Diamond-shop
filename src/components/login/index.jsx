@@ -73,7 +73,9 @@ function Login({ onLoginSuccess }) {
   const handleRegister = async (values) => {
     try {
       const res = await registerApi(values.email, values.password);
+      form.resetFields();
       if (res.data.code === "Success") {
+        switchToSignIn();
         notification.success({
           message: "Đăng Ký Thành Công",
           description: "Vui lòng kiểm tra email của bạn để xác thực tài khoản.",
@@ -403,16 +405,16 @@ function Login({ onLoginSuccess }) {
               {isLogin ? (
                 <span>
                   Bạn mới biết đến Diamond?{" "}
-                  <a href="#" onClick={switchToSignUp} className="switch_link">
+                  <Link to="#" onClick={switchToSignUp} className="switch_link">
                     Đăng kí
-                  </a>
+                  </Link>
                 </span>
               ) : (
                 <span>
                   Bạn đã có tài khoản Diamond?{" "}
-                  <a href="#" onClick={switchToSignIn} className="switch_link">
+                  <Link to="#" onClick={switchToSignIn} className="switch_link">
                     Đăng Nhập
-                  </a>
+                  </Link>
                 </span>
               )}
             </div>
