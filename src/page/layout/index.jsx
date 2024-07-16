@@ -53,7 +53,7 @@ function Layout() {
     </div>
   );
   return (
-    <div>
+    <div className="main">
       <Header quantity={quantity} setQuantity={setQuantity} />
 
       <Outlet context={contextValue} />

@@ -3,7 +3,7 @@ import { Button, Table, Tag } from "antd";
 import { Link } from "react-router-dom";
 import { getAllOrder } from "../../../../../services/Uservices";
 import LoadingTruck from "../../../../components/loading";
-
+import "./index.scss";
 const statusToStep = {
   "Chờ xác nhận": 0,
   "Chờ thanh toán": 1,
@@ -154,7 +154,6 @@ function AllOrder() {
         marginRight: 2,
         textTransform: "uppercase",
         backgroundColor: getStatusColor(statusToStep[status]),
-        border: filterStatus === status ? "3px solid #000" : "none",
       }}
     >
       {status}
