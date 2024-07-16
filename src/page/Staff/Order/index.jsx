@@ -5,7 +5,7 @@ import { Button, Table, Tag } from "antd";
 import { Link } from "react-router-dom";
 import { getAllOrder } from "../../../../services/Uservices";
 import LoadingTruck from "../../../components/loading";
-
+import "./index.scss";
 const statusToStep = {
   "Chờ xác nhận": 0,
   "Chờ thanh toán": 1,

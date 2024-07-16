@@ -264,7 +264,7 @@ function DetailNewOrderDelivery() {
               </div>
               <div className="thong-tin-item">
                 <p className="label">Thanh toán:</p>
-                <p className="value">{data.payments[0].methodPayment}</p>
+                <p className="value">{data?.payments[0]?.methodPayment}</p>
               </div>
               {data?.note != null && (
                 <div className="thong-tin-item">
