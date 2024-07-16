@@ -32,7 +32,7 @@ function FormStep1({ onFinish, initialValues }) {
       setFileList(initialValues.fileList || []);
     }
   }, [initialValues, form]);
-  
+
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
@@ -53,9 +53,6 @@ function FormStep1({ onFinish, initialValues }) {
       }}
     >
       <Select.Option value="VN">vnđ</Select.Option>
-      <Select.Option value="USD">$</Select.Option>
-      <Select.Option value="EUR">€</Select.Option>
-      <Select.Option value="CNY">¥</Select.Option>
     </Select>
   );
 

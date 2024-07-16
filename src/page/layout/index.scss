@@ -14,7 +14,7 @@
     }
   }
 
-  &.ant-float-btn-primary .ant-float-btn-body {
+  :where(.css-98ntnt).ant-float-btn-primary .ant-float-btn-body {
     background-color: #e70953;
     transition: background-color 0.2s;
     &:hover {

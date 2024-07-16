@@ -337,7 +337,7 @@ function Header({ quantity, setQuantity }) {
               <Badge count={0} size="small">
                 <FaShoppingCart
                   style={{ fontSize: "25px", color: "#828282" }}
-                  onClick={() => navigate("/cart")}
+                  onClick={() => showModal(true)}
                 />
               </Badge>
               <Tooltip placement="bottom" title={"Đăng nhập"}>
