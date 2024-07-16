@@ -153,7 +153,7 @@ function Header({ quantity, setQuantity }) {
     };
 
     fetchQuantity();
-  }, [quantity]);
+  }, []);
 
   useEffect(() => {
     const fetchOrderWaitPay = async () => {
@@ -166,7 +166,7 @@ function Header({ quantity, setQuantity }) {
     };
 
     fetchOrderWaitPay();
-  }, [quantityWaitPay]);
+  }, []);
 
   useEffect(() => {
     const sendNotification = () => {

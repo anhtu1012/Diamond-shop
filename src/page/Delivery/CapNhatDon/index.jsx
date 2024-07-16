@@ -3,7 +3,7 @@ import { Button, Table, Tag } from "antd";
 import { Link } from "react-router-dom";
 import { getAllOrder } from "../../../../services/Uservices";
 import LoadingTruck from "../../../components/loading";
-
+import "./index.scss";
 const statusToStep = {
   "Chờ giao hàng": 1,
   "Không Thành Công": 2,
@@ -162,7 +162,7 @@ function CapNhatDon() {
     <div className="all-order">
       <div style={{ marginBottom: 16 }}>{statusButtons}</div>
       {loading ? (
-        <LoadingTruck /> 
+        <LoadingTruck />
       ) : (
         <Table className="table" columns={columns} dataSource={filteredData} />
       )}

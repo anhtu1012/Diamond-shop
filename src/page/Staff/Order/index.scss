@@ -1,10 +1,8 @@
-.status-button {
-  font-weight: bold;
-  color: white;
-  margin-right: 5px;
-  text-transform: uppercase;
-
-  &.active {
-    border: 5px solid #000; // Thicker border for active button
+.all-order {
+  button.ant-btn.css-dev-only-do-not-override-98ntnt.ant-btn-primary.status-button.active {
+    border-bottom: 3px solid #15393f;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+    transform: translateY(-2px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 }
