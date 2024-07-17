@@ -58,7 +58,7 @@ function Complete({ diamond, product, setCurrentStep }) {
         productId: product.productID,
         diamondId: diamond.diamondID,
         size: selectedSize,
-        totalPrice: totalPriceCustom,
+        // totalPrice: totalPriceCustom,
       };
       await addToCartCustomize(user.userID, customizeRequest);
       setQuantity((prev) => prev + 1);
@@ -67,7 +67,7 @@ function Complete({ diamond, product, setCurrentStep }) {
       dispatch(clearDiamond());
       setCurrentStep(1);
     } catch (error) {
-      message.error("Có lỗi xảy ra. Vui lòng thử lại!");
+      message.error(error.responsive);
       console.error("Error adding to cart:", error);
     }
   };
@@ -257,20 +257,38 @@ function Complete({ diamond, product, setCurrentStep }) {
             <div className="delivery-icon">
               <h4>(Tiền công đã được cộng vào giá trang sức)</h4>
             </div>
-            <div className="custom">
-              <button
-                style={{
-                  maxWidth: "500px !important",
-                  width: "100%",
-                  textAlign: "center",
-                  fontSize: "25px",
-                  borderRadius: "8px",
-                }}
-                onClick={hanldeAddToCart}
-              >
-                Thêm Vào Giỏ Hàng
-              </button>
-            </div>
+            {!user ? (
+              <Link to="/login">
+                <div className="custom">
+                  <button
+                    style={{
+                      maxWidth: "500px !important",
+                      width: "100%",
+                      textAlign: "center",
+                      fontSize: "25px",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    Thêm Vào Giỏ Hàng
+                  </button>
+                </div>
+              </Link>
+            ) : (
+              <div className="custom">
+                <button
+                  style={{
+                    maxWidth: "500px !important",
+                    width: "100%",
+                    textAlign: "center",
+                    fontSize: "25px",
+                    borderRadius: "8px",
+                  }}
+                  onClick={hanldeAddToCart}
+                >
+                  Thêm Vào Giỏ Hàng
+                </button>
+              </div>
+            )}
           </div>
         </Col>
       </Row>
