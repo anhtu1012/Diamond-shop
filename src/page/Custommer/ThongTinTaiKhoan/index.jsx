@@ -738,6 +738,18 @@ function AccountDetail() {
                       >
                         {userr.firstName} {userr.lastName}
                       </p>
+                      <div>
+                        <button
+                          style={{
+                            width: "80px",
+                            borderRadius: "8px",
+                            background: "#013a40",
+                            color: "white",
+                          }}
+                        >
+                          {Math.floor(userr.totalPoints)} ponits
+                        </button>
+                      </div>
 
                       <Link
                         to="#"

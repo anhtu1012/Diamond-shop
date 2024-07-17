@@ -1,10 +1,10 @@
 .step_main {
   padding: 20px 0px;
   &_button_1 {
-    height: 80px;
-    width: 100%;
-    border-radius: 50px 0px 0px 50px;
-    border: 1px solid black;
+    height: 80px !important;
+    width: 100% !important;
+    border-radius: 50px 0px 0px 50px !important;
+    border: 1px solid black !important;
     p {
       font-size: 20px;
       font-weight: bold;
@@ -51,10 +51,10 @@
     }
   }
   &_button_2 {
-    height: 80px;
-    width: 100%;
-    border-radius: 0;
-    border: 1px solid black;
+    height: 80px !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+    border: 1px solid black !important;
     p {
       font-size: 20px;
       font-weight: bold;
@@ -101,10 +101,10 @@
     }
   }
   &_button_3 {
-    height: 80px;
-    width: 100%;
-    border-radius: 0px 50px 50px 0px;
-    border: 1px solid black;
+    height: 80px !important;
+    width: 100% !important;
+    border-radius: 0px 50px 50px 0px !important;
+    border: 1px solid black !important;
     p {
       font-size: 20px;
       font-weight: bold;
