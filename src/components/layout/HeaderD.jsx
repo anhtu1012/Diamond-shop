@@ -32,7 +32,7 @@ function HeaderDelivery({ collapsed, setCollapsed }) {
   };
   const settings = [
     {
-      key: "1",
+      key: "delivery-page/thong-tind",
       label: <Link to="/">Thông tin</Link>,
     },
     {

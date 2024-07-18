@@ -32,7 +32,7 @@ function HeaderAdmin({ collapsed, setCollapsed }) {
   };
   const settings = [
     {
-      key: "1",
+      key: "/admin-page/thong-tin",
       label: <Link to="/">Thông tin</Link>,
     },
     {

@@ -86,6 +86,9 @@ import ViewWarranty from "./page/Staff/View-warranty";
 import ViewWarrantyAdmin from "./page/Admin/Warranty";
 import ViewWarrantyDetail from "./page/Admin/Warranty/View-Warranty";
 import ViewWarrantyDetailS from "./page/Staff/View-warranty/Warranty-detail";
+import ThongTinAdmin from "./page/Admin/Thong-tin";
+import ThongTinStaff from "./page/Staff/Thong-tin";
+import ThongTinDelivery from "./page/Delivery/Thong-tin";
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -243,6 +246,10 @@ const router = createBrowserRouter([
         element: <NewOrderDelivery />,
       },
       {
+        path: "/delivery-page/thong-tind",
+        element: <ThongTinDelivery />,
+      },
+      {
         path: "/delivery-page/don-hang-moi",
         element: <NewOrderDelivery />,
       },
@@ -337,6 +344,10 @@ const router = createBrowserRouter([
         element: <ViewWarrantyAdmin />,
       },
       {
+        path: "/admin-page/thong-tin",
+        element: <ThongTinAdmin />,
+      },
+      {
         path: "/admin-page/view-bao-hanh/xem-chi-tiet-bao-hanh/:warrantyCardID",
         element: <ViewWarrantyDetail />,
       },
@@ -351,6 +362,10 @@ const router = createBrowserRouter([
       {
         path: "/staff-page",
         element: <NewOrder />,
+      },
+      {
+        path: "/staff-page/thong-tins",
+        element: <ThongTinStaff />,
       },
       {
         path: "/staff-page/don-hang-moi",

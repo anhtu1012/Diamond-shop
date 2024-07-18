@@ -308,12 +308,8 @@ function AccountDetail() {
     });
 
     return (
-      <Row
-        className="staff_order_frame"
-        key={index}
-        style={{ marginBottom: "15px" }}
-      >
-        <Col xs={24} sm={7} className="staff_order_left">
+      <Row className="staff_order_frame" key={index}>
+        <Col span={7} className="staff_order_left">
           <div className="new_order_odID">
             <span>OD: {order.orderId}</span>
           </div>
@@ -322,12 +318,12 @@ function AccountDetail() {
               className="img_main"
               src={order.productCustomize.product.productImages[0].imageUrl}
               width={130}
-              style={{ marginLeft: "10px", marginBottom: "10px" }}
+              style={{ marginLeft: "10px" }}
               alt={order.productCustomize.product.productName}
             />
           )}
           {order.productCustomize && order.productCustomize.product && (
-            <div style={{ textAlign: "center", marginBottom: "10px" }}>
+            <div style={{ textAlign: "center" }}>
               <Button className="button_custom">
                 Size: {order.productCustomize.size}
               </Button>
@@ -350,7 +346,7 @@ function AccountDetail() {
             />
           )}
         </Col>
-        <Col xs={24} sm={11} className="staff_order_right">
+        <Col span={11} className="staff_order_right">
           {order.productCustomize && order.productCustomize.product && (
             <div className="info_product">
               <div>
@@ -427,13 +423,16 @@ function AccountDetail() {
           </div>
         </Col>
         <Col
-          xs={24}
-          sm={6}
-          style={{ textAlign: "center", fontSize: "16px", fontWeight: "400" }}
+          span={6}
+          style={{ textAlign: "center", fontSize: "20px", fontWeight: "400" }}
         >
           {formattedDate}
         </Col>
-        <Col xs={24} className="text-left">
+        <Col
+          span={24}
+          style={{ borderBottom: "dashed 1px gray", paddingTop: "10px" }}
+        ></Col>
+        <Col span={18} className="text-left">
           <span>x {order.quantity} Sản Phẩm</span>
           <div>
             <Link to={`/don-hang/chi-tiet-don-hang/${order.orderId}`}>
@@ -441,7 +440,7 @@ function AccountDetail() {
             </Link>
           </div>
         </Col>
-        <Col xs={24} sm={6} className="text-right">
+        <Col span={6} className="text-right">
           <h3>
             {(
               order.productCustomize?.totalPrice || order.diamond.totalPrice
