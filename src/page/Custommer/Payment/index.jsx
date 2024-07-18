@@ -9,7 +9,6 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { checkOut, getOrderDetail } from "../../../../services/Uservices";
 import NoData from "../../../components/nodata";
-import { toast } from "react-toastify";
 
 const renderProductItem = (order, index) => (
   <Row className="staff_order_frame" key={index}>
@@ -161,7 +160,7 @@ function Payment() {
       } else {
         message.error("Thanh toán thất bại");
       }
-      toast.success("Thanh toán thành công, Mời quý khách tiếp tục mua sắm");
+      // toast.success("Thanh toán thành công, Mời quý khách tiếp tục mua sắm");
     } catch (error) {
       message.error("Đã có lỗi xảy ra khi tạo đơn hàng");
     }
@@ -321,7 +320,7 @@ function Payment() {
                           display: "inline-block",
                         }}
                       />
-                      Thanh toán trả góp qua VnPay
+                      Thanh toán bằng VnPay
                     </p>
                   </Radio>
                   <Radio
@@ -337,7 +336,7 @@ function Payment() {
                     }}
                   >
                     <FaCcMastercard style={{ marginRight: "8px" }} />
-                    Thanh toán online bằng thẻ ATM/Visa/Master...
+                    Thanh toán Paypal
                   </Radio>
                 </Radio.Group>
               </Form.Item>

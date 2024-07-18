@@ -245,6 +245,7 @@ function Login({ onLoginSuccess }) {
                       { required: true, message: "Vui lòng nhập E-mail!" },
                     ]}
                     validateStatus={loginError ? "error" : ""}
+                    normalize={(value) => value.trim()}
                   >
                     <Input className="input" placeholder="Email..." />
                   </Form.Item>
