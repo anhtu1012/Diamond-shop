@@ -19,7 +19,6 @@ function ViewWarrantyAdmin() {
     const response = await getWarrantyAllCard();
     const warrantyData = response.data;
     setDataSource(warrantyData);
-    console.log(warrantyData);
   }
 
   useEffect(() => {

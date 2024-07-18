@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
-import { Button, Table, Tag } from "antd";
+import { useEffect, useRef, useState } from "react";
+import { Button, Input, Select, Space, Table, Tag } from "antd";
 import { Link } from "react-router-dom";
 import { getAllOrder } from "../../../../../services/Uservices";
 import LoadingTruck from "../../../../components/loading";
 import "./index.scss";
+import Highlighter from "react-highlight-words";
+import { SearchOutlined } from "@ant-design/icons";
+
 const statusToStep = {
   "Chờ xác nhận": 0,
   "Chờ thanh toán": 1,
@@ -34,14 +37,17 @@ const getStatusColor = (currentStep) => {
 };
 
 function AllOrder() {
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
+  const searchInput = useRef(null);
   const [filterStatus, setFilterStatus] = useState("Chờ xác nhận");
-  const [dataSource, seDataSource] = useState([]);
+  const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchAllOrder = async () => {
     setLoading(true);
     const res = await getAllOrder();
-    seDataSource(res.data);
+    setDataSource(res.data);
     setLoading(false);
   };
 
@@ -56,6 +62,122 @@ function AllOrder() {
   const filteredData = filterStatus
     ? dataSource.filter((item) => item.status === filterStatus)
     : dataSource;
+
+    const handleSearch = (selectedKeys, confirm, dataIndex) => {
+      confirm();
+      setSearchText(selectedKeys[0]);
+      setSearchedColumn(dataIndex);
+    };
+  
+    const handleReset = (clearFilters) => {
+      clearFilters();
+      setSearchText("");
+    };
+
+    const getColumnSearchProps = (dataIndex, dropdownOptions = []) => ({
+      filterDropdown: ({
+        setSelectedKeys,
+        selectedKeys,
+        confirm,
+        clearFilters,
+        close,
+      }) => (
+        <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
+          {dropdownOptions.length > 0 ? (
+            <Select
+              style={{ width: 188, marginBottom: 8, display: "block" }}
+              placeholder={`Search ${dataIndex}`}
+              value={selectedKeys[0]}
+              onChange={(value) => {
+                setSelectedKeys(value ? [value] : []);
+                confirm();
+                setSearchText(value);
+                setSearchedColumn(dataIndex);
+              }}
+              onDropdownVisibleChange={(visible) => {
+                if (!visible) confirm();
+              }}
+            >
+              {dropdownOptions.map((option) => (
+                <Select.Option key={option} value={option}>
+                  {option}
+                </Select.Option>
+              ))}
+            </Select>
+          ) : (
+            <Input
+              ref={searchInput}
+              placeholder={`Search ${dataIndex}`}
+              value={selectedKeys[0]}
+              onChange={(e) =>
+                setSelectedKeys(e.target.value ? [e.target.value] : [])
+              }
+              onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+              style={{ marginBottom: 8, display: "block" }}
+            />
+          )}
+          <Space>
+            <Button
+              type="primary"
+              onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+              icon={<SearchOutlined />}
+              size="small"
+              style={{ width: 90 }}
+            >
+              Search
+            </Button>
+            <Button
+              onClick={() => clearFilters && handleReset(clearFilters)}
+              size="small"
+              style={{ width: 90 }}
+            >
+              Reset
+            </Button>
+            <Button
+              type="link"
+              size="small"
+              onClick={() => {
+                confirm({ closeDropdown: false });
+                setSearchText(selectedKeys[0]);
+                setSearchedColumn(dataIndex);
+              }}
+            >
+              Filter
+            </Button>
+            <Button
+              type="link"
+              size="small"
+              onClick={() => {
+                close();
+              }}
+            >
+              Close
+            </Button>
+          </Space>
+        </div>
+      ),
+      filterIcon: (filtered) => (
+        <SearchOutlined style={{ color: filtered ? "#1677ff" : undefined }} />
+      ),
+      onFilter: (value, record) =>
+        record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+      onFilterDropdownOpenChange: (visible) => {
+        if (visible) {
+          setTimeout(() => searchInput.current?.select(), 100);
+        }
+      },
+      render: (text) =>
+        searchedColumn === dataIndex ? (
+          <Highlighter
+            highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+            searchWords={[searchText]}
+            autoEscape
+            textToHighlight={text ? text.toString() : ""}
+          />
+        ) : (
+          text
+        ),
+    });
 
   const columns = [
     {
@@ -81,17 +203,7 @@ function AllOrder() {
       dataIndex: "orderDate",
       key: "orderDate",
       width: "15%",
-      sorter: (a, b) => new Date(a.orderDate) - new Date(b.orderDate),
-      sortDirections: ["descend", "ascend"],
-      render: (text) =>
-        new Date(text).toLocaleString("vi-VN", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        }),
+      ...getColumnSearchProps("orderDate"),
     },
     {
       title: "Số lượng sản phẩm",
@@ -154,6 +266,7 @@ function AllOrder() {
         marginRight: 2,
         textTransform: "uppercase",
         backgroundColor: getStatusColor(statusToStep[status]),
+        border: filterStatus === status ? "3px solid #000" : "none",
       }}
     >
       {status}

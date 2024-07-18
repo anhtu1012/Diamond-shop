@@ -1,0 +1,76 @@
+.tong-trang-detail {
+    .custom-search .ant-btn {
+      background-color: #15393f;
+      border-color: #15393f;
+      &:hover {
+        background-color: #15393f;
+        border-color: #15393f;
+      }
+    }
+  
+    .custom-search .ant-input::placeholder {
+      color: gray;
+    }
+    .upload_image {
+      display: flex;
+      justify-content: center;
+      img {
+        object-fit: cover;
+      }
+      .ant-upload.ant-upload-select {
+        width: 150px !important;
+        height: 150px !important;
+        span.ant-upload {
+          font-size: 30px;
+        }
+      }
+      .ant-upload-list-item.ant-upload-list-item-error {
+        width: 150px !important;
+        height: 150px !important;
+      }
+      .ant-upload-list-item-container {
+        width: 150px !important;
+        height: 150px !important;
+      }
+    }
+    .baner-detail {
+      position: relative;
+      max-width: 100%;
+      @media screen and (max-width: 768px) {
+        .user-name-on-banner {
+          top: 30%;
+          margin-top: 20px;
+          margin-left: 100px;
+          h1{
+            font-size: 16px;
+          } 
+          h2{
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  
+    .user-name-on-banner {
+      position: absolute;
+      top: 50%; /* Điều chỉnh vị trí dọc theo chiều cao của img */
+      left: 10%; /* Điều chỉnh vị trí ngang của chữ */
+      transform: translate(-50%, -50%); /* Đưa chữ về vị trí chính giữa */
+      text-align: start;
+      font-style: italic;
+      width: 80%; /* Đảm bảo chữ không rộng quá so với img */
+    }
+  
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  
+    .thong-tin-chi-tiet-tai-khoan-tong {
+      margin-top: 30px;
+    }
+    .dropdown {
+      margin-top: 20px;
+    }
+  }
+  

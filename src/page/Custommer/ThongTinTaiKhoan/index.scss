@@ -36,15 +36,21 @@
   .baner-detail {
     position: relative;
     max-width: 100%;
+    .user-name-on-banner {
+      position: absolute;
+      margin-left: 400px;
+      top: 150px;
+      font-style: italic;
+    }
     @media screen and (max-width: 768px) {
       .user-name-on-banner {
         top: 30%;
         margin-top: 20px;
         margin-left: 100px;
-        h1{
+        h1 {
           font-size: 16px;
-        } 
-        h2{
+        }
+        h2 {
           font-size: 10px;
         }
       }

@@ -39,7 +39,7 @@ function HeaderStaff({ collapsed, setCollapsed }) {
   };
   const settings = [
     {
-      key: "1",
+      key: "staff-page/thong-tins",
       label: <Link to="/">Thông tin</Link>,
     },
     {
