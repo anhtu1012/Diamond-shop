@@ -54,7 +54,7 @@ const DiamondDetailss = () => {
 
   useEffect(() => {
     fetchProductByIds(diamondID);
-  }, [diamondDetail]);
+  }, []);
   const hanldeAddtoCart = async () => {
     try {
       const data = {

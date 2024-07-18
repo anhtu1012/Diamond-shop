@@ -3,7 +3,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import { Avatar, Button, Input, Space, Table } from "antd";
 import Highlighter from "react-highlight-words";
 import { Select } from "antd";
-
+import "./index.scss";
 import { getAllUser } from "../../../../../services/Uservices";
 import { Link } from "react-router-dom";
 

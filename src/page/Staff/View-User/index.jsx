@@ -235,7 +235,14 @@ function ViewUser() {
 
   return (
     <div className="all-account">
-      <Button onClick={handleReport}></Button>
+      <div style={{ paddingBottom: "5px" }}>
+        <Button
+          onClick={handleReport}
+          style={{ background: "green", fontWeight: "bold", color: "white" }}
+        >
+          Xuất Excel
+        </Button>
+      </div>
       <Table
         className="table"
         columns={columns}

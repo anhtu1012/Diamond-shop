@@ -48,7 +48,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     fetchProductByIds(product_id);
-  }, [productDetail]);
+  }, []);
 
   if (!productDetail) {
     return <LoadingTruck />;
