@@ -429,10 +429,12 @@ function AccountDetail() {
           {formattedDate}
         </Col>
         <Col
-          span={24}
-          style={{ borderBottom: "dashed 1px gray", paddingTop: "10px" }}
+
+          xs={24}
+          style={{ borderBottom: "dashed 1px gray", padding: "10px 0" }}
         ></Col>
-        <Col span={18} className="text-left">
+        <Col xs={24} sm={18} className="text-left">
+
           <span>x {order.quantity} Sản Phẩm</span>
           <div>
             <Link to={`/don-hang/chi-tiet-don-hang/${order.orderId}`}>

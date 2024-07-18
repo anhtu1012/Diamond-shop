@@ -154,11 +154,16 @@
     }
   }
 }
+
 .custom-modal .ant-modal-content {
   background: transparent;
   box-shadow: none;
 }
-
+.custom-modal {
+  :where(.css-98ntnt).ant-modal .ant-modal-close-x {
+    padding: 20px 25px 0px 0px !important;
+  }
+}
 .modal-content {
   position: relative;
   display: flex;
