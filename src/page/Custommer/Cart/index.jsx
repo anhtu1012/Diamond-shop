@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
 import { CaretLeftFilled } from "@ant-design/icons";
 import {
   AutoComplete,
@@ -14,22 +13,23 @@ import {
   message,
   notification,
 } from "antd";
+import { useEffect, useState } from "react";
+import { GiBigDiamondRing } from "react-icons/gi";
 import { IoDiamondOutline, IoTicket } from "react-icons/io5";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { useSelector } from "react-redux";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
-import Relate from "../../../components/carousel/related";
-import Container from "../../../components/container/Container";
-import "./index.scss";
-import { getProvinces, getDistricts, getWards } from "vietnam-provinces";
+import { getDistricts, getProvinces, getWards } from "vietnam-provinces";
 import {
   deleteCart,
   getCart,
   submitOrder,
 } from "../../../../services/Uservices";
-import { useSelector } from "react-redux";
+import Relate from "../../../components/carousel/related";
+import Container from "../../../components/container/Container";
+import NoData from "../../../components/nodata";
 import { selectUser } from "../../../redux/features/counterSlice";
-import { GiBigDiamondRing } from "react-icons/gi";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import NotFound from "../../404";
+import "./index.scss";
 const { Option } = Select;
 
 function Cart() {
@@ -409,7 +409,7 @@ function Cart() {
   }, []);
 
   if (!dataCart || !dataCart.items.length) {
-    return <NotFound />;
+    return <NoData />;
   }
 
   return (
@@ -648,7 +648,7 @@ function Cart() {
               </div>
             </div>
 
-            <div className="cart_summary" style={{marginLeft:"22px"}}>
+            <div className="cart_summary" style={{ marginLeft: "22px" }}>
               <div className="cart_summary_item">
                 <span className="cart_summary_label">Điểm:</span>
                 <span className="cart_summary_value">

@@ -260,13 +260,15 @@ function ViewOrderDetailsCusTom() {
   const user = useSelector(selectUser);
   const handleFeedback = async (values, order) => {
     try {
-      const info = {
-        comment: values[`comment-${selectedProduct.indexOf(order)}`],
-        rating: values[`rating-${selectedProduct.indexOf(order)}`],
-        productID: order.productID,
-        diamondID: null,
-        userID: user.userID,
-      };
+      const info = [
+        {
+          comment: values[`comment-${selectedProduct.indexOf(order)}`],
+          rating: values[`rating-${selectedProduct.indexOf(order)}`],
+          productID: order.productID,
+          diamondID: null,
+          userID: user.userID,
+        },
+      ];
       console.log(info);
       await feedBack(info);
       message.success("Đánh giá thành công");

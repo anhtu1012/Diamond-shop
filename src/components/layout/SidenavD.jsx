@@ -19,13 +19,15 @@ function SidenavD({ collapsed }) {
       try {
         const res = await getOrderDelivery();
         setQuantityDelivery(res.data);
+        console.log(res.data);
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchOrderPeding();
-  }, [quantityDelivery]);
+  }, []);
+  console.log(quantityDelivery);
   useEffect(() => {
     const sendNotification = () => {
       if (quantityDelivery > 0) {

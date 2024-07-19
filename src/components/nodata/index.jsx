@@ -2,7 +2,7 @@ import "./index.scss";
 import { FcPrint } from "react-icons/fc";
 function NoData() {
   return (
-    <div className="nodata_main">
+    <div className="nodata_main" style={{minHeight:"350px"}}>
       <div>
         <FcPrint  size={200} />
       </div>
