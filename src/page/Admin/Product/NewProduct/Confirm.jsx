@@ -55,18 +55,18 @@ function Confirm({ onFinish, combinedData }) {
       // Tiếp tục với onFinish
       onFinish(productData);
     } catch (error) {
-      console.error("Lỗi khi xác nhận:", error);
-
+      console.error("Lỗi khi xác nhận:", error.response.data.message);
+      toast.error(error.response.data.message);
       // Log thêm thông tin lỗi
-      if (error.response) {
-        message.error("Data:", error.response.data.message);
-        console.error("Status:", error.response.status);
-        console.error("Headers:", error.response.headers);
-      } else if (error.request) {
-        console.error("Request:", error.request);
-      } else {
-        console.error("Error message:", error.message);
-      }
+      // if (error.response) {
+      //   message.error("Data:", error.response);
+      //   console.error("Status:", error.response.status);
+      //   console.error("Headers:", error.response.headers);
+      // } else if (error.request) {
+      //   console.error("Request:", error.request);
+      // } else {
+      //   console.error("Error message:", error.response.message);
+      // }
     }
   };
 

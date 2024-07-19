@@ -101,6 +101,7 @@ function Login({ onLoginSuccess }) {
       notification.error({
         message: "Xác Thực",
         description: "Vui lòng xác nhận bạn không phải là Robot",
+        duration: 1,
       });
       return;
     }

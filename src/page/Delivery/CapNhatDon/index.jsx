@@ -32,7 +32,6 @@ function CapNhatDon() {
     setLoading(true);
     const res = await getAllOrder();
     seDataSource(res.data);
-    console.log(dataSource);
     setLoading(false);
   };
 

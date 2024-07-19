@@ -144,6 +144,7 @@ function Payment() {
 
     fetchGetOrderDetail();
   }, []);
+
   const handleCheckOut = async () => {
     try {
       const values = form.getFieldsValue();
