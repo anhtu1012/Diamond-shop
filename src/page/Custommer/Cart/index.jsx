@@ -52,6 +52,7 @@ function Cart() {
       console.log(userr.userID);
       setLoader(true);
       const res = await getCart(userr.userID);
+      setDataCart(res.data);
       setLoader(false);
       const user = res.data.user;
       const addressParts = user.address.split(",");
@@ -67,7 +68,6 @@ function Cart() {
         gender: user.gender,
       };
 
-      setDataCart(res.data);
       setInitialValues(initialValues);
       form.setFieldsValue(initialValues);
     } catch (error) {
@@ -688,7 +688,7 @@ function Cart() {
                     <span style={{ fontWeight: "300" }}>
                       (Điểm của bạn: {Math.floor(dataCart?.user.totalPoints)})
                     </span>
-                    <p style={{fontWeight: '300'}}> 1 điểm = 500.000 vnđ</p>
+                    <p style={{ fontWeight: "300" }}> 1 điểm = 500.000 vnđ</p>
                   </span>
                   <Form.Item name="points">
                     <Input
@@ -702,10 +702,10 @@ function Cart() {
                     />
                   </Form.Item>
                 </div>
-                
+
                 <div className="cart_total_price">
                   <span className="cart_total_price_label">
-                    Thành tiền ({dataCart.items[0].quantity} sản phẩm):
+                    Thành tiền ({dataCart.quantity} sản phẩm):
                   </span>
                   <span className="cart_total_price_value">
                     {totalCartValue.toLocaleString("de-DE", {
