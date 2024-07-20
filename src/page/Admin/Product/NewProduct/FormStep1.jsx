@@ -37,7 +37,16 @@ const cityData = {
 };
 
 const provinceData = ["Trang Sức Cưới", "Trang sức Kim Cương"];
-
+const subcategoryToProductType = {
+  "Nhẫn Cầu Hôn Kim Cương": "Nhẫn",
+  "Nhẫn Cưới Kim Cương": "Nhẫn",
+  "Nhẫn Kim Cương Nam": "Nhẫn",
+  "Nhẫn Kim Cương Nữ": "Nhẫn",
+  "Bông Tai Kim Cương": "Bông tai",
+  "Lắc/ Vòng Tay Kim Cương": "Lắc/Vòng tay",
+  "Mặt Dây Chuyền Kim Cương": "Mặt dây chuyền",
+  "Dây Chuyền Kim Cương": "Dây chuyền",
+};
 function FormProductStep1({ onFinish, initialValues }) {
   const [fileList, setFileList] = useState(initialValues?.fileList || []);
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -48,7 +57,9 @@ function FormProductStep1({ onFinish, initialValues }) {
   const [subcategory, setSubcategory] = useState(
     initialValues?.subcategory || cityData[provinceData[0]][0]
   );
-
+  const [productType, setProductType] = useState(
+    initialValues?.productType || subcategoryToProductType[subcategory]
+  );
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
@@ -69,99 +80,73 @@ function FormProductStep1({ onFinish, initialValues }) {
       }}
     >
       <Select.Option value="VN">vnđ</Select.Option>
-      <Select.Option value="USD">$</Select.Option>
-      <Select.Option value="EUR">€</Select.Option>
-      <Select.Option value="CNY">¥</Select.Option>
     </Select>
   );
 
   const handleCategoryChange = (value) => {
     setCategory(value);
-    setSubcategory(cityData[value][0]);
-    form.setFieldsValue({ subcategory: cityData[value][0], productID: "" });
+    const firstSubcategory = cityData[value][0];
+    setSubcategory(firstSubcategory);
+    setProductType(subcategoryToProductType[firstSubcategory]);
+    form.setFieldsValue({
+      subcategory: firstSubcategory,
+      productID: "",
+      productType: subcategoryToProductType[firstSubcategory],
+    });
   };
 
   const handleSubcategoryChange = (value) => {
     setSubcategory(value);
-    form.setFieldsValue({ productID: "" });
+    setProductType(subcategoryToProductType[value]);
+    form.setFieldsValue({
+      productID: "",
+      productType: subcategoryToProductType[value],
+    });
   };
 
   const getProductIDRules = () => {
-    switch (subcategory) {
-      case "Nhẫn Cầu Hôn Kim Cương":
-        return [
-          { required: true, message: "Vui lòng không để trống" },
-          {
-            pattern: /^NCH\d{5,10}$/,
-            message: "Mã sản phẩm phải là NCH và 5-10 số",
-          },
-        ];
-      case "Nhẫn Cưới Kim Cương":
-        return [
-          { required: true, message: "Vui lòng không để trống" },
-          {
-            pattern: /^NC\d{5,10}$/,
-            message: "Mã sản phẩm phải là NC và 5-10 số",
-          },
-        ];
-      case "Nhẫn Kim Cương Nam":
-        return [
-          { required: true, message: "Vui lòng không để trống" },
-          {
-            pattern: /^NNA\d{5,10}$/,
-            message: "Mã sản phẩm phải là NNA và 5-10 số",
-          },
-        ];
-      case "Nhẫn Kim Cương Nữ":
-        return [
-          { required: true, message: "Vui lòng không để trống" },
-          {
-            pattern: /^NNU\d{5,10}$/,
-            message: "Mã sản phẩm phải là NNU và 5-10 số",
-          },
-        ];
-      case "Bông Tai Kim Cương":
-        return [
-          { required: true, message: "Vui lòng không để trống" },
-          {
-            pattern: /^BT\d{5,10}$/,
-            message: "Mã sản phẩm phải là BT và 5-10 số",
-          },
-        ];
-      case "Lắc/ Vòng Tay Kim Cương":
-        return [
-          { required: true, message: "Vui lòng không để trống" },
-          {
-            pattern: /^LV\d{5,10}$/,
-            message: "Mã sản phẩm phải là LV và 5-10 số",
-          },
-        ];
-      case "Mặt Dây Chuyền Kim Cương":
-        return [
-          { required: true, message: "Vui lòng không để trống" },
-          {
-            pattern: /^MD\d{5,10}$/,
-            message: "Mã sản phẩm phải là MD và 5-10 số",
-          },
-        ];
-      case "Dây Chuyền Kim Cương":
-        return [
-          { required: true, message: "Vui lòng không để trống" },
-          {
-            pattern: /^DC\d{5,10}$/,
-            message: "Mã sản phẩm phải là DC và 5-10 số",
-          },
-        ];
-      default:
-        return [{ required: true, message: "Vui lòng không để trống" }];
-    }
+    const rules = {
+      "Nhẫn Cầu Hôn Kim Cương": { pattern: /^NCH\d{5,10}$/, example: "NCH" },
+      "Nhẫn Cưới Kim Cương": { pattern: /^NC\d{5,10}$/, example: "NC" },
+      "Nhẫn Kim Cương Nam": { pattern: /^NNA\d{5,10}$/, example: "NNA" },
+      "Nhẫn Kim Cương Nữ": { pattern: /^NNU\d{5,10}$/, example: "NNU" },
+      "Bông Tai Kim Cương": { pattern: /^BT\d{5,10}$/, example: "BT" },
+      "Lắc/ Vòng Tay Kim Cương": { pattern: /^LV\d{5,10}$/, example: "LV" },
+      "Mặt Dây Chuyền Kim Cương": { pattern: /^MD\d{5,10}$/, example: "MD" },
+      "Dây Chuyền Kim Cương": { pattern: /^DC\d{5,10}$/, example: "DC" },
+    };
+    const rule = rules[subcategory] || { pattern: /.*/, example: "" };
+    return [
+      { required: true, message: "Vui lòng không để trống" },
+      {
+        pattern: rule.pattern,
+        message: `Mã sản phẩm phải là ${rule.example} và 5-10 số`,
+      },
+    ];
   };
 
+  const option = [
+    {
+      value: "Nhẫn",
+      label: "Nhẫn",
+    },
+    {
+      value: "Lắc/Vòng tay",
+      label: "Lắc/Vòng tay",
+    },
+    {
+      value: "Mặt dây chuyền",
+      label: "Mặt dây chuyền",
+    },
+    {
+      value: "Bông tai",
+      label: "Bông tai",
+    },
+  ];
   const handleFinish = (values) => {
     onFinish({
       ...values,
       fileList,
-      brand: "Diamond",
       subcategory,
     });
   };
@@ -331,12 +316,25 @@ function FormProductStep1({ onFinish, initialValues }) {
           </Row>
         </Col>
         <Col span={12} className="info_basicc">
-          <Form.Item label="Thương hiệu" name="brand">
-            <Input
-              className="input"
-              value="Diamond"
-              placeholder="Diamond"
+          <Form.Item label="Loại sản phẩm" name="productType">
+            <Select
+              value={productType}
+              style={{
+                width: "80%",
+                height: "40px",
+              }}
               disabled
+              placeholder="Nhập Loại sản phẩm"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                (option?.label ?? "").includes(input)
+              }
+              filterSort={(optionA, optionB) =>
+                (optionA?.label ?? "")
+                  .toLowerCase()
+                  .localeCompare((optionB?.label ?? "").toLowerCase())
+              }
+              options={option}
             />
           </Form.Item>
           <Form.Item label="Số lượng tổng" name="quantity">
@@ -438,7 +436,7 @@ function FormProductStep1({ onFinish, initialValues }) {
           )}
         </Col>
         <Col span={24} className="button_form">
-          <button type="submit">Tiếp theo</button>
+          <button type="submit">Lưu thông tin</button>
         </Col>
       </Row>
     </Form>

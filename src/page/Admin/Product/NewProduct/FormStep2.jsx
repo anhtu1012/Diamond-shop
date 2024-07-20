@@ -12,29 +12,11 @@ import {
 
 function FormProductStep2({ onFinish, initialValues }) {
   const [form] = Form.useForm();
-  const option = [
-    {
-      value: "Nhẫn",
-      label: "Nhẫn",
-    },
-    {
-      value: "Lắc/Vòng tay",
-      label: "Lắc/Vòng tay",
-    },
-    {
-      value: "Mặt dây chuyền",
-      label: "Mặt dây chuyền",
-    },
-    {
-      value: "Bông tai",
-      label: "Bông tai",
-    },
-  ];
 
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
-      onFinish(values);
+      onFinish({ ...values, brand: "Diamond" });
     } catch (errorInfo) {
       console.log("Validation failed:", errorInfo);
     }
@@ -55,23 +37,12 @@ function FormProductStep2({ onFinish, initialValues }) {
         style={{ padding: "0px 100px " }}
       >
         <Col span={12} className="info_detail2">
-          <Form.Item label="Loại sản phẩm" name="productType">
-            <Select
-              style={{
-                width: "100%",
-                height: "40px",
-              }}
-              placeholder="Nhập Loại sản phẩm"
-              optionFilterProp="children"
-              filterOption={(input, option) =>
-                (option?.label ?? "").includes(input)
-              }
-              filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              options={option}
+          <Form.Item label="Thương hiệu" name="brand">
+            <Input
+              className="input"
+              value="Diamond"
+              placeholder="Diamond"
+              disabled
             />
           </Form.Item>
         </Col>

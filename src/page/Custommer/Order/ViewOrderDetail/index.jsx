@@ -597,71 +597,72 @@ function ViewOrderDetailsCusTom() {
                           vnđ
                         </span>
                       </div>
-                      {data?.status === "Chờ xác nhận" && (
-                        <div className="row">
-                          <Select
-                            style={{
-                              width: 200,
-                            }}
-                            onChange={setReason}
-                            placeholder="Chọn lý do hủy đơn"
-                            dropdownRender={(menu) => (
-                              <>
-                                {menu}
-                                <Divider
+                      {data?.status === "Chờ xác nhận" ||
+                        (data?.status === "Chờ thanh toán" && (
+                          <div className="row">
+                            <Select
+                              style={{
+                                width: 200,
+                              }}
+                              onChange={setReason}
+                              placeholder="Chọn lý do hủy đơn"
+                              dropdownRender={(menu) => (
+                                <>
+                                  {menu}
+                                  <Divider
+                                    style={{
+                                      margin: "8px 0",
+                                    }}
+                                  />
+                                  <Space
+                                    style={{
+                                      padding: "0 8px 4px",
+                                    }}
+                                  >
+                                    <Input
+                                      placeholder="Please enter item"
+                                      ref={inputRef}
+                                      value={name}
+                                      onChange={onNameChange}
+                                      onKeyDown={(e) => e.stopPropagation()}
+                                    />
+                                    <Button
+                                      type="text"
+                                      icon={<PlusOutlined />}
+                                      onClick={addItem}
+                                    >
+                                      Add item
+                                    </Button>
+                                  </Space>
+                                </>
+                              )}
+                              options={items.map((item) => ({
+                                label: item,
+                                value: item,
+                              }))}
+                            />
+                            <span>
+                              {" "}
+                              <Popconfirm
+                                title="Hủy Đơn"
+                                onConfirm={handleRemobeOrder}
+                                okText="Yes"
+                                cancelText="No"
+                              >
+                                <Button
                                   style={{
-                                    margin: "8px 0",
-                                  }}
-                                />
-                                <Space
-                                  style={{
-                                    padding: "0 8px 4px",
+                                    background: "red",
+                                    color: "white",
+                                    borderRadius: "0px 8px 8px 0px",
+                                    fontWeight: "bold",
                                   }}
                                 >
-                                  <Input
-                                    placeholder="Please enter item"
-                                    ref={inputRef}
-                                    value={name}
-                                    onChange={onNameChange}
-                                    onKeyDown={(e) => e.stopPropagation()}
-                                  />
-                                  <Button
-                                    type="text"
-                                    icon={<PlusOutlined />}
-                                    onClick={addItem}
-                                  >
-                                    Add item
-                                  </Button>
-                                </Space>
-                              </>
-                            )}
-                            options={items.map((item) => ({
-                              label: item,
-                              value: item,
-                            }))}
-                          />
-                          <span>
-                            {" "}
-                            <Popconfirm
-                              title="Hủy Đơn"
-                              onConfirm={handleRemobeOrder}
-                              okText="Yes"
-                              cancelText="No"
-                            >
-                              <Button
-                                style={{
-                                  background: "red",
-                                  color: "white",
-                                  borderRadius: "0px 8px 8px 0px",
-                                  fontWeight: "bold",
-                                }}
-                              >
-                                Hủy Đơn
-                              </Button>
-                            </Popconfirm>
-                          </span>
-                        </div>
-                      )}
+                                  Hủy Đơn
+                                </Button>
+                              </Popconfirm>
+                            </span>
+                          </div>
+                        ))}
                       {data?.status === "Chờ thanh toán" && (
                         <div
                           className="thanh-toan"
