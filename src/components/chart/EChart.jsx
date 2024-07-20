@@ -1,5 +1,5 @@
 import ReactApexChart from "react-apexcharts";
-import { Row, Col, Typography } from "antd";
+import { Typography } from "antd";
 import useFetchData from "./configs/eChart";
 import { useEffect, useState } from "react";
 import { getCompareMonth } from "../../../services/Uservices";
@@ -15,25 +15,7 @@ function EChart() {
     };
     fetchPercent();
   }, [percent]);
-  const items = [
-    {
-      title: "3,6K",
-      user: "Users",
-    },
-    {
-      title: "2m",
-      user: "Clicks",
-    },
-    {
-      title: "$772",
-      user: "Sales",
-    },
-    {
-      title: "82",
-      user: "Items",
-    },
-  ];
-
+  
   return (
     <>
       <div id="chart">
@@ -54,19 +36,8 @@ function EChart() {
           </span>
         </Paragraph>
         <Paragraph className="lastweek">
-          We have created multiple options for you to put together and customise
-          into pixel perfect pages.
+          Đây là bảng doanh thu của cửa hàng trong 1 năm (12 tháng).
         </Paragraph>
-        <Row gutter={[16, 16]}>
-          {items.map((v, index) => (
-            <Col xs={24} sm={12} md={6} key={index}>
-              <div className="chart-visitor-count">
-                <Title level={4}>{v.title}</Title>
-                <span>{v.user}</span>
-              </div>
-            </Col>
-          ))}
-        </Row>
       </div>
     </>
   );

@@ -116,7 +116,7 @@ function KimCuongGIA() {
     <div className="tong-kim-cuong-gia">
       <div className="baner">
         <img
-          src="https://www.tierra.vn/files/banner-danh-m-c-PnlesVGpjV.jpg"
+          src="https://firebasestorage.googleapis.com/v0/b/diamond-6401b.appspot.com/o/4-KC-desktop.webp?alt=media&token=6644836a-87ec-4484-b9fe-6b765fe70c44"
           style={{ width: "100%", height: "400px" }}
         />
       </div>

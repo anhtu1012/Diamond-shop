@@ -182,6 +182,9 @@ export const getRevenveCustomize = () => {
 export const getTotalRevenueDate = () => {
   return api.get(`swp391/api/dashboards/total_revenue_date`);
 };
+export const getTotalUserMonth = () => {
+  return api.get(`swp391/api/dashboards/newuser`);
+};
 export const listOrderReturn = () => {
   return api.get(`swp391/api/dashboards/listorderreturn`);
 };
