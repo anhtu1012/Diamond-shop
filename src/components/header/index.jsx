@@ -148,7 +148,7 @@ function Header({ quantity, setQuantity }) {
         const res = await getQuantityCart(user.userID);
         setQuantity(res.data);
       } catch (error) {
-        console.log(error);
+        fetchQuantity();
       }
     };
 
@@ -161,7 +161,7 @@ function Header({ quantity, setQuantity }) {
         const res = await getOrderWaitPay(user.userID);
         setQuantityWaitPay(res.data);
       } catch (error) {
-        console.log(error);
+        fetchOrderWaitPay();
       }
     };
 

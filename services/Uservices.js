@@ -48,10 +48,10 @@ export const createUser = (finalData) => {
   return api.post("swp391/api/admin/register", finalData);
 };
 export const getProducts = () => {
-  return api.get("swp391/api/products/all_products");
+  return api.get("public/all_products");
 };
 export const getDiamonds = () => {
-  return api.get("swp391/api/diamonds/all_diamonds");
+  return api.get("public/all_diamonds");
 };
 export const deleteDiamond = (id) => {
   return api.post(`swp391/api/diamonds/delete_diamond/${id}`);

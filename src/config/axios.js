@@ -19,6 +19,7 @@ api.interceptors.request.use(
 
     // Check if token exists
     if (token) {
+      config.headers["Content-Type"] = "application/json";
       config.headers["Authorization"] = `Bearer ${token}`;
     } else {
       console.warn("No token found in localStorage");
