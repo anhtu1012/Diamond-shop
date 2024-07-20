@@ -5,7 +5,7 @@ import { Col, Row } from "antd";
 import { Button, Form, Input } from "antd";
 import Container from "../../../components/container/Container";
 import { Content } from "antd/es/layout/layout";
-import { Link, useOutletContext } from "react-router-dom";
+import { Link, useLocation, useOutletContext } from "react-router-dom";
 import Relate from "../../../components/carousel/related";
 import LoadingTruck from "../../../components/loading";
 import { CartProduct } from "../../../components/Cardd/CartProduct";
@@ -42,6 +42,11 @@ function KimCuongGIA() {
   const [priceFilter, setPriceFilter] = useState("default");
   const [loading, setLoading] = useState(true);
   const productsPerPage = 16;
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   useEffect(() => {
     setLoading(true);

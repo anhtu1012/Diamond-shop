@@ -9,7 +9,12 @@
   font-family: "Roboto", sans-serif;
   behavior: smooth;
 }
-html,
+html {
+  scroll-behavior: smooth !important;
+}
+#container {
+  overflow-y: scroll;
+}
 body {
   background-color: white;
 }

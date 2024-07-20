@@ -16,6 +16,7 @@ import "./index.scss";
 import { TbTruckDelivery } from "react-icons/tb";
 import {
   Link,
+  useLocation,
   useNavigate,
   useOutletContext,
   useParams,
@@ -37,6 +38,11 @@ const DiamondDetailss = () => {
   const [feedBacks, setFeedBacks] = useState([]);
   const user = useSelector(selectUser);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();

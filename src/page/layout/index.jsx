@@ -55,7 +55,12 @@ function Layout() {
 
   return (
     <div className="main">
-      <Header quantity={quantity} setQuantity={setQuantity} />
+
+      <div className="header">
+        {" "}
+        <Header quantity={quantity} setQuantity={setQuantity} />
+      </div>
+
       <Outlet context={contextValue} />
       <FloatButton.Group
         trigger="hover"

@@ -688,6 +688,7 @@ function Cart() {
                     <span style={{ fontWeight: "300" }}>
                       (Điểm của bạn: {Math.floor(dataCart?.user.totalPoints)})
                     </span>
+                    <p style={{fontWeight: '300'}}> 1 điểm = 500.000 vnđ</p>
                   </span>
                   <Form.Item name="points">
                     <Input
@@ -701,10 +702,10 @@ function Cart() {
                     />
                   </Form.Item>
                 </div>
-                <p> 1 điểm = 500.000 vnđ</p>
+                
                 <div className="cart_total_price">
                   <span className="cart_total_price_label">
-                    Thành tiền (2 sản phẩm):
+                    Thành tiền ({dataCart.items[0].quantity} sản phẩm):
                   </span>
                   <span className="cart_total_price_value">
                     {totalCartValue.toLocaleString("de-DE", {
@@ -716,7 +717,6 @@ function Cart() {
                 <div className="cart_vat_statement">
                   Giá tham khảo đã bao gồm VAT
                 </div>
-
                 <Button
                   className="confirm_button"
                   type="primary"
