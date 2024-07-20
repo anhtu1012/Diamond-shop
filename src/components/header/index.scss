@@ -1,3 +1,4 @@
+
 .container-fluid {
   top: 0;
   right: 0;
@@ -6,7 +7,10 @@
   background-color: white;
   &.sticky {
     position: fixed;
-    top: 0;
+    width: 1480px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    top: 0px;
     width: 100%;
   }
   .header {
@@ -125,7 +129,6 @@
       }
     }
   }
-  
 
   .menu-toggle {
     display: none;

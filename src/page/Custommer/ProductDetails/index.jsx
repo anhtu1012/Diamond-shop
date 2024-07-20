@@ -12,7 +12,7 @@ import {
 import Container from "../../../components/container/Container";
 import "./index.scss";
 
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import CommitmentQuality from "../../../components/DamBaoChatLuong";
 import { TbTruckDelivery } from "react-icons/tb";
 import Relate from "../../../components/carousel/related";
@@ -29,6 +29,12 @@ const ProductDetails = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [feedBacks, setFeedBacks] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();

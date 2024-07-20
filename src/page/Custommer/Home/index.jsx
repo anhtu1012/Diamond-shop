@@ -6,10 +6,16 @@ import Relate from "../../../components/carousel/related";
 import Container from "../../../components/container/Container";
 import VideoEmbed from "../../../components/video";
 import "./index.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function HomePage() {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
 
   useEffect(() => {
     const hasShownModal = sessionStorage.getItem("hasShownModal");
@@ -18,6 +24,10 @@ function HomePage() {
       sessionStorage.setItem("hasShownModal", "true");
     }
   }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -30,7 +40,6 @@ function HomePage() {
   return (
     <div style={{ overflow: "hidden" }}>
       <Carousel className="carousel" />
-
       <Container>
         <Row className="home_diamond_nature">
           <Row className="section">
