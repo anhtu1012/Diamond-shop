@@ -1,4 +1,3 @@
-
 .container-fluid {
   top: 0;
   right: 0;
@@ -12,15 +11,18 @@
     margin-bottom: 0px;
     top: 0px;
     width: 100%;
+    height: 50px;
     .header,
     .nav {
       transform: translateY(-180%);
       transition: transform 1s ease-in-out;
+      background-color: white;
     }
     &.active {
       .header,
       .nav {
         transform: translateY(0);
+        background-color: white;
       }
     }
   }
