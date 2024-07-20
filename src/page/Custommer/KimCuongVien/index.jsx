@@ -1,6 +1,6 @@
 import { Breadcrumb, Button, Col, Row, Select, Table, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { Link, useOutletContext } from "react-router-dom";
+import { Link, useLocation, useOutletContext } from "react-router-dom";
 import Container from "../../../components/container/Container";
 import "./index.scss";
 import { useState, useEffect } from "react";
@@ -12,6 +12,11 @@ import { useMediaQuery } from "react-responsive";
 function KimCuongVien() {
   const { allDiamond } = useOutletContext(); // Lấy allProduct từ context
   const [visibleProducts, setVisibleProducts] = useState(10);
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   const handleLoadMore = () => {
     setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 10);
