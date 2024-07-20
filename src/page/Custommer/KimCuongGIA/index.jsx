@@ -207,7 +207,19 @@ function KimCuongGIA() {
             onChange={handlePageChange}
           />
         </div>
-        <Relate />
+        <div>
+          <h2
+            style={{
+              textAlign: "center",
+              padding: "10px",
+              fontSize: "25px",
+              fontWeight: "bold",
+            }}
+          >
+            Có thể bạn quan tâm
+          </h2>
+          <Relate numberOfSlides={4} autoplay category="Nhẫn Kim Cương Nữ" />
+        </div>
         <div className="form-nhan">
           <h2 style={{ fontWeight: "400" }}>Nhận tư vấn miễn phí từ Diamond</h2>
           <i style={{ color: "gray" }}>

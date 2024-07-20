@@ -1,8 +1,8 @@
 import axios from "axios";
 
 // Set up base URL and timeout
-const baseUrl = "https://diamondshopproject.azurewebsites.net/";
-// const baseUrl = "http://localhost:8080/";
+// const baseUrl = "https://diamondshopproject.azurewebsites.net/";
+const baseUrl = "http://localhost:8080/";
 const config = {
   baseURL: baseUrl,
   timeout: 3000000,

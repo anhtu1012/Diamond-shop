@@ -98,7 +98,7 @@ export default function Relate({
             : isTablet
             ? data === "diamonds"
               ? 2
-              : numberOfSlides -2
+              : numberOfSlides - 2
             : numberOfSlides
         }
         grid={{
@@ -115,20 +115,22 @@ export default function Relate({
         modules={autoplay ? [Autoplay, Grid, Navigation] : [Grid, Navigation]}
         className={`relate ${rows === 2 ? "multi-item" : ""}`}
       >
-        {displayedItems.map((item) => (
-          <SwiperSlide
-            key={item.productID || item.diamondID}
-            className="multi-slide"
-          >
-            <div onClick={handleCardClick}>
-              {data === "diamonds" ? (
-                <CartProduct diamond={item} />
-              ) : (
-                <CartProduct product={item} />
-              )}
-            </div>
-          </SwiperSlide>
-        ))}
+        {displayedItems
+          .filter((item) => item.status === true && item.diamondID !== null)
+          .map((item) => (
+            <SwiperSlide
+              key={item.productID || item.diamondID}
+              className="multi-slide"
+            >
+              <div onClick={handleCardClick}>
+                {data === "diamonds" ? (
+                  <CartProduct diamond={item} />
+                ) : (
+                  <CartProduct product={item} />
+                )}
+              </div>
+            </SwiperSlide>
+          ))}
       </Swiper>
     </div>
   );

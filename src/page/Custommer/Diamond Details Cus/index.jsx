@@ -56,6 +56,10 @@ const DiamondDetailss = () => {
     fetchProductByIds(diamondID);
   }, []);
   const hanldeAddtoCart = async () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     try {
       const data = {
         userId: user.userID,

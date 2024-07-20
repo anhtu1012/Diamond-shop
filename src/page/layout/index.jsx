@@ -52,10 +52,10 @@ function Layout() {
       ></iframe>
     </div>
   );
+
   return (
     <div className="main">
       <Header quantity={quantity} setQuantity={setQuantity} />
-
       <Outlet context={contextValue} />
       <FloatButton.Group
         trigger="hover"

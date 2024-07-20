@@ -52,6 +52,7 @@ const OrderCustomer = () => {
           </div>
           {order.productCustomize && order.productCustomize.product && (
             <img
+              width={130}
               className="img_main"
               src={order.productCustomize.product.productImages[0].imageUrl}
               alt={order.productCustomize.product.productName}
@@ -155,7 +156,12 @@ const OrderCustomer = () => {
             </div>
           </div>
         </Col>
-        <Col xs={24} sm={6} className="text-center order_date_col">
+        <Col
+          xs={24}
+          sm={6}
+          style={{ fontSize: "20px" }}
+          className="text-center order_date_col"
+        >
           {formattedDate}
         </Col>
         <Col

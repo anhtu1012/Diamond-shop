@@ -49,13 +49,21 @@ export function CartProduct({ product, diamond }) {
         </div>
       }
     >
-      <Row>
+      <Row style={{ height: "100px" }}>
         <Col span={24} style={{ textAlign: "center" }}>
           <h5>{id}</h5>
         </Col>
-        <Col span={24} style={{ textAlign: "center" }}>
+        <Col
+          span={24}
+          style={{
+            textAlign: "center",
+            height: "60px",
+            textTransform: "uppercase",
+          }}
+        >
           <h3 style={{ color: "#15393f" }}>{title}</h3>
         </Col>
+        <div></div>
         <Col span={24} style={{ textAlign: "center" }}>
           <h4>
             {totalPrice.toLocaleString("vi-VN", {
