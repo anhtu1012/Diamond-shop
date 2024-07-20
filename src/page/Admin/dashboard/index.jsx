@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
 
-import {
-  Card,
-  Col,
-  Radio,
-  Row,
-  Table,
-  Typography
-} from "antd";
+import { Card, Col, Radio, Row, Table, Typography } from "antd";
 import Paragraph from "antd/lib/typography/Paragraph";
 
 import moment from "moment/moment";
 import {
   getCompareDay,
+  getOrderPending,
   getTotalRevenueDate,
+  getTotalUserMonth,
+  listNeworder,
   listOrderFailed,
   listOrderReturn,
   listOrderSuccessfully,
@@ -23,9 +19,8 @@ import LineChart from "../../../components/chart/LineChart";
 import "./main.css";
 
 function Dashboard() {
-  const { Title} = Typography;
+  const { Title } = Typography;
   const [totalDate, setTotalDate] = useState(0);
-
   const [orders, setOrders] = useState([]);
   const [orderType, setOrderType] = useState("a");
   useEffect(() => {
@@ -35,6 +30,30 @@ function Dashboard() {
     };
     fetchTotalRevenueDate();
   }, [totalDate]);
+
+  const [userMonth, setUserMonth] = useState(0);
+  useEffect(() => {
+    const fetchTotalUserMonth = async () => {
+      const res = await getTotalUserMonth();
+      setUserMonth(res.data.data);
+    };
+    fetchTotalUserMonth();
+  }, [userMonth]);
+
+  const [quantityPending, setQuantityPending] = useState();
+  useEffect(() => {
+    const fetchOrderPeding = async () => {
+      try {
+        const res = await getOrderPending();
+        setQuantityPending(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchOrderPeding();
+  }, [quantityPending]);
+
   const [compareDay, setCompareDay] = useState(0);
   useEffect(() => {
     const fetchFetCompareDay = async () => {
@@ -49,12 +68,15 @@ function Dashboard() {
       let res;
       switch (orderType) {
         case "a":
-          res = await listOrderReturn();
+          res = await listNeworder();
           break;
         case "b":
-          res = await listOrderSuccessfully();
+          res = await listOrderReturn();
           break;
         case "c":
+          res = await listOrderSuccessfully();
+          break;
+        case "d":
           res = await listOrderFailed();
           break;
         default:
@@ -184,9 +206,9 @@ function Dashboard() {
       bnb: compareDay < 0 ? "redtext" : "bnb2",
     },
     {
-      today: "Today’s Users",
-      title: "3,200",
-      persent: "+20%",
+      today: "Người dùng mới (tháng)",
+      title: `${userMonth}`,
+      // persent: "+20%",
       icon: profile,
       bnb: "bnb2",
     },
@@ -198,15 +220,14 @@ function Dashboard() {
       bnb: "redtext",
     },
     {
-      today: "New Orders",
-      title: "$13,200",
-      persent: "10%",
+      today: "Đơn hàng mới",
+      title: `${quantityPending}`,
+      // persent: "10%",
       icon: cart,
       bnb: "bnb2",
     },
   ];
 
-  
   return (
     <div className="main">
       <div className="layout-content">
@@ -259,7 +280,9 @@ function Dashboard() {
               <div className="project-ant">
                 <div>
                   <Title level={5}>Đơn hàng</Title>
-                  <Paragraph className="lastweek">trong ngày của cửa hàng</Paragraph>
+                  <Paragraph className="lastweek">
+                    trong ngày của cửa hàng
+                  </Paragraph>
                 </div>
                 <div className="ant-filtertabs">
                   <div className="antd-pro-pages-dashboard-analysis-style-salesExtra">
@@ -267,9 +290,10 @@ function Dashboard() {
                       onChange={(e) => setOrderType(e.target.value)}
                       defaultValue="a"
                     >
-                      <Radio.Button value="a">Hoàn Trả</Radio.Button>
-                      <Radio.Button value="b">Thành Công</Radio.Button>
-                      <Radio.Button value="c">Đã Hủy</Radio.Button>
+                      <Radio.Button value="a">Chờ xác nhận</Radio.Button>
+                      <Radio.Button value="b">Hoàn Trả</Radio.Button>
+                      <Radio.Button value="c">Thành Công</Radio.Button>
+                      <Radio.Button value="d">Đã Hủy</Radio.Button>
                     </Radio.Group>
                   </div>
                 </div>
@@ -279,7 +303,6 @@ function Dashboard() {
               </div>
             </Card>
           </Col>
-          
         </Row>
       </div>
     </div>

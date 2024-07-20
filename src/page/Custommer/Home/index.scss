@@ -173,6 +173,19 @@ html {
   justify-content: center;
   align-items: center;
 }
+.ant-modal .ant-modal-close-x {
+  display: flex;
+  font-size: 30px;
+  font-style: normal;
+  line-height: 32px;
+  justify-content: center;
+  text-transform: none;
+  text-rendering: auto;
+  color: black;
+  margin-left: -30px;
+  margin-top: 10px;
+}
+
 
 .modal-image {
   width: 100%;

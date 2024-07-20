@@ -2,17 +2,31 @@ import ReactApexChart from "react-apexcharts";
 import { Typography } from "antd";
 import { MinusOutlined } from "@ant-design/icons";
 import LChartConfig from "./configs/lineChart";
+import { useEffect, useState } from "react";
+import { getCompareDay } from "../../../services/Uservices";
 function LineChart() {
   const { Title, Paragraph } = Typography;
   const lineChart = LChartConfig();
+  const [compareDay, setCompareDay] = useState(0);
+  useEffect(() => {
+    const fetchFetCompareDay = async () => {
+      const res = await getCompareDay();
+      setCompareDay(res.data.data);
+    };
+    fetchFetCompareDay();
+  }, [compareDay]);
   return (
     <>
       <div className="linechart">
         <div>
           <Title level={5}>Doanh Thu</Title>
-          <Paragraph className="lastweek">
-            so với ngày hôm qua <span className="bnb2">+30%</span>
-          </Paragraph>
+          {compareDay !== null ? (
+            <Paragraph className="lastweek">
+              so với ngày hôm qua <span className="bnb2">{compareDay}%</span>
+            </Paragraph>
+          ) : (
+            ""
+          )}
         </div>
         <div className="sales">
           <ul>
