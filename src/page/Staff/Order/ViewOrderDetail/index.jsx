@@ -206,7 +206,7 @@ function ViewOrderDetailsStaff() {
   const handleUpdate = async () => {
     try {
       const status = {
-        status: "Đã Giao",
+        status: "Đã giao",
         reason: "",
       };
       await createOrder(orderID, status);
