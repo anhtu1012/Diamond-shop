@@ -12,6 +12,7 @@ function ViewUser() {
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
   const [dataSource, setDataSource] = useState([]);
+  const [exportFormat, setExportFormat] = useState("excel"); // Default export format
 
   async function handledGetAllUser() {
     try {
@@ -154,7 +155,7 @@ function ViewUser() {
 
   const handleReport = async () => {
     try {
-      await reportFormat("pdf");
+      await reportFormat(exportFormat);
     } catch (error) {
       console.log(error.response);
     }
@@ -235,12 +236,20 @@ function ViewUser() {
 
   return (
     <div className="all-account">
-      <div style={{ paddingBottom: "5px" }}>
+      <div style={{ paddingBottom: "5px", display: "flex", alignItems: "center" }}>
+        <Select
+          defaultValue="excel"
+          style={{ width: 120, marginRight: 10 }}
+          onChange={(value) => setExportFormat(value)}
+        >
+          <Select.Option value="excel">Excel</Select.Option>
+          <Select.Option value="pdf">PDF</Select.Option>
+        </Select>
         <Button
           onClick={handleReport}
           style={{ background: "green", fontWeight: "bold", color: "white" }}
         >
-          Xuất Excel
+          Xuất
         </Button>
       </div>
       <Table

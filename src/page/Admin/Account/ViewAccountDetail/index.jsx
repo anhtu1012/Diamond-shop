@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+
 import { useEffect, useState } from "react";
 import {
   Form,
@@ -12,8 +13,6 @@ import {
   Image,
   Row,
   Col,
-  Modal,
-  Radio,
   Tabs,
   Rate,
 } from "antd";
@@ -23,7 +22,6 @@ import { Content } from "antd/es/layout/layout";
 import { getDistricts, getWards, provinces } from "vietnam-provinces";
 import { TiArrowBack } from "react-icons/ti";
 // import uploadFile from "../../../../utils/upload";
-import ImgCrop from "antd-img-crop";
 import {
   fetchUserById,
   getOrderById,
@@ -84,6 +82,14 @@ function ProfileAccount() {
     const userData = response.data.data;
     setUser(userData);
     console.log(response.data.data);
+    const addressParts = user.address.split(",");
+
+    const addressDetails = {
+      province: addressParts[3] || "",
+      district: addressParts[2] || "",
+      ward: addressParts[1] || "",
+      detailAddress: addressParts[0] || "",
+    };
     setOriginalValues({
       firstName: userData.firstName,
       lastName: userData.lastName,
@@ -97,6 +103,7 @@ function ProfileAccount() {
       yearOfBirth: moment(user.yearOfBirth, "YYYY-MM-DD"),
       role: userData.role.roleID,
       enabled: userData.enable,
+      ...addressDetails,
     });
 
     form.setFieldsValue({
@@ -114,6 +121,7 @@ function ProfileAccount() {
       role: userData.role.roleID,
       createAt: moment(user.createAt, "YYYY-MM-DD"),
       enabled: userData.enable,
+      ...addressDetails,
     });
     setFileList([
       {
@@ -125,12 +133,9 @@ function ProfileAccount() {
     ]);
   };
   useEffect(() => {
-    fetchUserByIds(userID);
-  }, [userID]);
+    fetchUserByIds();
+  }, []);
 
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
   const fetchOrderById = async (userID) => {
     try {
       const res = await getOrderById(userID);
@@ -315,40 +320,48 @@ function ProfileAccount() {
 
   const handleUpdate = async () => {
     try {
-      const values = await form.validateFields();
+      const formValues = await form.validateFields();
+
+      const { province, district, ward, detailAddress } = formValues;
+
+      const selectedProvince = provinces.find((p) => p.code === province);
+      const selectedDistrict = districts.find((d) => d.code === district);
+      const selectedWard = wards.find((w) => w.code === ward);
+      const fullAddress = `${detailAddress}, ${
+        selectedWard ? selectedWard.name + ", " : ""
+      }${selectedDistrict ? selectedDistrict.name + ", " : ""}${
+        selectedProvince ? selectedProvince.name : ""
+      }`;
+
+      const currentValues = await form.validateFields();
       let updatedDetails = {};
+
       if (fileList.length > 0 && fileList[0].originFileObj) {
         setUploading(true);
         const avata = await uploadFile(fileList[0].originFileObj);
         setUploading(false);
         updatedDetails.avata = avata;
       }
-      if (values.email !== originalValues.email) {
-        updatedDetails.email = values.email;
+      if (user.firstName !== currentValues.firstName) {
+        updatedDetails.firstName = currentValues.firstName;
       }
-      if (values.firstName !== originalValues.firstName) {
-        updatedDetails.originPrice = values.originPrice;
+      if (user.lastName !== currentValues.lastName) {
+        updatedDetails.lastName = currentValues.lastName;
       }
-      if (values.lastName !== originalValues.lastName) {
-        updatedDetails.lastName = values.lastName;
+      if (user.address !== fullAddress) {
+        updatedDetails.address = fullAddress;
       }
-      if (values.birthDay !== originalValues.birthDay) {
-        updatedDetails.birthDay = values.birthDay;
+      if (user.phoneNumber !== currentValues.phone) {
+        updatedDetails.phoneNumber = currentValues.phone;
       }
-      if (values.gender !== originalValues.gender) {
-        updatedDetails.gender = values.gender;
+      if (user.gender !== currentValues.gender) {
+        updatedDetails.gender = currentValues.gender;
       }
-      if (values.address !== originalValues.address) {
-        updatedDetails.address = values.address;
+      if (user.yearOfBirth !== currentValues.yearOfBirth) {
+        updatedDetails.yearOfBirth = currentValues.yearOfBirth;
       }
-      if (values.phoneNumber !== originalValues.phoneNumber) {
-        updatedDetails.phoneNumber = values.phoneNumber;
-      }
-      if (values.role.roleID !== originalValues.role.roleID) {
-        updatedDetails.role.roleID = values.role.roleID;
-      }
-
       if (Object.keys(updatedDetails).length > 0) {
+        console.log(updatedDetails);
         await updateUser(user.userID, updatedDetails);
         fetchUserByIds(user.userID);
         setIsEditing(false);
@@ -627,7 +640,7 @@ function ProfileAccount() {
                                   </div>
                                   <div className="row">
                                     <p>Số điện thoại:</p>
-                                    <span>{user.phoneNumber}</span>
+                                    <span>{user.phone}</span>
                                   </div>
                                   <div className="row">
                                     <p>Phân quyền:</p>
@@ -654,14 +667,6 @@ function ProfileAccount() {
                                   <Button
                                     type="primary"
                                     className="button-xac-nhan"
-                                    onClick={handleEdit}
-                                    style={{ background: "#15393f" }}
-                                  >
-                                    Chỉnh sửa
-                                  </Button>
-                                  <Button
-                                    type="primary"
-                                    className="button-xac-nhan"
                                     onClick={handleDelete}
                                     style={{
                                       marginLeft: "10px",
@@ -679,291 +684,6 @@ function ProfileAccount() {
                     </Col>
                     <Col span={1}></Col>
                   </Row>
-
-                  <div className="update-profile">
-                    <Modal
-                      title="Chỉnh sửa tài khoản"
-                      open={isEditing}
-                      onCancel={() => setIsEditing(false)}
-                      onOk={handleSave}
-                      cancelText="Hủy"
-                      okText="Lưu"
-                      confirmLoading={uploading}
-                    >
-                      <Form
-                        form={form}
-                        layout="vertical"
-                        onFinish={onFinish}
-                        initialValues={{
-                          email: user.email,
-                          firstName: user.firstName,
-                          lastName: user.lastName,
-                          address: user.address,
-                          phoneNumber: user.phoneNumber,
-                          userRole,
-                          formattedDate,
-                          gender: user.gender,
-                        }}
-                      >
-                        <Form.Item
-                          name="avata"
-                          valuePropName="fileList"
-                          className="avata-user"
-                        >
-                          <ImgCrop rotationSlider>
-                            <Upload
-                              action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                              listType="picture-circle"
-                              fileList={fileList}
-                              onChange={onChange}
-                              onPreview={handlePreview}
-                              onRemove={handleDeleteImage}
-                              style={{ fontSize: "30px" }}
-                            >
-                              {fileList.length < 1 && "+ Upload"}
-                            </Upload>
-                          </ImgCrop>
-                        </Form.Item>
-                        <Row gutter={24}>
-                          <Col span={24}>
-                            <Form.Item
-                              label="Email"
-                              name="email"
-                              rules={[
-                                {
-                                  required: true,
-                                  message: "Vui lòng nhập email!",
-                                },
-                              ]}
-                            >
-                              <Input placeholder="....@gmail.com" />
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item
-                              label="Họ"
-                              name="firstName"
-                              rules={[
-                                {
-                                  required: true,
-                                  message: "Vui lòng nhập tên nick!",
-                                },
-                              ]}
-                            >
-                              <Input placeholder="Họ*" />
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item
-                              label="Tên"
-                              name="lastName"
-                              rules={[
-                                {
-                                  required: true,
-                                  message: "Vui lòng nhập tên nick!",
-                                },
-                              ]}
-                            >
-                              <Input placeholder="Tên*" />
-                            </Form.Item>
-                          </Col>
-                        </Row>
-                        <Row gutter={24}>
-                          <Col span={12}>
-                            <Form.Item
-                              label="Giới tính"
-                              name="gender"
-                              rules={[
-                                {
-                                  required: true,
-                                  message: "Vui lòng nhập tên nick!",
-                                },
-                              ]}
-                            >
-                              <Radio.Group onChange={genderText}>
-                                <Radio value="MALE">Nam</Radio>
-                                <Radio value="FEMALE">Nữ</Radio>
-                              </Radio.Group>
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item
-                              label="Ngày sinh"
-                              name="formattedDate"
-                              rules={[
-                                {
-                                  required: true,
-                                  message: "Vui lòng nhập tên nick!",
-                                },
-                              ]}
-                            >
-                              <Input defaultValue={formattedDate} />
-                            </Form.Item>
-                          </Col>
-                        </Row>
-                        <Form.Item
-                          label="Tỉnh/TP"
-                          name="city"
-                          rules={[
-                            {
-                              required: true,
-                              message: "Xin hãy chọn Tỉnh/TP!",
-                            },
-                          ]}
-                        >
-                          <Select
-                            className="input"
-                            placeholder="Tỉnh/TP*"
-                            showSearch
-                            onChange={handleProvinceChange}
-                            filterOption={(input, option) =>
-                              option.children
-                                .toLowerCase()
-                                .indexOf(input.toLowerCase()) >= 0
-                            }
-                          >
-                            {provinces.map((province) => (
-                              <Option key={province.code} value={province.code}>
-                                {province.name}
-                              </Option>
-                            ))}
-                          </Select>
-                        </Form.Item>
-                        <Row gutter={24}>
-                          <Col span={12}>
-                            <Form.Item
-                              label="Quận/Huyện"
-                              name="district"
-                              rules={[
-                                {
-                                  required: true,
-                                  message: "Xin hãy chọn Quận/Huyện!",
-                                },
-                              ]}
-                            >
-                              <Select
-                                className="input"
-                                placeholder="Quận/Huyện*"
-                                showSearch
-                                onChange={handleDistrictChange}
-                                filterOption={(input, option) =>
-                                  option.children
-                                    .toLowerCase()
-                                    .indexOf(input.toLowerCase()) >= 0
-                                }
-                              >
-                                {districts.map((district) => (
-                                  <Option
-                                    key={district.code}
-                                    value={district.code}
-                                  >
-                                    {district.name}
-                                  </Option>
-                                ))}
-                              </Select>
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item
-                              label="Phường/Xã"
-                              name="ward"
-                              rules={[
-                                {
-                                  required: true,
-                                  message: "Xin hãy chọn Phường/Xã!",
-                                },
-                              ]}
-                            >
-                              <Select
-                                className="input"
-                                placeholder="Phường/Xã*"
-                                showSearch
-                                filterOption={(input, option) =>
-                                  option.children
-                                    .toLowerCase()
-                                    .indexOf(input.toLowerCase()) >= 0
-                                }
-                              >
-                                {wards.map((ward) => (
-                                  <Option key={ward.code} value={ward.code}>
-                                    {ward.name}
-                                  </Option>
-                                ))}
-                              </Select>
-                            </Form.Item>
-                          </Col>
-                          <Col span={24}>
-                            <Form.Item
-                              label="Địa chỉ cụ thể"
-                              name="address"
-                              rules={[
-                                {
-                                  required: true,
-                                  message: "Xin hãy nhập vào Địa chỉ cụ thể!",
-                                },
-                              ]}
-                            >
-                              <Input placeholder="Địa chỉ cụ thể*" />
-                            </Form.Item>
-                          </Col>
-                        </Row>
-                        <Row gutter={24}>
-                          <Col span={12}>
-                            <Form.Item
-                              label="Số điện thoại"
-                              name="phoneNumber"
-                              rules={[
-                                {
-                                  required: true,
-                                  message: "Vui lòng nhập số điện thoại!",
-                                },
-                              ]}
-                            >
-                              <Input placeholder="Số điện thoại" />
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item
-                              label="Phân quyền"
-                              name="userRole"
-                              readOnly
-                              rules={[
-                                {
-                                  required: true,
-                                  message: "Vui lòng chọn phân quyền!",
-                                },
-                              ]}
-                            >
-                              <Select placeholder="Chọn phân quyền">
-                                <Option value="ROLE_ADMIN">Quản lý</Option>
-                                <Option value="ROLE_STAFF">
-                                  Nhân viên bán hàng
-                                </Option>
-                                <Option value="ROLE_DELIVERY">
-                                  Nhân viên giao hàng
-                                </Option>
-                                <Option value="ROLE_USER">Người dùng</Option>
-                              </Select>
-                            </Form.Item>
-                          </Col>
-                        </Row>
-                      </Form>
-                    </Modal>
-                    {previewImage && (
-                      <Image
-                        wrapperStyle={{
-                          display: "none",
-                        }}
-                        preview={{
-                          visible: previewOpen,
-                          onVisibleChange: (visible) => setPreviewOpen(visible),
-                          afterOpenChange: (visible) =>
-                            !visible && setPreviewImage(""),
-                        }}
-                        src={previewImage}
-                      />
-                    )}
-                  </div>
                 </div>
               </Content>
             </div>

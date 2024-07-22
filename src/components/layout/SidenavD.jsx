@@ -18,8 +18,8 @@ function SidenavD({ collapsed }) {
     const fetchOrderPeding = async () => {
       try {
         const res = await getOrderDelivery();
-        setQuantityDelivery(res.data);
-        console.log(res.data);
+        setQuantityDelivery(res.data.data);
+        console.log(res.data.data);
       } catch (error) {
         console.log(error);
       }

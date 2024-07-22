@@ -52,7 +52,7 @@ function ProductDetail() {
   const fetchProductByIds = async (productID) => {
     try {
       const response = await fetchProductById(productID);
-      const productData = response.data;
+      const productData = response.data.data;
       setProduct(productData);
       console.log(productData);
       const totalQuantity = productData.sizes.reduce(
@@ -89,12 +89,8 @@ function ProductDetail() {
         }),
         status: productData.status ? "Còn hàng" : "Hết hàng",
         stoneWeight: productData.stoneWeight,
-        wagePrice: productData.wagePrice.toLocaleString("vi-VN", {
-          maximumFractionDigits: 0,
-        }),
-        originalPrice: productData.originalPrice.toLocaleString("vi-VN", {
-          maximumFractionDigits: 0,
-        }),
+        wagePrice: productData.wagePrice,
+        originalPrice: productData.originalPrice,
         ratio: productData.ratio,
         categoryName: productData.category.categoryName,
         sizes: productData.sizes,
@@ -637,38 +633,7 @@ function ProductDetail() {
                           />
                         </Form.Item>
                       </Col>
-                      {/* <Col span={8}>
-                      <Form.Item
-                        label="Loại sản phẩm"
-                        name="categoryName"
-                        rules={[
-                          {
-                            required: true,
-                            message: "Vui lòng không để trống",
-                          },
-                        ]}
-                        className="custom-form-item"
-                      >
-                        <Select
-                          style={{ width: "100%" }}
-                          defaultValue={product?.category?.categoryName}
-                        >
-                          {[
-                            "Nhẫn cầu hôn kim cương",
-                            "Nhẫn cưới kim cương",
-                            "Nhẫn kim cương",
-                            "Bông tai kim cương",
-                            "Lắc/Vòng tay kim cương",
-                            "Mặt dây chuyền kim cương",
-                          ].map((category) => (
-                            <Select.Option key={category} value={category}>
-                              {category}
-                            </Select.Option>
-                          ))}
-                        </Select>
-                      </Form.Item>
-                    </Col> */}
-                      <Col span={12}>
+                      {/* <Col span={12}>
                         <Form.Item
                           label="Phân loại"
                           name="productType"
@@ -699,7 +664,7 @@ function ProductDetail() {
                             ))}
                           </Select>
                         </Form.Item>
-                      </Col>
+                      </Col> */}
                       <Col span={12}>
                         <Form.Item
                           label="Thương hiệu"

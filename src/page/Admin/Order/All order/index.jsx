@@ -48,7 +48,7 @@ function AllOrder() {
   const fetchAllOrder = async () => {
     setLoading(true);
     const res = await getAllOrder();
-    setDataSource(res.data);
+    setDataSource(res.data.data);
     setLoading(false);
   };
 

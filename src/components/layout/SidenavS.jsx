@@ -34,7 +34,7 @@ function SidenavS({ collapsed }) {
     const fetchOrderPeding = async () => {
       try {
         const res = await getOrderPending();
-        setQuantityPending(res.data);
+        setQuantityPending();
       } catch (error) {
         console.log(error);
       }
