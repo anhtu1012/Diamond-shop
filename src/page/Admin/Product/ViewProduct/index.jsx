@@ -30,7 +30,7 @@ function ViewProduct() {
 
   async function fetchProducts() {
     const response = await getProducts();
-    const formattedData = response.data.map((item, index) => ({
+    const formattedData = response.data.data.map((item, index) => ({
       ...item,
       key: index, // Ensure each item has a unique key
       category: item.category.categoryName,

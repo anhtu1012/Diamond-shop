@@ -66,7 +66,7 @@ function DiamondDetails() {
 
   const fetchDiamondByIds = async (diamondID) => {
     const response = await fetchDiamondById(diamondID);
-    const diamondData = response.data;
+    const diamondData = response.data.data;
     setDiamond(diamondData);
     setOriginalValues({
       diamondName: diamondData.diamondName,

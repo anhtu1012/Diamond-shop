@@ -59,14 +59,7 @@ const trangSucCuoiItems = [
     ),
     key: "nhan-cuoi",
   },
-  {
-    label: (
-      <div style={{ fontSize: "15px", padding: "5px 20px" }}>
-        Bộ Trang Sức Cưới Kim Cương
-      </div>
-    ),
-    key: "bo-trang-suc-cuoi",
-  },
+ 
 ];
 
 const trangSucKimCuongItems = [
@@ -102,14 +95,7 @@ const trangSucKimCuongItems = [
     ),
     key: "mat-day-chuyen-kim-cuong",
   },
-  {
-    label: (
-      <div style={{ fontSize: "15px", padding: "5px 20px" }}>
-        Bộ Sưu Tập Kim Cương
-      </div>
-    ),
-    key: "bo-suu-tap-kim-cuong",
-  },
+  
 ];
 
 const kimCuongVien = [

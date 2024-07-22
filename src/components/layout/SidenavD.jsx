@@ -20,9 +20,11 @@ function SidenavD({ collapsed }) {
   useEffect(() => {
     const fetchOrderPeding = async () => {
       try {
+
         const res = await getOrderDelivery(user.userID);
         setQuantityDelivery(res.data.data);
         console.log(res.data);
+
       } catch (error) {
         console.log(error);
       }

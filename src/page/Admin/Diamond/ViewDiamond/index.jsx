@@ -37,7 +37,7 @@ function ViewDiamond() {
     setLoading(true); // Set loading to true when starting the fetch
     const response = await getDiamonds();
     setDataSource(
-      response.data.map((item, index) => ({ ...item, key: index }))
+      response.data.data.map((item, index) => ({ ...item, key: index }))
     );
     setLoading(false); // Set loading to false when fetch is complete
   }

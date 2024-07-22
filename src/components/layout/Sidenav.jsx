@@ -1,6 +1,5 @@
 import {
   ContainerOutlined,
-  GroupOutlined,
   PieChartFilled,
   ProductOutlined,
   RadarChartOutlined,
@@ -24,7 +23,7 @@ const items = [
     icon: <ShoppingCartOutlined className="side-icon" />,
     children: [
       { key: "/admin-page/don-hang/all", label: "Tất cả đơn hàng" },
-      { key: "/admin-page/don-hang/hoa-don", label: "Hóa đơn" },
+      // { key: "/admin-page/don-hang/hoa-don", label: "Hóa đơn" },
     ],
   },
   {
@@ -52,15 +51,6 @@ const items = [
     children: [
       { key: "tai-khoan/xem-tat-ca-tai-khoan", label: "Xem tất cả" },
       { key: "tai-khoan/tao-tai-khoan", label: "Tạo Tài Khoản" },
-    ],
-  },
-  {
-    key: "sub6",
-    label: "Bộ sưu tập",
-    icon: <GroupOutlined className="side-icon" />,
-    children: [
-      { key: "bo-suu-tap/xem-tat-ca-bo-suu-tap", label: "Xem Bộ Sưu Tập" },
-      { key: "bo-suu-tap/tao-bo-suu-tap", label: "Tạo Bộ Sưu Tập" },
     ],
   },
   {
