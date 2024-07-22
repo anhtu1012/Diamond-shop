@@ -139,7 +139,7 @@ function Payment() {
   useEffect(() => {
     const fetchGetOrderDetail = async () => {
       const res = await getOrderDetail(orderID);
-      setData(res.data);
+      setData(res.data.data);
     };
 
     fetchGetOrderDetail();
@@ -150,9 +150,11 @@ function Payment() {
       const values = form.getFieldsValue();
       const paymentMethod =
         values.paymentMethod === "installment" ? "vnpay" : "paypal";
+      const isDelivery = values.chooseMethod == "home" ? "true" : "false";
       const info = {
         orderID: orderID,
         paymentMethod: paymentMethod,
+        isDelivery: isDelivery,
       };
       console.log(info);
       const res = await checkOut(info);
@@ -248,7 +250,15 @@ function Payment() {
                 </Button>
                 <h2>Phương thức vận chuyển</h2>
               </div>
-              <Form.Item name="chooseMethod">
+              <Form.Item
+                name="chooseMethod"
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng không để trống",
+                  },
+                ]}
+              >
                 <Radio.Group>
                   <Radio
                     value="home"
@@ -290,7 +300,15 @@ function Payment() {
                 </Button>
                 <h2>Phương thức thanh toán</h2>
               </div>
-              <Form.Item name="paymentMethod">
+              <Form.Item
+                name="paymentMethod"
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng không để trống",
+                  },
+                ]}
+              >
                 <Radio.Group>
                   <Radio
                     value="installment"

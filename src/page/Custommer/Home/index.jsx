@@ -16,7 +16,6 @@ function HomePage() {
     window.scrollTo(0, 0);
   }, [location]);
 
-
   useEffect(() => {
     const hasShownModal = sessionStorage.getItem("hasShownModal");
     if (!hasShownModal) {
@@ -80,7 +79,7 @@ function HomePage() {
 
         <Row className="section">
           <Col span={24}>
-            <Relate numberOfSlides={4} data="diamonds" />
+            <Relate numberOfSlides={4} data="diamonds" shape="Round" showAllProducts />
           </Col>
           <Col span={24} style={{ textAlign: "center", padding: "20px 0px" }}>
             <Link to={"/kim-cuong-vien"}>
@@ -109,7 +108,15 @@ function HomePage() {
               </Link>
             </div>
           </Col>
-          <Col span={12} xs={24} sm={24} md={24} lg={12} xl={12} style={{ paddingBottom: "15px" }}>
+          <Col
+            span={12}
+            xs={24}
+            sm={24}
+            md={24}
+            lg={12}
+            xl={12}
+            style={{ paddingBottom: "15px" }}
+          >
             <Relate
               numberOfSlides={2}
               rows={2}
@@ -130,7 +137,15 @@ function HomePage() {
           <Col span={24}>
             <h2 className="h2">TRANG SỨC BÔNG TAI KIM CƯƠNG</h2>
           </Col>
-          <Col span={12} xs={24} sm={24} md={24} lg={12} xl={12} style={{ paddingBottom: "15px" }}>
+          <Col
+            span={12}
+            xs={24}
+            sm={24}
+            md={24}
+            lg={12}
+            xl={12}
+            style={{ paddingBottom: "15px" }}
+          >
             <Relate
               numberOfSlides={2}
               rows={2}
@@ -177,7 +192,12 @@ function HomePage() {
             </div>
           </Col>
           <Col
-          span={12} xs={24} sm={24} md={24} lg={12} xl={12}
+            span={12}
+            xs={24}
+            sm={24}
+            md={24}
+            lg={12}
+            xl={12}
             style={{ paddingBottom: "15px", background: "#fff3f3" }}
           >
             <div className="widget-container">

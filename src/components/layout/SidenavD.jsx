@@ -8,18 +8,23 @@ import { useNavigate } from "react-router-dom";
 import "./layout.scss";
 import { useEffect, useState } from "react";
 import { getOrderDelivery } from "../../../services/Uservices";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/features/counterSlice";
 
 // eslint-disable-next-line react/prop-types
 function SidenavD({ collapsed }) {
   const navigate = useNavigate(); // Hook useNavigate
   const [selectedKey, setSelectedKey] = useState("/admin-page/dashboard");
   const [quantityDelivery, setQuantityDelivery] = useState();
+  const user = useSelector(selectUser);
   useEffect(() => {
     const fetchOrderPeding = async () => {
       try {
-        const res = await getOrderDelivery();
+
+        const res = await getOrderDelivery(user.userID);
         setQuantityDelivery(res.data.data);
-        console.log(res.data.data);
+        console.log(res.data);
+
       } catch (error) {
         console.log(error);
       }

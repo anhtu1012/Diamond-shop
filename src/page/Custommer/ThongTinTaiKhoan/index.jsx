@@ -41,6 +41,7 @@ import moment from "moment/moment";
 import { useForm } from "antd/es/form/Form";
 import Highlighter from "react-highlight-words";
 import { SearchOutlined } from "@ant-design/icons";
+import NoData from "../../../components/nodata";
 
 const { Search } = Input;
 function callback(key) {
@@ -74,7 +75,8 @@ function AccountDetail() {
   const [changeForm] = useForm();
   const fetchOderById = async () => {
     const res = await getOrderById(user.userID);
-    setData(res.data);
+    setData(res.data.data);
+    console.log(res.data.data);
   };
 
   useEffect(() => {
@@ -85,7 +87,8 @@ function AccountDetail() {
     const fetchWarrantyCart = async () => {
       try {
         const res = await getWarrantyCard(user.userID);
-        setDataSource(res.data);
+        setDataSource(res.data.data);
+        console.log(res.data.data);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -429,12 +432,10 @@ function AccountDetail() {
           {formattedDate}
         </Col>
         <Col
-
           xs={24}
           style={{ borderBottom: "dashed 1px gray", padding: "10px 0" }}
         ></Col>
         <Col xs={24} sm={18} className="text-left">
-
           <span>x {order.quantity} Sản Phẩm</span>
           <div>
             <Link to={`/don-hang/chi-tiet-don-hang/${order.orderId}`}>
@@ -458,7 +459,9 @@ function AccountDetail() {
   };
 
   const getDeliveredOrders = () => {
-    return data?.orders?.filter((order) => order.status === "Đã giao") || [];
+    return (
+      data?.[0]?.orders?.filter((order) => order.status === "Đã giao") || []
+    );
   };
 
   const fetchUserByIds = async () => {
@@ -466,13 +469,13 @@ function AccountDetail() {
     const userData = response.data.data;
     setUserr(userData);
 
-    const addressParts = userData.address.split(", ").reverse();
+    const addressParts = user.address.split(",");
 
     const addressDetails = {
-      province: addressParts[0] || "",
-      district: addressParts[1] || "",
-      ward: addressParts[2] || "",
-      detailAddress: addressParts[3] || "",
+      province: addressParts[3] || "",
+      district: addressParts[2] || "",
+      ward: addressParts[1] || "",
+      detailAddress: addressParts[0] || "",
     };
     setOriginalcurrentValues({
       firstName: userData.firstName,
@@ -499,7 +502,7 @@ function AccountDetail() {
       phone: userData.phone,
       enable: userData.enable,
       password: userData.password,
-      yearOfBirth: moment(userData.yearOfBirth, "YYYY-MM-DD"),
+      yearOfBirth: moment(userData.yearOfBirth, "YYYY-MM-DD", "YYYY-MM-DD"),
       role: userData.role.roleID,
       ...addressDetails,
     });
@@ -598,6 +601,7 @@ function AccountDetail() {
       }
       if (Object.keys(updatedDetails).length > 0) {
         console.log(updatedDetails);
+        updatedDetails.address = fullAddress;
         await updateUser(userr.userID, updatedDetails);
         fetchUserByIds(userr.userID);
         setIsEditing(false);
@@ -662,7 +666,7 @@ function AccountDetail() {
     "YYYY-MM-DD"
   );
   const deliveredOrders = getDeliveredOrders();
-
+  console.log(deliveredOrders);
   return (
     <Container>
       <div className="tong-trang-detail">
@@ -1234,44 +1238,53 @@ function AccountDetail() {
               <Tabs tab="Lịch sử mua hàng" key="2">
                 <Row gutter={24}>
                   <Col span={2}></Col>
-                  <Col span={20} className="lich-su-mua-hang">
-                    <p style={{ fontWeight: "500", fontSize: "20px" }}>
-                      Đơn hàng từng mua
-                    </p>
-                    <div className="lich-su-mua-hang-detail">
-                      {deliveredOrders.map((order, index) =>
-                        renderCard(order, index, "Đã giao", "green")
-                      )}
-                    </div>
-                  </Col>
+                  {deliveredOrders !== null ? (
+                    <Col span={20} className="lich-su-mua-hang">
+                      <p style={{ fontWeight: "500", fontSize: "20px" }}>
+                        Đơn hàng từng mua
+                      </p>
+                      <div className="lich-su-mua-hang-detail">
+                        {deliveredOrders.map((order, index) =>
+                          renderCard(order, index, "Đã giao", "green")
+                        )}
+                      </div>
+                    </Col>
+                  ) : (
+                    <NoData />
+                  )}
+
                   <Col span={2}></Col>
                 </Row>
               </Tabs>
               <Tabs tab="Phiếu bảo hành" key="3">
-                <Row gutter={24}>
-                  <Col span={24} style={{ textAlign: "center" }}>
-                    <Search
-                      placeholder="Nhập Mã Bảo Hành"
-                      enterButton="Search"
-                      size="large"
-                      style={{ width: "30%" }}
-                      onSearch={searchWarrantys}
-                      className="custom-search"
-                    />
-                    {isSearchVisible && searchMenu}
-                  </Col>
-                  <Col span={24} style={{ paddingTop: "25px" }}>
-                    {loading ? (
-                      <LoadingTruck /> // Show LoadingTruck while loading
-                    ) : (
-                      <Table
-                        className="table"
-                        columns={columns}
-                        dataSource={dataSource}
+                {dataSource !== null ? (
+                  <Row gutter={24}>
+                    <Col span={24} style={{ textAlign: "center" }}>
+                      <Search
+                        placeholder="Nhập Mã Bảo Hành"
+                        enterButton="Search"
+                        size="large"
+                        style={{ width: "30%" }}
+                        onSearch={searchWarrantys}
+                        className="custom-search"
                       />
-                    )}
-                  </Col>
-                </Row>
+                      {isSearchVisible && searchMenu}
+                    </Col>
+                    <Col span={24} style={{ paddingTop: "25px" }}>
+                      {loading ? (
+                        <LoadingTruck /> // Show LoadingTruck while loading
+                      ) : (
+                        <Table
+                          className="table"
+                          columns={columns}
+                          dataSource={dataSource}
+                        />
+                      )}
+                    </Col>
+                  </Row>
+                ) : (
+                  <NoData />
+                )}
               </Tabs>
             </Tabs>
           </div>

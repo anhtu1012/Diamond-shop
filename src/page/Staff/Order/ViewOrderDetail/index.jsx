@@ -23,6 +23,7 @@ import { VscError } from "react-icons/vsc";
 import { PlusOutlined } from "@ant-design/icons";
 import { createOrder, getOrderDetail } from "../../../../../services/Uservices";
 import LoadingTruck from "../../../../components/loading";
+import { FaRegCheckCircle } from "react-icons/fa";
 
 const statusToStepIndex = {
   "Chờ Xác Nhận": 0,
@@ -30,6 +31,7 @@ const statusToStepIndex = {
   "Chờ giao hàng": 2,
   "Không Thành Công": 2,
   "Đã giao": 3,
+  "Đến cửa hàng lấy": 3,
   "Đã hủy": 4,
   "Đã hoàn tiền": 4,
 };
@@ -185,7 +187,7 @@ function ViewOrderDetailsStaff() {
   useEffect(() => {
     const fetchGetOrderDetail = async () => {
       const res = await getOrderDetail(orderID);
-      setData(res.data);
+      setData(res.data.data);
     };
 
     fetchGetOrderDetail();
@@ -343,7 +345,21 @@ function ViewOrderDetailsStaff() {
                           title: "Chờ giao hàng",
                         },
                         {
-                          title: "Đã giao",
+                          title:
+                            data.status === "Đã giao"
+                              ? "Đã giao"
+                              : "Đến cửa hàng lấy",
+                          icon: (data.status === "Đã giao" ||
+                            data.status === "Đến cửa hàng lấy") && (
+                            <FaRegCheckCircle
+                              size={35}
+                              style={{
+                                color: "white",
+                                background: "green",
+                                borderRadius: "50%",
+                              }}
+                            />
+                          ),
                         },
                         {
                           title:
