@@ -101,7 +101,9 @@ function NhanCuoi() {
     });
     setCurrentPage(pageNumber);
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleSortChange = (value) => {
     setSortOrder(value);
   };

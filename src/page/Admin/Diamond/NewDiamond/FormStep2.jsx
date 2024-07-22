@@ -4,7 +4,9 @@ import { useEffect } from "react";
 
 function FormStep2({ onFinish, initialValues }) {
   const [form] = Form.useForm();
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     if (initialValues) {
       form.setFieldsValue(initialValues);

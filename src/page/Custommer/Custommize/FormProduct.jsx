@@ -52,7 +52,9 @@ function FormProuct({ diamond }) {
   useEffect(() => {
     setCurrentPage(1);
   }, [currentCategory, sortOrder, priceFilter]);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {

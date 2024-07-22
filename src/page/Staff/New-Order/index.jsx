@@ -19,7 +19,9 @@ function NewOrder() {
       setData([]); // Set data to an empty array in case of error
     }
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     fetchNewOrder();
   }, [data]);

@@ -47,7 +47,9 @@ function DiamondDetails() {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [uploading, setUploading] = useState(false);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     fetchDiamondByIds(diamondID);
   }, [diamondID]);

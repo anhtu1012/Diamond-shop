@@ -30,7 +30,9 @@ const ProductDetails = () => {
   const [feedBacks, setFeedBacks] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);

@@ -76,7 +76,9 @@ function AccountDetail() {
     const res = await getOrderById(user.userID);
     setData(res.data);
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     fetchOderById();
   }, []);

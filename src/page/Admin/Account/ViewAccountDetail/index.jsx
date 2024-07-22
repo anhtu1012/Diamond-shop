@@ -78,7 +78,9 @@ function ProfileAccount() {
     setPreviewImage(file.url || file.preview);
     setPreviewOpen(true);
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const fetchUserByIds = async (userID) => {
     const response = await fetchUserById(userID);
     const userData = response.data.data;

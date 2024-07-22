@@ -34,6 +34,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../../redux/features/counterSlice";
 import NoData from "../../../../components/nodata";
+
 const statusToStepIndex = {
   "Chờ Xác Nhận": 0,
   "Chờ thanh toán": 1,
@@ -43,6 +44,7 @@ const statusToStepIndex = {
   "Đã hủy": 4,
   "Đã hoàn tiền": 4,
 };
+
 const renderProductItem = (order, index) => (
   <Row className="staff_order_frame" key={index}>
     <Col span={7} className="staff_order_left">

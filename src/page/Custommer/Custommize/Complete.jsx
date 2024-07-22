@@ -71,7 +71,9 @@ function Complete({ diamond, product, setCurrentStep }) {
       console.error("Error adding to cart:", error);
     }
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="product-details" style={{ paddingTop: "30px" }}>
       <Row justify="center" gutter={[16, 16]}>

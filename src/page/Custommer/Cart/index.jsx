@@ -74,7 +74,9 @@ function Cart() {
       console.error("Failed to fetch cart data:", error);
     }
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     fetchCart();
   }, [userr.userID, form]);

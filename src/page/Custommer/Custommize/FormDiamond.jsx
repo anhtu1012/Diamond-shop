@@ -54,7 +54,9 @@ function FormDiamond({ product }) {
   useEffect(() => {
     setCurrentPage(1);
   }, [sortOrder, priceFilter]);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {

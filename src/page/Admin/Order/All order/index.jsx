@@ -55,7 +55,9 @@ function AllOrder() {
   useEffect(() => {
     fetchAllOrder();
   }, []);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleStatusClick = (status) => {
     setFilterStatus(status);
   };

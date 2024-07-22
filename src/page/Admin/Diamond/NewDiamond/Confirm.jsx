@@ -8,6 +8,7 @@ import { createDiamond } from "../../../../../services/Uservices";
 import { toast } from "react-toastify";
 
 function Confirm({ onFinish, combinedData }) {
+  
   const handleConfirm = async () => {
     try {
       const file = combinedData.fileList[0].originFileObj;

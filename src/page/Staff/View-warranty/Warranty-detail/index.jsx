@@ -39,7 +39,9 @@ function ViewWarrantyDetailS() {
     marginBottom: "5px",
   };
   const [loader, setLoader] = useState(false);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const downloadPDF = () => {
     const capture = document.querySelector(".section-main");
     if (!capture) {

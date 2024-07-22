@@ -33,7 +33,9 @@ function Custommize() {
       dispatch(setProduct(location.state.product));
     }
   }, [location.state, dispatch]);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     if (location.state && location.state.diamond) {
       dispatch(setDiamond(location.state.diamond));

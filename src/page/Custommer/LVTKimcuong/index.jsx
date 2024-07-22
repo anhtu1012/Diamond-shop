@@ -47,7 +47,9 @@ function LacVongTayKimCuong() {
   useEffect(() => {
     setCurrentPage(1); // Reset page number when category, sort order, or price filter changes
   }, [currentCategory, sortOrder, priceFilter]);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     // Simulate data fetching with a timeout
     setLoading(true); // Start loading

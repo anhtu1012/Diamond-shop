@@ -23,7 +23,9 @@ function Layout() {
     );
     setAllDiamond(filteredDiamonds);
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     fetchAllProduct();
     fetchAllDiamond();

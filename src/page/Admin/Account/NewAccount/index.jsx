@@ -41,7 +41,9 @@ const NewAccount = () => {
     const provincesList = getProvinces();
     setProvinces(provincesList);
   }, []);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };

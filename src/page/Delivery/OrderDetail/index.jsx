@@ -181,6 +181,9 @@ function ViewOrderDetailDelivery() {
     }, 0);
   };
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     const fetchGetOrderDetail = async () => {
       const res = await getOrderDetail(orderID);
       setData(res.data);

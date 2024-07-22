@@ -45,7 +45,9 @@ function ViewDiamond() {
   useEffect(() => {
     fetchDiamonds();
   }, []);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);

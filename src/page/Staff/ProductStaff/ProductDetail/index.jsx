@@ -75,7 +75,9 @@ function ProductDetailStaff() {
   useEffect(() => {
     fetchProductByIds(productID);
   }, [productID]);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const {
     token: { borderRadiusLG },
   } = theme.useToken();

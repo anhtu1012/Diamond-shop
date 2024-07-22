@@ -27,6 +27,9 @@ function FormStep1({ onFinish, initialValues }) {
   const [previewImage, setPreviewImage] = useState("");
   const [form] = Form.useForm();
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     if (initialValues) {
       form.setFieldsValue(initialValues);
       setFileList(initialValues.fileList || []);

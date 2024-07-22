@@ -46,7 +46,9 @@ function AllOrder() {
     console.log(dataSource);
     setLoading(false);
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     fetchAllOrder();
   }, []);

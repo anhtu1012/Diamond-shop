@@ -42,7 +42,9 @@ function ViewProductS() {
   useEffect(() => {
     fetchProducts();
   }, []);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);

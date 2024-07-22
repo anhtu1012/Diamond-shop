@@ -19,7 +19,9 @@ function NewOrderDelivery() {
       setData([]);
     }
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     fetchNewOrder();
   }, [data]);

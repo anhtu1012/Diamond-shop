@@ -99,7 +99,9 @@ function MatDayChuyenKimCuong() {
     indexOfFirstProduct,
     indexOfLastProduct
   );
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handlePageChange = (pageNumber) => {
     window.scrollTo({
       top: 0,

@@ -124,7 +124,9 @@ function ProfileAccountStaff() {
   useEffect(() => {
     fetchUserByIds(userID);
   }, [userID]);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const fetchOrderById = async (userID) => {
     try {
       const res = await getOrderById(userID);

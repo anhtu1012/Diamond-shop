@@ -62,7 +62,9 @@ function Dashboard() {
     };
     fetchFetCompareDay();
   }, [compareDay]);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     const fetchOrders = async () => {
       let res;
