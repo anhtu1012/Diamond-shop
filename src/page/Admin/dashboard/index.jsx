@@ -8,6 +8,7 @@ import {
   getCompareDay,
   getOrderPending,
   getTotalRevenueDate,
+  getTotalRevenveYear,
   getTotalUserMonth,
   listNeworder,
   listOrderFailed,
@@ -31,6 +32,16 @@ function Dashboard() {
     fetchTotalRevenueDate();
   }, [totalDate]);
 
+  const [totalYear, setTotalYear] = useState(0);
+  useEffect(() => {
+    const fetchTotalRevenveYear = async () => {
+      const res = await getTotalRevenveYear();
+      setTotalYear(res.data.data);
+    };
+    fetchTotalRevenveYear();
+  }, [totalYear]);
+
+
   const [userMonth, setUserMonth] = useState(0);
   useEffect(() => {
     const fetchTotalUserMonth = async () => {
@@ -45,7 +56,7 @@ function Dashboard() {
     const fetchOrderPeding = async () => {
       try {
         const res = await getOrderPending();
-        setQuantityPending(res.data);
+        setQuantityPending(res.data.data);
       } catch (error) {
         console.log(error);
       }
@@ -213,18 +224,18 @@ function Dashboard() {
       bnb: "bnb2",
     },
     {
-      today: "New Clients",
-      title: "+1,200",
-      persent: "-20%",
-      icon: heart,
-      bnb: "redtext",
-    },
-    {
       today: "Đơn hàng mới",
       title: `${quantityPending}`,
       // persent: "10%",
       icon: cart,
       bnb: "bnb2",
+    },
+    {
+      today: "Doanh thu cả năm",
+      title: `${totalYear.toLocaleString("vi-VN")} `,
+      // persent: "-20%",
+      icon: heart,
+      bnb: "redtext",
     },
   ];
 

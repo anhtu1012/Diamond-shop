@@ -206,6 +206,7 @@ function ViewOrderDetails() {
     // minute: "2-digit",
     // second: "2-digit",
   });
+  const genderText = data?.gender === "MALE" ? "Nam" : "Nữ";
   const handleRemobeOrder = async () => {
     try {
       const status = {
@@ -495,7 +496,7 @@ function ViewOrderDetails() {
                   </div>
                   <div className="row">
                     <p>Giới tính:</p>
-                    <span>{data.gender}</span>
+                    <span>{genderText}</span>
                   </div>
                   <div className="row">
                     <p>Địa chỉ:</p>

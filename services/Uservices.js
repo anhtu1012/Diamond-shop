@@ -176,6 +176,9 @@ export const checkOut = (info) => {
 export const getTotalRevenve = () => {
   return api.get(`swp391/api/dashboards/total_revenue`);
 };
+export const getTotalRevenveYear = () => {
+  return api.get(`swp391/api/dashboards/total_year_revenue`);
+};
 export const getCompareMonth = () => {
   return api.get(`swp391/api/dashboards/compare_month`);
 };
