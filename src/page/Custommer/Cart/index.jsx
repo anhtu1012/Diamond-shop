@@ -217,9 +217,7 @@ function Cart() {
       if (error.response && error.response.status === 400) {
         // Log detailed error response
         console.log("Error response:", error.response.data);
-        message.error(
-          "Đặt hàng không thành công. Vui lòng kiểm tra lại thông tin."
-        );
+        message.error(error.response.data.message);
       } else {
         // Handle other types of errors
         message.error("Đã xảy ra lỗi khi đặt hàng. Vui lòng thử lại sau.");
