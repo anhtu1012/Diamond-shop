@@ -3,9 +3,12 @@ import { useEffect, useState } from "react";
 import { Button, Table, Tag } from "antd";
 
 import { Link } from "react-router-dom";
-import { getAllOrder } from "../../../../services/Uservices";
+import { getOrderStaff } from "../../../../services/Uservices";
 import LoadingTruck from "../../../components/loading";
 import "./index.scss";
+import { useSelector } from "react-redux";
+
+import { selectUser } from "../../../redux/features/counterSlice";
 const statusToStep = {
   "Chờ xác nhận": 0,
   "Chờ thanh toán": 1,
@@ -39,10 +42,11 @@ function AllOrder() {
   const [filterStatus, setFilterStatus] = useState("Chờ xác nhận");
   const [dataSource, seDataSource] = useState([]);
   const [loading, setLoading] = useState(true); // Add loading state
+  const user = useSelector(selectUser);
   const fetchAllOrder = async () => {
     setLoading(true);
-    const res = await getAllOrder();
-    seDataSource(res.data);
+    const res = await getOrderStaff(user.userID);
+    seDataSource(res.data.data);
     console.log(dataSource);
     setLoading(false);
   };

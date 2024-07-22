@@ -431,7 +431,7 @@ function KimCuongVien() {
                       "0.9 - 1.29",
                       "1.3 - 1.9",
                       "2.0 - 3.0",
-                      "3.0 Trở Lên",
+                      "3.0 - 4.0",
                     ].map((value, index) => (
                       <button
                         key={index}
@@ -457,7 +457,7 @@ function KimCuongVien() {
                       "6.0 - 6.9",
                       "7.0 - 7.9",
                       "8.0 - 8.9",
-                      "9.0 Trở lên",
+                      "9.0 - 10.0",
                     ].map((value, index) => (
                       <button
                         key={index}

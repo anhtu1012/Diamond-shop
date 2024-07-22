@@ -146,7 +146,7 @@ function Header({ quantity, setQuantity }) {
     const fetchQuantity = async () => {
       try {
         const res = await getQuantityCart(user.userID);
-        setQuantity(res.data);
+        setQuantity(res.data.data);
       } catch (error) {
         fetchQuantity();
       }
@@ -159,7 +159,7 @@ function Header({ quantity, setQuantity }) {
     const fetchOrderWaitPay = async () => {
       try {
         const res = await getOrderWaitPay(user.userID);
-        setQuantityWaitPay(res.data);
+        setQuantityWaitPay(res.data.data);
       } catch (error) {
         fetchOrderWaitPay();
       }
@@ -258,7 +258,7 @@ function Header({ quantity, setQuantity }) {
       try {
         const response = await searchResultss(query);
         console.log("Search results:", response.data); // Debug: Log the search results
-        setSearchResults(response.data);
+        setSearchResults(response.data.data);
       } catch (error) {
         console.error("Search error:", error); // Debug: Log the error
         setSearchResults([]);

@@ -89,6 +89,7 @@ import ViewWarrantyDetailS from "./page/Staff/View-warranty/Warranty-detail";
 import ThongTinAdmin from "./page/Admin/Thong-tin";
 import ThongTinStaff from "./page/Staff/Thong-tin";
 import ThongTinDelivery from "./page/Delivery/Thong-tin";
+import Stores from "./page/Staff/Order/denCuaHang";
 
 // import PageNewOrder from "./page/Staff/New-Order";
 
@@ -362,6 +363,10 @@ const router = createBrowserRouter([
       {
         path: "/staff-page",
         element: <NewOrder />,
+      },
+      {
+        path: "/staff-page/den-cua-hang",
+        element: <Stores />,
       },
       {
         path: "/staff-page/thong-tins",

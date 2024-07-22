@@ -34,12 +34,14 @@ import { PlusOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../../redux/features/counterSlice";
 import NoData from "../../../../components/nodata";
+import { FaRegCheckCircle } from "react-icons/fa";
 const statusToStepIndex = {
   "Chờ Xác Nhận": 0,
   "Chờ thanh toán": 1,
   "Chờ giao hàng": 2,
   "Không Thành Công": 2,
   "Đã giao": 3,
+  "Đến cửa hàng lấy": 3,
   "Đã hủy": 4,
   "Đã hoàn tiền": 4,
 };
@@ -217,7 +219,7 @@ function ViewOrderDetailsCusTom() {
   useEffect(() => {
     const fetchGetOrderDetail = async () => {
       const res = await getOrderDetail(orderID);
-      setData(res.data);
+      setData(res.data.data);
     };
 
     fetchGetOrderDetail();
@@ -253,29 +255,23 @@ function ViewOrderDetailsCusTom() {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-  const hanldeSubmit = () => {
-    form.submit();
+  const handleSubmit = (values) => {
+    const feedbacks = selectedProduct.map((order, index) => ({
+      comment: values[`comment-${index}`],
+      rating: values[`rating-${index}`],
+      productID: order.productID,
+      diamondID: null,
+      userID: user.userID,
+    }));
+    handleFeedback(feedbacks);
   };
   const [form] = Form.useForm();
   const user = useSelector(selectUser);
-  const handleFeedback = async (values, order) => {
+  const handleFeedback = async (feedbacks) => {
     try {
-      const info = [
-        {
-          comment: values[`comment-${selectedProduct.indexOf(order)}`],
-          rating: values[`rating-${selectedProduct.indexOf(order)}`],
-          productID: order.productID,
-          diamondID: null,
-          userID: user.userID,
-        },
-      ];
-      console.log(info);
-      await feedBack(info);
+      await feedBack(feedbacks);
       message.success("Đánh giá thành công");
-      form.resetFields([
-        `comment-${selectedProduct.indexOf(order)}`,
-        `rating-${selectedProduct.indexOf(order)}`,
-      ]);
+      form.resetFields();
       handleCancel();
     } catch (error) {
       message.error("Đánh giá thất bại");
@@ -415,7 +411,21 @@ function ViewOrderDetailsCusTom() {
                             title: "Chờ giao hàng",
                           },
                           {
-                            title: "Đã giao",
+                            title:
+                              data.status === "Đã giao"
+                                ? "Đã giao"
+                                : "Đến cửa hàng lấy",
+                            icon: (data.status === "Đã giao" ||
+                              data.status === "Đến cửa hàng lấy") && (
+                              <FaRegCheckCircle
+                                size={35}
+                                style={{
+                                  color: "white",
+                                  background: "green",
+                                  borderRadius: "50%",
+                                }}
+                              />
+                            ),
                           },
                           {
                             title:
@@ -597,72 +607,72 @@ function ViewOrderDetailsCusTom() {
                           vnđ
                         </span>
                       </div>
-                      {data?.status === "Chờ xác nhận" ||
-                        (data?.status === "Chờ thanh toán" && (
-                          <div className="row">
-                            <Select
-                              style={{
-                                width: 200,
-                              }}
-                              onChange={setReason}
-                              placeholder="Chọn lý do hủy đơn"
-                              dropdownRender={(menu) => (
-                                <>
-                                  {menu}
-                                  <Divider
-                                    style={{
-                                      margin: "8px 0",
-                                    }}
-                                  />
-                                  <Space
-                                    style={{
-                                      padding: "0 8px 4px",
-                                    }}
-                                  >
-                                    <Input
-                                      placeholder="Please enter item"
-                                      ref={inputRef}
-                                      value={name}
-                                      onChange={onNameChange}
-                                      onKeyDown={(e) => e.stopPropagation()}
-                                    />
-                                    <Button
-                                      type="text"
-                                      icon={<PlusOutlined />}
-                                      onClick={addItem}
-                                    >
-                                      Add item
-                                    </Button>
-                                  </Space>
-                                </>
-                              )}
-                              options={items.map((item) => ({
-                                label: item,
-                                value: item,
-                              }))}
-                            />
-                            <span>
-                              {" "}
-                              <Popconfirm
-                                title="Hủy Đơn"
-                                onConfirm={handleRemobeOrder}
-                                okText="Yes"
-                                cancelText="No"
-                              >
-                                <Button
+                      {(data?.status === "Chờ xác nhận" ||
+                        data?.status === "Chờ thanh toán") && (
+                        <div className="row">
+                          <Select
+                            style={{
+                              width: 200,
+                              height: 40,
+                            }}
+                            onChange={setReason}
+                            placeholder="Chọn lý do hủy đơn"
+                            dropdownRender={(menu) => (
+                              <>
+                                {menu}
+                                <Divider
                                   style={{
-                                    background: "red",
-                                    color: "white",
-                                    borderRadius: "0px 8px 8px 0px",
-                                    fontWeight: "bold",
+                                    margin: "8px 0",
+                                  }}
+                                />
+                                <Space
+                                  style={{
+                                    padding: "0 8px 4px",
                                   }}
                                 >
-                                  Hủy Đơn
-                                </Button>
-                              </Popconfirm>
-                            </span>
-                          </div>
-                        ))}
+                                  <Input
+                                    placeholder="Please enter item"
+                                    ref={inputRef}
+                                    value={name}
+                                    onChange={onNameChange}
+                                    onKeyDown={(e) => e.stopPropagation()}
+                                  />
+                                  <Button
+                                    type="text"
+                                    icon={<PlusOutlined />}
+                                    onClick={addItem}
+                                  >
+                                    Add item
+                                  </Button>
+                                </Space>
+                              </>
+                            )}
+                            options={items.map((item) => ({
+                              label: item,
+                              value: item,
+                            }))}
+                          />
+                          <span>
+                            <Popconfirm
+                              title="Hủy Đơn"
+                              onConfirm={handleRemobeOrder}
+                              okText="Yes"
+                              cancelText="No"
+                            >
+                              <Button
+                                style={{
+                                  background: "red",
+                                  color: "white",
+                                  borderRadius: "0px 8px 8px 0px",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                Hủy Đơn
+                              </Button>
+                            </Popconfirm>
+                          </span>
+                        </div>
+                      )}
                       {data?.status === "Chờ thanh toán" && (
                         <div
                           className="thanh-toan"
@@ -741,53 +751,41 @@ function ViewOrderDetailsCusTom() {
           <Button key="back" onClick={handleCancel}>
             Đóng
           </Button>,
+          <Button key="submit" onClick={() => form.submit()} type="primary">
+            Gửi đánh giá
+          </Button>,
         ]}
       >
         {selectedProduct && selectedProduct.length > 0 ? (
-          selectedProduct.map((order, index) => (
-            <div key={index}>
-              <Link to={`/product-details/${order.productID}`}>
-                <div className="feedBackModal">{order.productName}</div>
-              </Link>
-              {form && (
-                <Form
-                  form={form}
-                  layout="vertical"
-                  onFinish={(values) => handleFeedback(values, order)}
+          <Form form={form} layout="vertical" onFinish={handleSubmit}>
+            {selectedProduct.map((order, index) => (
+              <div key={index}>
+                <Link to={`/product-details/${order.productID}`}>
+                  <div className="feedBackModal">{order.productName}</div>
+                </Link>
+                <Form.Item
+                  style={{ paddingTop: "10px", fontWeight: "bold" }}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Vui lòng chọn số sao",
+                    },
+                  ]}
+                  name={`rating-${index}`}
+                  label="Đánh giá"
                 >
-                  <Form.Item
-                    style={{ paddingTop: "10px", fontWeight: "bold" }}
-                    rules={[
-                      {
-                        required: true,
-                        message: "Vui lòng chọn số sao",
-                      },
-                    ]}
-                    name={`rating-${index}`}
-                    label="Đánh giá"
-                  >
-                    <Rate />
-                  </Form.Item>
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    name={`comment-${index}`}
-                    label="Bình luận"
-                  >
-                    <Input.TextArea rows={4} />
-                  </Form.Item>
-                </Form>
-              )}
-              <div style={{ textAlign: "right", paddingBottom: "10px" }}>
-                <Button
-                  type="primary"
-                  onClick={hanldeSubmit}
-                  style={{ background: "orange" }}
+                  <Rate />
+                </Form.Item>
+                <Form.Item
+                  style={{ fontWeight: "bold" }}
+                  name={`comment-${index}`}
+                  label="Bình luận"
                 >
-                  Đánh giá
-                </Button>
+                  <Input.TextArea rows={4} />
+                </Form.Item>
               </div>
-            </div>
-          ))
+            ))}
+          </Form>
         ) : (
           <NoData />
         )}

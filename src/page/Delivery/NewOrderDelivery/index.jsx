@@ -6,14 +6,16 @@ import "./index.scss"; // Import your SCSS file for styling
 import { getNewOrderDelivery } from "../../../../services/Uservices";
 import { useEffect, useState } from "react";
 import NoData from "../../../components/nodata";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../redux/features/counterSlice";
 
 function NewOrderDelivery() {
   const [data, setData] = useState([]);
-
+  const user = useSelector(selectUser);
   const fetchNewOrder = async () => {
     try {
-      const res = await getNewOrderDelivery();
-      setData(res.data);
+      const res = await getNewOrderDelivery(user.userID);
+      setData(res.data.data);
     } catch (error) {
       console.error("Error fetching new order:", error);
       setData([]);
@@ -237,7 +239,7 @@ function NewOrderDelivery() {
           </div>
         ))
       ) : (
-       <NoData/>
+        <NoData />
       )}
     </>
   );

@@ -183,7 +183,7 @@ function ViewOrderDetailDelivery() {
   useEffect(() => {
     const fetchGetOrderDetail = async () => {
       const res = await getOrderDetail(orderID);
-      setData(res.data);
+      setData(res.data.data);
     };
 
     fetchGetOrderDetail();
@@ -420,8 +420,7 @@ function ViewOrderDetailDelivery() {
                         <span>{data.reason}</span>
                       </div>
                     ))}
-                  {data?.status != "Chờ xác nhận" &&
-                    data?.status != "Chờ thanh toán" &&
+                  {data?.status != "Chờ thanh toán" &&
                     data?.payments &&
                     data.payments.length > 0 && (
                       <div className="row">

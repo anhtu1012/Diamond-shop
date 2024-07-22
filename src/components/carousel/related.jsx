@@ -38,7 +38,7 @@ export default function Relate({
     } else {
       res = await getProducts();
     }
-    let sortedItems = res.data;
+    let sortedItems = res.data.data;
     if (isNewest) {
       sortedItems = sortedItems.sort((a, b) => {
         const dateA = new Date(data === "diamonds" ? a.inputDate : a.createAt);
