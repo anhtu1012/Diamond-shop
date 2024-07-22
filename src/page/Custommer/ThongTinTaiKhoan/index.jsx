@@ -108,8 +108,8 @@ function AccountDetail() {
     if (query) {
       try {
         const response = await searchWarranty(query);
-        console.log("Search results:", response.data);
-        setSearchResults(response.data);
+        console.log("Search results:", response.data.data);
+        setSearchResults(response.data.data);
       } catch (error) {
         console.error("Search error:", error);
         setSearchResults([]);

@@ -4,7 +4,7 @@ import { Avatar, Button, Input, Space, Table } from "antd";
 import Highlighter from "react-highlight-words";
 import { Select } from "antd";
 import "./index.scss";
-import { getAllUser } from "../../../../../services/Uservices";
+import { getAllUser, reportFormat } from "../../../../../services/Uservices";
 import { Link } from "react-router-dom";
 
 function ViewAccount() {
@@ -13,12 +13,16 @@ function ViewAccount() {
   const searchInput = useRef(null);
   const [dataSource, setDataSource] = useState([]);
   const [filterRole, setFilterRole] = useState(null);
+  const [exportFormat, setExportFormat] = useState("excel");
 
   async function handledGetAllUser() {
     try {
       const response = await getAllUser();
-      setDataSource(response.data.data);
-      console.log(response.data.data);
+      if (response && response.data && Array.isArray(response.data.data)) {
+        setDataSource(response.data.data);
+      } else {
+        console.error("Unexpected API response structure:", response);
+      }
     } catch (error) {
       console.error("Error fetching users:", error);
     }
@@ -41,6 +45,14 @@ function ViewAccount() {
 
   const handleStatusClick = (role) => {
     setFilterRole(role);
+  };
+
+  const handleReport = async () => {
+    try {
+      await reportFormat(exportFormat);
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   const getColumnSearchProps = (dataIndex = []) => ({
@@ -291,6 +303,25 @@ function ViewAccount() {
   return (
     <div className="all-account">
       <div style={{ marginBottom: 16 }}>{roleButtons}</div>
+      <div
+        style={{ paddingBottom: "5px", display: "flex", alignItems: "center" }}
+      >
+        <Select
+          defaultValue="excel"
+          style={{ width: 120, marginRight: 10 }}
+          onChange={(value) => setExportFormat(value)}
+        >
+          <Select.Option value="excel">Excel</Select.Option>
+          <Select.Option value="pdf">PDF</Select.Option>
+          <Select.Option value="html">HTML</Select.Option>
+        </Select>
+        <Button
+          onClick={handleReport}
+          style={{ background: "green", fontWeight: "bold", color: "white" }}
+        >
+          Xuất
+        </Button>
+      </div>
       <Table
         className="table"
         columns={columns}

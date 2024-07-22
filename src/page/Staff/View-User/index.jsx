@@ -244,6 +244,7 @@ function ViewUser() {
         >
           <Select.Option value="excel">Excel</Select.Option>
           <Select.Option value="pdf">PDF</Select.Option>
+          <Select.Option value="html">HTML</Select.Option>
         </Select>
         <Button
           onClick={handleReport}
