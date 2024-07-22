@@ -88,7 +88,9 @@ function AllOrder() {
           <DatePicker
             ref={searchInput}
             placeholder={`Search ${dataIndex}`}
-            value={selectedKeys[0] ? moment(selectedKeys[0], "YYYY-MM-DD") : null}
+            value={
+              selectedKeys[0] ? moment(selectedKeys[0], "YYYY-MM-DD") : null
+            }
             onChange={(date, dateString) => {
               setSelectedKeys(dateString ? [dateString] : []);
               confirm();
@@ -175,8 +177,14 @@ function AllOrder() {
     ),
     onFilter: (value, record) =>
       dataIndex === "orderDate"
-        ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
-        : record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+        ? record[dataIndex]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
+        : record[dataIndex]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase()),
     onFilterDropdownOpenChange: (visible) => {
       if (visible) {
         setTimeout(() => searchInput.current?.select(), 100);
@@ -282,7 +290,7 @@ function AllOrder() {
         marginRight: 2,
         textTransform: "uppercase",
         backgroundColor: getStatusColor(statusToStep[status]),
-        border: filterStatus === status ? "3px solid #000" : "none",
+        borderBottom: filterStatus === status ? "3px solid #000" : "none",
       }}
     >
       {status}
@@ -300,7 +308,7 @@ function AllOrder() {
         color: "white",
         textTransform: "uppercase",
         backgroundColor: "black",
-        border: filterStatus === null ? "3px solid #fff" : "none",
+        borderBottom: filterStatus === null ? "3px solid #fff" : "none",
       }}
     >
       Tất cả sản phẩm

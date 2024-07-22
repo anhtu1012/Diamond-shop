@@ -18,10 +18,10 @@ function ViewWarrantyDetail() {
     const fetchWarrantyById = async () => {
       try {
         const res = await getWarrantyById(warrantyCardID);
-        if (!Array.isArray(res.data)) {
-          setDataSource([res.data]);
+        if (!Array.isArray(res.data.data)) {
+          setDataSource([res.data.data]);
         } else {
-          setDataSource(res.data);
+          setDataSource(res.data.data);
         }
         setLoading(false);
       } catch (error) {

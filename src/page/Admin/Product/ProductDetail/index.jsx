@@ -344,7 +344,7 @@ function ProductDetail() {
                     >
                       {product.productName}
                     </h2>
-                    <Rate disabled defaultValue={5} />
+                    <Rate disabled defaultValue={product.rating} />
                     <h4 style={{ marginTop: "10px", fontWeight: "300" }}>
                       {product.productID}
                     </h4>

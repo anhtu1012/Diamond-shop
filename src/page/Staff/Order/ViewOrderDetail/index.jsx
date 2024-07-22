@@ -203,6 +203,19 @@ function ViewOrderDetailsStaff() {
     // minute: "2-digit",
     // second: "2-digit",
   });
+  const handleUpdate = async () => {
+    try {
+      const status = {
+        status: "Đã Giao",
+        reason: "",
+      };
+      await createOrder(orderID, status);
+      message.success("Đã Giao thành công");
+      navigate("/staff-page/don-hang");
+    } catch (error) {
+      message.error("Đã có lỗi xảy ra khi tạo đơn hàng");
+    }
+  };
   const handleRemobeOrder = async () => {
     try {
       const status = {
@@ -211,7 +224,7 @@ function ViewOrderDetailsStaff() {
       };
       await createOrder(orderID, status);
       message.success("Hủy đơn hàng thành công");
-      navigate("/");
+      navigate("/staff-page/don-hang");
     } catch (error) {
       message.error("Đã có lỗi xảy ra khi hủy đơn hàng");
     }
@@ -612,20 +625,38 @@ function ViewOrderDetailsStaff() {
                         className="thanh-toan"
                         style={{ textAlign: "center" }}
                       >
-                        <Link to={`/thanh-toan/${data.orderId}`}>
-                          <Button
-                            style={{
-                              background: "orange",
-                              color: "white",
-                              borderRadius: "5px",
-                              fontWeight: "bold",
-                              width: "280px",
-                              height: "50px",
-                            }}
-                          >
-                            Không Thành Công
-                          </Button>
-                        </Link>
+                        <Button
+                          style={{
+                            background: "orange",
+                            color: "white",
+                            borderRadius: "5px",
+                            fontWeight: "bold",
+                            width: "280px",
+                            height: "50px",
+                          }}
+                        >
+                          Không Thành Công
+                        </Button>
+                      </div>
+                    )}
+                    {data?.status === "Đến cửa hàng lấy" && (
+                      <div
+                        className="thanh-toan"
+                        style={{ textAlign: "center" }}
+                      >
+                        <Button
+                          style={{
+                            background: "green",
+                            color: "white",
+                            borderRadius: "5px",
+                            fontWeight: "bold",
+                            width: "280px",
+                            height: "50px",
+                          }}
+                          onClick={handleUpdate}
+                        >
+                          Đã giao
+                        </Button>
                       </div>
                     )}
                   </div>

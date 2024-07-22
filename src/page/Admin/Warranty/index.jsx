@@ -17,7 +17,7 @@ function ViewWarrantyAdmin() {
 
   async function getAllWarranty() {
     const response = await getWarrantyAllCard();
-    const warrantyData = response.data;
+    const warrantyData = response.data.data;
     setDataSource(warrantyData);
   }
 
