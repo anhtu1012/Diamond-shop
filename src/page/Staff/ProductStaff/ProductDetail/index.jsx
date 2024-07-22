@@ -28,7 +28,7 @@ function ProductDetailStaff() {
   const fetchProductByIds = async (productID) => {
     try {
       const response = await fetchProductById(productID);
-      const productData = response.data;
+      const productData = response.data.data;
       const totalQuantity = productData.sizes.reduce(
         (acc, size) => acc + size.quantity,
         0
