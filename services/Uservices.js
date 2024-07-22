@@ -152,6 +152,9 @@ export const getOrderById = (id) => {
 export const getOrderDetail = (order_id) => {
   return api.get(`swp391/api/orders/${order_id}`);
 };
+export const getOrderDetailAdmin = (order_id) => {
+  return api.get(`swp391/api/orders/view_detail_admin/${order_id}`);
+};
 export const createOrder = (order_id, status) => {
   return api.put(`swp391/api/orders/update_status/${order_id}`, status);
 };

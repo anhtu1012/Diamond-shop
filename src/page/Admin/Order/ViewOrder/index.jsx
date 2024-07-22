@@ -1,3 +1,4 @@
+import { PlusOutlined } from "@ant-design/icons";
 import {
   Button,
   Col,
@@ -13,16 +14,19 @@ import {
   theme,
 } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import "./index.scss";
-import { TiArrowBack } from "react-icons/ti";
-import { IoDiamondOutline } from "react-icons/io5";
-import { GiBigDiamondRing } from "react-icons/gi";
 import { useEffect, useRef, useState } from "react";
+import { GiBigDiamondRing } from "react-icons/gi";
+import { IoDiamondOutline } from "react-icons/io5";
+import { TiArrowBack } from "react-icons/ti";
 import { VscError } from "react-icons/vsc";
-import { PlusOutlined } from "@ant-design/icons";
-import { createOrder, getOrderDetail } from "../../../../../services/Uservices";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  createOrder,
+  getOrderDetailAdmin,
+} from "../../../../../services/Uservices";
 import LoadingTruck from "../../../../components/loading";
+import "./index.scss";
+import { FaRegCheckCircle } from "react-icons/fa";
 
 const statusToStepIndex = {
   "Chờ Xác Nhận": 0,
@@ -30,6 +34,7 @@ const statusToStepIndex = {
   "Chờ giao hàng": 2,
   "Không Thành Công": 2,
   "Đã giao": 3,
+  "Đến cửa hàng lấy": 3,
   "Đã hủy": 4,
   "Đã hoàn tiền": 4,
 };
@@ -184,8 +189,9 @@ function ViewOrderDetails() {
   };
   useEffect(() => {
     const fetchGetOrderDetail = async () => {
-      const res = await getOrderDetail(orderID);
-      setData(res.data);
+      const res = await getOrderDetailAdmin(orderID);
+      setData(res.data.data);
+      console.log(res.data.data);
     };
 
     fetchGetOrderDetail();
@@ -278,6 +284,74 @@ function ViewOrderDetails() {
                 >
                   Đặt ngày: {formattedDate}
                 </p>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    paddingBottom: "5px",
+                  }}
+                >
+                  {data.staffID !== 0 ? (
+                    <p
+                      style={{
+                        fontSize: "12px",
+                        background: "black",
+                        color: "white",
+                        border: "2px solid black",
+                        padding: "4px",
+                        fontWeight: "bold",
+                        width: "8%",
+                      }}
+                    >
+                      IDS: {data.staffID}
+                    </p>
+                  ) : (
+                    <p
+                      style={{
+                        display: "none",
+                        fontSize: "12px",
+                        background: "black",
+                        color: "white",
+                        border: "2px solid black",
+                        padding: "4px",
+                        fontWeight: "bold",
+                        width: "8%",
+                      }}
+                    >
+                      IDS: {data.staffID}
+                    </p>
+                  )}
+                  {data.deliveryID !== 0 ? (
+                    <p
+                      style={{
+                        fontSize: "12px",
+                        background: "white",
+                        color: "black",
+                        border: "2px solid black",
+                        padding: "4px",
+                        fontWeight: "bold",
+                        width: "8%",
+                      }}
+                    >
+                      IDGH: {data.deliveryID}
+                    </p>
+                  ) : (
+                    <p
+                      style={{
+                        display: "none",
+                        fontSize: "12px",
+                        background: "white",
+                        color: "black",
+                        border: "2px solid black",
+                        padding: "4px",
+                        fontWeight: "bold",
+                        width: "8%",
+                      }}
+                    >
+                      IDGH: {data.deliveryID}
+                    </p>
+                  )}
+                </div>
                 <p
                   style={{
                     fontSize: "16px",
@@ -289,8 +363,9 @@ function ViewOrderDetails() {
                     width: "10%",
                   }}
                 >
-                  {data.orderId}
+                  OD: {data.orderId}
                 </p>
+
                 <div>
                   {data.orderDetails.map((order, index) =>
                     renderProductItem(order, index)
@@ -343,7 +418,21 @@ function ViewOrderDetails() {
                           title: "Chờ giao hàng",
                         },
                         {
-                          title: "Đã giao",
+                          title:
+                            data.status === "Đã giao"
+                              ? "Đã giao"
+                              : "Đến cửa hàng lấy",
+                          icon: (data.status === "Đã giao" ||
+                            data.status === "Đến cửa hàng lấy") && (
+                            <FaRegCheckCircle
+                              size={35}
+                              style={{
+                                color: "white",
+                                background: "green",
+                                borderRadius: "50%",
+                              }}
+                            />
+                          ),
                         },
                         {
                           title:
