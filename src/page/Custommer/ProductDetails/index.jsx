@@ -43,9 +43,9 @@ const ProductDetails = () => {
   const fetchProductByIds = async (product_id) => {
     try {
       const response = await fetchProductById(product_id);
-      const productData = response.data;
+      const productData = response.data.data;
       setProductDetail(productData);
-      setFeedBacks(response.data.feedbacks);
+      setFeedBacks(response.data.data.feedbacks);
       setMainImage(productData.productImages[0].imageUrl);
     } catch (error) {
       console.error("Error fetching product details:", error);

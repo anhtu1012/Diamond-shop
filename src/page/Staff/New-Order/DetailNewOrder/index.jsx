@@ -134,7 +134,7 @@ function DetailNewOrder() {
   useEffect(() => {
     const fetchGetOrderDetail = async () => {
       const res = await getOrderDetail(orderID);
-      setData(res.data);
+      setData(res.data.data);
     };
 
     fetchGetOrderDetail();

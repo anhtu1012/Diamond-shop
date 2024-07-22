@@ -18,12 +18,13 @@ const OrderCustomer = () => {
   };
 
   const user = useSelector(selectUser);
-  const [data, setData] = useState();
+  const [data, setData] = useState([" "]);
 
   const fetchOrderById = async () => {
     try {
       const res = await getOrderById(user.userID);
-      setData(res.data);
+      setData(res.data.data);
+      console.log(res.data.data);
     } catch (error) {
       console.error("Error fetching order data:", error);
     }
@@ -207,22 +208,28 @@ const OrderCustomer = () => {
       buttonColor: "yellow",
     },
     {
-      label: "Chờ giao hàng",
+      label: "Đến cửa hàng",
       key: "3",
+      status: "Đến cửa hàng lấy",
+      buttonColor: "green",
+    },
+    {
+      label: "Chờ giao hàng",
+      key: "4",
       status: "Chờ giao hàng",
       buttonColor: "blue",
     },
     {
       label: "Không Thành Công",
-      key: "4",
+      key: "5",
       status: "Không Thành Công",
       buttonColor: "orange",
     },
-    { label: "Đã giao", key: "5", status: "Đã giao", buttonColor: "green" },
-    { label: "Đã hủy", key: "6", status: "Đã hủy", buttonColor: "red" },
+    { label: "Đã giao", key: "6", status: "Đã giao", buttonColor: "green" },
+    { label: "Đã hủy", key: "7", status: "Đã hủy", buttonColor: "red" },
     {
       label: "Đã hoàn tiền",
-      key: "7",
+      key: "8",
       status: "Đã hoàn tiền",
       buttonColor: "grey",
     },
@@ -230,8 +237,9 @@ const OrderCustomer = () => {
 
   function getContentForTab(status, buttonColor) {
     const filteredOrders =
-      data?.orders?.filter((order) => order.status === status) || [];
+      data?.[0]?.orders?.filter((order) => order.status === status) || [];
 
+    console.log(filteredOrders);
     if (filteredOrders.length === 0) {
       return <NoData />;
     }

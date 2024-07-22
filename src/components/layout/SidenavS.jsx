@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import "./layout.scss";
 import { useEffect, useState } from "react";
 import { getOrderPending } from "../../../services/Uservices";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/features/counterSlice";
 
 // eslint-disable-next-line react/prop-types
 function SidenavS({ collapsed }) {
@@ -28,20 +30,20 @@ function SidenavS({ collapsed }) {
       className: item.key === selectedKey ? "menu-item-selected" : "",
       children: item.children ? addSelectedItemClass(item.children) : undefined,
     }));
-
+  const user = useSelector(selectUser);
   const [quantityPending, setQuantityPending] = useState();
   useEffect(() => {
     const fetchOrderPeding = async () => {
       try {
-        const res = await getOrderPending();
-        setQuantityPending(res.data);
+        const res = await getOrderPending(user.userID);
+        setQuantityPending(res.data.data);
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchOrderPeding();
-  }, [quantityPending]);
+  }, []);
   useEffect(() => {
     const sendNotification = () => {
       if (quantityPending > 0) {
@@ -74,9 +76,13 @@ function SidenavS({ collapsed }) {
       label: <h3>Đơn Hàng Mới</h3>,
     },
     {
-      key: "/staff-page/don-hang",
+      key: "sub1",
       icon: <ShoppingCartOutlined className="side-icon" />,
       label: "Đơn Hàng",
+      children: [
+        { key: "/staff-page/don-hang", label: "Tất cả đơn hàng" },
+        { key: "/staff-page/den-cua-hang", label: "Đến cửa hàng" },
+      ],
     },
     {
       key: "/staff-page/tai-khoan",
@@ -94,12 +100,6 @@ function SidenavS({ collapsed }) {
       icon: <ContainerOutlined className="side-icon" />,
 
       label: "Phiếu Bảo Hành",
-    },
-    {
-      key: "/staff-page/bao-hanh",
-      icon: <ContainerOutlined className="side-icon" />,
-
-      label: "Tạo Phiếu Bảo Hành",
     },
   ];
   const logoClass = collapsed ? "collapsed-logo" : "";

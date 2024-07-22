@@ -50,9 +50,10 @@ const DiamondDetailss = () => {
   const fetchProductByIds = async (diamondID) => {
     try {
       const response = await fetchDiamondById(diamondID);
-      const productData = response.data;
+      const productData = response.data.data;
       setDiamondDetail(productData);
-      setFeedBacks(response.data.feedbacks);
+      console.log(response.data.data);
+      setFeedBacks(response.data.data.feedbacks);
     } catch (error) {
       console.error("Error fetching product details:", error);
     }

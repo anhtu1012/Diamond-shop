@@ -52,9 +52,9 @@ function Cart() {
       console.log(userr.userID);
       setLoader(true);
       const res = await getCart(userr.userID);
-      setDataCart(res.data);
+      setDataCart(res.data.data);
       setLoader(false);
-      const user = res.data.user;
+      const user = res.data.data.user;
       const addressParts = user.address.split(",");
       const initialValues = {
         fullName: `${user.firstName} ${user.lastName}`,
@@ -209,7 +209,7 @@ function Cart() {
       if (response) {
         message.success("Đặt hàng thành công!");
         navigate("/don-hang");
-        setQuantity((prev) => prev - 1);
+        setQuantity(0);
         console.log("Order submitted successfully:", response);
       }
     } catch (error) {

@@ -13,12 +13,12 @@ function Layout() {
 
   const fetchAllProduct = async () => {
     const res = await getProducts();
-    setAllProduct(res.data);
+    setAllProduct(res.data.data);
   };
 
   const fetchAllDiamond = async () => {
     const res = await getDiamonds();
-    const filteredDiamonds = res.data.filter(
+    const filteredDiamonds = res.data.data.filter(
       (diamond) => diamond.status === true
     );
     setAllDiamond(filteredDiamonds);
@@ -55,7 +55,6 @@ function Layout() {
 
   return (
     <div className="main">
-
       <div className="header">
         {" "}
         <Header quantity={quantity} setQuantity={setQuantity} />

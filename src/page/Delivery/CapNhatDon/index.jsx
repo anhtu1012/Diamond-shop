@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button, Table, Tag } from "antd";
 import { Link } from "react-router-dom";
-import { getAllOrder } from "../../../../services/Uservices";
+import { getOrderALLDelivery } from "../../../../services/Uservices";
 import LoadingTruck from "../../../components/loading";
 import "./index.scss";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../redux/features/counterSlice";
 const statusToStep = {
   "Chờ giao hàng": 1,
   "Không Thành Công": 2,
@@ -27,11 +29,12 @@ function CapNhatDon() {
   const [filterStatus, setFilterStatus] = useState("Chờ giao hàng");
   const [dataSource, seDataSource] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const user = useSelector(selectUser);
   const fetchAllOrder = async () => {
     setLoading(true);
-    const res = await getAllOrder();
-    seDataSource(res.data);
+    const res = await getOrderALLDelivery(user.userID);
+    seDataSource(res.data.data);
+    console.log(res.data.data);
     setLoading(false);
   };
 

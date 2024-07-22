@@ -67,10 +67,10 @@ export const updateProduct = (product_id, product) => {
   return api.put(`swp391/api/products/update/${product_id}`, product);
 };
 export const fetchDiamondById = (diamond_id) => {
-  return api.get(`swp391/api/diamonds/diamond_id/${diamond_id}`);
+  return api.get(`public/diamond_id/${diamond_id}`);
 };
 export const fetchProductById = (product_id) => {
-  return api.get(`swp391/api/products/product/${product_id}`);
+  return api.get(`public/product/${product_id}`);
 };
 export const addToCart = (data) => {
   return api.post(`swp391/api/carts/add_cart`, data);
@@ -99,11 +99,11 @@ export const getWarrantyAllCard = () => {
 export const getWarrantyCard = (user_id) => {
   return api.get(`swp391/api/warrantycards/user/${user_id}`);
 };
-export const getOrderPending = () => {
-  return api.get(`swp391/api/orders/orderpending`);
+export const getOrderPending = (staff_id) => {
+  return api.get(`swp391/api/orders/orderpending/${staff_id}`);
 };
-export const getOrderDelivery = () => {
-  return api.get(`swp391/api/delivery/pending_delivery_count`);
+export const getOrderDelivery = (delivery_id) => {
+  return api.get(`swp391/api/delivery/pending_delivery_count/${delivery_id}`);
 };
 export const getWarrantyById = (warrantyCard_id) => {
   return api.get(`swp391/api/warrantycards/warrantyCard_id/${warrantyCard_id}`);
@@ -140,6 +140,12 @@ export const getAllUserStaff = () => {
 export const getAllOrder = () => {
   return api.get(`swp391/api/orders/all_orders`);
 };
+export const getOrderStaff = (staff_id) => {
+  return api.get(`swp391/api/orders/all_by_staff/${staff_id}`);
+};
+export const getOrderALLDelivery = (delivery_id) => {
+  return api.get(`swp391/api/delivery/all_by_delivery/${delivery_id}`);
+};
 export const getOrderById = (id) => {
   return api.get(`swp391/api/orders/orders_by_user/${id}`);
 };
@@ -155,11 +161,11 @@ export const searchDiamond = (key) => {
 export const seachWrrantyCard = (warrantyCard_id) => {
   return api.get(`swp391/api/warrantycards/warrantyCard_id/${warrantyCard_id}`);
 };
-export const getNewOrder = () => {
-  return api.get(`swp391/api/orders/newest_order`);
+export const getNewOrder = (staff_id) => {
+  return api.get(`/swp391/api/orders/newest_order/${staff_id}`);
 };
-export const getNewOrderDelivery = () => {
-  return api.get(`swp391/api/delivery/newest_order`);
+export const getNewOrderDelivery = (delivery_id) => {
+  return api.get(`/swp391/api/delivery/newest_order/${delivery_id}`);
 };
 export const checkOut = (info) => {
   return api.post(`payment/checkout`, info);
@@ -204,7 +210,7 @@ export const feedBack = (info) => {
   return api.post(`swp391/api/feedback/submit_feedback`, info);
 };
 export const searchResultss = (query) => {
-  return api.get(`swp391/api/search?query=${query}`);
+  return api.get(`public/search?query=${query}`);
 };
 export const searchWarranty = (query) => {
   return api.get(`swp391/api/warrantycards/search?query=${query}`);

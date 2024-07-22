@@ -151,7 +151,7 @@ function DetailNewOrderDelivery() {
   useEffect(() => {
     const fetchGetOrderDetail = async () => {
       const res = await getOrderDetail(orderID);
-      setData(res.data);
+      setData(res.data.data);
     };
 
     fetchGetOrderDetail();
@@ -191,13 +191,14 @@ function DetailNewOrderDelivery() {
   const handleRemobeOrder = async () => {
     try {
       const dataa = {
+        reason: reason,
         orderID: orderID,
       };
       await paymentRefund(dataa);
       message.success("Hủy đơn hàng thành công");
       navigate("/delivery-page/don-hang-moi");
     } catch (error) {
-      message.error("Đã có lỗi xảy ra khi hủy đơn hàng");
+      message.error(error.response.data.message);
     }
   };
   const handleDeliveryFailedOrder = async () => {
