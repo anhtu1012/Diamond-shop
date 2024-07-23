@@ -6,7 +6,7 @@ import Paragraph from "antd/lib/typography/Paragraph";
 import moment from "moment/moment";
 import {
   getCompareDay,
-  getOrderPending,
+  getOrderPendingg,
   getTotalRevenueDate,
   getTotalRevenveYear,
   getTotalUserMonth,
@@ -55,7 +55,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchOrderPeding = async () => {
       try {
-        const res = await getOrderPending();
+        const res = await getOrderPendingg();
         setQuantityPending(res.data.data);
       } catch (error) {
         console.log(error);

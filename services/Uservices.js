@@ -56,6 +56,9 @@ export const getDiamonds = () => {
 export const deleteDiamond = (id) => {
   return api.post(`swp391/api/diamonds/delete_diamond/${id}`);
 };
+export const lockUser = (id) => {
+  return api.post(`/swp391/api/admin/locked_user/${id}`);
+};
 export const deleteProduct = (product_id) => {
   return api.delete(`swp391/api/products/delete/${product_id}`);
 };
@@ -101,6 +104,9 @@ export const getWarrantyCard = (user_id) => {
 };
 export const getOrderPending = (staff_id) => {
   return api.get(`swp391/api/orders/orderpending/${staff_id}`);
+};
+export const getOrderPendingg = () => {
+  return api.get(`swp391/api/orders/orderpending`);
 };
 export const getOrderDelivery = (delivery_id) => {
   return api.get(`swp391/api/delivery/pending_delivery_count/${delivery_id}`);

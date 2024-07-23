@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import {
   Form,
-  Input,
   Button,
   message,
   theme,
@@ -18,20 +17,19 @@ import {
 } from "antd";
 import { Link, useParams } from "react-router-dom";
 import "./index.scss";
-import { Content } from "antd/es/layout/layout";
-import { getDistricts, getWards, provinces } from "vietnam-provinces";
-import { TiArrowBack } from "react-icons/ti";
 // import uploadFile from "../../../../utils/upload";
 import {
   fetchUserById,
   getOrderById,
+  lockUser,
   updateUser,
 } from "../../../../../services/Uservices";
-import uploadFile from "../../../../utils/upload";
-import LoadingTruck from "../../../../components/loading";
 import moment from "moment";
 import { GiBigDiamondRing } from "react-icons/gi";
 import { IoDiamondOutline } from "react-icons/io5";
+import LoadingTruck from "../../../../components/loading";
+import { TiArrowBack } from "react-icons/ti";
+import { Content } from "antd/es/layout/layout";
 
 const { Option } = Select;
 function callback(key) {
@@ -49,21 +47,12 @@ function ProfileAccount() {
   const { userID } = useParams();
   const [user, setUser] = useState();
   const [form] = Form.useForm();
-  const [isEditing, setIsEditing] = useState(false);
   const [originalValues, setOriginalValues] = useState({});
   const [fileList, setFileList] = useState([]);
   const [previewImage, setPreviewImage] = useState("");
   const [previewOpen, setPreviewOpen] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const [districts, setDistricts] = useState([]);
-  const [wards, setWards] = useState([]);
-  const [showPasswordFields, setShowPasswordFields] = useState(false);
 
   const [data, setData] = useState([]);
-
-  const handleLinkClick = () => {
-    setShowPasswordFields(!showPasswordFields);
-  };
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -75,6 +64,17 @@ function ProfileAccount() {
     }
     setPreviewImage(file.url || file.preview);
     setPreviewOpen(true);
+  };
+
+  const handleLockUser = async () => {
+    try {
+      console.log();
+      await lockUser(user.userID);
+      message.success("Khóa thành công!");
+    } catch (error) {
+      console.log("Error to lock User", error);
+      message.error("Khóa tài khoản không thành công!");
+    }
   };
 
   const fetchUserByIds = async (userID) => {
@@ -318,64 +318,6 @@ function ProfileAccount() {
 
   const deliveredOrders = getDeliveredOrders();
 
-  const handleUpdate = async () => {
-    try {
-      const formValues = await form.validateFields();
-
-      const { province, district, ward, detailAddress } = formValues;
-
-      const selectedProvince = provinces.find((p) => p.code === province);
-      const selectedDistrict = districts.find((d) => d.code === district);
-      const selectedWard = wards.find((w) => w.code === ward);
-      const fullAddress = `${detailAddress}, ${
-        selectedWard ? selectedWard.name + ", " : ""
-      }${selectedDistrict ? selectedDistrict.name + ", " : ""}${
-        selectedProvince ? selectedProvince.name : ""
-      }`;
-
-      const currentValues = await form.validateFields();
-      let updatedDetails = {};
-
-      if (fileList.length > 0 && fileList[0].originFileObj) {
-        setUploading(true);
-        const avata = await uploadFile(fileList[0].originFileObj);
-        setUploading(false);
-        updatedDetails.avata = avata;
-      }
-      if (user.firstName !== currentValues.firstName) {
-        updatedDetails.firstName = currentValues.firstName;
-      }
-      if (user.lastName !== currentValues.lastName) {
-        updatedDetails.lastName = currentValues.lastName;
-      }
-      if (user.address !== fullAddress) {
-        updatedDetails.address = fullAddress;
-      }
-      if (user.phoneNumber !== currentValues.phone) {
-        updatedDetails.phoneNumber = currentValues.phone;
-      }
-      if (user.gender !== currentValues.gender) {
-        updatedDetails.gender = currentValues.gender;
-      }
-      if (user.yearOfBirth !== currentValues.yearOfBirth) {
-        updatedDetails.yearOfBirth = currentValues.yearOfBirth;
-      }
-      if (Object.keys(updatedDetails).length > 0) {
-        console.log(updatedDetails);
-        await updateUser(user.userID, updatedDetails);
-        fetchUserByIds(user.userID);
-        setIsEditing(false);
-        message.success("Cập nhật thành công!");
-      } else {
-        message.info("Không có thay đổi nào để cập nhật.");
-      }
-    } catch (error) {
-      console.error("Error when updating user:", error);
-      message.error("Cập nhật thất bại!");
-      setUploading(false);
-    }
-  };
-
   const handleDeleteImage = async (file) => {
     const newFileList = fileList.filter((item) => item.uid !== file.uid);
     setFileList(newFileList);
@@ -392,41 +334,11 @@ function ProfileAccount() {
     }
   };
 
-  const handleSave = () => {
-    form
-      .validateFields()
-      .then((values) => {
-        console.log("Updated values: ", values);
-        setIsEditing(false);
-        message.success("Lưu thành công!");
-      })
-      .catch((info) => {
-        console.log("Validate Failed:", info);
-      });
-  };
-
-  const handleProvinceChange = (value) => {
-    const districtsList = getDistricts(value);
-    setDistricts(districtsList);
-    setWards([]);
-    form.setFieldsValue({ district: undefined, ward: undefined });
-  };
-
-  const handleDistrictChange = (value) => {
-    const wardsList = getWards(value);
-    setWards(wardsList);
-    form.setFieldsValue({ ward: undefined });
-  };
-
   const uploadButton = (
     <div>
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
-
-  const onFinish = (values) => {
-    console.log("Received values: ", values);
-  };
 
   const {
     token: { borderRadiusLG },
@@ -530,75 +442,14 @@ function ProfileAccount() {
                         >
                           {user.firstName} {user.lastName}
                         </p>
-                        {/* <div className="status-button" style={{ marginTop: 10 }}>
-                      <input
-                        type="checkbox"
-                        id="status"
-                        checked={user.enable}
-                        onChange={(e) => user.setEnable(e.target.checked)}
-                      />
-                      <label htmlFor="status" className="button"></label>
-                    </div> */}
-
-                        <Link
-                          to="#"
-                          className="doi-mat-khau"
-                          style={{ color: "#e4bd7b" }}
-                          onClick={handleLinkClick}
+                        <Button
+                          className="button1"
+                          type="primary"
+                          onClick={handleLockUser}
                         >
-                          {showPasswordFields ? "Đổi mật khẩu" : "Đổi mật khẩu"}
-                        </Link>
-                        {showPasswordFields && (
-                          <Row gutter={24} style={{ justifyContent: "center" }}>
-                            <Col span={24}>
-                              <div
-                                className="nhap-mat-khau-moi"
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  alignItems: "center",
-                                }}
-                              >
-                                <Input
-                                  placeholder="Mật khẩu cũ"
-                                  style={{ marginTop: "10px", width: "200px" }}
-                                />
-                                <Input
-                                  placeholder="Mật khẩu mới"
-                                  style={{ marginTop: "10px", width: "200px" }}
-                                />
-                                <Input
-                                  placeholder="Nhập lại mật khẩu mới"
-                                  style={{ marginTop: "10px", width: "200px" }}
-                                />
-                              </div>
-                              <Col
-                                span={24}
-                                className="button-doi-matkhau"
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <Button
-                                  type="primary"
-                                  onClick={handleUpdate}
-                                  style={{
-                                    background: "#15393f",
-                                    marginTop: "10px",
-                                  }}
-                                >
-                                  Đổi mật khẩu
-                                </Button>
-                              </Col>
-                            </Col>
-                          </Row>
-                        )}
+                          Khóa
+                        </Button>
                       </div>
-                      <div
-                        className="change-password"
-                        style={{ marginTop: "10px" }}
-                      ></div>
                     </Col>
                     <Col span={16} style={{ marginTop: "10px" }}>
                       <Content>

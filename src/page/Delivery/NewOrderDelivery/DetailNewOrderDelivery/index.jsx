@@ -217,6 +217,7 @@ function DetailNewOrderDelivery() {
   if (!data) {
     return <div>No order details found.</div>;
   }
+  const genderText = data.gender === "MALE" ? "Nam" : "Nữ";
   return (
     <div className="delivery-detail-main">
       <h2
@@ -257,7 +258,7 @@ function DetailNewOrderDelivery() {
               </div>
               <div className="thong-tin-item">
                 <p className="label">Giới Tính:</p>
-                <p className="value">{data.gender}</p>
+                <p className="value">{genderText}</p>
               </div>
               <div className="thong-tin-item">
                 <p className="label">Địa Chỉ:</p>

@@ -228,7 +228,6 @@ function ProductDetail() {
   const handleDelete = async () => {
     try {
       await deleteProduct(product.productID);
-      console.log(product.productID);
       message.success("Xóa thành công!");
     } catch (error) {
       console.error("Error deleting product:", error);
