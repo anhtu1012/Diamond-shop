@@ -1,10 +1,22 @@
-import { Button, Col, Popconfirm, Rate, Row, message } from "antd";
+import {
+  Button,
+  Col,
+  Divider,
+  Input,
+  Popconfirm,
+  Rate,
+  Row,
+  Select,
+  Space,
+  message,
+} from "antd";
 import "./index.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { GiBigDiamondRing } from "react-icons/gi";
 import { IoDiamondOutline } from "react-icons/io5";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createOrder, getOrderDetail } from "../../../../../services/Uservices";
+import { PlusOutlined } from "@ant-design/icons";
 
 const renderProductItem = (order, index) => (
   <Row className="staff_order_frame" key={index}>
@@ -139,7 +151,25 @@ function DetailNewOrder() {
 
     fetchGetOrderDetail();
   }, [orderID]);
-
+  const [items, setItems] = useState([
+    "Không gọi được cho khách",
+    "Khách hàng không nhận hàng",
+  ]);
+  const [reason, setReason] = useState("");
+  const [name, setName] = useState("");
+  const inputRef = useRef(null);
+  const onNameChange = (event) => {
+    setName(event.target.value);
+  };
+  const addItem = (e) => {
+    let index = 0;
+    e.preventDefault();
+    setItems([...items, name || `New item ${index++}`]);
+    setName("");
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
   const handleCreateOrder = async () => {
     try {
       const status = {
@@ -158,7 +188,7 @@ function DetailNewOrder() {
     try {
       const status = {
         status: "Đã hủy",
-        reason: "",
+        reason: reason,
       };
       await createOrder(orderID, status);
       message.success("Hủy đơn hàng thành công");
@@ -215,25 +245,73 @@ function DetailNewOrder() {
                   </div>
                 ))}
             </div>
-            <div style={{ marginTop: "10px", marginLeft: "auto" }}>
-              <Popconfirm
-                title="Hủy đơn"
-                description="Bạn có chắc muốn hủy không!?"
-                onConfirm={handleRemobeOrder}
-                okText="Yes"
-                cancelText="No"
-              >
-                <Button
-                  type="primary"
-                  danger
-                  style={{ marginRight: "10px", fontWeight: "bold" }}
-                >
-                  Hủy đơn
-                </Button>
-              </Popconfirm>
+            <div style={{ marginTop: "10px"}}>
+              <div className="row">
+                <Select
+                  style={{
+                    width: "100%",
+                  }}
+                  onChange={(value) => setReason(value)}
+                  placeholder="Chọn lý do hủy đơn"
+                  dropdownRender={(menu) => (
+                    <>
+                      {menu}
+                      <Divider
+                        style={{
+                          margin: "8px 0",
+                        }}
+                      />
+                      <Space
+                        style={{
+                          padding: "0 8px 4px",
+                        }}
+                      >
+                        <Input
+                          placeholder="Nhập lí do"
+                          ref={inputRef}
+                          value={name}
+                          onChange={onNameChange}
+                          onKeyDown={(e) => e.stopPropagation()}
+                        />
+                        <Button
+                          type="text"
+                          icon={<PlusOutlined />}
+                          onClick={addItem}
+                        >
+                          Thêm Lý do
+                        </Button>
+                      </Space>
+                    </>
+                  )}
+                  options={items.map((item) => ({
+                    label: item,
+                    value: item,
+                  }))}
+                />
+                <span>
+                  {" "}
+                  <Popconfirm
+                    title="Hủy Đơn"
+                    onConfirm={handleRemobeOrder}
+                    okText="Yes"
+                    cancelText="No"
+                  >
+                    <Button
+                      style={{
+                        background: "red",
+                        color: "white",
+                        borderRadius: "0px 8px 8px 0px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Hủy Đơn
+                    </Button>
+                  </Popconfirm>
+                </span>
+              </div>
               <Button
                 type="primary"
-                style={{ fontWeight: "bold" }}
+                style={{ fontWeight: "bold", width: "100%" }}
                 className="custom-black-button"
                 onClick={handleCreateOrder}
               >

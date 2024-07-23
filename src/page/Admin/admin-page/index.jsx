@@ -42,8 +42,8 @@ const AdminPage = () => {
           }}
         >
           {" "}
-          <div className="breadcums" style={{padding: '20px 10px'}}>
-          <Breadcrumbs />
+          <div className="breadcums" style={{ padding: "20px 10px" }}>
+            <Breadcrumbs />
           </div>
           <div
             style={{
@@ -61,7 +61,7 @@ const AdminPage = () => {
             textAlign: "center",
           }}
         >
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
+          Copyright ©{new Date().getFullYear()} Groups 6
         </Footer>
       </Layout>
     </Layout>
