@@ -4,7 +4,6 @@ import {
   Divider,
   Image,
   Layout,
-  Rate,
   Row,
   message,
   theme,
@@ -128,7 +127,6 @@ const DiamondDetailss = () => {
                   <h1 style={{ color: "#15393f" }}>
                     {diamondDetail.diamondName}
                   </h1>
-                  <Rate disabled defaultValue={5} />
                   <h5 style={{ marginTop: "10px", fontWeight: "300" }}>
                     {diamondDetail.diamondID}
                   </h5>
