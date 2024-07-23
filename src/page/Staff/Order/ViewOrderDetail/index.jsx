@@ -452,22 +452,19 @@ function ViewOrderDetailsStaff() {
                       <span>{data.note}</span>
                     </div>
                   )}
-                  {(data?.status === "Đã hủy" && data?.reason != null) ||
-                    (data?.status === "Không Thành Công" && (
-                      <div className="row">
-                        <p>Lí do:</p>
-                        <span>{data.reason}</span>
-                      </div>
-                    ))}
-                  {data?.status != "Chờ xác nhận" &&
-                    data?.status != "Chờ thanh toán" &&
-                    data?.payments &&
-                    data.payments.length > 0 && (
-                      <div className="row">
-                        <p>Phương thức thanh toán:</p>
-                        <span>{data.payments[0].methodPayment}</span>
-                      </div>
-                    )}
+                  {((data?.status === "Đã hủy" && data?.reason != null) ||
+                    data?.status === "Không Thành Công") && (
+                    <div className="row">
+                      <p>Lí do:</p>
+                      <span>{data.reason}</span>
+                    </div>
+                  )}
+                  {data?.payments && data.payments.length > 0 && (
+                    <div className="row">
+                      <p>Phương thức thanh toán:</p>
+                      <span>{data.payments[0].methodPayment}</span>
+                    </div>
+                  )}
                 </div>
               </Content>
             </div>

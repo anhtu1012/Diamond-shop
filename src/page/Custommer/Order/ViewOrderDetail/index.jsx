@@ -612,7 +612,7 @@ function ViewOrderDetailsCusTom() {
                         <div className="row">
                           <Select
                             style={{
-                              width: 200,
+                              width: "100%",
                               height: 40,
                             }}
                             onChange={setReason}
@@ -733,6 +733,14 @@ function ViewOrderDetailsCusTom() {
                           >
                             Đánh giá sản phẩm
                           </Button>
+                        </div>
+                      )}
+                      {(data?.status === "Chờ xác nhận" || data?.status === "Chờ thanh toán") && (
+                        <div
+                          className="thanh-toan"
+                          style={{ textAlign: "center", paddingTop:"10px", color:"red", fontWeight:"300" }}
+                        >
+                          <p>(Lưu ý: Sau 3 ngày khách khàng không thanh toán ĐƠN HÀNG SẼ BỊ HỦY)</p>
                         </div>
                       )}
                     </div>
