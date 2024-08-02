@@ -30,6 +30,7 @@ import "./index.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../../redux/features/counterSlice";
 import Login from "../login";
+import useDebounce from "../../hook/useDebounce";
 
 const items = [
   {
@@ -59,7 +60,6 @@ const trangSucCuoiItems = [
     ),
     key: "nhan-cuoi",
   },
- 
 ];
 
 const trangSucKimCuongItems = [
@@ -95,7 +95,6 @@ const trangSucKimCuongItems = [
     ),
     key: "mat-day-chuyen-kim-cuong",
   },
-  
 ];
 
 const kimCuongVien = [
@@ -236,23 +235,47 @@ function Header({ quantity, setQuantity }) {
   const toggleNav = () => {
     setIsNavVisible(!isNavVisible);
   };
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const handleSearch = async (event) => {
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
+  const handleSearchQuery = async (event) => {
     const query = event.target.value;
-    console.log("Searching for:", query); // Debug: Log the search query
-    if (query) {
-      try {
-        const response = await searchResultss(query);
-        console.log("Search results:", response.data); // Debug: Log the search results
-        setSearchResults(response.data.data);
-      } catch (error) {
-        console.error("Search error:", error); // Debug: Log the error
+    setSearchQuery(query);
+  };
+  useEffect(() => {
+    const handleSearch = async () => {
+      if (debouncedSearchQuery.trim()) {
+        try {
+          const response = await searchResultss(debouncedSearchQuery.trim());
+          setSearchResults(response.data.data);
+        } catch (error) {
+          console.error("Search error:", error); // Debug: Log the error
+          setSearchResults([]);
+        }
+      } else {
         setSearchResults([]);
       }
-    } else {
-      setSearchResults([]);
-    }
-  };
+    };
+
+    handleSearch();
+  }, [debouncedSearchQuery]);
+  // const [searchResults, setSearchResults] = useState([]);
+  // const handleSearchQuery = async (event) => {
+  //   const query = event.target.value;
+  //   console.log("Searching for:", query); // Debug: Log the search query
+  //   if (query) {
+  //     try {
+  //       const response = await searchResultss(query);
+  //       console.log("Search results:", response.data); // Debug: Log the search results
+  //       setSearchResults(response.data.data);
+  //     } catch (error) {
+  //       console.error("Search error:", error); // Debug: Log the error
+  //       setSearchResults([]);
+  //     }
+  //   } else {
+  //     setSearchResults([]);
+  //   }
+  // };
   const searchMenu = (
     <Menu>
       {Array.isArray(searchResults) && searchResults.length > 0 ? (
@@ -315,7 +338,7 @@ function Header({ quantity, setQuantity }) {
                     <input
                       type="text"
                       placeholder="Search..."
-                      onChange={handleSearch}
+                      onChange={handleSearchQuery}
                     />
                   </Dropdown>
                 )}
@@ -339,7 +362,7 @@ function Header({ quantity, setQuantity }) {
                     <input
                       type="text"
                       placeholder="Search..."
-                      onChange={handleSearch}
+                      onChange={handleSearchQuery}
                     />
                   </Dropdown>
                 )}
